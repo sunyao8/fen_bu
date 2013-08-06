@@ -1,0 +1,10 @@
+.\Out\maintask.o: ..\User\uCGUI\uCGUIDemo\MainTask.c
+.\Out\maintask.o: ..\User\uCGUI\inc\GUI.h
+.\Out\maintask.o: ..\User\uCGUI\inc\GUI_ConfDefaults.h
+.\Out\maintask.o: ..\User\uCGUI\Config\GUIConf.h
+.\Out\maintask.o: ..\User\uCGUI\inc\GUIType.h
+.\Out\maintask.o: ..\User\uCGUI\inc\LCD.h
+.\Out\maintask.o: ..\User\uCGUI\inc\GUIVersion.h
+.\Out\maintask.o: ..\User\uCGUI\uCGUIDemo\GUIDEMO.h
+.\Out\maintask.o: ..\User\uCGUI\inc\LCD_ConfDefaults.h
+.\Out\maintask.o: ..\User\uCGUI\Config\LCDConf.h

@@ -1,0 +1,11 @@
+.\Out\lib_str.o: ..\User\uC-LIB\lib_str.c
+.\Out\lib_str.o: ..\User\uC-LIB\lib_str.h
+.\Out\lib_str.o: ..\User\uC-CPU\ARM-Cortex-M3\RealView\cpu.h
+.\Out\lib_str.o: ..\User\uC-CPU\cpu_def.h
+.\Out\lib_str.o: ..\User\uC-LIB\lib_def.h
+.\Out\lib_str.o: ..\User\ucCos_App\app_cfg.h
+.\Out\lib_str.o: C:\Keil\ARM\RV31\Inc\stdlib.h
+.\Out\lib_str.o: C:\Keil\ARM\RV31\Inc\ctype.h
+.\Out\lib_str.o: C:\Keil\ARM\RV31\Inc\errno.h
+.\Out\lib_str.o: C:\Keil\ARM\RV31\Inc\limits.h
+.\Out\lib_str.o: C:\Keil\ARM\RV31\Inc\stdio.h

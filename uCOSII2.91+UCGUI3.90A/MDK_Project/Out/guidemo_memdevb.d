@@ -1,0 +1,13 @@
+.\Out\guidemo_memdevb.o: ..\User\uCGUI\uCGUIDemo\GUIDEMO_MemDevB.c
+.\Out\guidemo_memdevb.o: ..\User\uCGUI\inc\GUI.H
+.\Out\guidemo_memdevb.o: ..\User\uCGUI\inc\GUI_ConfDefaults.h
+.\Out\guidemo_memdevb.o: ..\User\uCGUI\Config\GUIConf.h
+.\Out\guidemo_memdevb.o: ..\User\uCGUI\inc\GUIType.h
+.\Out\guidemo_memdevb.o: ..\User\uCGUI\inc\LCD.h
+.\Out\guidemo_memdevb.o: ..\User\uCGUI\inc\GUIVersion.h
+.\Out\guidemo_memdevb.o: ..\User\uCGUI\uCGUIDemo\GUIDEMO.H
+.\Out\guidemo_memdevb.o: ..\User\uCGUI\inc\LCD_ConfDefaults.h
+.\Out\guidemo_memdevb.o: ..\User\uCGUI\Config\LCDConf.h
+.\Out\guidemo_memdevb.o: ..\User\uCGUI\inc\WM.h
+.\Out\guidemo_memdevb.o: ..\User\uCGUI\inc\WM_GUI.h
+.\Out\guidemo_memdevb.o: C:\Keil\ARM\RV31\Inc\stdio.h
