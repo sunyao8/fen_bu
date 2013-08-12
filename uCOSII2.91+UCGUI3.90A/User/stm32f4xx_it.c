@@ -170,6 +170,8 @@ void USART3_IRQHandler(void)
 	#endif
 }
 
+
+
 /**
   * @brief  This function handles PPP interrupt request.
   * @param  None

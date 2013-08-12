@@ -44,7 +44,7 @@
 #define  APP_TASK_BLINK_PRIO          	 (OS_LOWEST_PRIO - 4)
 
 
-#define  APP_TASK_START_PRIO                               1
+//#define  APP_TASK_START_PRIO                               10
 #define  APP_TASK_OSVIEW_TERMINAL_PRIO	 (OS_LOWEST_PRIO - 6)
 #define  OS_TASK_TMR_PRIO                (OS_LOWEST_PRIO - 2)
 
@@ -63,7 +63,7 @@
 #define  APP_TASK_BLINK_STK_SIZE                         128u
 
 
-#define  APP_TASK_START_STK_SIZE                          4096u
+//#define  APP_TASK_START_STK_SIZE                          4096u
 #define  APP_TASK_OSVIEW_TERMINAL_STK_SIZE   			 256u
 #define  OS_VIEW_TASK_STK_SIZE                           256u
 
