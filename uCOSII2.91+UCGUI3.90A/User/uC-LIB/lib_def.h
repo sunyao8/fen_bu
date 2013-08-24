@@ -118,8 +118,16 @@
 *                                          STANDARD DEFINES
 *********************************************************************************************************
 */
+#define COMMON                                                 0
+#define DF_THREE                                               1
 
+#define CONTROL                                                '('
+#define CPT_A                                                     '%'
+#define CPT_B                                                     '@'
+#define CPT_C                                                     '!'
+#define CPT_LL                                                    '^'
 
+/********************************************************/
 #define  DEF_DISABLED                                      0
 #define  DEF_ENABLED                                       1
 

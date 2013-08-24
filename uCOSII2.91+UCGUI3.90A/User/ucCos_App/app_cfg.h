@@ -22,6 +22,8 @@
 *********************************************************************************************************
 */
 #define  OS_VIEW_MODULE                  DEF_ENABLED	     	/* DEF_ENABLED = Present, DEF_DISABLED = Not Present        */
+#define  FUNCTION_MODULE                  DF_THREE/* DEF_ENABLED = Present, DEF_DISABLED = Not Present        */
+//#define  FUNCTION_MODULE                  COMMON/* DEF_ENABLED = Present, DEF_DISABLED = Not Present        */
 
 
 /*

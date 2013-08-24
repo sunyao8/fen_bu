@@ -1,10 +1,8 @@
-//#include <stm32f10x_lib.h>
-#include "key.h"
-#include "delay.h"
-#include "ht1621.h"
-//#include "led.h"
-//#include "exti.h"
-#include "24cxx.h" 	
+
+/* Includes ------------------------------------------------------------------*/
+#include <includes.h>
+
+/* Private variables ---------------------------------------------------------*/	
 static u8 m=1;
 static u8 grafnum=1;
 u8 zhongduan_flag=1;
@@ -12,6 +10,12 @@ u8 id_num=0;
 u8 grafnum,tempshuzhi,vernum=101,hguestnum=222,gonglvshishu=0;
 u16 dianya_zhi=0,wugongkvar=0;
 u32	dianliuzhi=0;
+//#if (FUNCTION_MODULE == DF_THREE)
+u16 dianya_zhi_A=0,dianya_zhi_B=0,dianya_zhi_C=0,wugongkvar_A=0,wugongkvar_B=0,wugongkvar_C=0;
+u32	dianliuzhi_A=0,dianliuzhi_B=0	,dianliuzhi_C=0;
+u8 gonglvshishu_A=0,gonglvshishu_B=0,gonglvshishu_C=0;
+//#endif
+
 //////////////////////////////////////////////////////////////////////////////////	 
 //本程序为控制器设计，未经许可，不得复制外传
 //实验板栋达电子V3.0-1
@@ -69,7 +73,74 @@ void key_idset(void)
 			   }
 			   else
 				   {  
-				     if(zhongduan_flag==1)
+#if (FUNCTION_MODULE == DF_THREE)
+					 if(zhongduan_flag==1)
+
+                          {
+					  		grafnum++;
+					  		if(grafnum>12)grafnum=1;
+					  
+					    	  switch(grafnum)
+								{				 
+									case 1:	//显示A功率因数和电压值
+										Clera_lcd();
+										Graf_con_u(gonglvshishu_A,dianya_zhi_A);
+										break;
+									case 2:	//显示B功率因数和电压值
+										Clera_lcd();
+										Graf_con_u(gonglvshishu_B,dianya_zhi_B);
+										break;
+									case 3:	//显示B功率因数和电压值
+										Clera_lcd();
+										Graf_con_u(gonglvshishu_C,dianya_zhi_C);
+										break;
+										
+									case 4:	//显示电流
+										Clera_lcd();
+										Graf_cuirrent(dianliuzhi_A);
+										break;
+									case 5:	//显示电流
+										Clera_lcd();
+										Graf_cuirrent(dianliuzhi_B);
+										break;
+									case 6:	//显示电流
+										Clera_lcd();
+										Graf_cuirrent(dianliuzhi_C);
+										break;										
+									case 7:	//显示无功功率	 
+										Clera_lcd();
+										Graf_qkvar(wugongkvar_A);
+										break;
+									case 8:	//显示无功功率	 
+										Clera_lcd();
+										Graf_qkvar(wugongkvar_B);
+										break;
+									case 9:	//显示无功功率	 
+										Clera_lcd();
+										Graf_qkvar(wugongkvar_C);
+										break;										
+									case 10:	//显示温度 
+										Clera_lcd();
+										Graf_temp(tempshuzhi);
+										break;
+					
+									case 11:	//显示ID 
+										Clera_lcd();
+										Graf_id(hguestnum,id_num);
+										break;
+					
+									case 12:	//显示VER 
+										Clera_lcd();
+										Graf_ver(vernum);
+										break;
+					
+								}
+					 	}
+#endif
+
+
+#if (FUNCTION_MODULE == COMMON)
+					 if(zhongduan_flag==1)
 				      	{
 					  		grafnum++;
 					  		if(grafnum>6)grafnum=1;
@@ -105,13 +176,15 @@ void key_idset(void)
 					
 								}
 					 	}
+					 #endif
+
 						if(zhongduan_flag==0)
 				      	{
 					  		id_num++;
 					  		if(id_num>32)id_num=0;
 							Clera_lcd();
 	   						Graf_setid(id_num);
-			//			AT24CXX_WriteOneByte(0x0010,id_num);
+						AT24CXX_WriteOneByte(0x0010,id_num);
 						}
 				   }
 	
@@ -129,6 +202,70 @@ void key_idset(void)
 	   		 } 
 			   if(h>=200)//200
 				 {
+#if (FUNCTION_MODULE == DF_THREE)
+
+						  zhongduan_flag=1;
+					  	  switch(grafnum)
+							{				 
+									case 1:	//显示A功率因数和电压值
+										Clera_lcd();
+										Graf_con_u(gonglvshishu_A,dianya_zhi_A);
+										break;
+									case 2:	//显示B功率因数和电压值
+										Clera_lcd();
+										Graf_con_u(gonglvshishu_B,dianya_zhi_B);
+										break;
+									case 3:	//显示B功率因数和电压值
+										Clera_lcd();
+										Graf_con_u(gonglvshishu_C,dianya_zhi_C);
+										break;
+										
+									case 4:	//显示电流
+										Clera_lcd();
+										Graf_cuirrent(dianliuzhi_A);
+										break;
+									case 5:	//显示电流
+										Clera_lcd();
+										Graf_cuirrent(dianliuzhi_B);
+										break;
+									case 6:	//显示电流
+										Clera_lcd();
+										Graf_cuirrent(dianliuzhi_C);
+										break;										
+									case 7:	//显示无功功率	 
+										Clera_lcd();
+										Graf_qkvar(wugongkvar_A);
+										break;
+									case 8:	//显示无功功率	 
+										Clera_lcd();
+										Graf_qkvar(wugongkvar_B);
+										break;
+									case 9:	//显示无功功率	 
+										Clera_lcd();
+										Graf_qkvar(wugongkvar_C);
+										break;										
+									case 10:	//显示温度 
+										Clera_lcd();
+										Graf_temp(tempshuzhi);
+										break;
+					
+									case 11:	//显示ID 
+										Clera_lcd();
+										Graf_id(hguestnum,id_num);
+										break;
+					
+									case 12:	//显示VER 
+										Clera_lcd();
+										Graf_ver(vernum);
+										break;
+					
+								}	
+					 #endif
+
+
+
+#if (FUNCTION_MODULE == COMMON)
+
 						  zhongduan_flag=1;
 					  	  switch(grafnum)
 							{				 
@@ -160,7 +297,9 @@ void key_idset(void)
 									break;
 				
 							}	
-				 }
+					 #endif
+
+			   }
 
 		}
 }

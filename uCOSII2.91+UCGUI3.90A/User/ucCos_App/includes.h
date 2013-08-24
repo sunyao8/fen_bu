@@ -36,6 +36,7 @@
 #include "24cxx.h" 
 #include "myiic.h"
 #include "arm_math.h"
+#include "App_cfg.h"
 #if (OS_VIEW_MODULE == DEF_ENABLED)
 #include    <uCOS-VIEW\Ports\ARM-Cortex-M3\Realview\os_viewc.h>
 #include    <uCOS-VIEW\Source\os_view.h>
