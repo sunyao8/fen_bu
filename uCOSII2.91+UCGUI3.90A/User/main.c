@@ -23,7 +23,7 @@ static  OS_STK         App_TaskStartStk[APP_TASK_START_STK_SIZE];
 
 #define  APP_TASK_LCD_STK_SIZE                          256u
 static  OS_STK         App_TaskLCDStk[APP_TASK_LCD_STK_SIZE];
-#define  APP_TASK_LCD_PRIO                               4
+#define  APP_TASK_LCD_PRIO                               3
 
 #define  APP_TASK_SLAVE3_STK_SIZE                          256u
 static  OS_STK         App_TaskSLAVE3Stk[APP_TASK_SLAVE3_STK_SIZE];
@@ -35,7 +35,7 @@ static  OS_STK         App_TaskComputerStk[APP_TASK_COMPUTER_STK_SIZE];
 
 #define  APP_TASK_Master_STK_SIZE                          256u
 static  OS_STK         App_TaskMasterStk[APP_TASK_Master_STK_SIZE];
-#define  APP_TASK_Master_PRIO                               3
+#define  APP_TASK_Master_PRIO                               4
 
 
 /***************************************************/
@@ -111,8 +111,8 @@ void computer_gonglu(void);
 
 #define LEN_control 28
 #define EN_USART2_RX 	1			//0,不接收;1,接收.
-#define RS485_TX_EN_1		GPIO_SetBits(GPIOA, GPIO_Pin_0)	// 485模式控制.0,接收;1,发送.本工程用PB15
-#define RS485_TX_EN_0		GPIO_ResetBits(GPIOA, GPIO_Pin_0)	// 485模式控制.0,接收;1,发送.本工程用PB15
+#define RS485_TX_EN_1		GPIO_SetBits(GPIOB, GPIO_Pin_15)	// 485模式控制.0,接收;1,发送.本工程用PB15
+#define RS485_TX_EN_0		GPIO_ResetBits(GPIOB, GPIO_Pin_15)	// 485模式控制.0,接收;1,发送.本工程用PB15
  OS_EVENT * RS485_MBOX,* RS485_STUTAS_MBOX;			//	rs485邮箱信号量
  OS_EVENT *computer_sem,*swicth_ABC;			 //
  OS_EVENT *swicth_A;			 //
@@ -162,7 +162,7 @@ u8  subswitchABC_onoff	 (u8 relay,u8 message ,u8 flag);
 
 
 /************************************TIME******************************************************/
-u16  dog_clock=2;
+u16  dog_clock=10;
 u8 cont=0;//用于更改主机号的记次数器
  void TIM4_Int_Init(u16 arr,u16 psc);
 void delay_time(u32 time);
@@ -327,10 +327,6 @@ static  void  App_TaskMaster(void		*p_arg )
 		 	{
 			OSTaskSuspend(APP_TASK_Master_PRIO);//挂起从机任务
 		        }
-if(key_A==0)
-	{while(subswitchABC_onoff(1,0,1)==0)break;}
-if(key_A==1)
-	{while(subswitchABC_onoff(1,1,1)==1)break;}
 	OSSemPost(computer_sem);
 
                      delay_ms(100);
@@ -484,6 +480,7 @@ if(message==0)
 		 GPIO_ResetBits(GPIOD,GPIO_Pin_9);
 		 		key_A=1;
 */				
+		 GPIO_SetBits(GPIOD, GPIO_Pin_12);	  
 
  for(i=0;i<512*2;i++)
 	 	{
@@ -530,6 +527,7 @@ GPIO_ResetBits(GPIOD,GPIO_Pin_8); //PD2->1
 		 GPIO_ResetBits(GPIOD,GPIO_Pin_8);
 		 		 		key_A=0;
 */
+GPIO_ResetBits(GPIOD, GPIO_Pin_12);	  
 
  for(i=0;i<512*2;i++)
 	{ 	b=(float32_t)((ADC_Converted_VValue-ADC_Converted_base));///  1550
@@ -545,6 +543,7 @@ GPIO_ResetBits(GPIOD,GPIO_Pin_8); //PD2->1
 		 GPIO_ResetBits(GPIOD,GPIO_Pin_9);
 		 GPIO_ResetBits(GPIOD,GPIO_Pin_8);
 		 		key_A=0;
+
 				return 1;
 		
 		   
@@ -921,11 +920,11 @@ void RS485_Init(u32 bound)
 
 
 	
-	 GPIO_InitStructure.GPIO_Pin = GPIO_Pin_0;				 //本工程配置
+	 GPIO_InitStructure.GPIO_Pin = GPIO_Pin_15;				 //本工程配置
  	GPIO_InitStructure.GPIO_Mode = GPIO_Mode_OUT; 		 //推挽输出
  	GPIO_InitStructure.GPIO_OType = GPIO_OType_PP;
  	GPIO_InitStructure.GPIO_Speed = GPIO_Speed_50MHz;
- 		GPIO_Init(GPIOA, &GPIO_InitStructure);	   //本工程使用
+ 		GPIO_Init(GPIOB, &GPIO_InitStructure);	   //本工程使用
 
  GPIO_PinAFConfig(GPIOA, GPIO_PinSource2, GPIO_AF_USART2);
   GPIO_PinAFConfig(GPIOA, GPIO_PinSource3, GPIO_AF_USART2);
@@ -1085,7 +1084,7 @@ int rs485_trans_order(u8 *tx_r485)//解析由主机发送过来的信号，并发送给下位机
 
  void order_trans_rs485(u8 source,u8 destination, u8 send,u8 relay,u8 message)//主机程序，主机命令解析成RS485信息，发送给目的从机
 {  
-
+/*
 #if (FUNCTION_MODULE == DF_THREE)	
     {
       rs485buf[0]='&';//协议头
@@ -1101,7 +1100,6 @@ int rs485_trans_order(u8 *tx_r485)//解析由主机发送过来的信号，并发送给下位机
 	rs485buf[10]=(wugongkvar_A& (uint16_t)0x00FF);
 	rs485buf[11]=((wugongkvar_A& (uint16_t)0xFF00)>>8);
 	rs485buf[12]=gonglvshishu_A;
-	/************************************/
 	rs485buf[13]=(dianya_zhi_B& (uint16_t)0x00FF);
 	rs485buf[14]=((dianya_zhi_B& (uint16_t)0xFF00)>>8);
 	rs485buf[15]=(dianliuzhi_B& (uint16_t)0x00FF);
@@ -1109,7 +1107,6 @@ int rs485_trans_order(u8 *tx_r485)//解析由主机发送过来的信号，并发送给下位机
 	rs485buf[17]=(wugongkvar_B& (uint16_t)0x00FF);
 	rs485buf[18]=((wugongkvar_B& (uint16_t)0xFF00)>>8);
 	rs485buf[19]=gonglvshishu_B;
-/***************************************************/
 	rs485buf[20]=(dianya_zhi_C& (uint16_t)0x00FF);
 	rs485buf[21]=((dianya_zhi_C& (uint16_t)0xFF00)>>8);
 	rs485buf[22]=(dianliuzhi_C& (uint16_t)0x00FF);
@@ -1117,7 +1114,6 @@ int rs485_trans_order(u8 *tx_r485)//解析由主机发送过来的信号，并发送给下位机
 	rs485buf[24]=(wugongkvar_C& (uint16_t)0x00FF);
 	rs485buf[25]=((wugongkvar_C& (uint16_t)0xFF00)>>8);
 	rs485buf[26]=gonglvshishu_C;
-/*********************************************/
 	rs485buf[27]='*';//协议尾
 	RS485_Send_Data(rs485buf,28);//发送5个字节
 	  // 	if(destination==source){mybox.send=send;slave_control(relay, message);}//如果信息发给的自己
@@ -1125,7 +1121,8 @@ int rs485_trans_order(u8 *tx_r485)//解析由主机发送过来的信号，并发送给下位机
     	}
 #endif
 
-#if (FUNCTION_MODULE ==  COMMON)	
+*/
+//#if (FUNCTION_MODULE ==  COMMON)	
     {
       rs485buf[0]='&';//协议头
 	rs485buf[1]=source;
@@ -1146,7 +1143,7 @@ int rs485_trans_order(u8 *tx_r485)//解析由主机发送过来的信号，并发送给下位机
 	  // 	if(destination==source){mybox.send=send;slave_control(relay, message);}//如果信息发给的自己
 
     	}
-#endif
+//#endif
 }
  void rs485_trans_computer(u8 *tx_r485)//解析由主机发送过来的信号，并发送给下位机
 
@@ -1192,7 +1189,11 @@ if(tx_r485[8]==CONTROL)
    	 mybox.send=tx_r485[3];
      mybox.relay=tx_r485[4];
      mybox.message=tx_r485[5];
-	 GPIO_SetBits(GPIOD, GPIO_Pin_12);
+//	 GPIO_SetBits(GPIOD, GPIO_Pin_12);
+	 if( mybox.message==0)
+	 	{while(subswitchABC_onoff(mybox.relay,  mybox.message,1)==0)break;}
+if( mybox.message==1)
+	 	{while(subswitchABC_onoff(mybox.relay,  mybox.message,1)==1)break;}
    	}
 }
 
@@ -1286,12 +1287,13 @@ if(tx_r485[8]==CONTROL)
 }
 
  void heartbeat(u8 t)
-{	u8 i;
+{	/*u8 i;
 for(i=0;i<=t;i++)
 		{	
 	       order_trans_rs485(mybox.myid,0,0,0,0);
 		    delay_ms(1);
 		}	
+*/
 }
 
  
@@ -1579,10 +1581,21 @@ dianya_zhi=1.732*(dianya_zhi_A+dianya_zhi_B+dianya_zhi_C)/3;
 dianliuzhi=(dianliuzhi_A+dianliuzhi_B+dianliuzhi_C)/3;
 gonglvshishu=(gonglvshishu_A+gonglvshishu_B+gonglvshishu_C)/3;
 /****************************************************/
-computer_trans_rs485(0,0,0,0,0,CPT_LL);
+//computer_trans_rs485(0,0,0,0,0,CPT_LL);
 
 /***************************************************/
-computer_trans_rs485(1,2,1,1,1,CONTROL);
+//computer_trans_rs485(2,1,1,1,0,CONTROL);
+
+//computer_trans_rs485(2,1,1,1,1,CONTROL);
+
+ { 
+
+order_trans_rs485(1,3,1,1,1);
+delay_ms(5000);
+order_trans_rs485(1,3,1,1,0);
+delay_ms(4000);
+
+}
 }
 
 
