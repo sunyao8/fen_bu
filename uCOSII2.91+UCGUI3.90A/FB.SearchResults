@@ -1,0 +1,7 @@
+---- GPIO_Pin_12 Matches (6 in 0 files) ----
+Main.c (user):// GPIO_ResetBits(GPIOD, GPIO_Pin_12);
+Main.c (user):	GPIO_InitStructure.GPIO_Pin = GPIO_Pin_8|GPIO_Pin_9|GPIO_Pin_12;
+Main.c (user): 	//GPIO_SetBits(GPIOD, GPIO_Pin_12);	 
+Main.c (user):	 GPIO_SetBits(GPIOD, GPIO_Pin_12);
+Main.c (user):// GPIO_SetBits(GPIOD, GPIO_Pin_12);
+Main.c (user):  //GPIO_ResetBits(GPIOD, GPIO_Pin_12);	 

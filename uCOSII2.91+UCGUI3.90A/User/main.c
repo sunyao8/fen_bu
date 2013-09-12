@@ -155,6 +155,8 @@ void NVIC_Configuration(void);
 
 
 /********************************switch_A_B_C**************************************************/
+#define ON_time 13400
+#define OFF_time 15000	
 u8 key_A=0,key_B=0,key_C=0;
 u8  subswitchABC_onoff	 (u8 relay,u8 message ,u8 flag);
 
@@ -171,6 +173,37 @@ void delay_time(u32 time);
 
 
 /************************************TIME_end******************************************************/
+
+
+
+/************************************MAster data structure*******************
+ typedef struct  
+{ 
+  u8 dis_comm;//dis=0 comm=1
+  u8 myid;      //本电容箱ID号
+  u8 size[2];      //容量单位千法
+  u8 work_status[2];    //工作状态 1 为投入工作；0 为没有工作
+  u8 work_time[2];     //工作时间   
+}status_comm_node;
+
+ typedef struct  
+{ 
+  u8 dis_comm;//dis=0 comm=1
+  u8 myid;      //本电容箱ID号
+  u8 size[3];      //容量单位千法
+  u8 work_status[3];    //工作状态 1 为投入工作；0 为没有工作
+  u8 work_time[3];     //工作时间   
+}status_dis_node;
+
+status_comm_node comm_list[33];
+status_dis_node dis_list[33];
+
+*************************************MAster data structure_end***************/
+
+
+
+
+
 
 #define TEST_LENGTH_SAMPLES 512*2 
  
@@ -480,13 +513,13 @@ if(message==0)
 		 GPIO_ResetBits(GPIOD,GPIO_Pin_9);
 		 		key_A=1;
 */				
-		 GPIO_SetBits(GPIOD, GPIO_Pin_12);	  
 
- for(i=0;i<512*2;i++)
+ for(i=0;i<512*2;i++)	 //512*2
 	 	{
 	 		 	
-a=(float32_t)((ADC_Converted_VValue-ADC_Converted_base));///  1550
-if(max>a)max=a;
+a=(float32_t)((ADC_Converted_VValue));///  1550
+//  a = (a/4096)*3.3;	
+if(max<a)max=a;
 delay_us(36);//36->512
 
         }
@@ -495,10 +528,11 @@ delay_us(36);//36->512
  for(i=0;i<512*2;i++)
 	 	{
 	 		 	
-b=(float32_t)((ADC_Converted_VValue-ADC_Converted_base));///  1550
-    if(b>max*990/1000)
+b=(float32_t)((ADC_Converted_VValue));///  1550
+ // b = (b/4096)*3.3;	
+    if(b>max*995/1000)
           {
-	     delay_us(17000);
+	    delay_us(OFF_time);
 		GPIO_SetBits(GPIOD,GPIO_Pin_8);
 		GPIO_ResetBits(GPIOD,GPIO_Pin_9);
 			   delay_ms(100);
@@ -514,6 +548,7 @@ b=(float32_t)((ADC_Converted_VValue-ADC_Converted_base));///  1550
 delay_us(36);//36->512
 
         }
+ max=0;
  return 3;
 }
 
@@ -527,7 +562,6 @@ GPIO_ResetBits(GPIOD,GPIO_Pin_8); //PD2->1
 		 GPIO_ResetBits(GPIOD,GPIO_Pin_8);
 		 		 		key_A=0;
 */
-GPIO_ResetBits(GPIOD, GPIO_Pin_12);	  
 
  for(i=0;i<512*2;i++)
 	{ 	b=(float32_t)((ADC_Converted_VValue-ADC_Converted_base));///  1550
@@ -536,14 +570,13 @@ GPIO_ResetBits(GPIOD, GPIO_Pin_12);
 		{	
 		   					   
 		      
-				 delay_us(14300);
+				 delay_us(ON_time);
 			GPIO_ResetBits(GPIOD,GPIO_Pin_8); //PD2->1
 			GPIO_SetBits(GPIOD,GPIO_Pin_9);  //PC11->0
 			 delay_ms(100);//脉冲延时
 		 GPIO_ResetBits(GPIOD,GPIO_Pin_9);
 		 GPIO_ResetBits(GPIOD,GPIO_Pin_8);
 		 		key_A=0;
-
 				return 1;
 		
 		   
@@ -553,6 +586,182 @@ GPIO_ResetBits(GPIOD, GPIO_Pin_12);
 
 }
 }	
+
+if(relay==2)
+{
+   	
+ADC3_CH11_DMA_Config_VB();
+ADC2_CH14_DMA_Config_B1();
+if(message==0)
+{
+/*
+	GPIO_SetBits(GPIOD,GPIO_Pin_8);
+		GPIO_ResetBits(GPIOD,GPIO_Pin_9);
+			   delay_ms(100);
+         GPIO_ResetBits(GPIOD,GPIO_Pin_8);
+		 GPIO_ResetBits(GPIOD,GPIO_Pin_9);
+		 		key_A=1;
+*/				
+
+ for(i=0;i<512*2;i++)
+	 	{
+	 		 	
+a=(float32_t)((ADC_Converted_VValue));///  1550
+if(max<a)max=a;
+delay_us(36);//36->512
+
+        }
+// GPIO_ResetBits(GPIOD, GPIO_Pin_12);
+
+ for(i=0;i<512*2;i++)
+	 	{
+	 		 	
+b=(float32_t)((ADC_Converted_VValue));///  1550
+    if(b>max*995/1000)
+          {
+	     delay_us(OFF_time);
+		GPIO_SetBits(GPIOD,GPIO_Pin_10);
+		GPIO_ResetBits(GPIOD,GPIO_Pin_11);
+			   delay_ms(100);
+         GPIO_ResetBits(GPIOD,GPIO_Pin_10);
+		 GPIO_ResetBits(GPIOD,GPIO_Pin_11);
+		 		key_A=1;
+			  max=0;
+			  a=0;
+			  b=0;
+			  return 0;
+			
+            }
+delay_us(36);//36->512
+
+        }
+ max=0;
+ return 3;
+}
+
+if(message==1)
+{
+/*
+GPIO_ResetBits(GPIOD,GPIO_Pin_8); //PD2->1
+			GPIO_SetBits(GPIOD,GPIO_Pin_9);  //PC11->0
+			 delay_ms(100);//脉冲延时
+		 GPIO_ResetBits(GPIOD,GPIO_Pin_9);
+		 GPIO_ResetBits(GPIOD,GPIO_Pin_8);
+		 		 		key_A=0;
+*/
+
+ for(i=0;i<512*2;i++)
+	{ 	b=(float32_t)((ADC_Converted_VValue-ADC_Converted_base));///  1550
+		delay_us(36);//36->512			        
+		   if((b>0)&&(b<=10))
+		{	
+		   					   
+		      
+				 delay_us(ON_time);
+			GPIO_ResetBits(GPIOD,GPIO_Pin_10); //PD2->1
+			GPIO_SetBits(GPIOD,GPIO_Pin_11);  //PC11->0
+			 delay_ms(100);//脉冲延时
+		 GPIO_ResetBits(GPIOD,GPIO_Pin_10);
+		 GPIO_ResetBits(GPIOD,GPIO_Pin_11);
+		 		key_A=0;
+				return 1;
+		
+		   
+		   }
+   		  }
+ return 3;
+
+}
+}
+
+if(relay==3)
+{
+   	
+ADC3_CH12_DMA_Config_VC();
+ADC2_CH15_DMA_Config_C1();
+if(message==0)
+{
+/*
+	GPIO_SetBits(GPIOD,GPIO_Pin_8);
+		GPIO_ResetBits(GPIOD,GPIO_Pin_9);
+			   delay_ms(100);
+         GPIO_ResetBits(GPIOD,GPIO_Pin_8);
+		 GPIO_ResetBits(GPIOD,GPIO_Pin_9);
+		 		key_A=1;
+*/				
+
+ for(i=0;i<512*2;i++)
+	 	{
+	 		 	
+a=(float32_t)((ADC_Converted_VValue));///  1550
+if(max<a)max=a;
+delay_us(36);//36->512
+
+        }
+// GPIO_ResetBits(GPIOD, GPIO_Pin_12);
+
+ for(i=0;i<512*2;i++)
+	 	{
+	 		 	
+b=(float32_t)((ADC_Converted_VValue));///  1550
+    if(b>max*995/1000)
+          {
+	     delay_us(OFF_time);
+		GPIO_SetBits(GPIOD,GPIO_Pin_12);
+		GPIO_ResetBits(GPIOD,GPIO_Pin_13);
+			   delay_ms(100);
+         GPIO_ResetBits(GPIOD,GPIO_Pin_12);
+		 GPIO_ResetBits(GPIOD,GPIO_Pin_13);
+		 		key_A=1;
+			  max=0;
+			  a=0;
+			  b=0;
+			  return 0;
+			
+            }
+delay_us(36);//36->512
+
+        }
+  max=0;
+ return 3;
+}
+
+if(message==1)
+{
+/*
+GPIO_ResetBits(GPIOD,GPIO_Pin_8); //PD2->1
+			GPIO_SetBits(GPIOD,GPIO_Pin_9);  //PC11->0
+			 delay_ms(100);//脉冲延时
+		 GPIO_ResetBits(GPIOD,GPIO_Pin_9);
+		 GPIO_ResetBits(GPIOD,GPIO_Pin_8);
+		 		 		key_A=0;
+*/
+
+ for(i=0;i<512*2;i++)
+	{ 	b=(float32_t)((ADC_Converted_VValue-ADC_Converted_base));///  1550
+		delay_us(36);//36->512			        
+		   if((b>0)&&(b<=10))
+		{	
+		   					   
+		      
+				 delay_us(ON_time);
+			GPIO_ResetBits(GPIOD,GPIO_Pin_12); //PD2->1
+			GPIO_SetBits(GPIOD,GPIO_Pin_13);  //PC11->0
+			 delay_ms(100);//脉冲延时
+		 GPIO_ResetBits(GPIOD,GPIO_Pin_12);
+		 GPIO_ResetBits(GPIOD,GPIO_Pin_13);
+		 		key_A=0;
+				return 1;
+		
+		   
+		   }
+   		  }
+ return 3;
+
+}
+}
+
+
 }
 return 4;
 }
@@ -1326,6 +1535,78 @@ mybox.myid=1;
  mybox.end='*';	
 						
 }
+/*
+void set_statuslist(u8 id,u8 size,u8 work_status,u8 work_time,u8 dis_comm,u8 relay)
+{
+if(dis_comm==0)
+{
+if(relay==0)
+        {
+       dis_list[id].myid=id;
+   	   dis_list[id].size[0]=size;
+   	   dis_list[id].work_status[0]=work_status;
+	   dis_list[id].work_time[0]=work_time;
+       }
+if(relay==1)
+        {
+       dis_list[id].myid=id;
+   	   dis_list[id].size[1]=size;
+   	   dis_list[id].work_status[1]=work_status;
+	   dis_list[id].work_time[1]=work_time;
+       }
+if(relay==2)
+        {
+       dis_list[id].myid=id;
+   	   dis_list[id].size[2]=size;
+   	   dis_list[id].work_status[2]=work_status;
+	   dis_list[id].work_time[2]=work_time;
+       }
+}
+if(dis_comm==1)
+{
+  if(relay==0)
+  	{
+	   comm_list[id].myid=id;
+   	   comm_list[id].size[0]=size;
+   	   comm_list[id].work_status[0]=work_status;
+       comm_list[id].work_time[0]=work_time;
+  	}
+  if(relay==1)
+  	{
+	   comm_list[id].myid=id;
+   	   comm_list[id].size[1]=size;
+   	   comm_list[id].work_status[1]=work_status;
+       comm_list[id].work_time[1]=work_time;
+  	}  
+}
+
+}
+
+u8 inquiry_slave_status_comm(u8 id)   
+  {  u8 *msg;
+        u8 err;
+			if(id==mybox.myid)
+		{
+	   set_statuslist(mybox.myid,mybox.size,0,1,1);//主机状态信息写入状态表
+	   set_statuslist(mybox.myid,mybox.size,0,1,2);//主机状态信息写入状态表
+	   return 1;
+		}
+
+   order_trans_rs485(mybox.myid,id,2,0,0);
+   msg=(u8 *)OSMboxPend(RS485_STUTAS_MBOX,OS_TICKS_PER_SEC/50,&err);
+   if(err==OS_ERR_TIMEOUT){ set_statuslist(mybox.myid,mybox.size,0,1,1); set_statuslist(mybox.myid,mybox.size,0,1,2);return 0;}//(u8 id, u8 size, u8 work_status, u8 work_time) 
+	else 
+	{  rs485_trans_status(msg);return 1;}
+
+} //查询从机状态并保存到从机状态表中，参数id是要查询的从机号
+
+ void rs485_trans_status(u8 *tx_r485)//主机程序，主机命令解析成RS485信息，发送给目的从机
+ 	{
+ 	 set_statuslist(tx_r485[2],tx_r485[3],tx_r485[7],1,1);//主机状态信息写入状态表
+	   set_statuslist(tx_r485[2],tx_r485[4],tx_r485[8],1,2);//主机状态信息写入状态表
+      
+   }
+ */
 void computer_gonglu()
 {
 int i=0;
@@ -1589,13 +1870,25 @@ gonglvshishu=(gonglvshishu_A+gonglvshishu_B+gonglvshishu_C)/3;
 //computer_trans_rs485(2,1,1,1,1,CONTROL);
 
  { 
-
+computer_trans_rs485(1,2,1,1,0,CONTROL);
+delay_ms(4000);
+computer_trans_rs485(1,2,1,1,1,CONTROL);
+delay_ms(4000);
 order_trans_rs485(1,3,1,1,1);
 delay_ms(5000);
 order_trans_rs485(1,3,1,1,0);
 delay_ms(4000);
+order_trans_rs485(1,4,1,1,1);
+delay_ms(5000);
+order_trans_rs485(1,4,1,1,0);
+delay_ms(4000);
+order_trans_rs485(1,5,1,1,1);
+delay_ms(5000);
+order_trans_rs485(1,5,1,1,0);
+delay_ms(4000);
 
 }
+
 }
 
 
