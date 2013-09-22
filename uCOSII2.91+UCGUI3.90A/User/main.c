@@ -16,16 +16,16 @@
 #include <includes.h>
 
 /* Private variables ---------------------------------------------------------*/
-#define  APP_TASK_START_STK_SIZE                          64u
+#define  APP_TASK_START_STK_SIZE                          1024u
 static  OS_STK         App_TaskStartStk[APP_TASK_START_STK_SIZE];
 #define  APP_TASK_START_PRIO                               10
 
 
-#define  APP_TASK_LCD_STK_SIZE                          256u
+#define  APP_TASK_LCD_STK_SIZE                          1024u
 static  OS_STK         App_TaskLCDStk[APP_TASK_LCD_STK_SIZE];
 #define  APP_TASK_LCD_PRIO                               3
 
-#define  APP_TASK_SLAVE3_STK_SIZE                          256u
+#define  APP_TASK_SLAVE3_STK_SIZE                          10240u
 static  OS_STK         App_TaskSLAVE3Stk[APP_TASK_SLAVE3_STK_SIZE];
 #define  APP_TASK_SLAVE3_PRIO                               1
 
@@ -33,7 +33,7 @@ static  OS_STK         App_TaskSLAVE3Stk[APP_TASK_SLAVE3_STK_SIZE];
 static  OS_STK         App_TaskComputerStk[APP_TASK_COMPUTER_STK_SIZE];
 #define  APP_TASK_COMPUTER_PRIO                               2
 
-#define  APP_TASK_Master_STK_SIZE                          256u
+#define  APP_TASK_Master_STK_SIZE                          1024u
 static  OS_STK         App_TaskMasterStk[APP_TASK_Master_STK_SIZE];
 #define  APP_TASK_Master_PRIO                               4
 
@@ -117,7 +117,8 @@ void computer_gonglu(void);
  OS_EVENT *computer_sem,*swicth_ABC;			 //
  OS_EVENT *swicth_A;			 //
 
-u8 rs485buf[LEN_control];//发送控制信息
+static u8 rs485buf[LEN_control];//发送控制信息
+static u8 statusbuf[15];//发送状态信息
 
 
 //接收到的数据长度
@@ -138,9 +139,20 @@ u8 RS485_RX_CNT=0;
   u8 end;   
 }box;
 box mybox;
+ typedef struct  
+{ 
+  u8 myid;      //本电容箱ID号
+  u8 size[3];      //容量单位千法
+  u8 work_status[3];    //工作状态 1 为投入工作；0 为没有工作
+  u8 work_time[3];     //工作时间   
+}statusbox;
 
+static statusbox status_box;
+ 
 void RS485_Init(u32 bound);
 void initmybox(void);//初始化自身信息
+void set_now_mystatus(u8 ,u8 ,u8 ,u8 ,u8 ,u8 ,u8 ,u8 ,u8 ,u8 );
+
 void USART2_IRQHandler(void);
 u16 comp_16(u16 a,u16 b);
 int rs485_trans_order(u8 *tx_r485);//解析由主机发送过来的信号，并发送给下位机
@@ -176,7 +188,7 @@ void delay_time(u32 time);
 
 
 
-/************************************MAster data structure*******************
+/************************************MAster data structure*******************/
  typedef struct  
 { 
   u8 dis_comm;//dis=0 comm=1
@@ -195,10 +207,14 @@ void delay_time(u32 time);
   u8 work_time[3];     //工作时间   
 }status_dis_node;
 
-status_comm_node comm_list[33];
-status_dis_node dis_list[33];
-
-*************************************MAster data structure_end***************/
+//status_comm_node comm_list[2];
+//status_dis_node dis_list[2];
+static status_dis_node     dis_list[15];
+static status_comm_node comm_list[15];
+ void rs485_trans_status_comm(u8 *tx_r485,status_dis_node *dis_list,status_comm_node *comm_list);//主机程序，主机命令解析成RS485信息，发送给目的从机
+ void rs485_trans_status_dis(u8 *tx_r485,status_dis_node *dis_list,status_comm_node *comm_list);//主机程序，主机命令解析成RS485信息，发送给目的从机
+ void status_trans_rs485_dis(statusbox *mystatus);//从机程序
+/*************************************MAster data structure_end***************/
 
 
 
@@ -226,6 +242,7 @@ CPU_INT08U  os_err;
 NVIC_Configuration();
 GPIO_Configuration();
 initmybox();//初始化自身信息
+set_now_mystatus(mybox.myid,3,3,3,0,0,0,0,0,0);
 
 os_err = os_err; 
 
@@ -1293,45 +1310,7 @@ int rs485_trans_order(u8 *tx_r485)//解析由主机发送过来的信号，并发送给下位机
 
  void order_trans_rs485(u8 source,u8 destination, u8 send,u8 relay,u8 message)//主机程序，主机命令解析成RS485信息，发送给目的从机
 {  
-/*
-#if (FUNCTION_MODULE == DF_THREE)	
-    {
-      rs485buf[0]='&';//协议头
-	rs485buf[1]=source;
-	rs485buf[2]=destination;
-	rs485buf[3]=send;
-	rs485buf[4]=relay;
-	rs485buf[5]=message;
-	rs485buf[6]=(dianya_zhi_A& (uint16_t)0x00FF);
-	rs485buf[7]=((dianya_zhi_A& (uint16_t)0xFF00)>>8);
-	rs485buf[8]=(dianliuzhi_A& (uint16_t)0x00FF);
-	rs485buf[9]=((dianliuzhi_A& (uint16_t)0xFF00)>>8);
-	rs485buf[10]=(wugongkvar_A& (uint16_t)0x00FF);
-	rs485buf[11]=((wugongkvar_A& (uint16_t)0xFF00)>>8);
-	rs485buf[12]=gonglvshishu_A;
-	rs485buf[13]=(dianya_zhi_B& (uint16_t)0x00FF);
-	rs485buf[14]=((dianya_zhi_B& (uint16_t)0xFF00)>>8);
-	rs485buf[15]=(dianliuzhi_B& (uint16_t)0x00FF);
-	rs485buf[16]=((dianliuzhi_B& (uint16_t)0xFF00)>>8);
-	rs485buf[17]=(wugongkvar_B& (uint16_t)0x00FF);
-	rs485buf[18]=((wugongkvar_B& (uint16_t)0xFF00)>>8);
-	rs485buf[19]=gonglvshishu_B;
-	rs485buf[20]=(dianya_zhi_C& (uint16_t)0x00FF);
-	rs485buf[21]=((dianya_zhi_C& (uint16_t)0xFF00)>>8);
-	rs485buf[22]=(dianliuzhi_C& (uint16_t)0x00FF);
-	rs485buf[23]=((dianliuzhi_C& (uint16_t)0xFF00)>>8);
-	rs485buf[24]=(wugongkvar_C& (uint16_t)0x00FF);
-	rs485buf[25]=((wugongkvar_C& (uint16_t)0xFF00)>>8);
-	rs485buf[26]=gonglvshishu_C;
-	rs485buf[27]='*';//协议尾
-	RS485_Send_Data(rs485buf,28);//发送5个字节
-	  // 	if(destination==source){mybox.send=send;slave_control(relay, message);}//如果信息发给的自己
 
-    	}
-#endif
-
-*/
-//#if (FUNCTION_MODULE ==  COMMON)	
     {
       rs485buf[0]='&';//协议头
 	rs485buf[1]=source;
@@ -1398,12 +1377,22 @@ if(tx_r485[8]==CONTROL)
    	 mybox.send=tx_r485[3];
      mybox.relay=tx_r485[4];
      mybox.message=tx_r485[5];
-//	 GPIO_SetBits(GPIOD, GPIO_Pin_12);
+	if(tx_r485[3]==1) 
+	{
 	 if( mybox.message==0)
 	 	{while(subswitchABC_onoff(mybox.relay,  mybox.message,1)==0)break;}
 if( mybox.message==1)
 	 	{while(subswitchABC_onoff(mybox.relay,  mybox.message,1)==1)break;}
+	
+	}
+if(tx_r485[3]==2)
+		{
+         status_trans_rs485_dis(&status_box);//从机程序
+
+	    }
+	
    	}
+   
 }
 
 
@@ -1486,8 +1475,8 @@ if( mybox.message==1)
 	rs485buf[3]=send;
 	rs485buf[4]=relay;
 	rs485buf[5]=message;
-	rs485buf[6]=1;
-	rs485buf[7]=1;
+	rs485buf[6]=(dianya_zhi& (uint16_t)0x00FF);
+	rs485buf[7]=((dianya_zhi& (uint16_t)0xFF00)>>8);
 	rs485buf[8]=ctr;
 	rs485buf[9]='*';//协议尾
 	RS485_Send_Data(rs485buf,10);//发送5个字节
@@ -1533,28 +1522,55 @@ mybox.myid=1;
  mybox.relay=0;
  mybox.message=0;
  mybox.end='*';	
-						
-}
+
 /*
-void set_statuslist(u8 id,u8 size,u8 work_status,u8 work_time,u8 dis_comm,u8 relay)
+status_box.myid=1;
+status_box.size[0]=1;
+status_box.size[1]=1;
+status_box.size[2]=1;
+status_box.work_status[0]=0;
+status_box.work_status[1]=0;
+status_box.work_status[2]=0;
+status_box.work_time[0]=0;
+status_box.work_time[1]=0;
+status_box.work_time[2]=0;
+*/
+}
+
+void set_now_mystatus(u8 myid,u8 size_1,u8 size_2,u8 size_3,u8 work_status_1,u8 work_status_2,u8 work_status_3,u8 work_time_1,u8 work_time_2,u8 work_time_3)
+ {
+status_box.myid=myid;
+status_box.size[0]=size_1;
+status_box.size[1]=size_2;
+status_box.size[2]=size_3;
+status_box.work_status[0]=work_status_1;
+status_box.work_status[1]=work_status_2;
+status_box.work_status[2]=work_status_3;
+status_box.work_time[0]=work_time_1;
+status_box.work_time[1]=work_time_2;
+status_box.work_time[2]=work_time_3;
+
+ }
+
+void set_statuslist(u8 id,u8 size,u8 work_status,u8 work_time,u8 dis_comm,u8 relay,status_dis_node *dis_list,status_comm_node *comm_list)
 {
 if(dis_comm==0)
 {
-if(relay==0)
+if(relay==1)
         {
        dis_list[id].myid=id;
    	   dis_list[id].size[0]=size;
    	   dis_list[id].work_status[0]=work_status;
 	   dis_list[id].work_time[0]=work_time;
        }
-if(relay==1)
+if(relay==2)
         {
        dis_list[id].myid=id;
    	   dis_list[id].size[1]=size;
    	   dis_list[id].work_status[1]=work_status;
 	   dis_list[id].work_time[1]=work_time;
        }
-if(relay==2)
+if(relay==3)
         {
        dis_list[id].myid=id;
    	   dis_list[id].size[2]=size;
@@ -1564,14 +1580,14 @@ if(relay==2)
 }
 if(dis_comm==1)
 {
-  if(relay==0)
+  if(relay==1)
   	{
 	   comm_list[id].myid=id;
    	   comm_list[id].size[0]=size;
    	   comm_list[id].work_status[0]=work_status;
        comm_list[id].work_time[0]=work_time;
   	}
-  if(relay==1)
+  if(relay==2)
   	{
 	   comm_list[id].myid=id;
    	   comm_list[id].size[1]=size;
@@ -1581,32 +1597,72 @@ if(dis_comm==1)
 }
 
 }
-
-u8 inquiry_slave_status_comm(u8 id)   
+/**********************/
+u8 inquiry_slave_status_comm(u8 id,status_dis_node *dis_list,status_comm_node *comm_list)   
   {  u8 *msg;
         u8 err;
-			if(id==mybox.myid)
-		{
-	   set_statuslist(mybox.myid,mybox.size,0,1,1);//主机状态信息写入状态表
-	   set_statuslist(mybox.myid,mybox.size,0,1,2);//主机状态信息写入状态表
-	   return 1;
-		}
+	
 
    order_trans_rs485(mybox.myid,id,2,0,0);
-   msg=(u8 *)OSMboxPend(RS485_STUTAS_MBOX,OS_TICKS_PER_SEC/50,&err);
-   if(err==OS_ERR_TIMEOUT){ set_statuslist(mybox.myid,mybox.size,0,1,1); set_statuslist(mybox.myid,mybox.size,0,1,2);return 0;}//(u8 id, u8 size, u8 work_status, u8 work_time) 
+   msg=(u8 *)OSMboxPend(RS485_STUTAS_MBOX,OS_TICKS_PER_SEC,&err);
+   if(err==OS_ERR_TIMEOUT){ set_statuslist(id,0,0,0,1,1,dis_list,comm_list); set_statuslist(id,0,0,0,1,2,dis_list,comm_list);return 0;}//(u8 id, u8 size, u8 work_status, u8 work_time) 
 	else 
-	{  rs485_trans_status(msg);return 1;}
+	{  rs485_trans_status_comm(msg,dis_list,comm_list);return 1;}
 
 } //查询从机状态并保存到从机状态表中，参数id是要查询的从机号
 
- void rs485_trans_status(u8 *tx_r485)//主机程序，主机命令解析成RS485信息，发送给目的从机
+/*******************************/
+ void rs485_trans_status_comm(u8 *tx_r485,status_dis_node *dis_list,status_comm_node *comm_list)//主机程序，主机命令解析成RS485信息，发送给目的从机
  	{
- 	 set_statuslist(tx_r485[2],tx_r485[3],tx_r485[7],1,1);//主机状态信息写入状态表
-	   set_statuslist(tx_r485[2],tx_r485[4],tx_r485[8],1,2);//主机状态信息写入状态表
+ 	 set_statuslist(tx_r485[2],tx_r485[3],tx_r485[5],tx_r485[7],1,1,dis_list,comm_list);//主机状态信息写入状态表
+	   set_statuslist(tx_r485[2],tx_r485[4],tx_r485[6],tx_r485[8],1,2,dis_list,comm_list);//主机状态信息写入状态表
       
    }
- */
+/**********************************/
+ u8 inquiry_slave_status_dis(u8 id,status_dis_node *dis_list,status_comm_node *comm_list)   
+  {  u8 *msg;
+        u8 err;
+		
+
+  computer_trans_rs485(mybox.myid,id,2,0,0,CONTROL);
+
+   msg=(u8 *)OSMboxPend(RS485_STUTAS_MBOX,OS_TICKS_PER_SEC,&err);
+   if(err==OS_ERR_TIMEOUT){ set_statuslist(id,0,0,0,0,1,dis_list,comm_list); set_statuslist(id,0,0,0,0,2,dis_list,comm_list);set_statuslist(id,0,0,0,0,3,dis_list,comm_list);return 0;}//(u8 id, u8 size, u8 work_status, u8 work_time) 
+	else 
+	{  rs485_trans_status_dis(msg,dis_list,comm_list);return 1;}
+
+} //查询从机状态并保存到从机状态表中，参数id是要查询的从机号
+/**********************/
+ void status_trans_rs485_dis(statusbox *mystatus)//从机程序
+{  	
+       statusbuf[0]='&';
+	statusbuf[1]='#';
+	statusbuf[2]=mystatus->myid;
+	statusbuf[3]=mystatus->size[0];
+	statusbuf[4]=mystatus->size[1];
+	statusbuf[5]=mystatus->size[2];
+
+	statusbuf[6]=mystatus->work_status[0];
+	statusbuf[7]=mystatus->work_status[1];
+	statusbuf[8]=mystatus->work_status[2];
+
+	statusbuf[9]=mystatus->work_time[0];
+	statusbuf[10]=mystatus->work_time[1];
+	statusbuf[11]=mystatus->work_time[2];
+
+	statusbuf[12]='*';
+	RS485_Send_Data(statusbuf,13);//发送10个字节
+}
+/**************/
+ void rs485_trans_status_dis(u8 *tx_r485,status_dis_node *dis_list,status_comm_node *comm_list)//主机程序，主机命令解析成RS485信息，发送给目的从机
+ 	{
+ 	 set_statuslist(tx_r485[2],tx_r485[3],tx_r485[6],tx_r485[9],1,1,dis_list,comm_list);//主机状态信息写入状态表
+	   set_statuslist(tx_r485[2],tx_r485[4],tx_r485[7],tx_r485[10],1,2,dis_list,comm_list);//主机状态信息写入状态表
+      	   set_statuslist(tx_r485[2],tx_r485[5],tx_r485[8],tx_r485[11],1,3,dis_list,comm_list);//主机状态信息写入状态表
+
+   } 
+
+/*********************************/
 void computer_gonglu()
 {
 int i=0;
@@ -1855,12 +1911,13 @@ gonglvshishu_C=arm_cos_f32(angle[0]-angle[1])*100;//功率因素
 computer_trans_rs485(0,0,0,0,0,CPT_C);
 
 /***************************************************/
-
+inquiry_slave_status_dis(2,dis_list,comm_list);   
 
 /*********************ALL***********************************/
 dianya_zhi=1.732*(dianya_zhi_A+dianya_zhi_B+dianya_zhi_C)/3;
 dianliuzhi=(dianliuzhi_A+dianliuzhi_B+dianliuzhi_C)/3;
 gonglvshishu=(gonglvshishu_A+gonglvshishu_B+gonglvshishu_C)/3;
+wugongkvar_A=dis_list[2].size[1];
 /****************************************************/
 //computer_trans_rs485(0,0,0,0,0,CPT_LL);
 
@@ -1868,7 +1925,7 @@ gonglvshishu=(gonglvshishu_A+gonglvshishu_B+gonglvshishu_C)/3;
 //computer_trans_rs485(2,1,1,1,0,CONTROL);
 
 //computer_trans_rs485(2,1,1,1,1,CONTROL);
-
+/*
  { 
 computer_trans_rs485(1,2,1,1,0,CONTROL);
 delay_ms(4000);
@@ -1888,6 +1945,8 @@ order_trans_rs485(1,5,1,1,0);
 delay_ms(4000);
 
 }
+*/
+   
 
 }
 
