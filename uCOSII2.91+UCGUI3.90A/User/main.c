@@ -16,6 +16,11 @@
 #include <includes.h>
 
 /* Private variables ---------------------------------------------------------*/
+#define ON_time 13400
+#define OFF_time 15000		   //18500
+#define  k 0.8	//0.8
+#define PI2  6.28318530717959
+
 #define  APP_TASK_START_STK_SIZE                          1024u
 static  OS_STK         App_TaskStartStk[APP_TASK_START_STK_SIZE];
 #define  APP_TASK_START_PRIO                               10
@@ -29,13 +34,13 @@ static  OS_STK         App_TaskLCDStk[APP_TASK_LCD_STK_SIZE];
 static  OS_STK         App_TaskSLAVE3Stk[APP_TASK_SLAVE3_STK_SIZE];
 #define  APP_TASK_SLAVE3_PRIO                               1
 
-#define  APP_TASK_COMPUTER_STK_SIZE                          10240u
+#define  APP_TASK_COMPUTER_STK_SIZE                       1024u    
 static  OS_STK         App_TaskComputerStk[APP_TASK_COMPUTER_STK_SIZE];
-#define  APP_TASK_COMPUTER_PRIO                               2
+#define  APP_TASK_COMPUTER_PRIO                               4
 
-#define  APP_TASK_Master_STK_SIZE                          1024u
+#define  APP_TASK_Master_STK_SIZE                         10240u
 static  OS_STK         App_TaskMasterStk[APP_TASK_Master_STK_SIZE];
-#define  APP_TASK_Master_PRIO                               4
+#define  APP_TASK_Master_PRIO                               2
 
 
 /***************************************************/
@@ -147,7 +152,9 @@ box mybox;
 }statusbox;
 
 static statusbox status_box;
- 
+ static u8 slave_dis[33];
+ static u8 slave_comm[33];
+u8 start_scan=1;
 void RS485_Init(u32 bound);
 void initmybox(void);//初始化自身信息
 void set_now_mystatus(u8 ,u8 ,u8 ,u8 ,u8 ,u8 ,u8 ,u8 ,u8 ,u8 );
@@ -214,14 +221,18 @@ static status_comm_node comm_list[30];
  void rs485_trans_status_dis(u8 *tx_r485,status_dis_node *dis_list,status_comm_node *comm_list);//主机程序，主机命令解析成RS485信息，发送给目的从机
  void status_trans_rs485_dis(statusbox *mystatus);//从机程序
  u8 inquiry_slave_status_dis(u8 id,status_dis_node *dis_list,status_comm_node *comm_list);   
-
  void init_nodelist(void);
+ void scanf_slave_machine(void);
+ void set_statuslist(u8 id,u8 size,u8 work_status,u8 work_time,u8 dis_comm,u8 relay,status_dis_node *dis_list,status_comm_node *comm_list);
+
+
 /*************************************MAster data structure_end***************/
 
 
 
 
 
+u8 L_C_flag_A=1;//感性容性标准变量
 
 #define TEST_LENGTH_SAMPLES 512*2 
  
@@ -371,7 +382,6 @@ swicth_A=OSMboxCreate((void*)0);
 */	  
 static  void  App_TaskMaster(void		*p_arg )
 {  
-	
 
 	for(;;)
 		{
@@ -380,9 +390,17 @@ static  void  App_TaskMaster(void		*p_arg )
 		 	{
 			OSTaskSuspend(APP_TASK_Master_PRIO);//挂起从机任务
 		        }
-	OSSemPost(computer_sem);
+/*
+ if(start_scan==1)
+ 	{ scanf_slave_machine();  start_scan=0;}
+ */
+computer_gonglu();
+ 
 
-                     delay_ms(100);
+OSSemPost(computer_sem);
+delay_ms(1000);
+
+					// delay_ms(100);
 
 	        }
    	
@@ -439,7 +457,7 @@ static  void  App_TaskLCD	 (void		*p_arg )
 
 	for(;;)
 		{key_idset();
-                     delay_ms(10);
+                     delay_ms(100);//100
 
 	        }
    	
@@ -468,8 +486,9 @@ u8 err;
 for(;;)
    	{
    	OSSemPend(computer_sem,0,&err);
-#if (FUNCTION_MODULE == DF_THREE)	
-      	computer_gonglu();
+#if (FUNCTION_MODULE == DF_THREE)
+ scanf_slave_machine();
+//inquiry_slave_status_dis(3,dis_list,comm_list);   
 #endif
 
     }	
@@ -584,7 +603,7 @@ GPIO_ResetBits(GPIOD,GPIO_Pin_8); //PD2->1
 */
 
  for(i=0;i<512*2;i++)
-	{ 	b=(float32_t)((ADC_Converted_VValue-ADC_Converted_base));///  1550
+	{ 	b=(float32_t)(((float32_t)(k*ADC_Converted_VValue)-(float32_t)(ADC_Converted_base)));///  1550
 		delay_us(36);//36->512			        
 		   if((b>0)&&(b<=10))
 		{	
@@ -671,7 +690,7 @@ GPIO_ResetBits(GPIOD,GPIO_Pin_8); //PD2->1
 */
 
  for(i=0;i<512*2;i++)
-	{ 	b=(float32_t)((ADC_Converted_VValue-ADC_Converted_base));///  1550
+	{ 	b=(float32_t)(((float32_t)(k*ADC_Converted_VValue)-(float32_t)(ADC_Converted_base)));///  1550
 		delay_us(36);//36->512			        
 		   if((b>0)&&(b<=10))
 		{	
@@ -758,7 +777,7 @@ GPIO_ResetBits(GPIOD,GPIO_Pin_8); //PD2->1
 */
 
  for(i=0;i<512*2;i++)
-	{ 	b=(float32_t)((ADC_Converted_VValue-ADC_Converted_base));///  1550
+	{ b=(float32_t)(((float32_t)(k*ADC_Converted_VValue)-(float32_t)(ADC_Converted_base)));///  1550
 		delay_us(36);//36->512			        
 		   if((b>0)&&(b<=10))
 		{	
@@ -1640,16 +1659,23 @@ u8 inquiry_slave_status_comm(u8 id,status_dis_node *dis_list,status_comm_node *c
  u8 inquiry_slave_status_dis(u8 id,status_dis_node *dis_list,status_comm_node *comm_list)   
   {  u8 *msg;
         u8 err;
-		
+			if(id==mybox.myid)
+		{
+set_statuslist(id,status_box.size[0],status_box.work_status[0],status_box.work_time[0],0,1,dis_list,comm_list);
+set_statuslist(id,status_box.size[1],status_box.work_status[1],status_box.work_time[1],0,2,dis_list,comm_list);
+set_statuslist(id,status_box.size[2],status_box.work_status[2],status_box.work_time[2],0,3,dis_list,comm_list);
+
+return 1;
+		}
  computer_trans_rs485(mybox.myid,id,2,0,0,CONTROL);
   // order_trans_rs485(mybox.myid,id,2,0,0);
 
-   msg=(u8 *)OSMboxPend(RS485_STUTAS_MBOX,OS_TICKS_PER_SEC,&err);
-   if(err==OS_ERR_TIMEOUT){set_statuslist(id,0,0,0,0,1,dis_list,comm_list);return 0;}//(u8 id, u8 size, u8 work_status, u8 work_time) 
+   msg=(u8 *)OSMboxPend(RS485_STUTAS_MBOX,OS_TICKS_PER_SEC/20,&err);
+   if(err==OS_ERR_TIMEOUT){set_statuslist(id,0,0,0,0,1,dis_list,comm_list);set_statuslist(id,0,0,0,0,2,dis_list,comm_list);set_statuslist(id,0,0,0,0,3,dis_list,comm_list);return 0;}//(u8 id, u8 size, u8 work_status, u8 work_time) 
 	else 
 	{ 
-	//rs485_trans_status_dis(msg,dis_list,comm_list);
-	 	 set_statuslist(msg[2],msg[3],msg[6],0,0,1,dis_list,comm_list);//主机状态信息写入状态表
+	rs485_trans_status_dis(msg,dis_list,comm_list);
+	 	// set_statuslist(msg[2],msg[3],msg[6],0,0,1,dis_list,comm_list);//主机状态信息写入状态表
 
 	return 1;
 	}
@@ -1680,21 +1706,21 @@ u8 inquiry_slave_status_comm(u8 id,status_dis_node *dis_list,status_comm_node *c
  void rs485_trans_status_dis(u8 *tx_r485,status_dis_node *dis_list,status_comm_node *comm_list)//主机程序，主机命令解析成RS485信息，发送给目的从机
  	{
  	 set_statuslist(tx_r485[2],tx_r485[3],tx_r485[6],0,0,1,dis_list,comm_list);//主机状态信息写入状态表
-	 // set_statuslist(tx_r485[2],tx_r485[4],tx_r485[7],0,0,2,dis_list,comm_list);//主机状态信息写入状态表
-      	 //  set_statuslist(tx_r485[2],tx_r485[5],tx_r485[8],0,0,3,dis_list,comm_list);//主机状态信息写入状态表
+	 set_statuslist(tx_r485[2],tx_r485[4],tx_r485[7],0,0,2,dis_list,comm_list);//主机状态信息写入状态表
+      	  set_statuslist(tx_r485[2],tx_r485[5],tx_r485[8],0,0,3,dis_list,comm_list);//主机状态信息写入状态表
 
    } 
  void init_nodelist()
  	{
 u8 i;
- for(i=1;i<=15;i++)
+ for(i=1;i<=29;i++)
  	{
 set_statuslist(i,0,0,0,0,1,dis_list,comm_list);
 set_statuslist(i,0,0,0,0,2,dis_list,comm_list);
 set_statuslist(i,0,0,0,0,3,dis_list,comm_list);
  	}
 
- for(i=1;i<=15;i++)
+ for(i=1;i<=29;i++)
  	{
   	 set_statuslist(i,0,0,0,1,1,dis_list,comm_list);//主机状态信息写入状态表
 	   set_statuslist(i,0,0,0,1,2,dis_list,comm_list);//主机状态信息写入状态表
@@ -1706,15 +1732,13 @@ set_statuslist(i,0,0,0,0,3,dis_list,comm_list);
 void computer_gonglu()
 {
 int i=0;
+u8 flag_1=0,flag_0=0;
 arm_status status; 
 arm_rfft_instance_f32 S;
 arm_cfft_radix4_instance_f32  S_CFFT;
 float32_t maxValue=0.0,maxValue_C=0.0; 
  float32_t testInput_V[TEST_LENGTH_SAMPLES]; 
  float32_t testInput_C[TEST_LENGTH_SAMPLES]; 
-
- float32_t testInput_V_source[TEST_LENGTH_SAMPLES/2]; 
- float32_t testInput_C_source[TEST_LENGTH_SAMPLES/2]; 
 
 float32_t testOutput[TEST_LENGTH_SAMPLES*2/2]; 
 float32_t reslut[TEST_LENGTH_SAMPLES/2]; 
@@ -1728,9 +1752,9 @@ uint32_t doBitReverse = 1;
  
 /* Reference index at which max energy of bin ocuurs */ 
 uint32_t  testIndex = 0; 
- double angle[2]; 
-
-
+ double angle[3]; 
+float32_t sine=0;
+u16 wugongkvar_95,wugongkvar_95A,wugongkvar_95B,wugongkvar_95C;
 /*********************A_phase*********************************/
 ADC3_CH10_DMA_Config_VA();
 ADC1_CH1_DMA_Config_CA();
@@ -1747,11 +1771,6 @@ testInput_V[i]=(float32_t)((ADC_Converted_VValue-ADC_Converted_base)*3.3/4096);/
 delay_us(36);//36->512
 
         }
- for(i=0;i<TEST_LENGTH_SAMPLES/2;i++)
- {
-testInput_C_source[i]=testInput_C[i];
-testInput_V_source[i]=testInput_V[i];
- }//保存原始数据 用于计算电流电压值
 
  
 allphase(testInput_V,testInput_C);
@@ -1770,15 +1789,16 @@ allphase(testInput_V,testInput_C);
 	calculating the magnitude at each bin */ 
 
 	/*******通过原始数据计算电压值***********/
-		arm_rfft_f32(&S, testInput_V_source,testOutput); 
+//		arm_rfft_f32(&S, testInput_V_source,testOutput); 
 
 	arm_cmplx_mag_f32(testOutput, reslut,  
 	  				fftSize);  
 	/* Calculates maxValue and returns corresponding BIN value */ 
 
 	arm_max_f32(reslut, fftSize/2, &maxValue, &testIndex);
-	dianya_zhi_A=maxValue*2;
-
+dianya_zhi_A=maxValue/100;
+dianya_zhi_A=dianya_zhi_A/2.6125;
+	
 /******************************************************************/
 	arm_rfft_f32(&S, testInput_C,testOutput); 
          
@@ -1786,7 +1806,7 @@ allphase(testInput_V,testInput_C);
 
 	/*******通过原始数据计算电压值***********/
 
-		arm_rfft_f32(&S, testInput_C_source,testOutput); 
+	//	arm_rfft_f32(&S, testInput_C_source,testOutput); 
 
 	arm_cmplx_mag_f32(testOutput, reslut,  
 	  				fftSize);  
@@ -1794,13 +1814,41 @@ allphase(testInput_V,testInput_C);
 	/* Calculates maxValue and returns corresponding BIN value */ 
 	arm_max_f32(reslut, fftSize/2, &maxValue_C, &testIndex);
 
- dianliuzhi_A=maxValue_C/2;
-
+dianliuzhi_A=maxValue_C/100;
+ dianliuzhi_A=1.0554*dianliuzhi_A;
 gonglvshishu_A=arm_cos_f32(angle[0]-angle[1])*100;//功率因素
+//wugongkvar_A=dianya_zhi_A*dianliuzhi_A*arm_sin_f32(angle[0]-angle[1])/1000;
+arm_sqrt_f32(1-(arm_cos_f32(angle[0]-angle[1]))*(arm_cos_f32(angle[0]-angle[1])),&sine);
 
-	
+	wugongkvar_A=dianya_zhi_A*dianliuzhi_A*sine/1000;
+      wugongkvar_95A=dianya_zhi_A*dianliuzhi_A*0.3122/1000;
+				//	L_C_flag_A=1;
+
 }
-computer_trans_rs485(0,0,0,0,0,CPT_A);
+
+
+				angle[2]=((angle[1]-angle[0])*360)/PI2-90;
+				if(angle[2]>0.0)
+                               {
+				if(angle[2]<90)L_C_flag_A=0;
+				if(angle[2]>180&&angle[2]<270)L_C_flag_A=0;
+
+						//			dianya_zhi_A=angle[2];
+						//			gonglvshishu_A=1;
+
+				}
+
+				else if(angle[2]<=0.0)
+				{
+					if((angle[2]>=-360.0&&angle[2]<-270.0))L_C_flag_A=0;
+					if((angle[2]>=-450.0&&angle[2]<-360.0))L_C_flag_A=1;
+					if((angle[2]>-90.0&&angle[2]<=0.0))L_C_flag_A=1;
+					if((angle[2]>-180.0&&angle[2]<=-90.0))L_C_flag_A=0;
+
+				//	dianya_zhi_A=-angle[2];
+				//	gonglvshishu_A=2;
+			     }
+computer_trans_rs485(0,33,0,0,0,CPT_A);
 
 /*********************B_phase*********************************/
 
@@ -1821,11 +1869,6 @@ testInput_V[i]=(float32_t)((ADC_Converted_VValue-ADC_Converted_base)*3.3/4096);/
 delay_us(36);//36->512
 
         }
- for(i=0;i<TEST_LENGTH_SAMPLES/2;i++)
- {
-testInput_C_source[i]=testInput_C[i];
-testInput_V_source[i]=testInput_V[i];
- }//保存原始数据 用于计算电流电压值
 
  
 allphase(testInput_V,testInput_C);
@@ -1844,14 +1887,15 @@ allphase(testInput_V,testInput_C);
 	calculating the magnitude at each bin */ 
 
 	/*******通过原始数据计算电压值***********/
-		arm_rfft_f32(&S, testInput_V_source,testOutput); 
+		//arm_rfft_f32(&S, testInput_V_source,testOutput); 
 
 	arm_cmplx_mag_f32(testOutput, reslut,  
 	  				fftSize);  
 	/* Calculates maxValue and returns corresponding BIN value */ 
 
 	arm_max_f32(reslut, fftSize/2, &maxValue, &testIndex);
-	dianya_zhi_B=maxValue*2;
+dianya_zhi_B=maxValue/100;
+dianya_zhi_B=dianya_zhi_B/2.6125;
 
 /******************************************************************/
 	arm_rfft_f32(&S, testInput_C,testOutput); 
@@ -1860,7 +1904,7 @@ allphase(testInput_V,testInput_C);
 
 	/*******通过原始数据计算电压值***********/
 
-		arm_rfft_f32(&S, testInput_C_source,testOutput); 
+	//	arm_rfft_f32(&S, testInput_C_source,testOutput); 
 
 	arm_cmplx_mag_f32(testOutput, reslut,  
 	  				fftSize);  
@@ -1868,12 +1912,18 @@ allphase(testInput_V,testInput_C);
 	/* Calculates maxValue and returns corresponding BIN value */ 
 	arm_max_f32(reslut, fftSize/2, &maxValue_C, &testIndex);
 
- dianliuzhi_B=maxValue_C/2;
-
+dianliuzhi_B=maxValue_C/100;
+ dianliuzhi_B=1.0554*dianliuzhi_B;
 gonglvshishu_B=arm_cos_f32(angle[0]-angle[1])*100;//功率因素
-	
+arm_sqrt_f32(1-(arm_cos_f32(angle[0]-angle[1]))*(arm_cos_f32(angle[0]-angle[1])),&sine);
+
+	wugongkvar_B=dianya_zhi_B*dianliuzhi_B*sine/1000;
+      wugongkvar_95B=dianya_zhi_B*dianliuzhi_B*0.3122/1000;
+
+
+
 }
-computer_trans_rs485(0,0,0,0,0,CPT_B);
+computer_trans_rs485(0,33,0,0,0,CPT_B);
 
 /*********************C_phase*********************************/
 
@@ -1894,11 +1944,6 @@ testInput_V[i]=(float32_t)((ADC_Converted_VValue-ADC_Converted_base)*3.3/4096);/
 delay_us(36);//36->512
 
         }
- for(i=0;i<TEST_LENGTH_SAMPLES/2;i++)
- {
-testInput_C_source[i]=testInput_C[i];
-testInput_V_source[i]=testInput_V[i];
- }//保存原始数据 用于计算电流电压值
 
  
 allphase(testInput_V,testInput_C);
@@ -1917,14 +1962,16 @@ allphase(testInput_V,testInput_C);
 	calculating the magnitude at each bin */ 
 
 	/*******通过原始数据计算电压值***********/
-		arm_rfft_f32(&S, testInput_V_source,testOutput); 
+//		arm_rfft_f32(&S, testInput_V_source,testOutput); 
 
 	arm_cmplx_mag_f32(testOutput, reslut,  
 	  				fftSize);  
 	/* Calculates maxValue and returns corresponding BIN value */ 
 
 	arm_max_f32(reslut, fftSize/2, &maxValue, &testIndex);
-	dianya_zhi_C=maxValue*2;
+dianya_zhi_C=maxValue/100;
+dianya_zhi_C=dianya_zhi_C/2.6125;
+
 
 /******************************************************************/
 	arm_rfft_f32(&S, testInput_C,testOutput); 
@@ -1933,7 +1980,7 @@ allphase(testInput_V,testInput_C);
 
 	/*******通过原始数据计算电压值***********/
 
-		arm_rfft_f32(&S, testInput_C_source,testOutput); 
+	//	arm_rfft_f32(&S, testInput_C_source,testOutput); 
 
 	arm_cmplx_mag_f32(testOutput, reslut,  
 	  				fftSize);  
@@ -1941,47 +1988,281 @@ allphase(testInput_V,testInput_C);
 	/* Calculates maxValue and returns corresponding BIN value */ 
 	arm_max_f32(reslut, fftSize/2, &maxValue_C, &testIndex);
 
- dianliuzhi_C=maxValue_C/2;
-
+dianliuzhi_C=maxValue_C/100;
+ dianliuzhi_C=1.0554*dianliuzhi_C;
 gonglvshishu_C=arm_cos_f32(angle[0]-angle[1])*100;//功率因素
-	
+arm_sqrt_f32(1-(arm_cos_f32(angle[0]-angle[1]))*(arm_cos_f32(angle[0]-angle[1])),&sine);
+
+	wugongkvar_C=dianya_zhi_C*dianliuzhi_C*sine/1000;
+      wugongkvar_95C=dianya_zhi_C*dianliuzhi_C*0.3122/1000;
+
+
 }
 
 
 /****************************************************/
-computer_trans_rs485(0,0,0,0,0,CPT_C);
+computer_trans_rs485(0,33,0,0,0,CPT_C);
 
 /***************************************************/
-inquiry_slave_status_dis(3,dis_list,comm_list);   
+//inquiry_slave_status_dis(3,dis_list,comm_list);   
 
 /*********************ALL***********************************/
 dianya_zhi=1.732*(dianya_zhi_A+dianya_zhi_B+dianya_zhi_C)/3;
 dianliuzhi=(dianliuzhi_A+dianliuzhi_B+dianliuzhi_C)/3;
 gonglvshishu=(gonglvshishu_A+gonglvshishu_B+gonglvshishu_C)/3;
-wugongkvar_A=dis_list[3].size[0];
+wugongkvar=wugongkvar_C+wugongkvar_B+wugongkvar_A;
+  wugongkvar_95=wugongkvar_95A+wugongkvar_95B+wugongkvar_95C;
 
-inquiry_slave_status_dis(4,dis_list,comm_list);   
-wugongkvar_B=dis_list[4].size[0];
+   order_trans_rs485(mybox.myid,0,0,0,0);
 
-inquiry_slave_status_comm(5,dis_list,comm_list);   
-wugongkvar_C=comm_list[5].size[0];
+ // inquiry_slave_status_dis(2,dis_list,comm_list);   
+//tempshuzhi=dis_list[2].size[0];
+//tempshuzhi=slave_dis[2];
+//wugongkvar_A=dis_list[2].size[0];
+
+//inquiry_slave_status_dis(4,dis_list,comm_list);   
+//wugongkvar_B=dis_list[3].size[0];
+
+//inquiry_slave_status_comm(5,dis_list,comm_list);   
+//wugongkvar_C=comm_list[5].size[0];
 
 /****************************************************/
 //computer_trans_rs485(0,0,0,0,0,CPT_LL);
 
 /***************************************************/
-//computer_trans_rs485(2,1,1,1,0,CONTROL);
-//delay_ms(1000);
-//computer_trans_rs485(2,1,1,1,1,CONTROL);
+//computer_trans_rs485(1,2,1,1,0,CONTROL);
+//delay_ms(2000);
+//computer_trans_rs485(1,2,1,1,1,CONTROL);
+//delay_ms(2000);
 
- 
+if(gonglvshishu<90&&L_C_flag_A==1)
+ {
+if(slave_comm[0]>0)
+      {
+for(i=1;i<=slave_comm[0];i++)
+if(comm_list[slave_comm[i]].size[0]<wugongkvar&&comm_list[slave_comm[i]].work_status[0]==0)
+{
+order_trans_rs485(mybox.myid,slave_comm[i],1,1,1);
+set_statuslist(slave_comm[i],comm_list[slave_comm[i]].size[0],1,comm_list[slave_comm[i]].work_time[0],1,1,dis_list,comm_list);
+delay_ms(1000);
+flag_1=1;
+break;
+}
+if(flag_1==0)
+{
+for(i=1;i<=slave_comm[0];i++)
+if(comm_list[slave_comm[i]].size[1]<wugongkvar&&comm_list[slave_comm[i]].work_status[1]==0)
+{
+order_trans_rs485(mybox.myid,slave_comm[i],1,2,1);
+set_statuslist(slave_comm[i],comm_list[slave_comm[i]].size[0],1,comm_list[slave_comm[i]].work_time[0],1,2,dis_list,comm_list);
 
+delay_ms(1000);
+flag_1=1;
+break;
+}
+ }      
+}
+ }
+
+if(gonglvshishu>95&&L_C_flag_A==1)
    
+{
+if(slave_comm[0]>0)
+      {
+for(i=1;i<=slave_comm[0];i++)
+if((wugongkvar-wugongkvar_95)<comm_list[slave_comm[i]].size[0]&&comm_list[slave_comm[i]].work_status[0]==1)
+{
+order_trans_rs485(mybox.myid,slave_comm[i],1,1,0);
+set_statuslist(slave_comm[i],comm_list[slave_comm[i]].size[0],0,comm_list[slave_comm[i]].work_time[0],1,1,dis_list,comm_list);
+delay_ms(1000);
+flag_0=1;
+break;
+}
+if(flag_0==0)
+{
+for(i=1;i<=slave_comm[0];i++)
+if((wugongkvar-wugongkvar_95)<comm_list[slave_comm[i]].size[1]&&comm_list[slave_comm[i]].work_status[1]==1)
+{
+order_trans_rs485(mybox.myid,slave_comm[i],1,2,0);
+set_statuslist(slave_comm[i],comm_list[slave_comm[i]].size[0],0,comm_list[slave_comm[i]].work_time[0],1,2,dis_list,comm_list);
+delay_ms(1000);
+flag_0=1;
+break;
+}
+}
+       }
+ }
+
+if(flag_1==0)
+  {
+if(gonglvshishu_A<90&&L_C_flag_A==1)
+{
+if(slave_dis[0]>0)
+{
+for(i=1;i<=slave_dis[0];i++)
+if(dis_list[slave_comm[i]].work_status[0]==0)
+{
+computer_trans_rs485(mybox.myid,slave_dis[i],1,1,1,CONTROL);
+set_statuslist(slave_dis[i],dis_list[slave_comm[i]].size[0],1,comm_list[slave_comm[i]].work_time[0],0,1,dis_list,comm_list);
+delay_ms(1000);
+break;
+}
 
 }
 
 
+}
+if(gonglvshishu_B<90&&L_C_flag_A==1)
+{
+if(slave_dis[0]>0)
+{
+for(i=1;i<=slave_dis[0];i++)
+if(dis_list[slave_comm[i]].work_status[1]==0)
+{
+computer_trans_rs485(mybox.myid,slave_dis[i],1,2,1,CONTROL);
+set_statuslist(slave_dis[i],dis_list[slave_comm[i]].size[0],1,comm_list[slave_comm[i]].work_time[0],0,2,dis_list,comm_list);
+delay_ms(1000);
+break;
+}
 
+}
+
+
+}
+
+if(gonglvshishu_C<90&&L_C_flag_A==1)
+
+{
+if(slave_dis[0]>0)
+{
+for(i=1;i<=slave_dis[0];i++)
+if(dis_list[slave_comm[i]].work_status[2]==0)
+{
+computer_trans_rs485(mybox.myid,slave_dis[i],1,3,1,CONTROL);
+set_statuslist(slave_dis[i],dis_list[slave_comm[i]].size[0],1,comm_list[slave_comm[i]].work_time[0],0,3,dis_list,comm_list);
+delay_ms(1000);
+break;
+}
+
+}
+
+
+}
+	
+  }
+
+if(flag_0==0)
+
+{
+if(gonglvshishu_A>95&&L_C_flag_A==1)
+{
+if(slave_dis[0]>0)
+{
+for(i=1;i<=slave_dis[0];i++)
+if(dis_list[slave_comm[i]].work_status[0]==1)
+{
+computer_trans_rs485(mybox.myid,slave_dis[i],1,1,0,CONTROL);
+set_statuslist(slave_dis[i],dis_list[slave_comm[i]].size[0],0,comm_list[slave_comm[i]].work_time[0],0,1,dis_list,comm_list);
+delay_ms(1000);
+break;
+}
+
+}
+
+
+}
+if(gonglvshishu_B>95&&L_C_flag_A==1)
+{
+if(slave_dis[0]>0)
+{
+for(i=1;i<=slave_dis[0];i++)
+if(dis_list[slave_comm[i]].work_status[1]==1)
+{
+computer_trans_rs485(mybox.myid,slave_dis[i],1,2,0,CONTROL);
+set_statuslist(slave_dis[i],dis_list[slave_comm[i]].size[0],0,comm_list[slave_comm[i]].work_time[0],0,2,dis_list,comm_list);
+delay_ms(1000);
+break;
+}
+
+}
+
+
+}
+
+if(gonglvshishu_C>95&&L_C_flag_A==1)
+
+{
+if(slave_dis[0]>0)
+{
+for(i=1;i<=slave_dis[0];i++)
+if(dis_list[slave_comm[i]].work_status[2]==1)
+{
+computer_trans_rs485(mybox.myid,slave_dis[i],1,3,0,CONTROL);
+set_statuslist(slave_dis[i],dis_list[slave_comm[i]].size[0],0,comm_list[slave_comm[i]].work_time[0],0,3,dis_list,comm_list);
+delay_ms(1000);
+break;
+}
+
+}
+
+
+}
+	
+  }
+
+
+if(L_C_flag_A==0)
+{
+if(slave_comm[0]>0)
+      {
+for(i=1;i<=slave_comm[0];i++)
+if(comm_list[slave_comm[i]].work_status[0]==1)
+{
+order_trans_rs485(mybox.myid,slave_comm[i],1,1,0);
+set_statuslist(slave_comm[i],comm_list[slave_comm[i]].size[0],0,comm_list[slave_comm[i]].work_time[0],1,1,dis_list,comm_list);
+delay_ms(1000);
+flag_0=1;
+break;
+}
+if(flag_0==0)
+{
+for(i=1;i<=slave_comm[0];i++)
+if(comm_list[slave_comm[i]].work_status[1]==1)
+{
+order_trans_rs485(mybox.myid,slave_comm[i],1,2,0);
+set_statuslist(slave_comm[i],comm_list[slave_comm[i]].size[0],0,comm_list[slave_comm[i]].work_time[0],1,2,dis_list,comm_list);
+delay_ms(1000);
+flag_0=1;
+break;
+}
+}
+       }
+ }
+}
+
+
+void scanf_slave_machine()
+{
+u8 i,j;
+u8 count=1;
+for(i=1;i<=2;i++)
+	{  
+	j=inquiry_slave_status_dis(i,dis_list,comm_list);   
+        if(j==1){slave_dis[count]=i;count++;}
+       }
+      slave_dis[0]=count-1;
+
+count=1;
+	  
+
+for(i=3;i<=5;i++)
+	{  
+	j=inquiry_slave_status_comm(i,dis_list,comm_list);   
+        if(j==1){slave_comm[count]=i;count++;}
+       }
+      slave_comm[0]=count-1;
+
+}
 
 
 

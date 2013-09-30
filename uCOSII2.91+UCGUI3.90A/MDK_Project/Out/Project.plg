@@ -7,13 +7,57 @@ C:\Users\Administrator\Documents\GitHub\407_分补\fen_bu\uCOSII2.91+UCGUI3.90A\MD
 Project File Date:  08/05/2013
 
 <h2>Output:</h2>
+Load "C:\\Users\\Administrator\\Documents\\GitHub\\407_分补\\fen_bu\\uCOSII2.91+UCGUI3.90A\\MDK_Project\\Out\\Project.AXF" 
+* JLink Info: Device "STM32F407VE" selected (512 KB flash, 128 KB RAM).
+Set JLink Project File to "C:\Users\Administrator\Documents\GitHub\407_分补\fen_bu\uCOSII2.91+UCGUI3.90A\MDK_Project\JLinkSettings.ini"
+ 
+JLink info:
+------------
+DLL: V4.40c, compiled Jan 24 2012 09:30:33
+Firmware: J-Link ARM-OB STM32 compiled Aug 22 2012 19:52:04
+Hardware: V7.00
+S/N : 20090928 
+Feature(s) : RDI,FlashDL,FlashBP,JFlash,GDBFull 
+ 
+* JLink Info: Found SWD-DP with ID 0x2BA01477
+* JLink Info: TPIU fitted.
+* JLink Info: ETM fitted.
+* JLink Info:   FPUnit: 6 code (BP) slots and 2 literal slots
+* JLink Info: Found Cortex-M4 r0p1, Little endian.
+ROMTableAddr = 0xE00FF003
+* JLink Info: Found SWD-DP with ID 0x2BA01477
+* JLink Info: TPIU fitted.
+* JLink Info: ETM fitted.
+* JLink Info:   FPUnit: 6 code (BP) slots and 2 literal slots
+* JLink Info: Found Cortex-M4 r0p1, Little endian.
+ 
+Target info:
+------------
+Device: STM32F407VE
+VTarget = 3.300V
+State of Pins: 
+TCK: 0, TDI: 1, TDO: 1, TMS: 0, TRES: 1, TRST: 1
+Hardware-Breakpoints: 6
+Software-Breakpoints: 8192
+Watchpoints:          4
+JTAG speed: 2000 kHz
+ 
+Erase Done.
+Programming Done.
+Verify OK.
+* JLink Info: Found SWD-DP with ID 0x2BA01477
+* JLink Info: TPIU fitted.
+* JLink Info: ETM fitted.
+* JLink Info:   FPUnit: 6 code (BP) slots and 2 literal slots
+* JLink Info: Found Cortex-M4 r0p1, Little endian.
+Application running ...
 Build target 'Target 1'
 compiling main.c...
-..\User\main.c(1687): warning:  #550-D: variable "status" was set but never used
-..\User\main.c(150): warning:  #550-D: variable "status_box" was set but never used
-..\User\main.c(213): warning:  #177-D: variable "comm_list" was declared but never referenced
+..\User\main.c(1927): warning:  #1035-D: single-precision operand implicitly converted to double-precision
+..\User\main.c(2004): warning:  #1035-D: single-precision operand implicitly converted to double-precision
+..\User\main.c(1736): warning:  #550-D: variable "status" was set but never used
 linking...
-Program Size: Code=24010 RO-data=26966 RW-data=296 ZI-data=101792  
+Program Size: Code=27630 RO-data=26970 RW-data=296 ZI-data=102248  
 FromELF: creating hex file...
 ".\Out\Project.axf" - 0 Error(s), 3 Warning(s).
 Load "C:\\Users\\Administrator\\Documents\\GitHub\\407_分补\\fen_bu\\uCOSII2.91+UCGUI3.90A\\MDK_Project\\Out\\Project.AXF" 
@@ -45,7 +89,7 @@ Target info:
 Device: STM32F407VE
 VTarget = 3.300V
 State of Pins: 
-TCK: 0, TDI: 0, TDO: 1, TMS: 0, TRES: 1, TRST: 1
+TCK: 0, TDI: 1, TDO: 1, TMS: 0, TRES: 1, TRST: 1
 Hardware-Breakpoints: 6
 Software-Breakpoints: 8192
 Watchpoints:          4
@@ -62,20 +106,11 @@ Verify OK.
 Application running ...
 Build target 'Target 1'
 compiling main.c...
-..\User\main.c(1686): warning:  #550-D: variable "status" was set but never used
-..\User\main.c(1699): warning:  #177-D: variable "comm_list" was declared but never referenced
-..\User\main.c(150): warning:  #550-D: variable "status_box" was set but never used
+..\User\main.c(1924): warning:  #1035-D: single-precision operand implicitly converted to double-precision
+..\User\main.c(2001): warning:  #1035-D: single-precision operand implicitly converted to double-precision
+..\User\main.c(1736): warning:  #550-D: variable "status" was set but never used
 linking...
-Program Size: Code=24010 RO-data=26966 RW-data=296 ZI-data=101792  
-FromELF: creating hex file...
-".\Out\Project.axf" - 0 Error(s), 3 Warning(s).
-Build target 'Target 1'
-compiling main.c...
-..\User\main.c(1686): warning:  #550-D: variable "status" was set but never used
-..\User\main.c(1699): warning:  #177-D: variable "comm_list" was declared but never referenced
-..\User\main.c(150): warning:  #550-D: variable "status_box" was set but never used
-linking...
-Program Size: Code=24010 RO-data=26966 RW-data=296 ZI-data=101792  
+Program Size: Code=27682 RO-data=26966 RW-data=296 ZI-data=102248  
 FromELF: creating hex file...
 ".\Out\Project.axf" - 0 Error(s), 3 Warning(s).
 Load "C:\\Users\\Administrator\\Documents\\GitHub\\407_分补\\fen_bu\\uCOSII2.91+UCGUI3.90A\\MDK_Project\\Out\\Project.AXF" 
@@ -107,7 +142,7 @@ Target info:
 Device: STM32F407VE
 VTarget = 3.300V
 State of Pins: 
-TCK: 0, TDI: 0, TDO: 1, TMS: 0, TRES: 1, TRST: 1
+TCK: 0, TDI: 1, TDO: 1, TMS: 0, TRES: 1, TRST: 1
 Hardware-Breakpoints: 6
 Software-Breakpoints: 8192
 Watchpoints:          4
@@ -124,129 +159,13 @@ Verify OK.
 Application running ...
 Build target 'Target 1'
 compiling main.c...
-..\User\main.c(1686): warning:  #550-D: variable "status" was set but never used
-..\User\main.c(1698): warning:  #177-D: variable "dis_list" was declared but never referenced
-..\User\main.c(1699): warning:  #177-D: variable "comm_list" was declared but never referenced
-..\User\main.c(150): warning:  #550-D: variable "status_box" was set but never used
+..\User\main.c(1924): warning:  #1035-D: single-precision operand implicitly converted to double-precision
+..\User\main.c(2001): warning:  #1035-D: single-precision operand implicitly converted to double-precision
+..\User\main.c(1736): warning:  #550-D: variable "status" was set but never used
 linking...
-Program Size: Code=23994 RO-data=26966 RW-data=296 ZI-data=101624  
-FromELF: creating hex file...
-".\Out\Project.axf" - 0 Error(s), 4 Warning(s).
-Load "C:\\Users\\Administrator\\Documents\\GitHub\\407_分补\\fen_bu\\uCOSII2.91+UCGUI3.90A\\MDK_Project\\Out\\Project.AXF" 
-* JLink Info: Device "STM32F407VE" selected (512 KB flash, 128 KB RAM).
-Set JLink Project File to "C:\Users\Administrator\Documents\GitHub\407_分补\fen_bu\uCOSII2.91+UCGUI3.90A\MDK_Project\JLinkSettings.ini"
- 
-JLink info:
-------------
-DLL: V4.40c, compiled Jan 24 2012 09:30:33
-Firmware: J-Link ARM-OB STM32 compiled Aug 22 2012 19:52:04
-Hardware: V7.00
-S/N : 20090928 
-Feature(s) : RDI,FlashDL,FlashBP,JFlash,GDBFull 
- 
-* JLink Info: Found SWD-DP with ID 0x2BA01477
-* JLink Info: TPIU fitted.
-* JLink Info: ETM fitted.
-* JLink Info:   FPUnit: 6 code (BP) slots and 2 literal slots
-* JLink Info: Found Cortex-M4 r0p1, Little endian.
-ROMTableAddr = 0xE00FF003
-* JLink Info: Found SWD-DP with ID 0x2BA01477
-* JLink Info: TPIU fitted.
-* JLink Info: ETM fitted.
-* JLink Info:   FPUnit: 6 code (BP) slots and 2 literal slots
-* JLink Info: Found Cortex-M4 r0p1, Little endian.
- 
-Target info:
-------------
-Device: STM32F407VE
-VTarget = 3.300V
-State of Pins: 
-TCK: 0, TDI: 0, TDO: 1, TMS: 0, TRES: 1, TRST: 1
-Hardware-Breakpoints: 6
-Software-Breakpoints: 8192
-Watchpoints:          4
-JTAG speed: 2000 kHz
- 
-Erase Done.
-Programming Done.
-Verify OK.
-* JLink Info: Found SWD-DP with ID 0x2BA01477
-* JLink Info: TPIU fitted.
-* JLink Info: ETM fitted.
-* JLink Info:   FPUnit: 6 code (BP) slots and 2 literal slots
-* JLink Info: Found Cortex-M4 r0p1, Little endian.
-Application running ...
-Build target 'Target 1'
-compiling main.c...
-..\User\main.c(1685): warning:  #550-D: variable "status" was set but never used
-..\User\main.c(1697): warning:  #177-D: variable "dis_list" was declared but never referenced
-..\User\main.c(1698): warning:  #177-D: variable "comm_list" was declared but never referenced
-..\User\main.c(149): warning:  #550-D: variable "status_box" was set but never used
-linking...
-Program Size: Code=23990 RO-data=26970 RW-data=296 ZI-data=92664  
-FromELF: creating hex file...
-".\Out\Project.axf" - 0 Error(s), 4 Warning(s).
-Load "C:\\Users\\Administrator\\Documents\\GitHub\\407_分补\\fen_bu\\uCOSII2.91+UCGUI3.90A\\MDK_Project\\Out\\Project.AXF" 
-* JLink Info: Device "STM32F407VE" selected (512 KB flash, 128 KB RAM).
-Set JLink Project File to "C:\Users\Administrator\Documents\GitHub\407_分补\fen_bu\uCOSII2.91+UCGUI3.90A\MDK_Project\JLinkSettings.ini"
- 
-JLink info:
-------------
-DLL: V4.40c, compiled Jan 24 2012 09:30:33
-Firmware: J-Link ARM-OB STM32 compiled Aug 22 2012 19:52:04
-Hardware: V7.00
-S/N : 20090928 
-Feature(s) : RDI,FlashDL,FlashBP,JFlash,GDBFull 
- 
-* JLink Info: Found SWD-DP with ID 0x2BA01477
-* JLink Info: TPIU fitted.
-* JLink Info: ETM fitted.
-* JLink Info:   FPUnit: 6 code (BP) slots and 2 literal slots
-* JLink Info: Found Cortex-M4 r0p1, Little endian.
-ROMTableAddr = 0xE00FF003
-* JLink Info: Found SWD-DP with ID 0x2BA01477
-* JLink Info: TPIU fitted.
-* JLink Info: ETM fitted.
-* JLink Info:   FPUnit: 6 code (BP) slots and 2 literal slots
-* JLink Info: Found Cortex-M4 r0p1, Little endian.
- 
-Target info:
-------------
-Device: STM32F407VE
-VTarget = 3.300V
-State of Pins: 
-TCK: 0, TDI: 0, TDO: 1, TMS: 0, TRES: 1, TRST: 1
-Hardware-Breakpoints: 6
-Software-Breakpoints: 8192
-Watchpoints:          4
-JTAG speed: 2000 kHz
- 
-Erase Done.
-Programming Done.
-Verify OK.
-* JLink Info: Found SWD-DP with ID 0x2BA01477
-* JLink Info: TPIU fitted.
-* JLink Info: ETM fitted.
-* JLink Info:   FPUnit: 6 code (BP) slots and 2 literal slots
-* JLink Info: Found Cortex-M4 r0p1, Little endian.
-Application running ...
-Build target 'Target 1'
-compiling main.c...
-..\User\main.c(1674): warning:  #550-D: variable "status" was set but never used
-..\User\main.c(121): warning:  #177-D: variable "statusbuf" was declared but never referenced
-..\User\main.c(213): warning:  #177-D: variable "comm_list" was declared but never referenced
-linking...
-Program Size: Code=24098 RO-data=26966 RW-data=296 ZI-data=101776  
+Program Size: Code=27678 RO-data=26970 RW-data=296 ZI-data=102248  
 FromELF: creating hex file...
 ".\Out\Project.axf" - 0 Error(s), 3 Warning(s).
-Build target 'Target 1'
-compiling main.c...
-..\User\main.c(1673): warning:  #550-D: variable "status" was set but never used
-..\User\main.c(212): warning:  #177-D: variable "comm_list" was declared but never referenced
-linking...
-Program Size: Code=24098 RO-data=26966 RW-data=296 ZI-data=101776  
-FromELF: creating hex file...
-".\Out\Project.axf" - 0 Error(s), 2 Warning(s).
 Load "C:\\Users\\Administrator\\Documents\\GitHub\\407_分补\\fen_bu\\uCOSII2.91+UCGUI3.90A\\MDK_Project\\Out\\Project.AXF" 
 * JLink Info: Device "STM32F407VE" selected (512 KB flash, 128 KB RAM).
 Set JLink Project File to "C:\Users\Administrator\Documents\GitHub\407_分补\fen_bu\uCOSII2.91+UCGUI3.90A\MDK_Project\JLinkSettings.ini"
@@ -276,17 +195,129 @@ Target info:
 Device: STM32F407VE
 VTarget = 3.300V
 State of Pins: 
-TCK: 0, TDI: 0, TDO: 1, TMS: 0, TRES: 1, TRST: 1
+TCK: 0, TDI: 1, TDO: 1, TMS: 0, TRES: 1, TRST: 1
 Hardware-Breakpoints: 6
 Software-Breakpoints: 8192
 Watchpoints:          4
 JTAG speed: 2000 kHz
  
-**JLink Warning: T-bit of XPSR is 0 but should be 1. Changed to 1.
-**JLink Warning: Could not read memory location 0x20000000 when trying to set soft RAM BP
-Cannot setup Breakpoint at Address
-Erase Failed!
+Erase Done.
+Programming Done.
+Verify OK.
+* JLink Info: Found SWD-DP with ID 0x2BA01477
+* JLink Info: TPIU fitted.
+* JLink Info: ETM fitted.
+* JLink Info:   FPUnit: 6 code (BP) slots and 2 literal slots
+* JLink Info: Found Cortex-M4 r0p1, Little endian.
+Application running ...
+Build target 'Target 1'
+compiling main.c...
+..\User\main.c(1924): warning:  #1035-D: single-precision operand implicitly converted to double-precision
+..\User\main.c(2001): warning:  #1035-D: single-precision operand implicitly converted to double-precision
+..\User\main.c(1736): warning:  #550-D: variable "status" was set but never used
+linking...
+Program Size: Code=27670 RO-data=26970 RW-data=296 ZI-data=102248  
+FromELF: creating hex file...
+".\Out\Project.axf" - 0 Error(s), 3 Warning(s).
+Load "C:\\Users\\Administrator\\Documents\\GitHub\\407_分补\\fen_bu\\uCOSII2.91+UCGUI3.90A\\MDK_Project\\Out\\Project.AXF" 
+* JLink Info: Device "STM32F407VE" selected (512 KB flash, 128 KB RAM).
+Set JLink Project File to "C:\Users\Administrator\Documents\GitHub\407_分补\fen_bu\uCOSII2.91+UCGUI3.90A\MDK_Project\JLinkSettings.ini"
+ 
+JLink info:
+------------
+DLL: V4.40c, compiled Jan 24 2012 09:30:33
+Firmware: J-Link ARM-OB STM32 compiled Aug 22 2012 19:52:04
+Hardware: V7.00
+S/N : 20090928 
+Feature(s) : RDI,FlashDL,FlashBP,JFlash,GDBFull 
+ 
+* JLink Info: Found SWD-DP with ID 0x2BA01477
+* JLink Info: TPIU fitted.
+* JLink Info: ETM fitted.
+* JLink Info:   FPUnit: 6 code (BP) slots and 2 literal slots
+* JLink Info: Found Cortex-M4 r0p1, Little endian.
+ROMTableAddr = 0xE00FF003
+* JLink Info: Found SWD-DP with ID 0x2BA01477
+* JLink Info: TPIU fitted.
+* JLink Info: ETM fitted.
+* JLink Info:   FPUnit: 6 code (BP) slots and 2 literal slots
+* JLink Info: Found Cortex-M4 r0p1, Little endian.
+ 
+Target info:
+------------
+Device: STM32F407VE
+VTarget = 3.300V
+State of Pins: 
+TCK: 0, TDI: 1, TDO: 1, TMS: 0, TRES: 1, TRST: 1
+Hardware-Breakpoints: 6
+Software-Breakpoints: 8192
+Watchpoints:          4
+JTAG speed: 2000 kHz
+ 
+Erase Done.
+Programming Done.
+Verify OK.
+* JLink Info: Found SWD-DP with ID 0x2BA01477
+* JLink Info: TPIU fitted.
+* JLink Info: ETM fitted.
+* JLink Info:   FPUnit: 6 code (BP) slots and 2 literal slots
+* JLink Info: Found Cortex-M4 r0p1, Little endian.
+Application running ...
+Build target 'Target 1'
+compiling main.c...
+..\User\main.c(1924): warning:  #1035-D: single-precision operand implicitly converted to double-precision
+..\User\main.c(2001): warning:  #1035-D: single-precision operand implicitly converted to double-precision
+..\User\main.c(1736): warning:  #550-D: variable "status" was set but never used
+linking...
+Program Size: Code=27654 RO-data=26970 RW-data=296 ZI-data=102248  
+FromELF: creating hex file...
+".\Out\Project.axf" - 0 Error(s), 3 Warning(s).
+Load "C:\\Users\\Administrator\\Documents\\GitHub\\407_分补\\fen_bu\\uCOSII2.91+UCGUI3.90A\\MDK_Project\\Out\\Project.AXF" 
+* JLink Info: Device "STM32F407VE" selected (512 KB flash, 128 KB RAM).
+Set JLink Project File to "C:\Users\Administrator\Documents\GitHub\407_分补\fen_bu\uCOSII2.91+UCGUI3.90A\MDK_Project\JLinkSettings.ini"
+ 
+JLink info:
+------------
+DLL: V4.40c, compiled Jan 24 2012 09:30:33
+Firmware: J-Link ARM-OB STM32 compiled Aug 22 2012 19:52:04
+Hardware: V7.00
+S/N : 20090928 
+Feature(s) : RDI,FlashDL,FlashBP,JFlash,GDBFull 
+ 
+* JLink Info: Found SWD-DP with ID 0x2BA01477
+* JLink Info: TPIU fitted.
+* JLink Info: ETM fitted.
+* JLink Info:   FPUnit: 6 code (BP) slots and 2 literal slots
+* JLink Info: Found Cortex-M4 r0p1, Little endian.
+ROMTableAddr = 0xE00FF003
+* JLink Info: Found SWD-DP with ID 0x2BA01477
+* JLink Info: TPIU fitted.
+* JLink Info: ETM fitted.
+* JLink Info:   FPUnit: 6 code (BP) slots and 2 literal slots
+* JLink Info: Found Cortex-M4 r0p1, Little endian.
+ 
+Target info:
+------------
+Device: STM32F407VE
+VTarget = 3.300V
+State of Pins: 
+TCK: 0, TDI: 1, TDO: 1, TMS: 0, TRES: 1, TRST: 1
+Hardware-Breakpoints: 6
+Software-Breakpoints: 8192
+Watchpoints:          4
+JTAG speed: 2000 kHz
+ 
+Erase Done.
+***JLink Error: Can not read register 15 (R15) while CPU is running
+**JLink Warning: CPU could not be halted
+***JLink Error: Could not read memory location 0x20000000 when trying to clear soft RAM BP
+***JLink Error: Can not read register 20 (CFBP) while CPU is running
+**JLink Warning: CPU could not be halted
 ***JLink Error: Could not start CPU core. (ErrorCode: -1)
+***JLink Error: CPU is not halted
+***JLink Error: Can not read register 15 (R15) while CPU is running
+**JLink Warning: CPU could not be halted
+Programming Failed!
 Load "C:\\Users\\Administrator\\Documents\\GitHub\\407_分补\\fen_bu\\uCOSII2.91+UCGUI3.90A\\MDK_Project\\Out\\Project.AXF" 
 * JLink Info: Device "STM32F407VE" selected (512 KB flash, 128 KB RAM).
 Set JLink Project File to "C:\Users\Administrator\Documents\GitHub\407_分补\fen_bu\uCOSII2.91+UCGUI3.90A\MDK_Project\JLinkSettings.ini"
@@ -316,7 +347,7 @@ Target info:
 Device: STM32F407VE
 VTarget = 3.300V
 State of Pins: 
-TCK: 0, TDI: 0, TDO: 1, TMS: 0, TRES: 1, TRST: 1
+TCK: 0, TDI: 1, TDO: 1, TMS: 0, TRES: 1, TRST: 1
 Hardware-Breakpoints: 6
 Software-Breakpoints: 8192
 Watchpoints:          4
@@ -333,165 +364,11 @@ Verify OK.
 Application running ...
 Build target 'Target 1'
 compiling main.c...
-..\User\main.c(1673): warning:  #550-D: variable "status" was set but never used
-..\User\main.c(212): warning:  #177-D: variable "comm_list" was declared but never referenced
+..\User\main.c(1924): warning:  #1035-D: single-precision operand implicitly converted to double-precision
+..\User\main.c(2001): warning:  #1035-D: single-precision operand implicitly converted to double-precision
+..\User\main.c(1736): warning:  #550-D: variable "status" was set but never used
 linking...
-Program Size: Code=24098 RO-data=26966 RW-data=296 ZI-data=101776  
-FromELF: creating hex file...
-".\Out\Project.axf" - 0 Error(s), 2 Warning(s).
-Load "C:\\Users\\Administrator\\Documents\\GitHub\\407_分补\\fen_bu\\uCOSII2.91+UCGUI3.90A\\MDK_Project\\Out\\Project.AXF" 
-* JLink Info: Device "STM32F407VE" selected (512 KB flash, 128 KB RAM).
-Set JLink Project File to "C:\Users\Administrator\Documents\GitHub\407_分补\fen_bu\uCOSII2.91+UCGUI3.90A\MDK_Project\JLinkSettings.ini"
- 
-JLink info:
-------------
-DLL: V4.40c, compiled Jan 24 2012 09:30:33
-Firmware: J-Link ARM-OB STM32 compiled Aug 22 2012 19:52:04
-Hardware: V7.00
-S/N : 20090928 
-Feature(s) : RDI,FlashDL,FlashBP,JFlash,GDBFull 
- 
-* JLink Info: Found SWD-DP with ID 0x2BA01477
-* JLink Info: TPIU fitted.
-* JLink Info: ETM fitted.
-* JLink Info:   FPUnit: 6 code (BP) slots and 2 literal slots
-* JLink Info: Found Cortex-M4 r0p1, Little endian.
-ROMTableAddr = 0xE00FF003
-* JLink Info: Found SWD-DP with ID 0x2BA01477
-* JLink Info: TPIU fitted.
-* JLink Info: ETM fitted.
-* JLink Info:   FPUnit: 6 code (BP) slots and 2 literal slots
-* JLink Info: Found Cortex-M4 r0p1, Little endian.
- 
-Target info:
-------------
-Device: STM32F407VE
-VTarget = 3.300V
-State of Pins: 
-TCK: 0, TDI: 0, TDO: 1, TMS: 0, TRES: 1, TRST: 1
-Hardware-Breakpoints: 6
-Software-Breakpoints: 8192
-Watchpoints:          4
-JTAG speed: 2000 kHz
- 
-Erase Done.
-Programming Done.
-Verify OK.
-* JLink Info: Found SWD-DP with ID 0x2BA01477
-* JLink Info: TPIU fitted.
-* JLink Info: ETM fitted.
-* JLink Info:   FPUnit: 6 code (BP) slots and 2 literal slots
-* JLink Info: Found Cortex-M4 r0p1, Little endian.
-Application running ...
-Build target 'Target 1'
-compiling main.c...
-..\User\main.c(1673): warning:  #550-D: variable "status" was set but never used
-linking...
-Program Size: Code=24390 RO-data=26970 RW-data=296 ZI-data=101896  
-FromELF: creating hex file...
-".\Out\Project.axf" - 0 Error(s), 1 Warning(s).
-Load "C:\\Users\\Administrator\\Documents\\GitHub\\407_分补\\fen_bu\\uCOSII2.91+UCGUI3.90A\\MDK_Project\\Out\\Project.AXF" 
-* JLink Info: Device "STM32F407VE" selected (512 KB flash, 128 KB RAM).
-Set JLink Project File to "C:\Users\Administrator\Documents\GitHub\407_分补\fen_bu\uCOSII2.91+UCGUI3.90A\MDK_Project\JLinkSettings.ini"
- 
-JLink info:
-------------
-DLL: V4.40c, compiled Jan 24 2012 09:30:33
-Firmware: J-Link ARM-OB STM32 compiled Aug 22 2012 19:52:04
-Hardware: V7.00
-S/N : 20090928 
-Feature(s) : RDI,FlashDL,FlashBP,JFlash,GDBFull 
- 
-* JLink Info: Found SWD-DP with ID 0x2BA01477
-* JLink Info: TPIU fitted.
-* JLink Info: ETM fitted.
-* JLink Info:   FPUnit: 6 code (BP) slots and 2 literal slots
-* JLink Info: Found Cortex-M4 r0p1, Little endian.
-ROMTableAddr = 0xE00FF003
-* JLink Info: Found SWD-DP with ID 0x2BA01477
-* JLink Info: TPIU fitted.
-* JLink Info: ETM fitted.
-* JLink Info:   FPUnit: 6 code (BP) slots and 2 literal slots
-* JLink Info: Found Cortex-M4 r0p1, Little endian.
- 
-Target info:
-------------
-Device: STM32F407VE
-VTarget = 3.300V
-State of Pins: 
-TCK: 0, TDI: 0, TDO: 1, TMS: 0, TRES: 1, TRST: 1
-Hardware-Breakpoints: 6
-Software-Breakpoints: 8192
-Watchpoints:          4
-JTAG speed: 2000 kHz
- 
-Erase Done.
-Programming Done.
-Verify OK.
-* JLink Info: Found SWD-DP with ID 0x2BA01477
-* JLink Info: TPIU fitted.
-* JLink Info: ETM fitted.
-* JLink Info:   FPUnit: 6 code (BP) slots and 2 literal slots
-* JLink Info: Found Cortex-M4 r0p1, Little endian.
-Application running ...
-Build target 'Target 1'
-compiling main.c...
-..\User\main.c(1673): warning:  #550-D: variable "status" was set but never used
-linking...
-Program Size: Code=24390 RO-data=26970 RW-data=296 ZI-data=101896  
-FromELF: creating hex file...
-".\Out\Project.axf" - 0 Error(s), 1 Warning(s).
-Load "C:\\Users\\Administrator\\Documents\\GitHub\\407_分补\\fen_bu\\uCOSII2.91+UCGUI3.90A\\MDK_Project\\Out\\Project.AXF" 
-* JLink Info: Device "STM32F407VE" selected (512 KB flash, 128 KB RAM).
-Set JLink Project File to "C:\Users\Administrator\Documents\GitHub\407_分补\fen_bu\uCOSII2.91+UCGUI3.90A\MDK_Project\JLinkSettings.ini"
- 
-JLink info:
-------------
-DLL: V4.40c, compiled Jan 24 2012 09:30:33
-Firmware: J-Link ARM-OB STM32 compiled Aug 22 2012 19:52:04
-Hardware: V7.00
-S/N : 20090928 
-Feature(s) : RDI,FlashDL,FlashBP,JFlash,GDBFull 
- 
-* JLink Info: Found SWD-DP with ID 0x2BA01477
-* JLink Info: TPIU fitted.
-* JLink Info: ETM fitted.
-* JLink Info:   FPUnit: 6 code (BP) slots and 2 literal slots
-* JLink Info: Found Cortex-M4 r0p1, Little endian.
-ROMTableAddr = 0xE00FF003
-* JLink Info: Found SWD-DP with ID 0x2BA01477
-* JLink Info: TPIU fitted.
-* JLink Info: ETM fitted.
-* JLink Info:   FPUnit: 6 code (BP) slots and 2 literal slots
-* JLink Info: Found Cortex-M4 r0p1, Little endian.
- 
-Target info:
-------------
-Device: STM32F407VE
-VTarget = 3.300V
-State of Pins: 
-TCK: 0, TDI: 0, TDO: 1, TMS: 0, TRES: 1, TRST: 1
-Hardware-Breakpoints: 6
-Software-Breakpoints: 8192
-Watchpoints:          4
-JTAG speed: 2000 kHz
- 
-Erase Done.
-Programming Done.
-Verify OK.
-* JLink Info: Found SWD-DP with ID 0x2BA01477
-* JLink Info: TPIU fitted.
-* JLink Info: ETM fitted.
-* JLink Info:   FPUnit: 6 code (BP) slots and 2 literal slots
-* JLink Info: Found Cortex-M4 r0p1, Little endian.
-Application running ...
-Build target 'Target 1'
-compiling main.c...
-..\User\main.c(1673): warning:  #550-D: variable "status" was set but never used
-..\User\main.c(211): warning:  #177-D: variable "dis_list" was declared but never referenced
-..\User\main.c(212): warning:  #177-D: variable "comm_list" was declared but never referenced
-linking...
-Program Size: Code=24082 RO-data=26966 RW-data=296 ZI-data=101608  
+Program Size: Code=27662 RO-data=26970 RW-data=296 ZI-data=102248  
 FromELF: creating hex file...
 ".\Out\Project.axf" - 0 Error(s), 3 Warning(s).
 Load "C:\\Users\\Administrator\\Documents\\GitHub\\407_分补\\fen_bu\\uCOSII2.91+UCGUI3.90A\\MDK_Project\\Out\\Project.AXF" 
@@ -523,56 +400,7 @@ Target info:
 Device: STM32F407VE
 VTarget = 3.300V
 State of Pins: 
-TCK: 0, TDI: 0, TDO: 1, TMS: 0, TRES: 1, TRST: 1
-Hardware-Breakpoints: 6
-Software-Breakpoints: 8192
-Watchpoints:          4
-JTAG speed: 2000 kHz
- 
-Erase Done.
-Programming Done.
-Verify OK.
-* JLink Info: Found SWD-DP with ID 0x2BA01477
-* JLink Info: TPIU fitted.
-* JLink Info: ETM fitted.
-* JLink Info:   FPUnit: 6 code (BP) slots and 2 literal slots
-* JLink Info: Found Cortex-M4 r0p1, Little endian.
-Application running ...
-Build target 'Target 1'
-linking...
-Program Size: Code=24082 RO-data=26966 RW-data=296 ZI-data=101608  
-FromELF: creating hex file...
-".\Out\Project.axf" - 0 Error(s), 0 Warning(s).
-Load "C:\\Users\\Administrator\\Documents\\GitHub\\407_分补\\fen_bu\\uCOSII2.91+UCGUI3.90A\\MDK_Project\\Out\\Project.AXF" 
-* JLink Info: Device "STM32F407VE" selected (512 KB flash, 128 KB RAM).
-Set JLink Project File to "C:\Users\Administrator\Documents\GitHub\407_分补\fen_bu\uCOSII2.91+UCGUI3.90A\MDK_Project\JLinkSettings.ini"
- 
-JLink info:
-------------
-DLL: V4.40c, compiled Jan 24 2012 09:30:33
-Firmware: J-Link ARM-OB STM32 compiled Aug 22 2012 19:52:04
-Hardware: V7.00
-S/N : 20090928 
-Feature(s) : RDI,FlashDL,FlashBP,JFlash,GDBFull 
- 
-* JLink Info: Found SWD-DP with ID 0x2BA01477
-* JLink Info: TPIU fitted.
-* JLink Info: ETM fitted.
-* JLink Info:   FPUnit: 6 code (BP) slots and 2 literal slots
-* JLink Info: Found Cortex-M4 r0p1, Little endian.
-ROMTableAddr = 0xE00FF003
-* JLink Info: Found SWD-DP with ID 0x2BA01477
-* JLink Info: TPIU fitted.
-* JLink Info: ETM fitted.
-* JLink Info:   FPUnit: 6 code (BP) slots and 2 literal slots
-* JLink Info: Found Cortex-M4 r0p1, Little endian.
- 
-Target info:
-------------
-Device: STM32F407VE
-VTarget = 3.300V
-State of Pins: 
-TCK: 0, TDI: 0, TDO: 1, TMS: 0, TRES: 1, TRST: 1
+TCK: 0, TDI: 1, TDO: 1, TMS: 0, TRES: 1, TRST: 1
 Hardware-Breakpoints: 6
 Software-Breakpoints: 8192
 Watchpoints:          4
@@ -589,217 +417,11 @@ Verify OK.
 Application running ...
 Build target 'Target 1'
 compiling main.c...
-..\User\main.c(1673): warning:  #550-D: variable "status" was set but never used
-..\User\main.c(212): warning:  #177-D: variable "comm_list" was declared but never referenced
+..\User\main.c(1924): warning:  #1035-D: single-precision operand implicitly converted to double-precision
+..\User\main.c(2001): warning:  #1035-D: single-precision operand implicitly converted to double-precision
+..\User\main.c(1736): warning:  #550-D: variable "status" was set but never used
 linking...
-Program Size: Code=24098 RO-data=26966 RW-data=296 ZI-data=101776  
-FromELF: creating hex file...
-".\Out\Project.axf" - 0 Error(s), 2 Warning(s).
-Load "C:\\Users\\Administrator\\Documents\\GitHub\\407_分补\\fen_bu\\uCOSII2.91+UCGUI3.90A\\MDK_Project\\Out\\Project.AXF" 
-* JLink Info: Device "STM32F407VE" selected (512 KB flash, 128 KB RAM).
-Set JLink Project File to "C:\Users\Administrator\Documents\GitHub\407_分补\fen_bu\uCOSII2.91+UCGUI3.90A\MDK_Project\JLinkSettings.ini"
- 
-JLink info:
-------------
-DLL: V4.40c, compiled Jan 24 2012 09:30:33
-Firmware: J-Link ARM-OB STM32 compiled Aug 22 2012 19:52:04
-Hardware: V7.00
-S/N : 20090928 
-Feature(s) : RDI,FlashDL,FlashBP,JFlash,GDBFull 
- 
-* JLink Info: Found SWD-DP with ID 0x2BA01477
-* JLink Info: TPIU fitted.
-* JLink Info: ETM fitted.
-* JLink Info:   FPUnit: 6 code (BP) slots and 2 literal slots
-* JLink Info: Found Cortex-M4 r0p1, Little endian.
-ROMTableAddr = 0xE00FF003
-* JLink Info: Found SWD-DP with ID 0x2BA01477
-* JLink Info: TPIU fitted.
-* JLink Info: ETM fitted.
-* JLink Info:   FPUnit: 6 code (BP) slots and 2 literal slots
-* JLink Info: Found Cortex-M4 r0p1, Little endian.
- 
-Target info:
-------------
-Device: STM32F407VE
-VTarget = 3.300V
-State of Pins: 
-TCK: 0, TDI: 0, TDO: 1, TMS: 0, TRES: 1, TRST: 1
-Hardware-Breakpoints: 6
-Software-Breakpoints: 8192
-Watchpoints:          4
-JTAG speed: 2000 kHz
- 
-Erase Done.
-Programming Done.
-Verify OK.
-* JLink Info: Found SWD-DP with ID 0x2BA01477
-* JLink Info: TPIU fitted.
-* JLink Info: ETM fitted.
-* JLink Info:   FPUnit: 6 code (BP) slots and 2 literal slots
-* JLink Info: Found Cortex-M4 r0p1, Little endian.
-Application running ...
-Build target 'Target 1'
-compiling main.c...
-..\User\main.c(1673): warning:  #550-D: variable "status" was set but never used
-linking...
-Program Size: Code=24482 RO-data=26966 RW-data=296 ZI-data=101896  
-FromELF: creating hex file...
-".\Out\Project.axf" - 0 Error(s), 1 Warning(s).
-Load "C:\\Users\\Administrator\\Documents\\GitHub\\407_分补\\fen_bu\\uCOSII2.91+UCGUI3.90A\\MDK_Project\\Out\\Project.AXF" 
-* JLink Info: Device "STM32F407VE" selected (512 KB flash, 128 KB RAM).
-Set JLink Project File to "C:\Users\Administrator\Documents\GitHub\407_分补\fen_bu\uCOSII2.91+UCGUI3.90A\MDK_Project\JLinkSettings.ini"
- 
-JLink info:
-------------
-DLL: V4.40c, compiled Jan 24 2012 09:30:33
-Firmware: J-Link ARM-OB STM32 compiled Aug 22 2012 19:52:04
-Hardware: V7.00
-S/N : 20090928 
-Feature(s) : RDI,FlashDL,FlashBP,JFlash,GDBFull 
- 
-* JLink Info: Found SWD-DP with ID 0x2BA01477
-* JLink Info: TPIU fitted.
-* JLink Info: ETM fitted.
-* JLink Info:   FPUnit: 6 code (BP) slots and 2 literal slots
-* JLink Info: Found Cortex-M4 r0p1, Little endian.
-ROMTableAddr = 0xE00FF003
-* JLink Info: Found SWD-DP with ID 0x2BA01477
-* JLink Info: TPIU fitted.
-* JLink Info: ETM fitted.
-* JLink Info:   FPUnit: 6 code (BP) slots and 2 literal slots
-* JLink Info: Found Cortex-M4 r0p1, Little endian.
- 
-Target info:
-------------
-Device: STM32F407VE
-VTarget = 3.300V
-State of Pins: 
-TCK: 0, TDI: 0, TDO: 1, TMS: 0, TRES: 1, TRST: 1
-Hardware-Breakpoints: 6
-Software-Breakpoints: 8192
-Watchpoints:          4
-JTAG speed: 2000 kHz
- 
-Erase Done.
-Programming Done.
-Verify OK.
-* JLink Info: Found SWD-DP with ID 0x2BA01477
-* JLink Info: TPIU fitted.
-* JLink Info: ETM fitted.
-* JLink Info:   FPUnit: 6 code (BP) slots and 2 literal slots
-* JLink Info: Found Cortex-M4 r0p1, Little endian.
-Application running ...
-Build target 'Target 1'
-compiling main.c...
-..\User\main.c(1673): warning:  #550-D: variable "status" was set but never used
-linking...
-Program Size: Code=24482 RO-data=26966 RW-data=296 ZI-data=101896  
-FromELF: creating hex file...
-".\Out\Project.axf" - 0 Error(s), 1 Warning(s).
-Load "C:\\Users\\Administrator\\Documents\\GitHub\\407_分补\\fen_bu\\uCOSII2.91+UCGUI3.90A\\MDK_Project\\Out\\Project.AXF" 
-* JLink Info: Device "STM32F407VE" selected (512 KB flash, 128 KB RAM).
-Set JLink Project File to "C:\Users\Administrator\Documents\GitHub\407_分补\fen_bu\uCOSII2.91+UCGUI3.90A\MDK_Project\JLinkSettings.ini"
- 
-JLink info:
-------------
-DLL: V4.40c, compiled Jan 24 2012 09:30:33
-Firmware: J-Link ARM-OB STM32 compiled Aug 22 2012 19:52:04
-Hardware: V7.00
-S/N : 20090928 
-Feature(s) : RDI,FlashDL,FlashBP,JFlash,GDBFull 
- 
-* JLink Info: Found SWD-DP with ID 0x2BA01477
-* JLink Info: TPIU fitted.
-* JLink Info: ETM fitted.
-* JLink Info:   FPUnit: 6 code (BP) slots and 2 literal slots
-* JLink Info: Found Cortex-M4 r0p1, Little endian.
-ROMTableAddr = 0xE00FF003
-* JLink Info: Found SWD-DP with ID 0x2BA01477
-* JLink Info: TPIU fitted.
-* JLink Info: ETM fitted.
-* JLink Info:   FPUnit: 6 code (BP) slots and 2 literal slots
-* JLink Info: Found Cortex-M4 r0p1, Little endian.
- 
-Target info:
-------------
-Device: STM32F407VE
-VTarget = 3.300V
-State of Pins: 
-TCK: 0, TDI: 0, TDO: 1, TMS: 0, TRES: 1, TRST: 1
-Hardware-Breakpoints: 6
-Software-Breakpoints: 8192
-Watchpoints:          4
-JTAG speed: 2000 kHz
- 
-Erase Done.
-Programming Done.
-Verify OK.
-* JLink Info: Found SWD-DP with ID 0x2BA01477
-* JLink Info: TPIU fitted.
-* JLink Info: ETM fitted.
-* JLink Info:   FPUnit: 6 code (BP) slots and 2 literal slots
-* JLink Info: Found Cortex-M4 r0p1, Little endian.
-Application running ...
-Build target 'Target 1'
-compiling main.c...
-..\User\main.c(1673): warning:  #550-D: variable "status" was set but never used
-..\User\main.c(211): warning:  #177-D: variable "dis_list" was declared but never referenced
-linking...
-Program Size: Code=24150 RO-data=26970 RW-data=296 ZI-data=101728  
-FromELF: creating hex file...
-".\Out\Project.axf" - 0 Error(s), 2 Warning(s).
-Load "C:\\Users\\Administrator\\Documents\\GitHub\\407_分补\\fen_bu\\uCOSII2.91+UCGUI3.90A\\MDK_Project\\Out\\Project.AXF" 
-* JLink Info: Device "STM32F407VE" selected (512 KB flash, 128 KB RAM).
-Set JLink Project File to "C:\Users\Administrator\Documents\GitHub\407_分补\fen_bu\uCOSII2.91+UCGUI3.90A\MDK_Project\JLinkSettings.ini"
- 
-JLink info:
-------------
-DLL: V4.40c, compiled Jan 24 2012 09:30:33
-Firmware: J-Link ARM-OB STM32 compiled Aug 22 2012 19:52:04
-Hardware: V7.00
-S/N : 20090928 
-Feature(s) : RDI,FlashDL,FlashBP,JFlash,GDBFull 
- 
-* JLink Info: Found SWD-DP with ID 0x2BA01477
-* JLink Info: TPIU fitted.
-* JLink Info: ETM fitted.
-* JLink Info:   FPUnit: 6 code (BP) slots and 2 literal slots
-* JLink Info: Found Cortex-M4 r0p1, Little endian.
-ROMTableAddr = 0xE00FF003
-* JLink Info: Found SWD-DP with ID 0x2BA01477
-* JLink Info: TPIU fitted.
-* JLink Info: ETM fitted.
-* JLink Info:   FPUnit: 6 code (BP) slots and 2 literal slots
-* JLink Info: Found Cortex-M4 r0p1, Little endian.
- 
-Target info:
-------------
-Device: STM32F407VE
-VTarget = 3.300V
-State of Pins: 
-TCK: 0, TDI: 0, TDO: 1, TMS: 0, TRES: 1, TRST: 1
-Hardware-Breakpoints: 6
-Software-Breakpoints: 8192
-Watchpoints:          4
-JTAG speed: 2000 kHz
- 
-Erase Done.
-Programming Done.
-Verify OK.
-* JLink Info: Found SWD-DP with ID 0x2BA01477
-* JLink Info: TPIU fitted.
-* JLink Info: ETM fitted.
-* JLink Info:   FPUnit: 6 code (BP) slots and 2 literal slots
-* JLink Info: Found Cortex-M4 r0p1, Little endian.
-Application running ...
-Build target 'Target 1'
-compiling main.c...
-..\User\main.c(1673): warning:  #550-D: variable "status" was set but never used
-..\User\main.c(211): warning:  #177-D: variable "dis_list" was declared but never referenced
-..\User\main.c(212): warning:  #177-D: variable "comm_list" was declared but never referenced
-linking...
-Program Size: Code=24134 RO-data=26970 RW-data=296 ZI-data=101608  
+Program Size: Code=27654 RO-data=26970 RW-data=296 ZI-data=102248  
 FromELF: creating hex file...
 ".\Out\Project.axf" - 0 Error(s), 3 Warning(s).
 Load "C:\\Users\\Administrator\\Documents\\GitHub\\407_分补\\fen_bu\\uCOSII2.91+UCGUI3.90A\\MDK_Project\\Out\\Project.AXF" 
@@ -831,7 +453,7 @@ Target info:
 Device: STM32F407VE
 VTarget = 3.300V
 State of Pins: 
-TCK: 0, TDI: 0, TDO: 1, TMS: 0, TRES: 1, TRST: 1
+TCK: 0, TDI: 1, TDO: 1, TMS: 0, TRES: 1, TRST: 1
 Hardware-Breakpoints: 6
 Software-Breakpoints: 8192
 Watchpoints:          4
@@ -848,10 +470,612 @@ Verify OK.
 Application running ...
 Build target 'Target 1'
 compiling main.c...
-..\User\main.c(1673): warning:  #550-D: variable "status" was set but never used
-..\User\main.c(212): warning:  #177-D: variable "comm_list" was declared but never referenced
+..\User\main.c(1924): warning:  #1035-D: single-precision operand implicitly converted to double-precision
+..\User\main.c(2001): warning:  #1035-D: single-precision operand implicitly converted to double-precision
+..\User\main.c(1736): warning:  #550-D: variable "status" was set but never used
 linking...
-Program Size: Code=24098 RO-data=26966 RW-data=296 ZI-data=101776  
+Program Size: Code=27682 RO-data=26966 RW-data=296 ZI-data=102248  
+FromELF: creating hex file...
+".\Out\Project.axf" - 0 Error(s), 3 Warning(s).
+Build target 'Target 1'
+compiling main.c...
+..\User\main.c(1924): warning:  #1035-D: single-precision operand implicitly converted to double-precision
+..\User\main.c(2001): warning:  #1035-D: single-precision operand implicitly converted to double-precision
+..\User\main.c(1736): warning:  #550-D: variable "status" was set but never used
+linking...
+Program Size: Code=27698 RO-data=26966 RW-data=296 ZI-data=102248  
+FromELF: creating hex file...
+".\Out\Project.axf" - 0 Error(s), 3 Warning(s).
+Load "C:\\Users\\Administrator\\Documents\\GitHub\\407_分补\\fen_bu\\uCOSII2.91+UCGUI3.90A\\MDK_Project\\Out\\Project.AXF" 
+* JLink Info: Device "STM32F407VE" selected (512 KB flash, 128 KB RAM).
+Set JLink Project File to "C:\Users\Administrator\Documents\GitHub\407_分补\fen_bu\uCOSII2.91+UCGUI3.90A\MDK_Project\JLinkSettings.ini"
+ 
+JLink info:
+------------
+DLL: V4.40c, compiled Jan 24 2012 09:30:33
+Firmware: J-Link ARM-OB STM32 compiled Aug 22 2012 19:52:04
+Hardware: V7.00
+S/N : 20090928 
+Feature(s) : RDI,FlashDL,FlashBP,JFlash,GDBFull 
+ 
+* JLink Info: Found SWD-DP with ID 0x2BA01477
+* JLink Info: TPIU fitted.
+* JLink Info: ETM fitted.
+* JLink Info:   FPUnit: 6 code (BP) slots and 2 literal slots
+* JLink Info: Found Cortex-M4 r0p1, Little endian.
+ROMTableAddr = 0xE00FF003
+* JLink Info: Found SWD-DP with ID 0x2BA01477
+* JLink Info: TPIU fitted.
+* JLink Info: ETM fitted.
+* JLink Info:   FPUnit: 6 code (BP) slots and 2 literal slots
+* JLink Info: Found Cortex-M4 r0p1, Little endian.
+ 
+Target info:
+------------
+Device: STM32F407VE
+VTarget = 3.300V
+State of Pins: 
+TCK: 0, TDI: 1, TDO: 1, TMS: 0, TRES: 1, TRST: 1
+Hardware-Breakpoints: 6
+Software-Breakpoints: 8192
+Watchpoints:          4
+JTAG speed: 2000 kHz
+ 
+Erase Done.
+Programming Done.
+Verify OK.
+* JLink Info: Found SWD-DP with ID 0x2BA01477
+* JLink Info: TPIU fitted.
+* JLink Info: ETM fitted.
+* JLink Info:   FPUnit: 6 code (BP) slots and 2 literal slots
+* JLink Info: Found Cortex-M4 r0p1, Little endian.
+Application running ...
+Build target 'Target 1'
+compiling main.c...
+..\User\main.c(1924): warning:  #1035-D: single-precision operand implicitly converted to double-precision
+..\User\main.c(2001): warning:  #1035-D: single-precision operand implicitly converted to double-precision
+..\User\main.c(1736): warning:  #550-D: variable "status" was set but never used
+linking...
+Program Size: Code=27698 RO-data=26966 RW-data=296 ZI-data=102248  
+FromELF: creating hex file...
+".\Out\Project.axf" - 0 Error(s), 3 Warning(s).
+Load "C:\\Users\\Administrator\\Documents\\GitHub\\407_分补\\fen_bu\\uCOSII2.91+UCGUI3.90A\\MDK_Project\\Out\\Project.AXF" 
+* JLink Info: Device "STM32F407VE" selected (512 KB flash, 128 KB RAM).
+Set JLink Project File to "C:\Users\Administrator\Documents\GitHub\407_分补\fen_bu\uCOSII2.91+UCGUI3.90A\MDK_Project\JLinkSettings.ini"
+ 
+JLink info:
+------------
+DLL: V4.40c, compiled Jan 24 2012 09:30:33
+Firmware: J-Link ARM-OB STM32 compiled Aug 22 2012 19:52:04
+Hardware: V7.00
+S/N : 20090928 
+Feature(s) : RDI,FlashDL,FlashBP,JFlash,GDBFull 
+ 
+* JLink Info: Found SWD-DP with ID 0x2BA01477
+* JLink Info: TPIU fitted.
+* JLink Info: ETM fitted.
+* JLink Info:   FPUnit: 6 code (BP) slots and 2 literal slots
+* JLink Info: Found Cortex-M4 r0p1, Little endian.
+ROMTableAddr = 0xE00FF003
+* JLink Info: Found SWD-DP with ID 0x2BA01477
+* JLink Info: TPIU fitted.
+* JLink Info: ETM fitted.
+* JLink Info:   FPUnit: 6 code (BP) slots and 2 literal slots
+* JLink Info: Found Cortex-M4 r0p1, Little endian.
+ 
+Target info:
+------------
+Device: STM32F407VE
+VTarget = 3.300V
+State of Pins: 
+TCK: 0, TDI: 1, TDO: 1, TMS: 0, TRES: 1, TRST: 1
+Hardware-Breakpoints: 6
+Software-Breakpoints: 8192
+Watchpoints:          4
+JTAG speed: 2000 kHz
+ 
+Erase Done.
+Programming Done.
+Verify OK.
+* JLink Info: Found SWD-DP with ID 0x2BA01477
+* JLink Info: TPIU fitted.
+* JLink Info: ETM fitted.
+* JLink Info:   FPUnit: 6 code (BP) slots and 2 literal slots
+* JLink Info: Found Cortex-M4 r0p1, Little endian.
+Application running ...
+Build target 'Target 1'
+compiling main.c...
+..\User\main.c(1924): warning:  #1035-D: single-precision operand implicitly converted to double-precision
+..\User\main.c(2001): warning:  #1035-D: single-precision operand implicitly converted to double-precision
+..\User\main.c(1736): warning:  #550-D: variable "status" was set but never used
+linking...
+Program Size: Code=27706 RO-data=26966 RW-data=296 ZI-data=102248  
+FromELF: creating hex file...
+".\Out\Project.axf" - 0 Error(s), 3 Warning(s).
+Load "C:\\Users\\Administrator\\Documents\\GitHub\\407_分补\\fen_bu\\uCOSII2.91+UCGUI3.90A\\MDK_Project\\Out\\Project.AXF" 
+* JLink Info: Device "STM32F407VE" selected (512 KB flash, 128 KB RAM).
+Set JLink Project File to "C:\Users\Administrator\Documents\GitHub\407_分补\fen_bu\uCOSII2.91+UCGUI3.90A\MDK_Project\JLinkSettings.ini"
+ 
+JLink info:
+------------
+DLL: V4.40c, compiled Jan 24 2012 09:30:33
+Firmware: J-Link ARM-OB STM32 compiled Aug 22 2012 19:52:04
+Hardware: V7.00
+S/N : 20090928 
+Feature(s) : RDI,FlashDL,FlashBP,JFlash,GDBFull 
+ 
+* JLink Info: Found SWD-DP with ID 0x2BA01477
+* JLink Info: TPIU fitted.
+* JLink Info: ETM fitted.
+* JLink Info:   FPUnit: 6 code (BP) slots and 2 literal slots
+* JLink Info: Found Cortex-M4 r0p1, Little endian.
+ROMTableAddr = 0xE00FF003
+* JLink Info: Found SWD-DP with ID 0x2BA01477
+* JLink Info: TPIU fitted.
+* JLink Info: ETM fitted.
+* JLink Info:   FPUnit: 6 code (BP) slots and 2 literal slots
+* JLink Info: Found Cortex-M4 r0p1, Little endian.
+ 
+Target info:
+------------
+Device: STM32F407VE
+VTarget = 3.300V
+State of Pins: 
+TCK: 0, TDI: 1, TDO: 1, TMS: 0, TRES: 1, TRST: 1
+Hardware-Breakpoints: 6
+Software-Breakpoints: 8192
+Watchpoints:          4
+JTAG speed: 2000 kHz
+ 
+Erase Done.
+Programming Done.
+Verify OK.
+* JLink Info: Found SWD-DP with ID 0x2BA01477
+* JLink Info: TPIU fitted.
+* JLink Info: ETM fitted.
+* JLink Info:   FPUnit: 6 code (BP) slots and 2 literal slots
+* JLink Info: Found Cortex-M4 r0p1, Little endian.
+Application running ...
+Build target 'Target 1'
+compiling main.c...
+..\User\main.c(1924): warning:  #1035-D: single-precision operand implicitly converted to double-precision
+..\User\main.c(2001): warning:  #1035-D: single-precision operand implicitly converted to double-precision
+..\User\main.c(1736): warning:  #550-D: variable "status" was set but never used
+linking...
+Program Size: Code=27698 RO-data=26966 RW-data=296 ZI-data=102248  
+FromELF: creating hex file...
+".\Out\Project.axf" - 0 Error(s), 3 Warning(s).
+Build target 'Target 1'
+compiling main.c...
+..\User\main.c(1924): warning:  #1035-D: single-precision operand implicitly converted to double-precision
+..\User\main.c(2001): warning:  #1035-D: single-precision operand implicitly converted to double-precision
+..\User\main.c(1736): warning:  #550-D: variable "status" was set but never used
+linking...
+Program Size: Code=27698 RO-data=26966 RW-data=296 ZI-data=102248  
+FromELF: creating hex file...
+".\Out\Project.axf" - 0 Error(s), 3 Warning(s).
+Load "C:\\Users\\Administrator\\Documents\\GitHub\\407_分补\\fen_bu\\uCOSII2.91+UCGUI3.90A\\MDK_Project\\Out\\Project.AXF" 
+* JLink Info: Device "STM32F407VE" selected (512 KB flash, 128 KB RAM).
+Set JLink Project File to "C:\Users\Administrator\Documents\GitHub\407_分补\fen_bu\uCOSII2.91+UCGUI3.90A\MDK_Project\JLinkSettings.ini"
+ 
+JLink info:
+------------
+DLL: V4.40c, compiled Jan 24 2012 09:30:33
+Firmware: J-Link ARM-OB STM32 compiled Aug 22 2012 19:52:04
+Hardware: V7.00
+S/N : 20090928 
+Feature(s) : RDI,FlashDL,FlashBP,JFlash,GDBFull 
+ 
+* JLink Info: Found SWD-DP with ID 0x2BA01477
+* JLink Info: TPIU fitted.
+* JLink Info: ETM fitted.
+* JLink Info:   FPUnit: 6 code (BP) slots and 2 literal slots
+* JLink Info: Found Cortex-M4 r0p1, Little endian.
+ROMTableAddr = 0xE00FF003
+* JLink Info: Found SWD-DP with ID 0x2BA01477
+* JLink Info: TPIU fitted.
+* JLink Info: ETM fitted.
+* JLink Info:   FPUnit: 6 code (BP) slots and 2 literal slots
+* JLink Info: Found Cortex-M4 r0p1, Little endian.
+ 
+Target info:
+------------
+Device: STM32F407VE
+VTarget = 3.300V
+State of Pins: 
+TCK: 0, TDI: 1, TDO: 1, TMS: 0, TRES: 1, TRST: 1
+Hardware-Breakpoints: 6
+Software-Breakpoints: 8192
+Watchpoints:          4
+JTAG speed: 2000 kHz
+ 
+Erase Done.
+Programming Done.
+Verify OK.
+* JLink Info: Found SWD-DP with ID 0x2BA01477
+* JLink Info: TPIU fitted.
+* JLink Info: ETM fitted.
+* JLink Info:   FPUnit: 6 code (BP) slots and 2 literal slots
+* JLink Info: Found Cortex-M4 r0p1, Little endian.
+Application running ...
+Build target 'Target 1'
+compiling main.c...
+..\User\main.c(1924): warning:  #1035-D: single-precision operand implicitly converted to double-precision
+..\User\main.c(2001): warning:  #1035-D: single-precision operand implicitly converted to double-precision
+..\User\main.c(1736): warning:  #550-D: variable "status" was set but never used
+linking...
+Program Size: Code=27726 RO-data=26970 RW-data=296 ZI-data=102248  
+FromELF: creating hex file...
+".\Out\Project.axf" - 0 Error(s), 3 Warning(s).
+Load "C:\\Users\\Administrator\\Documents\\GitHub\\407_分补\\fen_bu\\uCOSII2.91+UCGUI3.90A\\MDK_Project\\Out\\Project.AXF" 
+* JLink Info: Device "STM32F407VE" selected (512 KB flash, 128 KB RAM).
+Set JLink Project File to "C:\Users\Administrator\Documents\GitHub\407_分补\fen_bu\uCOSII2.91+UCGUI3.90A\MDK_Project\JLinkSettings.ini"
+ 
+JLink info:
+------------
+DLL: V4.40c, compiled Jan 24 2012 09:30:33
+Firmware: J-Link ARM-OB STM32 compiled Aug 22 2012 19:52:04
+Hardware: V7.00
+S/N : 20090928 
+Feature(s) : RDI,FlashDL,FlashBP,JFlash,GDBFull 
+ 
+* JLink Info: Found SWD-DP with ID 0x2BA01477
+* JLink Info: TPIU fitted.
+* JLink Info: ETM fitted.
+* JLink Info:   FPUnit: 6 code (BP) slots and 2 literal slots
+* JLink Info: Found Cortex-M4 r0p1, Little endian.
+ROMTableAddr = 0xE00FF003
+* JLink Info: Found SWD-DP with ID 0x2BA01477
+* JLink Info: TPIU fitted.
+* JLink Info: ETM fitted.
+* JLink Info:   FPUnit: 6 code (BP) slots and 2 literal slots
+* JLink Info: Found Cortex-M4 r0p1, Little endian.
+ 
+Target info:
+------------
+Device: STM32F407VE
+VTarget = 3.300V
+State of Pins: 
+TCK: 0, TDI: 1, TDO: 1, TMS: 0, TRES: 1, TRST: 1
+Hardware-Breakpoints: 6
+Software-Breakpoints: 8192
+Watchpoints:          4
+JTAG speed: 2000 kHz
+ 
+Erase Done.
+Programming Done.
+Verify OK.
+* JLink Info: Found SWD-DP with ID 0x2BA01477
+* JLink Info: TPIU fitted.
+* JLink Info: ETM fitted.
+* JLink Info:   FPUnit: 6 code (BP) slots and 2 literal slots
+* JLink Info: Found Cortex-M4 r0p1, Little endian.
+Application running ...
+Build target 'Target 1'
+compiling main.c...
+..\User\main.c(1924): warning:  #1035-D: single-precision operand implicitly converted to double-precision
+..\User\main.c(2001): warning:  #1035-D: single-precision operand implicitly converted to double-precision
+..\User\main.c(1736): warning:  #550-D: variable "status" was set but never used
+linking...
+Program Size: Code=27706 RO-data=26966 RW-data=296 ZI-data=102248  
+FromELF: creating hex file...
+".\Out\Project.axf" - 0 Error(s), 3 Warning(s).
+Load "C:\\Users\\Administrator\\Documents\\GitHub\\407_分补\\fen_bu\\uCOSII2.91+UCGUI3.90A\\MDK_Project\\Out\\Project.AXF" 
+* JLink Info: Device "STM32F407VE" selected (512 KB flash, 128 KB RAM).
+Set JLink Project File to "C:\Users\Administrator\Documents\GitHub\407_分补\fen_bu\uCOSII2.91+UCGUI3.90A\MDK_Project\JLinkSettings.ini"
+ 
+JLink info:
+------------
+DLL: V4.40c, compiled Jan 24 2012 09:30:33
+Firmware: J-Link ARM-OB STM32 compiled Aug 22 2012 19:52:04
+Hardware: V7.00
+S/N : 20090928 
+Feature(s) : RDI,FlashDL,FlashBP,JFlash,GDBFull 
+ 
+* JLink Info: Found SWD-DP with ID 0x2BA01477
+* JLink Info: TPIU fitted.
+* JLink Info: ETM fitted.
+* JLink Info:   FPUnit: 6 code (BP) slots and 2 literal slots
+* JLink Info: Found Cortex-M4 r0p1, Little endian.
+ROMTableAddr = 0xE00FF003
+* JLink Info: Found SWD-DP with ID 0x2BA01477
+* JLink Info: TPIU fitted.
+* JLink Info: ETM fitted.
+* JLink Info:   FPUnit: 6 code (BP) slots and 2 literal slots
+* JLink Info: Found Cortex-M4 r0p1, Little endian.
+ 
+Target info:
+------------
+Device: STM32F407VE
+VTarget = 3.300V
+State of Pins: 
+TCK: 0, TDI: 1, TDO: 1, TMS: 0, TRES: 1, TRST: 1
+Hardware-Breakpoints: 6
+Software-Breakpoints: 8192
+Watchpoints:          4
+JTAG speed: 2000 kHz
+ 
+Erase Done.
+Programming Done.
+Verify OK.
+* JLink Info: Found SWD-DP with ID 0x2BA01477
+* JLink Info: TPIU fitted.
+* JLink Info: ETM fitted.
+* JLink Info:   FPUnit: 6 code (BP) slots and 2 literal slots
+* JLink Info: Found Cortex-M4 r0p1, Little endian.
+Application running ...
+Build target 'Target 1'
+compiling main.c...
+..\User\main.c(1924): warning:  #1035-D: single-precision operand implicitly converted to double-precision
+..\User\main.c(2001): warning:  #1035-D: single-precision operand implicitly converted to double-precision
+..\User\main.c(1736): warning:  #550-D: variable "status" was set but never used
+linking...
+Program Size: Code=27686 RO-data=26970 RW-data=296 ZI-data=102248  
+FromELF: creating hex file...
+".\Out\Project.axf" - 0 Error(s), 3 Warning(s).
+Load "C:\\Users\\Administrator\\Documents\\GitHub\\407_分补\\fen_bu\\uCOSII2.91+UCGUI3.90A\\MDK_Project\\Out\\Project.AXF" 
+* JLink Info: Device "STM32F407VE" selected (512 KB flash, 128 KB RAM).
+Set JLink Project File to "C:\Users\Administrator\Documents\GitHub\407_分补\fen_bu\uCOSII2.91+UCGUI3.90A\MDK_Project\JLinkSettings.ini"
+ 
+JLink info:
+------------
+DLL: V4.40c, compiled Jan 24 2012 09:30:33
+Firmware: J-Link ARM-OB STM32 compiled Aug 22 2012 19:52:04
+Hardware: V7.00
+S/N : 20090928 
+Feature(s) : RDI,FlashDL,FlashBP,JFlash,GDBFull 
+ 
+* JLink Info: Found SWD-DP with ID 0x2BA01477
+* JLink Info: TPIU fitted.
+* JLink Info: ETM fitted.
+* JLink Info:   FPUnit: 6 code (BP) slots and 2 literal slots
+* JLink Info: Found Cortex-M4 r0p1, Little endian.
+ROMTableAddr = 0xE00FF003
+* JLink Info: Found SWD-DP with ID 0x2BA01477
+* JLink Info: TPIU fitted.
+* JLink Info: ETM fitted.
+* JLink Info:   FPUnit: 6 code (BP) slots and 2 literal slots
+* JLink Info: Found Cortex-M4 r0p1, Little endian.
+ 
+Target info:
+------------
+Device: STM32F407VE
+VTarget = 3.300V
+State of Pins: 
+TCK: 0, TDI: 1, TDO: 1, TMS: 0, TRES: 1, TRST: 1
+Hardware-Breakpoints: 6
+Software-Breakpoints: 8192
+Watchpoints:          4
+JTAG speed: 2000 kHz
+ 
+Erase Done.
+Programming Done.
+Verify OK.
+* JLink Info: Found SWD-DP with ID 0x2BA01477
+* JLink Info: TPIU fitted.
+* JLink Info: ETM fitted.
+* JLink Info:   FPUnit: 6 code (BP) slots and 2 literal slots
+* JLink Info: Found Cortex-M4 r0p1, Little endian.
+Application running ...
+Build target 'Target 1'
+compiling main.c...
+..\User\main.c(1924): warning:  #1035-D: single-precision operand implicitly converted to double-precision
+..\User\main.c(2001): warning:  #1035-D: single-precision operand implicitly converted to double-precision
+..\User\main.c(1736): warning:  #550-D: variable "status" was set but never used
+linking...
+Program Size: Code=27694 RO-data=26970 RW-data=296 ZI-data=102248  
+FromELF: creating hex file...
+".\Out\Project.axf" - 0 Error(s), 3 Warning(s).
+Load "C:\\Users\\Administrator\\Documents\\GitHub\\407_分补\\fen_bu\\uCOSII2.91+UCGUI3.90A\\MDK_Project\\Out\\Project.AXF" 
+* JLink Info: Device "STM32F407VE" selected (512 KB flash, 128 KB RAM).
+Set JLink Project File to "C:\Users\Administrator\Documents\GitHub\407_分补\fen_bu\uCOSII2.91+UCGUI3.90A\MDK_Project\JLinkSettings.ini"
+ 
+JLink info:
+------------
+DLL: V4.40c, compiled Jan 24 2012 09:30:33
+Firmware: J-Link ARM-OB STM32 compiled Aug 22 2012 19:52:04
+Hardware: V7.00
+S/N : 20090928 
+Feature(s) : RDI,FlashDL,FlashBP,JFlash,GDBFull 
+ 
+* JLink Info: Found SWD-DP with ID 0x2BA01477
+* JLink Info: TPIU fitted.
+* JLink Info: ETM fitted.
+* JLink Info:   FPUnit: 6 code (BP) slots and 2 literal slots
+* JLink Info: Found Cortex-M4 r0p1, Little endian.
+ROMTableAddr = 0xE00FF003
+* JLink Info: Found SWD-DP with ID 0x2BA01477
+* JLink Info: TPIU fitted.
+* JLink Info: ETM fitted.
+* JLink Info:   FPUnit: 6 code (BP) slots and 2 literal slots
+* JLink Info: Found Cortex-M4 r0p1, Little endian.
+ 
+Target info:
+------------
+Device: STM32F407VE
+VTarget = 3.300V
+State of Pins: 
+TCK: 0, TDI: 1, TDO: 1, TMS: 0, TRES: 1, TRST: 1
+Hardware-Breakpoints: 6
+Software-Breakpoints: 8192
+Watchpoints:          4
+JTAG speed: 2000 kHz
+ 
+Erase Done.
+Programming Done.
+Verify OK.
+* JLink Info: Found SWD-DP with ID 0x2BA01477
+* JLink Info: TPIU fitted.
+* JLink Info: ETM fitted.
+* JLink Info:   FPUnit: 6 code (BP) slots and 2 literal slots
+* JLink Info: Found Cortex-M4 r0p1, Little endian.
+Application running ...
+Build target 'Target 1'
+compiling main.c...
+..\User\main.c(1824): warning:  #1035-D: single-precision operand implicitly converted to double-precision
+..\User\main.c(1924): warning:  #1035-D: single-precision operand implicitly converted to double-precision
+..\User\main.c(2001): warning:  #1035-D: single-precision operand implicitly converted to double-precision
+..\User\main.c(1736): warning:  #550-D: variable "status" was set but never used
+linking...
+Program Size: Code=27730 RO-data=26966 RW-data=296 ZI-data=102248  
+FromELF: creating hex file...
+".\Out\Project.axf" - 0 Error(s), 4 Warning(s).
+Load "C:\\Users\\Administrator\\Documents\\GitHub\\407_分补\\fen_bu\\uCOSII2.91+UCGUI3.90A\\MDK_Project\\Out\\Project.AXF" 
+* JLink Info: Device "STM32F407VE" selected (512 KB flash, 128 KB RAM).
+Set JLink Project File to "C:\Users\Administrator\Documents\GitHub\407_分补\fen_bu\uCOSII2.91+UCGUI3.90A\MDK_Project\JLinkSettings.ini"
+ 
+JLink info:
+------------
+DLL: V4.40c, compiled Jan 24 2012 09:30:33
+Firmware: J-Link ARM-OB STM32 compiled Aug 22 2012 19:52:04
+Hardware: V7.00
+S/N : 20090928 
+Feature(s) : RDI,FlashDL,FlashBP,JFlash,GDBFull 
+ 
+* JLink Info: Found SWD-DP with ID 0x2BA01477
+* JLink Info: TPIU fitted.
+* JLink Info: ETM fitted.
+* JLink Info:   FPUnit: 6 code (BP) slots and 2 literal slots
+* JLink Info: Found Cortex-M4 r0p1, Little endian.
+ROMTableAddr = 0xE00FF003
+* JLink Info: Found SWD-DP with ID 0x2BA01477
+* JLink Info: TPIU fitted.
+* JLink Info: ETM fitted.
+* JLink Info:   FPUnit: 6 code (BP) slots and 2 literal slots
+* JLink Info: Found Cortex-M4 r0p1, Little endian.
+ 
+Target info:
+------------
+Device: STM32F407VE
+VTarget = 3.300V
+State of Pins: 
+TCK: 0, TDI: 1, TDO: 1, TMS: 0, TRES: 1, TRST: 1
+Hardware-Breakpoints: 6
+Software-Breakpoints: 8192
+Watchpoints:          4
+JTAG speed: 2000 kHz
+ 
+Erase Done.
+Programming Done.
+Verify OK.
+* JLink Info: Found SWD-DP with ID 0x2BA01477
+* JLink Info: TPIU fitted.
+* JLink Info: ETM fitted.
+* JLink Info:   FPUnit: 6 code (BP) slots and 2 literal slots
+* JLink Info: Found Cortex-M4 r0p1, Little endian.
+Application running ...
+Build target 'Target 1'
+compiling main.c...
+..\User\main.c(1925): warning:  #1035-D: single-precision operand implicitly converted to double-precision
+..\User\main.c(2002): warning:  #1035-D: single-precision operand implicitly converted to double-precision
+..\User\main.c(1736): warning:  #550-D: variable "status" was set but never used
+linking...
+Program Size: Code=27714 RO-data=26966 RW-data=296 ZI-data=102248  
+FromELF: creating hex file...
+".\Out\Project.axf" - 0 Error(s), 3 Warning(s).
+Load "C:\\Users\\Administrator\\Documents\\GitHub\\407_分补\\fen_bu\\uCOSII2.91+UCGUI3.90A\\MDK_Project\\Out\\Project.AXF" 
+* JLink Info: Device "STM32F407VE" selected (512 KB flash, 128 KB RAM).
+Set JLink Project File to "C:\Users\Administrator\Documents\GitHub\407_分补\fen_bu\uCOSII2.91+UCGUI3.90A\MDK_Project\JLinkSettings.ini"
+ 
+JLink info:
+------------
+DLL: V4.40c, compiled Jan 24 2012 09:30:33
+Firmware: J-Link ARM-OB STM32 compiled Aug 22 2012 19:52:04
+Hardware: V7.00
+S/N : 20090928 
+Feature(s) : RDI,FlashDL,FlashBP,JFlash,GDBFull 
+ 
+* JLink Info: Found SWD-DP with ID 0x2BA01477
+* JLink Info: TPIU fitted.
+* JLink Info: ETM fitted.
+* JLink Info:   FPUnit: 6 code (BP) slots and 2 literal slots
+* JLink Info: Found Cortex-M4 r0p1, Little endian.
+ROMTableAddr = 0xE00FF003
+* JLink Info: Found SWD-DP with ID 0x2BA01477
+* JLink Info: TPIU fitted.
+* JLink Info: ETM fitted.
+* JLink Info:   FPUnit: 6 code (BP) slots and 2 literal slots
+* JLink Info: Found Cortex-M4 r0p1, Little endian.
+ 
+Target info:
+------------
+Device: STM32F407VE
+VTarget = 3.300V
+State of Pins: 
+TCK: 0, TDI: 1, TDO: 1, TMS: 0, TRES: 1, TRST: 1
+Hardware-Breakpoints: 6
+Software-Breakpoints: 8192
+Watchpoints:          4
+JTAG speed: 2000 kHz
+ 
+Erase Done.
+Programming Done.
+Verify OK.
+* JLink Info: Found SWD-DP with ID 0x2BA01477
+* JLink Info: TPIU fitted.
+* JLink Info: ETM fitted.
+* JLink Info:   FPUnit: 6 code (BP) slots and 2 literal slots
+* JLink Info: Found Cortex-M4 r0p1, Little endian.
+Application running ...
+Build target 'Target 1'
+compiling main.c...
+..\User\main.c(1920): warning:  #1035-D: single-precision operand implicitly converted to double-precision
+..\User\main.c(1997): warning:  #1035-D: single-precision operand implicitly converted to double-precision
+..\User\main.c(1736): warning:  #550-D: variable "status" was set but never used
+linking...
+Program Size: Code=27626 RO-data=26966 RW-data=296 ZI-data=102248  
+FromELF: creating hex file...
+".\Out\Project.axf" - 0 Error(s), 3 Warning(s).
+Load "C:\\Users\\Administrator\\Documents\\GitHub\\407_分补\\fen_bu\\uCOSII2.91+UCGUI3.90A\\MDK_Project\\Out\\Project.AXF" 
+* JLink Info: Device "STM32F407VE" selected (512 KB flash, 128 KB RAM).
+Set JLink Project File to "C:\Users\Administrator\Documents\GitHub\407_分补\fen_bu\uCOSII2.91+UCGUI3.90A\MDK_Project\JLinkSettings.ini"
+ 
+JLink info:
+------------
+DLL: V4.40c, compiled Jan 24 2012 09:30:33
+Firmware: J-Link ARM-OB STM32 compiled Aug 22 2012 19:52:04
+Hardware: V7.00
+S/N : 20090928 
+Feature(s) : RDI,FlashDL,FlashBP,JFlash,GDBFull 
+ 
+* JLink Info: Found SWD-DP with ID 0x2BA01477
+* JLink Info: TPIU fitted.
+* JLink Info: ETM fitted.
+* JLink Info:   FPUnit: 6 code (BP) slots and 2 literal slots
+* JLink Info: Found Cortex-M4 r0p1, Little endian.
+ROMTableAddr = 0xE00FF003
+* JLink Info: Found SWD-DP with ID 0x2BA01477
+* JLink Info: TPIU fitted.
+* JLink Info: ETM fitted.
+* JLink Info:   FPUnit: 6 code (BP) slots and 2 literal slots
+* JLink Info: Found Cortex-M4 r0p1, Little endian.
+ 
+Target info:
+------------
+Device: STM32F407VE
+VTarget = 3.300V
+State of Pins: 
+TCK: 0, TDI: 1, TDO: 1, TMS: 0, TRES: 1, TRST: 1
+Hardware-Breakpoints: 6
+Software-Breakpoints: 8192
+Watchpoints:          4
+JTAG speed: 2000 kHz
+ 
+Erase Done.
+Programming Done.
+Verify OK.
+* JLink Info: Found SWD-DP with ID 0x2BA01477
+* JLink Info: TPIU fitted.
+* JLink Info: ETM fitted.
+* JLink Info:   FPUnit: 6 code (BP) slots and 2 literal slots
+* JLink Info: Found Cortex-M4 r0p1, Little endian.
+Application running ...
+Build target 'Target 1'
+compiling main.c...
+..\User\main.c(1997): warning:  #1035-D: single-precision operand implicitly converted to double-precision
+..\User\main.c(1736): warning:  #550-D: variable "status" was set but never used
+linking...
+Program Size: Code=27578 RO-data=26966 RW-data=296 ZI-data=102248  
 FromELF: creating hex file...
 ".\Out\Project.axf" - 0 Error(s), 2 Warning(s).
 Load "C:\\Users\\Administrator\\Documents\\GitHub\\407_分补\\fen_bu\\uCOSII2.91+UCGUI3.90A\\MDK_Project\\Out\\Project.AXF" 
@@ -883,7 +1107,7 @@ Target info:
 Device: STM32F407VE
 VTarget = 3.300V
 State of Pins: 
-TCK: 0, TDI: 0, TDO: 1, TMS: 0, TRES: 1, TRST: 1
+TCK: 0, TDI: 1, TDO: 1, TMS: 0, TRES: 1, TRST: 1
 Hardware-Breakpoints: 6
 Software-Breakpoints: 8192
 Watchpoints:          4
@@ -900,10 +1124,10 @@ Verify OK.
 Application running ...
 Build target 'Target 1'
 compiling main.c...
-..\User\main.c(1673): warning:  #550-D: variable "status" was set but never used
-..\User\main.c(212): warning:  #177-D: variable "comm_list" was declared but never referenced
+..\User\main.c(1999): warning:  #1035-D: single-precision operand implicitly converted to double-precision
+..\User\main.c(1736): warning:  #550-D: variable "status" was set but never used
 linking...
-Program Size: Code=24118 RO-data=26970 RW-data=296 ZI-data=101776  
+Program Size: Code=27598 RO-data=26970 RW-data=296 ZI-data=102248  
 FromELF: creating hex file...
 ".\Out\Project.axf" - 0 Error(s), 2 Warning(s).
 Load "C:\\Users\\Administrator\\Documents\\GitHub\\407_分补\\fen_bu\\uCOSII2.91+UCGUI3.90A\\MDK_Project\\Out\\Project.AXF" 
@@ -935,7 +1159,7 @@ Target info:
 Device: STM32F407VE
 VTarget = 3.300V
 State of Pins: 
-TCK: 0, TDI: 0, TDO: 1, TMS: 0, TRES: 1, TRST: 1
+TCK: 0, TDI: 1, TDO: 1, TMS: 0, TRES: 1, TRST: 1
 Hardware-Breakpoints: 6
 Software-Breakpoints: 8192
 Watchpoints:          4
@@ -952,437 +1176,10 @@ Verify OK.
 Application running ...
 Build target 'Target 1'
 compiling main.c...
-..\User\main.c(1673): warning:  #550-D: variable "status" was set but never used
+..\User\main.c(1999): warning:  #1035-D: single-precision operand implicitly converted to double-precision
+..\User\main.c(1736): warning:  #550-D: variable "status" was set but never used
 linking...
-Program Size: Code=24410 RO-data=26966 RW-data=296 ZI-data=101896  
-FromELF: creating hex file...
-".\Out\Project.axf" - 0 Error(s), 1 Warning(s).
-Load "C:\\Users\\Administrator\\Documents\\GitHub\\407_分补\\fen_bu\\uCOSII2.91+UCGUI3.90A\\MDK_Project\\Out\\Project.AXF" 
-* JLink Info: Device "STM32F407VE" selected (512 KB flash, 128 KB RAM).
-Set JLink Project File to "C:\Users\Administrator\Documents\GitHub\407_分补\fen_bu\uCOSII2.91+UCGUI3.90A\MDK_Project\JLinkSettings.ini"
- 
-JLink info:
-------------
-DLL: V4.40c, compiled Jan 24 2012 09:30:33
-Firmware: J-Link ARM-OB STM32 compiled Aug 22 2012 19:52:04
-Hardware: V7.00
-S/N : 20090928 
-Feature(s) : RDI,FlashDL,FlashBP,JFlash,GDBFull 
- 
-* JLink Info: Found SWD-DP with ID 0x2BA01477
-* JLink Info: TPIU fitted.
-* JLink Info: ETM fitted.
-* JLink Info:   FPUnit: 6 code (BP) slots and 2 literal slots
-* JLink Info: Found Cortex-M4 r0p1, Little endian.
-ROMTableAddr = 0xE00FF003
-* JLink Info: Found SWD-DP with ID 0x2BA01477
-* JLink Info: TPIU fitted.
-* JLink Info: ETM fitted.
-* JLink Info:   FPUnit: 6 code (BP) slots and 2 literal slots
-* JLink Info: Found Cortex-M4 r0p1, Little endian.
- 
-Target info:
-------------
-Device: STM32F407VE
-VTarget = 3.300V
-State of Pins: 
-TCK: 0, TDI: 0, TDO: 1, TMS: 0, TRES: 1, TRST: 1
-Hardware-Breakpoints: 6
-Software-Breakpoints: 8192
-Watchpoints:          4
-JTAG speed: 2000 kHz
- 
-Erase Done.
-Programming Done.
-Verify OK.
-* JLink Info: Found SWD-DP with ID 0x2BA01477
-* JLink Info: TPIU fitted.
-* JLink Info: ETM fitted.
-* JLink Info:   FPUnit: 6 code (BP) slots and 2 literal slots
-* JLink Info: Found Cortex-M4 r0p1, Little endian.
-Application running ...
-Build target 'Target 1'
-compiling main.c...
-..\User\main.c(1674): warning:  #550-D: variable "status" was set but never used
-linking...
-Program Size: Code=24502 RO-data=26970 RW-data=296 ZI-data=101896  
-FromELF: creating hex file...
-".\Out\Project.axf" - 0 Error(s), 1 Warning(s).
-Load "C:\\Users\\Administrator\\Documents\\GitHub\\407_分补\\fen_bu\\uCOSII2.91+UCGUI3.90A\\MDK_Project\\Out\\Project.AXF" 
-* JLink Info: Device "STM32F407VE" selected (512 KB flash, 128 KB RAM).
-Set JLink Project File to "C:\Users\Administrator\Documents\GitHub\407_分补\fen_bu\uCOSII2.91+UCGUI3.90A\MDK_Project\JLinkSettings.ini"
- 
-JLink info:
-------------
-DLL: V4.40c, compiled Jan 24 2012 09:30:33
-Firmware: J-Link ARM-OB STM32 compiled Aug 22 2012 19:52:04
-Hardware: V7.00
-S/N : 20090928 
-Feature(s) : RDI,FlashDL,FlashBP,JFlash,GDBFull 
- 
-* JLink Info: Found SWD-DP with ID 0x2BA01477
-* JLink Info: TPIU fitted.
-* JLink Info: ETM fitted.
-* JLink Info:   FPUnit: 6 code (BP) slots and 2 literal slots
-* JLink Info: Found Cortex-M4 r0p1, Little endian.
-ROMTableAddr = 0xE00FF003
-* JLink Info: Found SWD-DP with ID 0x2BA01477
-* JLink Info: TPIU fitted.
-* JLink Info: ETM fitted.
-* JLink Info:   FPUnit: 6 code (BP) slots and 2 literal slots
-* JLink Info: Found Cortex-M4 r0p1, Little endian.
- 
-Target info:
-------------
-Device: STM32F407VE
-VTarget = 3.300V
-State of Pins: 
-TCK: 0, TDI: 0, TDO: 1, TMS: 0, TRES: 1, TRST: 1
-Hardware-Breakpoints: 6
-Software-Breakpoints: 8192
-Watchpoints:          4
-JTAG speed: 2000 kHz
- 
-Erase Done.
-Programming Done.
-Verify OK.
-* JLink Info: Found SWD-DP with ID 0x2BA01477
-* JLink Info: TPIU fitted.
-* JLink Info: ETM fitted.
-* JLink Info:   FPUnit: 6 code (BP) slots and 2 literal slots
-* JLink Info: Found Cortex-M4 r0p1, Little endian.
-Application running ...
-Build target 'Target 1'
-compiling main.c...
-..\User\main.c(1674): warning:  #550-D: variable "status" was set but never used
-linking...
-Program Size: Code=24406 RO-data=26970 RW-data=296 ZI-data=101896  
-FromELF: creating hex file...
-".\Out\Project.axf" - 0 Error(s), 1 Warning(s).
-Load "C:\\Users\\Administrator\\Documents\\GitHub\\407_分补\\fen_bu\\uCOSII2.91+UCGUI3.90A\\MDK_Project\\Out\\Project.AXF" 
-* JLink Info: Device "STM32F407VE" selected (512 KB flash, 128 KB RAM).
-Set JLink Project File to "C:\Users\Administrator\Documents\GitHub\407_分补\fen_bu\uCOSII2.91+UCGUI3.90A\MDK_Project\JLinkSettings.ini"
- 
-JLink info:
-------------
-DLL: V4.40c, compiled Jan 24 2012 09:30:33
-Firmware: J-Link ARM-OB STM32 compiled Aug 22 2012 19:52:04
-Hardware: V7.00
-S/N : 20090928 
-Feature(s) : RDI,FlashDL,FlashBP,JFlash,GDBFull 
- 
-* JLink Info: Found SWD-DP with ID 0x2BA01477
-* JLink Info: TPIU fitted.
-* JLink Info: ETM fitted.
-* JLink Info:   FPUnit: 6 code (BP) slots and 2 literal slots
-* JLink Info: Found Cortex-M4 r0p1, Little endian.
-ROMTableAddr = 0xE00FF003
-* JLink Info: Found SWD-DP with ID 0x2BA01477
-* JLink Info: TPIU fitted.
-* JLink Info: ETM fitted.
-* JLink Info:   FPUnit: 6 code (BP) slots and 2 literal slots
-* JLink Info: Found Cortex-M4 r0p1, Little endian.
- 
-Target info:
-------------
-Device: STM32F407VE
-VTarget = 3.300V
-State of Pins: 
-TCK: 0, TDI: 0, TDO: 1, TMS: 0, TRES: 1, TRST: 1
-Hardware-Breakpoints: 6
-Software-Breakpoints: 8192
-Watchpoints:          4
-JTAG speed: 2000 kHz
- 
-Erase Done.
-Programming Done.
-Verify OK.
-* JLink Info: Found SWD-DP with ID 0x2BA01477
-* JLink Info: TPIU fitted.
-* JLink Info: ETM fitted.
-* JLink Info:   FPUnit: 6 code (BP) slots and 2 literal slots
-* JLink Info: Found Cortex-M4 r0p1, Little endian.
-Application running ...
-Build target 'Target 1'
-compiling main.c...
-..\User\main.c(1674): warning:  #550-D: variable "status" was set but never used
-linking...
-Program Size: Code=24378 RO-data=26966 RW-data=296 ZI-data=101896  
-FromELF: creating hex file...
-".\Out\Project.axf" - 0 Error(s), 1 Warning(s).
-Load "C:\\Users\\Administrator\\Documents\\GitHub\\407_分补\\fen_bu\\uCOSII2.91+UCGUI3.90A\\MDK_Project\\Out\\Project.AXF" 
-* JLink Info: Device "STM32F407VE" selected (512 KB flash, 128 KB RAM).
-Set JLink Project File to "C:\Users\Administrator\Documents\GitHub\407_分补\fen_bu\uCOSII2.91+UCGUI3.90A\MDK_Project\JLinkSettings.ini"
- 
-JLink info:
-------------
-DLL: V4.40c, compiled Jan 24 2012 09:30:33
-Firmware: J-Link ARM-OB STM32 compiled Aug 22 2012 19:52:04
-Hardware: V7.00
-S/N : 20090928 
-Feature(s) : RDI,FlashDL,FlashBP,JFlash,GDBFull 
- 
-* JLink Info: Found SWD-DP with ID 0x2BA01477
-* JLink Info: TPIU fitted.
-* JLink Info: ETM fitted.
-* JLink Info:   FPUnit: 6 code (BP) slots and 2 literal slots
-* JLink Info: Found Cortex-M4 r0p1, Little endian.
-ROMTableAddr = 0xE00FF003
-* JLink Info: Found SWD-DP with ID 0x2BA01477
-* JLink Info: TPIU fitted.
-* JLink Info: ETM fitted.
-* JLink Info:   FPUnit: 6 code (BP) slots and 2 literal slots
-* JLink Info: Found Cortex-M4 r0p1, Little endian.
- 
-Target info:
-------------
-Device: STM32F407VE
-VTarget = 3.300V
-State of Pins: 
-TCK: 0, TDI: 0, TDO: 1, TMS: 0, TRES: 1, TRST: 1
-Hardware-Breakpoints: 6
-Software-Breakpoints: 8192
-Watchpoints:          4
-JTAG speed: 2000 kHz
- 
-Erase Done.
-Programming Done.
-Verify OK.
-* JLink Info: Found SWD-DP with ID 0x2BA01477
-* JLink Info: TPIU fitted.
-* JLink Info: ETM fitted.
-* JLink Info:   FPUnit: 6 code (BP) slots and 2 literal slots
-* JLink Info: Found Cortex-M4 r0p1, Little endian.
-Application running ...
-Build target 'Target 1'
-compiling main.c...
-..\User\main.c(1674): warning:  #550-D: variable "status" was set but never used
-linking...
-Program Size: Code=24334 RO-data=26970 RW-data=296 ZI-data=101896  
-FromELF: creating hex file...
-".\Out\Project.axf" - 0 Error(s), 1 Warning(s).
-Build target 'Target 1'
-compiling main.c...
-..\User\main.c(1671): warning:  #550-D: variable "status" was set but never used
-linking...
-Program Size: Code=24330 RO-data=26966 RW-data=296 ZI-data=101896  
-FromELF: creating hex file...
-".\Out\Project.axf" - 0 Error(s), 1 Warning(s).
-Load "C:\\Users\\Administrator\\Documents\\GitHub\\407_分补\\fen_bu\\uCOSII2.91+UCGUI3.90A\\MDK_Project\\Out\\Project.AXF" 
-* JLink Info: Device "STM32F407VE" selected (512 KB flash, 128 KB RAM).
-Set JLink Project File to "C:\Users\Administrator\Documents\GitHub\407_分补\fen_bu\uCOSII2.91+UCGUI3.90A\MDK_Project\JLinkSettings.ini"
- 
-JLink info:
-------------
-DLL: V4.40c, compiled Jan 24 2012 09:30:33
-Firmware: J-Link ARM-OB STM32 compiled Aug 22 2012 19:52:04
-Hardware: V7.00
-S/N : 20090928 
-Feature(s) : RDI,FlashDL,FlashBP,JFlash,GDBFull 
- 
-* JLink Info: Found SWD-DP with ID 0x2BA01477
-* JLink Info: TPIU fitted.
-* JLink Info: ETM fitted.
-* JLink Info:   FPUnit: 6 code (BP) slots and 2 literal slots
-* JLink Info: Found Cortex-M4 r0p1, Little endian.
-ROMTableAddr = 0xE00FF003
-* JLink Info: Found SWD-DP with ID 0x2BA01477
-* JLink Info: TPIU fitted.
-* JLink Info: ETM fitted.
-* JLink Info:   FPUnit: 6 code (BP) slots and 2 literal slots
-* JLink Info: Found Cortex-M4 r0p1, Little endian.
- 
-Target info:
-------------
-Device: STM32F407VE
-VTarget = 3.300V
-State of Pins: 
-TCK: 0, TDI: 0, TDO: 1, TMS: 0, TRES: 1, TRST: 1
-Hardware-Breakpoints: 6
-Software-Breakpoints: 8192
-Watchpoints:          4
-JTAG speed: 2000 kHz
- 
-Erase Done.
-Programming Done.
-Verify OK.
-* JLink Info: Found SWD-DP with ID 0x2BA01477
-* JLink Info: TPIU fitted.
-* JLink Info: ETM fitted.
-* JLink Info:   FPUnit: 6 code (BP) slots and 2 literal slots
-* JLink Info: Found Cortex-M4 r0p1, Little endian.
-Application running ...
-Build target 'Target 1'
-compiling main.c...
-..\User\main.c(1671): warning:  #550-D: variable "status" was set but never used
-linking...
-Program Size: Code=24330 RO-data=26966 RW-data=296 ZI-data=101896  
-FromELF: creating hex file...
-".\Out\Project.axf" - 0 Error(s), 1 Warning(s).
-Load "C:\\Users\\Administrator\\Documents\\GitHub\\407_分补\\fen_bu\\uCOSII2.91+UCGUI3.90A\\MDK_Project\\Out\\Project.AXF" 
-* JLink Info: Device "STM32F407VE" selected (512 KB flash, 128 KB RAM).
-Set JLink Project File to "C:\Users\Administrator\Documents\GitHub\407_分补\fen_bu\uCOSII2.91+UCGUI3.90A\MDK_Project\JLinkSettings.ini"
- 
-JLink info:
-------------
-DLL: V4.40c, compiled Jan 24 2012 09:30:33
-Firmware: J-Link ARM-OB STM32 compiled Aug 22 2012 19:52:04
-Hardware: V7.00
-S/N : 20090928 
-Feature(s) : RDI,FlashDL,FlashBP,JFlash,GDBFull 
- 
-Load "C:\\Users\\Administrator\\Documents\\GitHub\\407_分补\\fen_bu\\uCOSII2.91+UCGUI3.90A\\MDK_Project\\Out\\Project.AXF" 
-* JLink Info: Device "STM32F407VE" selected (512 KB flash, 128 KB RAM).
-Set JLink Project File to "C:\Users\Administrator\Documents\GitHub\407_分补\fen_bu\uCOSII2.91+UCGUI3.90A\MDK_Project\JLinkSettings.ini"
- 
-JLink info:
-------------
-DLL: V4.40c, compiled Jan 24 2012 09:30:33
-Firmware: J-Link ARM-OB STM32 compiled Aug 22 2012 19:52:04
-Hardware: V7.00
-S/N : 20090928 
-Feature(s) : RDI,FlashDL,FlashBP,JFlash,GDBFull 
- 
-* JLink Info: Found SWD-DP with ID 0x2BA01477
-* JLink Info: TPIU fitted.
-* JLink Info: ETM fitted.
-* JLink Info:   FPUnit: 6 code (BP) slots and 2 literal slots
-* JLink Info: Found Cortex-M4 r0p1, Little endian.
-ROMTableAddr = 0xE00FF003
-* JLink Info: Found SWD-DP with ID 0x2BA01477
-* JLink Info: TPIU fitted.
-* JLink Info: ETM fitted.
-* JLink Info:   FPUnit: 6 code (BP) slots and 2 literal slots
-* JLink Info: Found Cortex-M4 r0p1, Little endian.
- 
-Target info:
-------------
-Device: STM32F407VE
-VTarget = 3.300V
-State of Pins: 
-TCK: 0, TDI: 0, TDO: 1, TMS: 0, TRES: 1, TRST: 1
-Hardware-Breakpoints: 6
-Software-Breakpoints: 8192
-Watchpoints:          4
-JTAG speed: 2000 kHz
- 
-Erase Done.
-Programming Done.
-Verify OK.
-* JLink Info: Found SWD-DP with ID 0x2BA01477
-* JLink Info: TPIU fitted.
-* JLink Info: ETM fitted.
-* JLink Info:   FPUnit: 6 code (BP) slots and 2 literal slots
-* JLink Info: Found Cortex-M4 r0p1, Little endian.
-Application running ...
-Build target 'Target 1'
-compiling main.c...
-..\User\main.c(1679): warning:  #550-D: variable "status" was set but never used
-linking...
-Program Size: Code=24322 RO-data=26966 RW-data=296 ZI-data=101896  
-FromELF: creating hex file...
-".\Out\Project.axf" - 0 Error(s), 1 Warning(s).
-Load "C:\\Users\\Administrator\\Documents\\GitHub\\407_分补\\fen_bu\\uCOSII2.91+UCGUI3.90A\\MDK_Project\\Out\\Project.AXF" 
-* JLink Info: Device "STM32F407VE" selected (512 KB flash, 128 KB RAM).
-Set JLink Project File to "C:\Users\Administrator\Documents\GitHub\407_分补\fen_bu\uCOSII2.91+UCGUI3.90A\MDK_Project\JLinkSettings.ini"
- 
-JLink info:
-------------
-DLL: V4.40c, compiled Jan 24 2012 09:30:33
-Firmware: J-Link ARM-OB STM32 compiled Aug 22 2012 19:52:04
-Hardware: V7.00
-S/N : 20090928 
-Feature(s) : RDI,FlashDL,FlashBP,JFlash,GDBFull 
- 
-* JLink Info: Found SWD-DP with ID 0x2BA01477
-* JLink Info: TPIU fitted.
-* JLink Info: ETM fitted.
-* JLink Info:   FPUnit: 6 code (BP) slots and 2 literal slots
-* JLink Info: Found Cortex-M4 r0p1, Little endian.
-ROMTableAddr = 0xE00FF003
-* JLink Info: Found SWD-DP with ID 0x2BA01477
-* JLink Info: TPIU fitted.
-* JLink Info: ETM fitted.
-* JLink Info:   FPUnit: 6 code (BP) slots and 2 literal slots
-* JLink Info: Found Cortex-M4 r0p1, Little endian.
- 
-Target info:
-------------
-Device: STM32F407VE
-VTarget = 3.300V
-State of Pins: 
-TCK: 0, TDI: 0, TDO: 1, TMS: 0, TRES: 1, TRST: 1
-Hardware-Breakpoints: 6
-Software-Breakpoints: 8192
-Watchpoints:          4
-JTAG speed: 2000 kHz
- 
-Erase Done.
-Programming Done.
-Verify OK.
-* JLink Info: Found SWD-DP with ID 0x2BA01477
-* JLink Info: TPIU fitted.
-* JLink Info: ETM fitted.
-* JLink Info:   FPUnit: 6 code (BP) slots and 2 literal slots
-* JLink Info: Found Cortex-M4 r0p1, Little endian.
-Application running ...
-Build target 'Target 1'
-compiling main.c...
-..\User\main.c(1679): warning:  #550-D: variable "status" was set but never used
-linking...
-Program Size: Code=24278 RO-data=26970 RW-data=296 ZI-data=101896  
-FromELF: creating hex file...
-".\Out\Project.axf" - 0 Error(s), 1 Warning(s).
-Load "C:\\Users\\Administrator\\Documents\\GitHub\\407_分补\\fen_bu\\uCOSII2.91+UCGUI3.90A\\MDK_Project\\Out\\Project.AXF" 
-* JLink Info: Device "STM32F407VE" selected (512 KB flash, 128 KB RAM).
-Set JLink Project File to "C:\Users\Administrator\Documents\GitHub\407_分补\fen_bu\uCOSII2.91+UCGUI3.90A\MDK_Project\JLinkSettings.ini"
- 
-JLink info:
-------------
-DLL: V4.40c, compiled Jan 24 2012 09:30:33
-Firmware: J-Link ARM-OB STM32 compiled Aug 22 2012 19:52:04
-Hardware: V7.00
-S/N : 20090928 
-Feature(s) : RDI,FlashDL,FlashBP,JFlash,GDBFull 
- 
-* JLink Info: Found SWD-DP with ID 0x2BA01477
-* JLink Info: TPIU fitted.
-* JLink Info: ETM fitted.
-* JLink Info:   FPUnit: 6 code (BP) slots and 2 literal slots
-* JLink Info: Found Cortex-M4 r0p1, Little endian.
-ROMTableAddr = 0xE00FF003
-* JLink Info: Found SWD-DP with ID 0x2BA01477
-* JLink Info: TPIU fitted.
-* JLink Info: ETM fitted.
-* JLink Info:   FPUnit: 6 code (BP) slots and 2 literal slots
-* JLink Info: Found Cortex-M4 r0p1, Little endian.
- 
-Target info:
-------------
-Device: STM32F407VE
-VTarget = 3.300V
-State of Pins: 
-TCK: 0, TDI: 0, TDO: 1, TMS: 0, TRES: 1, TRST: 1
-Hardware-Breakpoints: 6
-Software-Breakpoints: 8192
-Watchpoints:          4
-JTAG speed: 2000 kHz
- 
-Erase Done.
-Programming Done.
-Verify OK.
-* JLink Info: Found SWD-DP with ID 0x2BA01477
-* JLink Info: TPIU fitted.
-* JLink Info: ETM fitted.
-* JLink Info:   FPUnit: 6 code (BP) slots and 2 literal slots
-* JLink Info: Found Cortex-M4 r0p1, Little endian.
-Application running ...
-Build target 'Target 1'
-compiling main.c...
-..\User\main.c(216): warning:  #1295-D: Deprecated declaration init_nodelist - give arg types
-..\User\main.c(1698): warning:  #550-D: variable "status" was set but never used
-linking...
-Program Size: Code=24434 RO-data=26966 RW-data=296 ZI-data=101896  
+Program Size: Code=27602 RO-data=26966 RW-data=296 ZI-data=102248  
 FromELF: creating hex file...
 ".\Out\Project.axf" - 0 Error(s), 2 Warning(s).
 Load "C:\\Users\\Administrator\\Documents\\GitHub\\407_分补\\fen_bu\\uCOSII2.91+UCGUI3.90A\\MDK_Project\\Out\\Project.AXF" 
@@ -1414,7 +1211,7 @@ Target info:
 Device: STM32F407VE
 VTarget = 3.300V
 State of Pins: 
-TCK: 0, TDI: 0, TDO: 1, TMS: 0, TRES: 1, TRST: 1
+TCK: 0, TDI: 1, TDO: 1, TMS: 0, TRES: 1, TRST: 1
 Hardware-Breakpoints: 6
 Software-Breakpoints: 8192
 Watchpoints:          4
@@ -1431,12 +1228,11 @@ Verify OK.
 Application running ...
 Build target 'Target 1'
 compiling main.c...
-..\User\main.c(216): warning:  #1295-D: Deprecated declaration init_nodelist - give arg types
-..\User\main.c(1708): warning:  #550-D: variable "status" was set but never used
+..\User\main.c(1736): warning:  #550-D: variable "status" was set but never used
 linking...
-Program Size: Code=24430 RO-data=26970 RW-data=296 ZI-data=101896  
+Program Size: Code=27506 RO-data=26966 RW-data=296 ZI-data=102248  
 FromELF: creating hex file...
-".\Out\Project.axf" - 0 Error(s), 2 Warning(s).
+".\Out\Project.axf" - 0 Error(s), 1 Warning(s).
 Load "C:\\Users\\Administrator\\Documents\\GitHub\\407_分补\\fen_bu\\uCOSII2.91+UCGUI3.90A\\MDK_Project\\Out\\Project.AXF" 
 * JLink Info: Device "STM32F407VE" selected (512 KB flash, 128 KB RAM).
 Set JLink Project File to "C:\Users\Administrator\Documents\GitHub\407_分补\fen_bu\uCOSII2.91+UCGUI3.90A\MDK_Project\JLinkSettings.ini"
@@ -1466,7 +1262,7 @@ Target info:
 Device: STM32F407VE
 VTarget = 3.300V
 State of Pins: 
-TCK: 0, TDI: 0, TDO: 1, TMS: 0, TRES: 1, TRST: 1
+TCK: 0, TDI: 1, TDO: 1, TMS: 0, TRES: 1, TRST: 1
 Hardware-Breakpoints: 6
 Software-Breakpoints: 8192
 Watchpoints:          4
@@ -1483,12 +1279,11 @@ Verify OK.
 Application running ...
 Build target 'Target 1'
 compiling main.c...
-..\User\main.c(216): warning:  #1295-D: Deprecated declaration init_nodelist - give arg types
-..\User\main.c(1708): warning:  #550-D: variable "status" was set but never used
+..\User\main.c(1736): warning:  #550-D: variable "status" was set but never used
 linking...
-Program Size: Code=24430 RO-data=26970 RW-data=296 ZI-data=101896  
+Program Size: Code=27546 RO-data=26966 RW-data=296 ZI-data=102248  
 FromELF: creating hex file...
-".\Out\Project.axf" - 0 Error(s), 2 Warning(s).
+".\Out\Project.axf" - 0 Error(s), 1 Warning(s).
 Load "C:\\Users\\Administrator\\Documents\\GitHub\\407_分补\\fen_bu\\uCOSII2.91+UCGUI3.90A\\MDK_Project\\Out\\Project.AXF" 
 * JLink Info: Device "STM32F407VE" selected (512 KB flash, 128 KB RAM).
 Set JLink Project File to "C:\Users\Administrator\Documents\GitHub\407_分补\fen_bu\uCOSII2.91+UCGUI3.90A\MDK_Project\JLinkSettings.ini"
@@ -1518,7 +1313,7 @@ Target info:
 Device: STM32F407VE
 VTarget = 3.300V
 State of Pins: 
-TCK: 0, TDI: 0, TDO: 1, TMS: 0, TRES: 1, TRST: 1
+TCK: 0, TDI: 1, TDO: 1, TMS: 0, TRES: 1, TRST: 1
 Hardware-Breakpoints: 6
 Software-Breakpoints: 8192
 Watchpoints:          4
@@ -1535,12 +1330,11 @@ Verify OK.
 Application running ...
 Build target 'Target 1'
 compiling main.c...
-..\User\main.c(216): warning:  #1295-D: Deprecated declaration init_nodelist - give arg types
-..\User\main.c(1708): warning:  #550-D: variable "status" was set but never used
+..\User\main.c(1736): warning:  #550-D: variable "status" was set but never used
 linking...
-Program Size: Code=24418 RO-data=26966 RW-data=296 ZI-data=101896  
+Program Size: Code=27546 RO-data=26966 RW-data=296 ZI-data=102248  
 FromELF: creating hex file...
-".\Out\Project.axf" - 0 Error(s), 2 Warning(s).
+".\Out\Project.axf" - 0 Error(s), 1 Warning(s).
 Load "C:\\Users\\Administrator\\Documents\\GitHub\\407_分补\\fen_bu\\uCOSII2.91+UCGUI3.90A\\MDK_Project\\Out\\Project.AXF" 
 * JLink Info: Device "STM32F407VE" selected (512 KB flash, 128 KB RAM).
 Set JLink Project File to "C:\Users\Administrator\Documents\GitHub\407_分补\fen_bu\uCOSII2.91+UCGUI3.90A\MDK_Project\JLinkSettings.ini"
@@ -1570,7 +1364,7 @@ Target info:
 Device: STM32F407VE
 VTarget = 3.300V
 State of Pins: 
-TCK: 0, TDI: 0, TDO: 1, TMS: 0, TRES: 1, TRST: 1
+TCK: 0, TDI: 1, TDO: 1, TMS: 0, TRES: 1, TRST: 1
 Hardware-Breakpoints: 6
 Software-Breakpoints: 8192
 Watchpoints:          4
@@ -1587,12 +1381,11 @@ Verify OK.
 Application running ...
 Build target 'Target 1'
 compiling main.c...
-..\User\main.c(216): warning:  #1295-D: Deprecated declaration init_nodelist - give arg types
-..\User\main.c(1708): warning:  #550-D: variable "status" was set but never used
+..\User\main.c(1736): warning:  #550-D: variable "status" was set but never used
 linking...
-Program Size: Code=24418 RO-data=26966 RW-data=296 ZI-data=101896  
+Program Size: Code=28266 RO-data=26966 RW-data=300 ZI-data=102244  
 FromELF: creating hex file...
-".\Out\Project.axf" - 0 Error(s), 2 Warning(s).
+".\Out\Project.axf" - 0 Error(s), 1 Warning(s).
 Load "C:\\Users\\Administrator\\Documents\\GitHub\\407_分补\\fen_bu\\uCOSII2.91+UCGUI3.90A\\MDK_Project\\Out\\Project.AXF" 
 * JLink Info: Device "STM32F407VE" selected (512 KB flash, 128 KB RAM).
 Set JLink Project File to "C:\Users\Administrator\Documents\GitHub\407_分补\fen_bu\uCOSII2.91+UCGUI3.90A\MDK_Project\JLinkSettings.ini"
@@ -1622,7 +1415,7 @@ Target info:
 Device: STM32F407VE
 VTarget = 3.300V
 State of Pins: 
-TCK: 0, TDI: 0, TDO: 1, TMS: 0, TRES: 1, TRST: 1
+TCK: 0, TDI: 1, TDO: 1, TMS: 0, TRES: 1, TRST: 1
 Hardware-Breakpoints: 6
 Software-Breakpoints: 8192
 Watchpoints:          4
@@ -1639,19 +1432,156 @@ Verify OK.
 Application running ...
 Build target 'Target 1'
 compiling main.c...
-..\User\main.c(216): warning:  #1295-D: Deprecated declaration init_nodelist - give arg types
-..\User\main.c(382): warning:  #223-D: function "inquiry_slave_status_dis" declared implicitly
-..\User\main.c(1639): error:  #159: declaration is incompatible with previous "inquiry_slave_status_dis" (declared at line 382)
-..\User\main.c(1709): warning:  #550-D: variable "status" was set but never used
+..\User\main.c(1736): warning:  #550-D: variable "status" was set but never used
+linking...
+Program Size: Code=28246 RO-data=26970 RW-data=300 ZI-data=102244  
+FromELF: creating hex file...
+".\Out\Project.axf" - 0 Error(s), 1 Warning(s).
+Load "C:\\Users\\Administrator\\Documents\\GitHub\\407_分补\\fen_bu\\uCOSII2.91+UCGUI3.90A\\MDK_Project\\Out\\Project.AXF" 
+* JLink Info: Device "STM32F407VE" selected (512 KB flash, 128 KB RAM).
+Set JLink Project File to "C:\Users\Administrator\Documents\GitHub\407_分补\fen_bu\uCOSII2.91+UCGUI3.90A\MDK_Project\JLinkSettings.ini"
+ 
+JLink info:
+------------
+DLL: V4.40c, compiled Jan 24 2012 09:30:33
+Firmware: J-Link ARM-OB STM32 compiled Aug 22 2012 19:52:04
+Hardware: V7.00
+S/N : 20090928 
+Feature(s) : RDI,FlashDL,FlashBP,JFlash,GDBFull 
+ 
+* JLink Info: Found SWD-DP with ID 0x2BA01477
+* JLink Info: TPIU fitted.
+* JLink Info: ETM fitted.
+* JLink Info:   FPUnit: 6 code (BP) slots and 2 literal slots
+* JLink Info: Found Cortex-M4 r0p1, Little endian.
+ROMTableAddr = 0xE00FF003
+* JLink Info: Found SWD-DP with ID 0x2BA01477
+* JLink Info: TPIU fitted.
+* JLink Info: ETM fitted.
+* JLink Info:   FPUnit: 6 code (BP) slots and 2 literal slots
+* JLink Info: Found Cortex-M4 r0p1, Little endian.
+ 
+Target info:
+------------
+Device: STM32F407VE
+VTarget = 3.300V
+State of Pins: 
+TCK: 0, TDI: 1, TDO: 1, TMS: 0, TRES: 1, TRST: 1
+Hardware-Breakpoints: 6
+Software-Breakpoints: 8192
+Watchpoints:          4
+JTAG speed: 2000 kHz
+ 
+Erase Done.
+Programming Done.
+Verify OK.
+* JLink Info: Found SWD-DP with ID 0x2BA01477
+* JLink Info: TPIU fitted.
+* JLink Info: ETM fitted.
+* JLink Info:   FPUnit: 6 code (BP) slots and 2 literal slots
+* JLink Info: Found Cortex-M4 r0p1, Little endian.
+Application running ...
+Build target 'Target 1'
+compiling main.c...
+..\User\main.c(1736): warning:  #550-D: variable "status" was set but never used
+linking...
+Program Size: Code=27546 RO-data=26966 RW-data=296 ZI-data=102248  
+FromELF: creating hex file...
+".\Out\Project.axf" - 0 Error(s), 1 Warning(s).
+Load "C:\\Users\\Administrator\\Documents\\GitHub\\407_分补\\fen_bu\\uCOSII2.91+UCGUI3.90A\\MDK_Project\\Out\\Project.AXF" 
+* JLink Info: Device "STM32F407VE" selected (512 KB flash, 128 KB RAM).
+Set JLink Project File to "C:\Users\Administrator\Documents\GitHub\407_分补\fen_bu\uCOSII2.91+UCGUI3.90A\MDK_Project\JLinkSettings.ini"
+ 
+JLink info:
+------------
+DLL: V4.40c, compiled Jan 24 2012 09:30:33
+Firmware: J-Link ARM-OB STM32 compiled Aug 22 2012 19:52:04
+Hardware: V7.00
+S/N : 20090928 
+Feature(s) : RDI,FlashDL,FlashBP,JFlash,GDBFull 
+ 
+* JLink Info: Found SWD-DP with ID 0x2BA01477
+* JLink Info: TPIU fitted.
+* JLink Info: ETM fitted.
+* JLink Info:   FPUnit: 6 code (BP) slots and 2 literal slots
+* JLink Info: Found Cortex-M4 r0p1, Little endian.
+ROMTableAddr = 0xE00FF003
+* JLink Info: Found SWD-DP with ID 0x2BA01477
+* JLink Info: TPIU fitted.
+* JLink Info: ETM fitted.
+* JLink Info:   FPUnit: 6 code (BP) slots and 2 literal slots
+* JLink Info: Found Cortex-M4 r0p1, Little endian.
+ 
+Target info:
+------------
+Device: STM32F407VE
+VTarget = 3.300V
+State of Pins: 
+TCK: 0, TDI: 1, TDO: 1, TMS: 0, TRES: 1, TRST: 1
+Hardware-Breakpoints: 6
+Software-Breakpoints: 8192
+Watchpoints:          4
+JTAG speed: 2000 kHz
+ 
+Erase Done.
+Programming Done.
+Verify OK.
+* JLink Info: Found SWD-DP with ID 0x2BA01477
+* JLink Info: TPIU fitted.
+* JLink Info: ETM fitted.
+* JLink Info:   FPUnit: 6 code (BP) slots and 2 literal slots
+* JLink Info: Found Cortex-M4 r0p1, Little endian.
+Application running ...
+Build target 'Target 1'
+compiling main.c...
+..\User\main.c(2073): error:  #29: expected an expression
+..\User\main.c(2093): warning:  #12-D: parsing restarts here after previous syntax error
+..\User\main.c(2093): error:  #65: expected a ";"
+..\User\main.c(1736): warning:  #550-D: variable "status" was set but never used
 Target not created
 Build target 'Target 1'
 compiling main.c...
-..\User\main.c(217): warning:  #1295-D: Deprecated declaration init_nodelist - give arg types
-..\User\main.c(1710): warning:  #550-D: variable "status" was set but never used
+..\User\main.c(1736): warning:  #550-D: variable "status" was set but never used
 linking...
-Program Size: Code=24422 RO-data=26970 RW-data=296 ZI-data=101896  
+Program Size: Code=27774 RO-data=26970 RW-data=296 ZI-data=102248  
 FromELF: creating hex file...
-".\Out\Project.axf" - 0 Error(s), 2 Warning(s).
+".\Out\Project.axf" - 0 Error(s), 1 Warning(s).
+Load "C:\\Users\\Administrator\\Documents\\GitHub\\407_分补\\fen_bu\\uCOSII2.91+UCGUI3.90A\\MDK_Project\\Out\\Project.AXF" 
+* JLink Info: Device "STM32F407VE" selected (512 KB flash, 128 KB RAM).
+Set JLink Project File to "C:\Users\Administrator\Documents\GitHub\407_分补\fen_bu\uCOSII2.91+UCGUI3.90A\MDK_Project\JLinkSettings.ini"
+ 
+JLink info:
+------------
+DLL: V4.40c, compiled Jan 24 2012 09:30:33
+Firmware: J-Link ARM-OB STM32 compiled Aug 22 2012 19:52:04
+Hardware: V7.00
+S/N : 20090928 
+Feature(s) : RDI,FlashDL,FlashBP,JFlash,GDBFull 
+ 
+* JLink Info: Found SWD-DP with ID 0x1BA01477
+* JLink Info: TPIU fitted.
+* JLink Info:   FPUnit: 6 code (BP) slots and 2 literal slots
+* JLink Info: Found Cortex-M3 r1p1, Little endian.
+**JLink Warning: Identified core does not match configuration. (Found: Cortex-M3, Configured: Cortex-M4)
+ROMTableAddr = 0xE00FF003
+* JLink Info: Found SWD-DP with ID 0x1BA01477
+* JLink Info: TPIU fitted.
+* JLink Info:   FPUnit: 6 code (BP) slots and 2 literal slots
+* JLink Info: Found Cortex-M3 r1p1, Little endian.
+**JLink Warning: Identified core does not match configuration. (Found: Cortex-M3, Configured: Cortex-M4)
+ 
+Target info:
+------------
+Device: STM32F407VE
+VTarget = 3.300V
+State of Pins: 
+TCK: 0, TDI: 1, TDO: 1, TMS: 0, TRES: 1, TRST: 1
+Hardware-Breakpoints: 6
+Software-Breakpoints: 8192
+Watchpoints:          4
+JTAG speed: 2000 kHz
+ 
+Erase Failed!
 Load "C:\\Users\\Administrator\\Documents\\GitHub\\407_分补\\fen_bu\\uCOSII2.91+UCGUI3.90A\\MDK_Project\\Out\\Project.AXF" 
 * JLink Info: Device "STM32F407VE" selected (512 KB flash, 128 KB RAM).
 Set JLink Project File to "C:\Users\Administrator\Documents\GitHub\407_分补\fen_bu\uCOSII2.91+UCGUI3.90A\MDK_Project\JLinkSettings.ini"
@@ -1681,7 +1611,7 @@ Target info:
 Device: STM32F407VE
 VTarget = 3.300V
 State of Pins: 
-TCK: 0, TDI: 0, TDO: 1, TMS: 0, TRES: 1, TRST: 1
+TCK: 0, TDI: 1, TDO: 1, TMS: 0, TRES: 1, TRST: 1
 Hardware-Breakpoints: 6
 Software-Breakpoints: 8192
 Watchpoints:          4
@@ -1698,437 +1628,9 @@ Verify OK.
 Application running ...
 Build target 'Target 1'
 compiling main.c...
-..\User\main.c(217): warning:  #1295-D: Deprecated declaration init_nodelist - give arg types
-..\User\main.c(1710): warning:  #550-D: variable "status" was set but never used
+..\User\main.c(1736): warning:  #550-D: variable "status" was set but never used
 linking...
-Program Size: Code=24422 RO-data=26970 RW-data=296 ZI-data=101896  
-FromELF: creating hex file...
-".\Out\Project.axf" - 0 Error(s), 2 Warning(s).
-Load "C:\\Users\\Administrator\\Documents\\GitHub\\407_分补\\fen_bu\\uCOSII2.91+UCGUI3.90A\\MDK_Project\\Out\\Project.AXF" 
-* JLink Info: Device "STM32F407VE" selected (512 KB flash, 128 KB RAM).
-Set JLink Project File to "C:\Users\Administrator\Documents\GitHub\407_分补\fen_bu\uCOSII2.91+UCGUI3.90A\MDK_Project\JLinkSettings.ini"
- 
-JLink info:
-------------
-DLL: V4.40c, compiled Jan 24 2012 09:30:33
-Firmware: J-Link ARM-OB STM32 compiled Aug 22 2012 19:52:04
-Hardware: V7.00
-S/N : 20090928 
-Feature(s) : RDI,FlashDL,FlashBP,JFlash,GDBFull 
- 
-Load "C:\\Users\\Administrator\\Documents\\GitHub\\407_分补\\fen_bu\\uCOSII2.91+UCGUI3.90A\\MDK_Project\\Out\\Project.AXF" 
-* JLink Info: Device "STM32F407VE" selected (512 KB flash, 128 KB RAM).
-Set JLink Project File to "C:\Users\Administrator\Documents\GitHub\407_分补\fen_bu\uCOSII2.91+UCGUI3.90A\MDK_Project\JLinkSettings.ini"
- 
-JLink info:
-------------
-DLL: V4.40c, compiled Jan 24 2012 09:30:33
-Firmware: J-Link ARM-OB STM32 compiled Aug 22 2012 19:52:04
-Hardware: V7.00
-S/N : 20090928 
-Feature(s) : RDI,FlashDL,FlashBP,JFlash,GDBFull 
- 
-* JLink Info: Found SWD-DP with ID 0x2BA01477
-* JLink Info: TPIU fitted.
-* JLink Info: ETM fitted.
-* JLink Info:   FPUnit: 6 code (BP) slots and 2 literal slots
-* JLink Info: Found Cortex-M4 r0p1, Little endian.
-ROMTableAddr = 0xE00FF003
-* JLink Info: Found SWD-DP with ID 0x2BA01477
-* JLink Info: TPIU fitted.
-* JLink Info: ETM fitted.
-* JLink Info:   FPUnit: 6 code (BP) slots and 2 literal slots
-* JLink Info: Found Cortex-M4 r0p1, Little endian.
- 
-Target info:
-------------
-Device: STM32F407VE
-VTarget = 3.300V
-State of Pins: 
-TCK: 0, TDI: 0, TDO: 1, TMS: 0, TRES: 1, TRST: 1
-Hardware-Breakpoints: 6
-Software-Breakpoints: 8192
-Watchpoints:          4
-JTAG speed: 2000 kHz
- 
-Erase Done.
-Programming Done.
-Verify OK.
-* JLink Info: Found SWD-DP with ID 0x2BA01477
-* JLink Info: TPIU fitted.
-* JLink Info: ETM fitted.
-* JLink Info:   FPUnit: 6 code (BP) slots and 2 literal slots
-* JLink Info: Found Cortex-M4 r0p1, Little endian.
-Application running ...
-Build target 'Target 1'
-compiling main.c...
-..\User\main.c(216): warning:  #1295-D: Deprecated declaration init_nodelist - give arg types
-..\User\main.c(1707): warning:  #550-D: variable "status" was set but never used
-linking...
-Program Size: Code=24418 RO-data=26966 RW-data=296 ZI-data=101896  
-FromELF: creating hex file...
-".\Out\Project.axf" - 0 Error(s), 2 Warning(s).
-Load "C:\\Users\\Administrator\\Documents\\GitHub\\407_分补\\fen_bu\\uCOSII2.91+UCGUI3.90A\\MDK_Project\\Out\\Project.AXF" 
-* JLink Info: Device "STM32F407VE" selected (512 KB flash, 128 KB RAM).
-Set JLink Project File to "C:\Users\Administrator\Documents\GitHub\407_分补\fen_bu\uCOSII2.91+UCGUI3.90A\MDK_Project\JLinkSettings.ini"
- 
-JLink info:
-------------
-DLL: V4.40c, compiled Jan 24 2012 09:30:33
-Firmware: J-Link ARM-OB STM32 compiled Aug 22 2012 19:52:04
-Hardware: V7.00
-S/N : 20090928 
-Feature(s) : RDI,FlashDL,FlashBP,JFlash,GDBFull 
- 
-* JLink Info: Found SWD-DP with ID 0x2BA01477
-* JLink Info: TPIU fitted.
-* JLink Info: ETM fitted.
-* JLink Info:   FPUnit: 6 code (BP) slots and 2 literal slots
-* JLink Info: Found Cortex-M4 r0p1, Little endian.
-ROMTableAddr = 0xE00FF003
-* JLink Info: Found SWD-DP with ID 0x2BA01477
-* JLink Info: TPIU fitted.
-* JLink Info: ETM fitted.
-* JLink Info:   FPUnit: 6 code (BP) slots and 2 literal slots
-* JLink Info: Found Cortex-M4 r0p1, Little endian.
- 
-Target info:
-------------
-Device: STM32F407VE
-VTarget = 3.300V
-State of Pins: 
-TCK: 0, TDI: 0, TDO: 1, TMS: 0, TRES: 1, TRST: 1
-Hardware-Breakpoints: 6
-Software-Breakpoints: 8192
-Watchpoints:          4
-JTAG speed: 2000 kHz
- 
-Erase Done.
-Programming Done.
-Verify OK.
-* JLink Info: Found SWD-DP with ID 0x2BA01477
-* JLink Info: TPIU fitted.
-* JLink Info: ETM fitted.
-* JLink Info:   FPUnit: 6 code (BP) slots and 2 literal slots
-* JLink Info: Found Cortex-M4 r0p1, Little endian.
-Application running ...
-Build target 'Target 1'
-compiling main.c...
-..\User\main.c(218): warning:  #1295-D: Deprecated declaration init_nodelist - give arg types
-..\User\main.c(1709): warning:  #550-D: variable "status" was set but never used
-linking...
-Program Size: Code=24418 RO-data=26966 RW-data=296 ZI-data=101896  
-FromELF: creating hex file...
-".\Out\Project.axf" - 0 Error(s), 2 Warning(s).
-Load "C:\\Users\\Administrator\\Documents\\GitHub\\407_分补\\fen_bu\\uCOSII2.91+UCGUI3.90A\\MDK_Project\\Out\\Project.AXF" 
-* JLink Info: Device "STM32F407VE" selected (512 KB flash, 128 KB RAM).
-Set JLink Project File to "C:\Users\Administrator\Documents\GitHub\407_分补\fen_bu\uCOSII2.91+UCGUI3.90A\MDK_Project\JLinkSettings.ini"
- 
-JLink info:
-------------
-DLL: V4.40c, compiled Jan 24 2012 09:30:33
-Firmware: J-Link ARM-OB STM32 compiled Aug 22 2012 19:52:04
-Hardware: V7.00
-S/N : 20090928 
-Feature(s) : RDI,FlashDL,FlashBP,JFlash,GDBFull 
- 
-* JLink Info: Found SWD-DP with ID 0x2BA01477
-* JLink Info: TPIU fitted.
-* JLink Info: ETM fitted.
-* JLink Info:   FPUnit: 6 code (BP) slots and 2 literal slots
-* JLink Info: Found Cortex-M4 r0p1, Little endian.
-ROMTableAddr = 0xE00FF003
-* JLink Info: Found SWD-DP with ID 0x2BA01477
-* JLink Info: TPIU fitted.
-* JLink Info: ETM fitted.
-* JLink Info:   FPUnit: 6 code (BP) slots and 2 literal slots
-* JLink Info: Found Cortex-M4 r0p1, Little endian.
- 
-Target info:
-------------
-Device: STM32F407VE
-VTarget = 3.300V
-State of Pins: 
-TCK: 0, TDI: 0, TDO: 1, TMS: 0, TRES: 1, TRST: 1
-Hardware-Breakpoints: 6
-Software-Breakpoints: 8192
-Watchpoints:          4
-JTAG speed: 2000 kHz
- 
-Erase Done.
-Programming Done.
-Verify OK.
-* JLink Info: Found SWD-DP with ID 0x2BA01477
-* JLink Info: TPIU fitted.
-* JLink Info: ETM fitted.
-* JLink Info:   FPUnit: 6 code (BP) slots and 2 literal slots
-* JLink Info: Found Cortex-M4 r0p1, Little endian.
-Application running ...
-Build target 'Target 1'
-compiling main.c...
-..\User\main.c(218): warning:  #1295-D: Deprecated declaration init_nodelist - give arg types
-..\User\main.c(1709): warning:  #550-D: variable "status" was set but never used
-linking...
-Program Size: Code=24314 RO-data=26966 RW-data=296 ZI-data=101896  
-FromELF: creating hex file...
-".\Out\Project.axf" - 0 Error(s), 2 Warning(s).
-Load "C:\\Users\\Administrator\\Documents\\GitHub\\407_分补\\fen_bu\\uCOSII2.91+UCGUI3.90A\\MDK_Project\\Out\\Project.AXF" 
-* JLink Info: Device "STM32F407VE" selected (512 KB flash, 128 KB RAM).
-Set JLink Project File to "C:\Users\Administrator\Documents\GitHub\407_分补\fen_bu\uCOSII2.91+UCGUI3.90A\MDK_Project\JLinkSettings.ini"
- 
-JLink info:
-------------
-DLL: V4.40c, compiled Jan 24 2012 09:30:33
-Firmware: J-Link ARM-OB STM32 compiled Aug 22 2012 19:52:04
-Hardware: V7.00
-S/N : 20090928 
-Feature(s) : RDI,FlashDL,FlashBP,JFlash,GDBFull 
- 
-* JLink Info: Found SWD-DP with ID 0x2BA01477
-* JLink Info: TPIU fitted.
-* JLink Info: ETM fitted.
-* JLink Info:   FPUnit: 6 code (BP) slots and 2 literal slots
-* JLink Info: Found Cortex-M4 r0p1, Little endian.
-ROMTableAddr = 0xE00FF003
-* JLink Info: Found SWD-DP with ID 0x2BA01477
-* JLink Info: TPIU fitted.
-* JLink Info: ETM fitted.
-* JLink Info:   FPUnit: 6 code (BP) slots and 2 literal slots
-* JLink Info: Found Cortex-M4 r0p1, Little endian.
- 
-Target info:
-------------
-Device: STM32F407VE
-VTarget = 3.300V
-State of Pins: 
-TCK: 0, TDI: 0, TDO: 1, TMS: 0, TRES: 1, TRST: 1
-Hardware-Breakpoints: 6
-Software-Breakpoints: 8192
-Watchpoints:          4
-JTAG speed: 2000 kHz
- 
-Erase Done.
-Programming Done.
-Verify OK.
-* JLink Info: Found SWD-DP with ID 0x2BA01477
-* JLink Info: TPIU fitted.
-* JLink Info: ETM fitted.
-* JLink Info:   FPUnit: 6 code (BP) slots and 2 literal slots
-* JLink Info: Found Cortex-M4 r0p1, Little endian.
-Application running ...
-Build target 'Target 1'
-compiling main.c...
-..\User\main.c(218): warning:  #1295-D: Deprecated declaration init_nodelist - give arg types
-..\User\main.c(1709): warning:  #550-D: variable "status" was set but never used
-linking...
-Program Size: Code=24278 RO-data=26970 RW-data=296 ZI-data=101896  
-FromELF: creating hex file...
-".\Out\Project.axf" - 0 Error(s), 2 Warning(s).
-Load "C:\\Users\\Administrator\\Documents\\GitHub\\407_分补\\fen_bu\\uCOSII2.91+UCGUI3.90A\\MDK_Project\\Out\\Project.AXF" 
-* JLink Info: Device "STM32F407VE" selected (512 KB flash, 128 KB RAM).
-Set JLink Project File to "C:\Users\Administrator\Documents\GitHub\407_分补\fen_bu\uCOSII2.91+UCGUI3.90A\MDK_Project\JLinkSettings.ini"
- 
-JLink info:
-------------
-DLL: V4.40c, compiled Jan 24 2012 09:30:33
-Firmware: J-Link ARM-OB STM32 compiled Aug 22 2012 19:52:04
-Hardware: V7.00
-S/N : 20090928 
-Feature(s) : RDI,FlashDL,FlashBP,JFlash,GDBFull 
- 
-* JLink Info: Found SWD-DP with ID 0x2BA01477
-* JLink Info: TPIU fitted.
-* JLink Info: ETM fitted.
-* JLink Info:   FPUnit: 6 code (BP) slots and 2 literal slots
-* JLink Info: Found Cortex-M4 r0p1, Little endian.
-ROMTableAddr = 0xE00FF003
-* JLink Info: Found SWD-DP with ID 0x2BA01477
-* JLink Info: TPIU fitted.
-* JLink Info: ETM fitted.
-* JLink Info:   FPUnit: 6 code (BP) slots and 2 literal slots
-* JLink Info: Found Cortex-M4 r0p1, Little endian.
- 
-Target info:
-------------
-Device: STM32F407VE
-VTarget = 3.300V
-State of Pins: 
-TCK: 0, TDI: 0, TDO: 1, TMS: 0, TRES: 1, TRST: 1
-Hardware-Breakpoints: 6
-Software-Breakpoints: 8192
-Watchpoints:          4
-JTAG speed: 2000 kHz
- 
-Erase Done.
-Programming Done.
-Verify OK.
-* JLink Info: Found SWD-DP with ID 0x2BA01477
-* JLink Info: TPIU fitted.
-* JLink Info: ETM fitted.
-* JLink Info:   FPUnit: 6 code (BP) slots and 2 literal slots
-* JLink Info: Found Cortex-M4 r0p1, Little endian.
-Application running ...
-Build target 'Target 1'
-compiling main.c...
-..\User\main.c(218): warning:  #1295-D: Deprecated declaration init_nodelist - give arg types
-..\User\main.c(1709): warning:  #550-D: variable "status" was set but never used
-linking...
-Program Size: Code=24382 RO-data=26970 RW-data=296 ZI-data=101896  
-FromELF: creating hex file...
-".\Out\Project.axf" - 0 Error(s), 2 Warning(s).
-Load "C:\\Users\\Administrator\\Documents\\GitHub\\407_分补\\fen_bu\\uCOSII2.91+UCGUI3.90A\\MDK_Project\\Out\\Project.AXF" 
-* JLink Info: Device "STM32F407VE" selected (512 KB flash, 128 KB RAM).
-Set JLink Project File to "C:\Users\Administrator\Documents\GitHub\407_分补\fen_bu\uCOSII2.91+UCGUI3.90A\MDK_Project\JLinkSettings.ini"
- 
-JLink info:
-------------
-DLL: V4.40c, compiled Jan 24 2012 09:30:33
-Firmware: J-Link ARM-OB STM32 compiled Aug 22 2012 19:52:04
-Hardware: V7.00
-S/N : 20090928 
-Feature(s) : RDI,FlashDL,FlashBP,JFlash,GDBFull 
- 
-* JLink Info: Found SWD-DP with ID 0x2BA01477
-* JLink Info: TPIU fitted.
-* JLink Info: ETM fitted.
-* JLink Info:   FPUnit: 6 code (BP) slots and 2 literal slots
-* JLink Info: Found Cortex-M4 r0p1, Little endian.
-ROMTableAddr = 0xE00FF003
-* JLink Info: Found SWD-DP with ID 0x2BA01477
-* JLink Info: TPIU fitted.
-* JLink Info: ETM fitted.
-* JLink Info:   FPUnit: 6 code (BP) slots and 2 literal slots
-* JLink Info: Found Cortex-M4 r0p1, Little endian.
- 
-Target info:
-------------
-Device: STM32F407VE
-VTarget = 3.300V
-State of Pins: 
-TCK: 0, TDI: 0, TDO: 1, TMS: 0, TRES: 1, TRST: 1
-Hardware-Breakpoints: 6
-Software-Breakpoints: 8192
-Watchpoints:          4
-JTAG speed: 2000 kHz
- 
-Erase Done.
-Programming Done.
-Verify OK.
-* JLink Info: Found SWD-DP with ID 0x2BA01477
-* JLink Info: TPIU fitted.
-* JLink Info: ETM fitted.
-* JLink Info:   FPUnit: 6 code (BP) slots and 2 literal slots
-* JLink Info: Found Cortex-M4 r0p1, Little endian.
-Application running ...
-Build target 'Target 1'
-compiling main.c...
-..\User\main.c(218): warning:  #1295-D: Deprecated declaration init_nodelist - give arg types
-..\User\main.c(1711): warning:  #550-D: variable "status" was set but never used
-linking...
-Program Size: Code=24386 RO-data=26966 RW-data=296 ZI-data=101896  
-FromELF: creating hex file...
-".\Out\Project.axf" - 0 Error(s), 2 Warning(s).
-Load "C:\\Users\\Administrator\\Documents\\GitHub\\407_分补\\fen_bu\\uCOSII2.91+UCGUI3.90A\\MDK_Project\\Out\\Project.AXF" 
-* JLink Info: Device "STM32F407VE" selected (512 KB flash, 128 KB RAM).
-Set JLink Project File to "C:\Users\Administrator\Documents\GitHub\407_分补\fen_bu\uCOSII2.91+UCGUI3.90A\MDK_Project\JLinkSettings.ini"
- 
-JLink info:
-------------
-DLL: V4.40c, compiled Jan 24 2012 09:30:33
-Firmware: J-Link ARM-OB STM32 compiled Aug 22 2012 19:52:04
-Hardware: V7.00
-S/N : 20090928 
-Feature(s) : RDI,FlashDL,FlashBP,JFlash,GDBFull 
- 
-* JLink Info: Found SWD-DP with ID 0x2BA01477
-* JLink Info: TPIU fitted.
-* JLink Info: ETM fitted.
-* JLink Info:   FPUnit: 6 code (BP) slots and 2 literal slots
-* JLink Info: Found Cortex-M4 r0p1, Little endian.
-ROMTableAddr = 0xE00FF003
-* JLink Info: Found SWD-DP with ID 0x2BA01477
-* JLink Info: TPIU fitted.
-* JLink Info: ETM fitted.
-* JLink Info:   FPUnit: 6 code (BP) slots and 2 literal slots
-* JLink Info: Found Cortex-M4 r0p1, Little endian.
- 
-Target info:
-------------
-Device: STM32F407VE
-VTarget = 3.300V
-State of Pins: 
-TCK: 0, TDI: 0, TDO: 1, TMS: 0, TRES: 1, TRST: 1
-Hardware-Breakpoints: 6
-Software-Breakpoints: 8192
-Watchpoints:          4
-JTAG speed: 2000 kHz
- 
-Erase Done.
-Programming Done.
-Verify OK.
-* JLink Info: Found SWD-DP with ID 0x2BA01477
-* JLink Info: TPIU fitted.
-* JLink Info: ETM fitted.
-* JLink Info:   FPUnit: 6 code (BP) slots and 2 literal slots
-* JLink Info: Found Cortex-M4 r0p1, Little endian.
-Application running ...
-Build target 'Target 1'
-compiling main.c...
-..\User\main.c(218): warning:  #1295-D: Deprecated declaration init_nodelist - give arg types
-..\User\main.c(1709): warning:  #550-D: variable "status" was set but never used
-linking...
-Program Size: Code=24278 RO-data=26970 RW-data=296 ZI-data=101896  
-FromELF: creating hex file...
-".\Out\Project.axf" - 0 Error(s), 2 Warning(s).
-Load "C:\\Users\\Administrator\\Documents\\GitHub\\407_分补\\fen_bu\\uCOSII2.91+UCGUI3.90A\\MDK_Project\\Out\\Project.AXF" 
-* JLink Info: Device "STM32F407VE" selected (512 KB flash, 128 KB RAM).
-Set JLink Project File to "C:\Users\Administrator\Documents\GitHub\407_分补\fen_bu\uCOSII2.91+UCGUI3.90A\MDK_Project\JLinkSettings.ini"
- 
-JLink info:
-------------
-DLL: V4.40c, compiled Jan 24 2012 09:30:33
-Firmware: J-Link ARM-OB STM32 compiled Aug 22 2012 19:52:04
-Hardware: V7.00
-S/N : 20090928 
-Feature(s) : RDI,FlashDL,FlashBP,JFlash,GDBFull 
- 
-* JLink Info: Found SWD-DP with ID 0x2BA01477
-* JLink Info: TPIU fitted.
-* JLink Info: ETM fitted.
-* JLink Info:   FPUnit: 6 code (BP) slots and 2 literal slots
-* JLink Info: Found Cortex-M4 r0p1, Little endian.
-ROMTableAddr = 0xE00FF003
-* JLink Info: Found SWD-DP with ID 0x2BA01477
-* JLink Info: TPIU fitted.
-* JLink Info: ETM fitted.
-* JLink Info:   FPUnit: 6 code (BP) slots and 2 literal slots
-* JLink Info: Found Cortex-M4 r0p1, Little endian.
- 
-Target info:
-------------
-Device: STM32F407VE
-VTarget = 3.300V
-State of Pins: 
-TCK: 0, TDI: 0, TDO: 1, TMS: 0, TRES: 1, TRST: 1
-Hardware-Breakpoints: 6
-Software-Breakpoints: 8192
-Watchpoints:          4
-JTAG speed: 2000 kHz
- 
-Erase Done.
-Programming Done.
-Verify OK.
-* JLink Info: Found SWD-DP with ID 0x2BA01477
-* JLink Info: TPIU fitted.
-* JLink Info: ETM fitted.
-* JLink Info:   FPUnit: 6 code (BP) slots and 2 literal slots
-* JLink Info: Found Cortex-M4 r0p1, Little endian.
-Application running ...
-Build target 'Target 1'
-compiling main.c...
-..\User\main.c(1709): warning:  #550-D: variable "status" was set but never used
-linking...
-Program Size: Code=24382 RO-data=26970 RW-data=296 ZI-data=101896  
+Program Size: Code=27774 RO-data=26970 RW-data=296 ZI-data=102248  
 FromELF: creating hex file...
 ".\Out\Project.axf" - 0 Error(s), 1 Warning(s).
 Load "C:\\Users\\Administrator\\Documents\\GitHub\\407_分补\\fen_bu\\uCOSII2.91+UCGUI3.90A\\MDK_Project\\Out\\Project.AXF" 
@@ -2160,592 +1662,7 @@ Target info:
 Device: STM32F407VE
 VTarget = 3.300V
 State of Pins: 
-TCK: 0, TDI: 0, TDO: 1, TMS: 0, TRES: 1, TRST: 1
-Hardware-Breakpoints: 6
-Software-Breakpoints: 8192
-Watchpoints:          4
-JTAG speed: 2000 kHz
- 
-Erase Done.
-Programming Done.
-Verify OK.
-* JLink Info: Found SWD-DP with ID 0x2BA01477
-* JLink Info: TPIU fitted.
-* JLink Info: ETM fitted.
-* JLink Info:   FPUnit: 6 code (BP) slots and 2 literal slots
-* JLink Info: Found Cortex-M4 r0p1, Little endian.
-Application running ...
-Build target 'Target 1'
-compiling main.c...
-..\User\main.c(1709): warning:  #550-D: variable "status" was set but never used
-linking...
-Program Size: Code=24382 RO-data=26970 RW-data=296 ZI-data=101912  
-FromELF: creating hex file...
-".\Out\Project.axf" - 0 Error(s), 1 Warning(s).
-Load "C:\\Users\\Administrator\\Documents\\GitHub\\407_分补\\fen_bu\\uCOSII2.91+UCGUI3.90A\\MDK_Project\\Out\\Project.AXF" 
-* JLink Info: Device "STM32F407VE" selected (512 KB flash, 128 KB RAM).
-Set JLink Project File to "C:\Users\Administrator\Documents\GitHub\407_分补\fen_bu\uCOSII2.91+UCGUI3.90A\MDK_Project\JLinkSettings.ini"
- 
-JLink info:
-------------
-DLL: V4.40c, compiled Jan 24 2012 09:30:33
-Firmware: J-Link ARM-OB STM32 compiled Aug 22 2012 19:52:04
-Hardware: V7.00
-S/N : 20090928 
-Feature(s) : RDI,FlashDL,FlashBP,JFlash,GDBFull 
- 
-* JLink Info: Found SWD-DP with ID 0x2BA01477
-* JLink Info: TPIU fitted.
-* JLink Info: ETM fitted.
-* JLink Info:   FPUnit: 6 code (BP) slots and 2 literal slots
-* JLink Info: Found Cortex-M4 r0p1, Little endian.
-ROMTableAddr = 0xE00FF003
-* JLink Info: Found SWD-DP with ID 0x2BA01477
-* JLink Info: TPIU fitted.
-* JLink Info: ETM fitted.
-* JLink Info:   FPUnit: 6 code (BP) slots and 2 literal slots
-* JLink Info: Found Cortex-M4 r0p1, Little endian.
- 
-Target info:
-------------
-Device: STM32F407VE
-VTarget = 3.300V
-State of Pins: 
-TCK: 0, TDI: 0, TDO: 1, TMS: 0, TRES: 1, TRST: 1
-Hardware-Breakpoints: 6
-Software-Breakpoints: 8192
-Watchpoints:          4
-JTAG speed: 2000 kHz
- 
-Erase Done.
-Programming Done.
-Verify OK.
-* JLink Info: Found SWD-DP with ID 0x2BA01477
-* JLink Info: TPIU fitted.
-* JLink Info: ETM fitted.
-* JLink Info:   FPUnit: 6 code (BP) slots and 2 literal slots
-* JLink Info: Found Cortex-M4 r0p1, Little endian.
-Application running ...
-Build target 'Target 1'
-compiling main.c...
-..\User\main.c(1709): warning:  #550-D: variable "status" was set but never used
-linking...
-Program Size: Code=24386 RO-data=26966 RW-data=296 ZI-data=102184  
-FromELF: creating hex file...
-".\Out\Project.axf" - 0 Error(s), 1 Warning(s).
-Load "C:\\Users\\Administrator\\Documents\\GitHub\\407_分补\\fen_bu\\uCOSII2.91+UCGUI3.90A\\MDK_Project\\Out\\Project.AXF" 
-* JLink Info: Device "STM32F407VE" selected (512 KB flash, 128 KB RAM).
-Set JLink Project File to "C:\Users\Administrator\Documents\GitHub\407_分补\fen_bu\uCOSII2.91+UCGUI3.90A\MDK_Project\JLinkSettings.ini"
- 
-JLink info:
-------------
-DLL: V4.40c, compiled Jan 24 2012 09:30:33
-Firmware: J-Link ARM-OB STM32 compiled Aug 22 2012 19:52:04
-Hardware: V7.00
-S/N : 20090928 
-Feature(s) : RDI,FlashDL,FlashBP,JFlash,GDBFull 
- 
-* JLink Info: Found SWD-DP with ID 0x2BA01477
-* JLink Info: TPIU fitted.
-* JLink Info: ETM fitted.
-* JLink Info:   FPUnit: 6 code (BP) slots and 2 literal slots
-* JLink Info: Found Cortex-M4 r0p1, Little endian.
-ROMTableAddr = 0xE00FF003
-* JLink Info: Found SWD-DP with ID 0x2BA01477
-* JLink Info: TPIU fitted.
-* JLink Info: ETM fitted.
-* JLink Info:   FPUnit: 6 code (BP) slots and 2 literal slots
-* JLink Info: Found Cortex-M4 r0p1, Little endian.
- 
-Target info:
-------------
-Device: STM32F407VE
-VTarget = 3.300V
-State of Pins: 
-TCK: 0, TDI: 0, TDO: 1, TMS: 0, TRES: 1, TRST: 1
-Hardware-Breakpoints: 6
-Software-Breakpoints: 8192
-Watchpoints:          4
-JTAG speed: 2000 kHz
- 
-Erase Done.
-Programming Done.
-Verify OK.
-* JLink Info: Found SWD-DP with ID 0x2BA01477
-* JLink Info: TPIU fitted.
-* JLink Info: ETM fitted.
-* JLink Info:   FPUnit: 6 code (BP) slots and 2 literal slots
-* JLink Info: Found Cortex-M4 r0p1, Little endian.
-Application running ...
-Build target 'Target 1'
-compiling main.c...
-..\User\main.c(1709): warning:  #550-D: variable "status" was set but never used
-linking...
-Program Size: Code=24562 RO-data=26966 RW-data=296 ZI-data=102184  
-FromELF: creating hex file...
-".\Out\Project.axf" - 0 Error(s), 1 Warning(s).
-Load "C:\\Users\\Administrator\\Documents\\GitHub\\407_分补\\fen_bu\\uCOSII2.91+UCGUI3.90A\\MDK_Project\\Out\\Project.AXF" 
-* JLink Info: Device "STM32F407VE" selected (512 KB flash, 128 KB RAM).
-Set JLink Project File to "C:\Users\Administrator\Documents\GitHub\407_分补\fen_bu\uCOSII2.91+UCGUI3.90A\MDK_Project\JLinkSettings.ini"
- 
-JLink info:
-------------
-DLL: V4.40c, compiled Jan 24 2012 09:30:33
-Firmware: J-Link ARM-OB STM32 compiled Aug 22 2012 19:52:04
-Hardware: V7.00
-S/N : 20090928 
-Feature(s) : RDI,FlashDL,FlashBP,JFlash,GDBFull 
- 
-* JLink Info: Found SWD-DP with ID 0x2BA01477
-* JLink Info: TPIU fitted.
-* JLink Info: ETM fitted.
-* JLink Info:   FPUnit: 6 code (BP) slots and 2 literal slots
-* JLink Info: Found Cortex-M4 r0p1, Little endian.
-ROMTableAddr = 0xE00FF003
-* JLink Info: Found SWD-DP with ID 0x2BA01477
-* JLink Info: TPIU fitted.
-* JLink Info: ETM fitted.
-* JLink Info:   FPUnit: 6 code (BP) slots and 2 literal slots
-* JLink Info: Found Cortex-M4 r0p1, Little endian.
- 
-Target info:
-------------
-Device: STM32F407VE
-VTarget = 3.300V
-State of Pins: 
-TCK: 0, TDI: 0, TDO: 1, TMS: 0, TRES: 1, TRST: 1
-Hardware-Breakpoints: 6
-Software-Breakpoints: 8192
-Watchpoints:          4
-JTAG speed: 2000 kHz
- 
-Erase Done.
-Programming Done.
-Verify OK.
-* JLink Info: Found SWD-DP with ID 0x2BA01477
-* JLink Info: TPIU fitted.
-* JLink Info: ETM fitted.
-* JLink Info:   FPUnit: 6 code (BP) slots and 2 literal slots
-* JLink Info: Found Cortex-M4 r0p1, Little endian.
-Application running ...
-Build target 'Target 1'
-compiling main.c...
-..\User\main.c(1709): warning:  #550-D: variable "status" was set but never used
-linking...
-Program Size: Code=24398 RO-data=26970 RW-data=296 ZI-data=102184  
-FromELF: creating hex file...
-".\Out\Project.axf" - 0 Error(s), 1 Warning(s).
-Load "C:\\Users\\Administrator\\Documents\\GitHub\\407_分补\\fen_bu\\uCOSII2.91+UCGUI3.90A\\MDK_Project\\Out\\Project.AXF" 
-* JLink Info: Device "STM32F407VE" selected (512 KB flash, 128 KB RAM).
-Set JLink Project File to "C:\Users\Administrator\Documents\GitHub\407_分补\fen_bu\uCOSII2.91+UCGUI3.90A\MDK_Project\JLinkSettings.ini"
- 
-JLink info:
-------------
-DLL: V4.40c, compiled Jan 24 2012 09:30:33
-Firmware: J-Link ARM-OB STM32 compiled Aug 22 2012 19:52:04
-Hardware: V7.00
-S/N : 20090928 
-Feature(s) : RDI,FlashDL,FlashBP,JFlash,GDBFull 
- 
-* JLink Info: Found SWD-DP with ID 0x2BA01477
-* JLink Info: TPIU fitted.
-* JLink Info: ETM fitted.
-* JLink Info:   FPUnit: 6 code (BP) slots and 2 literal slots
-* JLink Info: Found Cortex-M4 r0p1, Little endian.
-ROMTableAddr = 0xE00FF003
-* JLink Info: Found SWD-DP with ID 0x2BA01477
-* JLink Info: TPIU fitted.
-* JLink Info: ETM fitted.
-* JLink Info:   FPUnit: 6 code (BP) slots and 2 literal slots
-* JLink Info: Found Cortex-M4 r0p1, Little endian.
- 
-Target info:
-------------
-Device: STM32F407VE
-VTarget = 3.300V
-State of Pins: 
-TCK: 0, TDI: 0, TDO: 1, TMS: 0, TRES: 1, TRST: 1
-Hardware-Breakpoints: 6
-Software-Breakpoints: 8192
-Watchpoints:          4
-JTAG speed: 2000 kHz
- 
-Erase Done.
-Programming Done.
-Verify OK.
-* JLink Info: Found SWD-DP with ID 0x2BA01477
-* JLink Info: TPIU fitted.
-* JLink Info: ETM fitted.
-* JLink Info:   FPUnit: 6 code (BP) slots and 2 literal slots
-* JLink Info: Found Cortex-M4 r0p1, Little endian.
-Application running ...
-Build target 'Target 1'
-compiling main.c...
-..\User\main.c(1709): warning:  #550-D: variable "status" was set but never used
-linking...
-Program Size: Code=24398 RO-data=26970 RW-data=296 ZI-data=102184  
-FromELF: creating hex file...
-".\Out\Project.axf" - 0 Error(s), 1 Warning(s).
-Load "C:\\Users\\Administrator\\Documents\\GitHub\\407_分补\\fen_bu\\uCOSII2.91+UCGUI3.90A\\MDK_Project\\Out\\Project.AXF" 
-* JLink Info: Device "STM32F407VE" selected (512 KB flash, 128 KB RAM).
-Set JLink Project File to "C:\Users\Administrator\Documents\GitHub\407_分补\fen_bu\uCOSII2.91+UCGUI3.90A\MDK_Project\JLinkSettings.ini"
- 
-JLink info:
-------------
-DLL: V4.40c, compiled Jan 24 2012 09:30:33
-Firmware: J-Link ARM-OB STM32 compiled Aug 22 2012 19:52:04
-Hardware: V7.00
-S/N : 20090928 
-Feature(s) : RDI,FlashDL,FlashBP,JFlash,GDBFull 
- 
-* JLink Info: Found SWD-DP with ID 0x2BA01477
-* JLink Info: TPIU fitted.
-* JLink Info: ETM fitted.
-* JLink Info:   FPUnit: 6 code (BP) slots and 2 literal slots
-* JLink Info: Found Cortex-M4 r0p1, Little endian.
-ROMTableAddr = 0xE00FF003
-* JLink Info: Found SWD-DP with ID 0x2BA01477
-* JLink Info: TPIU fitted.
-* JLink Info: ETM fitted.
-* JLink Info:   FPUnit: 6 code (BP) slots and 2 literal slots
-* JLink Info: Found Cortex-M4 r0p1, Little endian.
- 
-Target info:
-------------
-Device: STM32F407VE
-VTarget = 3.300V
-State of Pins: 
-TCK: 0, TDI: 0, TDO: 1, TMS: 0, TRES: 1, TRST: 1
-Hardware-Breakpoints: 6
-Software-Breakpoints: 8192
-Watchpoints:          4
-JTAG speed: 2000 kHz
- 
-Erase Done.
-Programming Done.
-Verify OK.
-* JLink Info: Found SWD-DP with ID 0x2BA01477
-* JLink Info: TPIU fitted.
-* JLink Info: ETM fitted.
-* JLink Info:   FPUnit: 6 code (BP) slots and 2 literal slots
-* JLink Info: Found Cortex-M4 r0p1, Little endian.
-Application running ...
-Build target 'Target 1'
-compiling main.c...
-..\User\main.c(1709): warning:  #550-D: variable "status" was set but never used
-linking...
-Program Size: Code=24398 RO-data=26970 RW-data=296 ZI-data=102184  
-FromELF: creating hex file...
-".\Out\Project.axf" - 0 Error(s), 1 Warning(s).
-Load "C:\\Users\\Administrator\\Documents\\GitHub\\407_分补\\fen_bu\\uCOSII2.91+UCGUI3.90A\\MDK_Project\\Out\\Project.AXF" 
-* JLink Info: Device "STM32F407VE" selected (512 KB flash, 128 KB RAM).
-Set JLink Project File to "C:\Users\Administrator\Documents\GitHub\407_分补\fen_bu\uCOSII2.91+UCGUI3.90A\MDK_Project\JLinkSettings.ini"
- 
-JLink info:
-------------
-DLL: V4.40c, compiled Jan 24 2012 09:30:33
-Firmware: J-Link ARM-OB STM32 compiled Aug 22 2012 19:52:04
-Hardware: V7.00
-S/N : 20090928 
-Feature(s) : RDI,FlashDL,FlashBP,JFlash,GDBFull 
- 
-* JLink Info: Found SWD-DP with ID 0x2BA01477
-* JLink Info: TPIU fitted.
-* JLink Info: ETM fitted.
-* JLink Info:   FPUnit: 6 code (BP) slots and 2 literal slots
-* JLink Info: Found Cortex-M4 r0p1, Little endian.
-ROMTableAddr = 0xE00FF003
-* JLink Info: Found SWD-DP with ID 0x2BA01477
-* JLink Info: TPIU fitted.
-* JLink Info: ETM fitted.
-* JLink Info:   FPUnit: 6 code (BP) slots and 2 literal slots
-* JLink Info: Found Cortex-M4 r0p1, Little endian.
- 
-Target info:
-------------
-Device: STM32F407VE
-VTarget = 3.300V
-State of Pins: 
-TCK: 0, TDI: 0, TDO: 1, TMS: 0, TRES: 1, TRST: 1
-Hardware-Breakpoints: 6
-Software-Breakpoints: 8192
-Watchpoints:          4
-JTAG speed: 2000 kHz
- 
-Erase Done.
-Programming Done.
-Verify OK.
-* JLink Info: Found SWD-DP with ID 0x2BA01477
-* JLink Info: TPIU fitted.
-* JLink Info: ETM fitted.
-* JLink Info:   FPUnit: 6 code (BP) slots and 2 literal slots
-* JLink Info: Found Cortex-M4 r0p1, Little endian.
-Application running ...
-Build target 'Target 1'
-compiling main.c...
-..\User\main.c(1709): warning:  #550-D: variable "status" was set but never used
-linking...
-Program Size: Code=24402 RO-data=26966 RW-data=296 ZI-data=102184  
-FromELF: creating hex file...
-".\Out\Project.axf" - 0 Error(s), 1 Warning(s).
-Load "C:\\Users\\Administrator\\Documents\\GitHub\\407_分补\\fen_bu\\uCOSII2.91+UCGUI3.90A\\MDK_Project\\Out\\Project.AXF" 
-* JLink Info: Device "STM32F407VE" selected (512 KB flash, 128 KB RAM).
-Set JLink Project File to "C:\Users\Administrator\Documents\GitHub\407_分补\fen_bu\uCOSII2.91+UCGUI3.90A\MDK_Project\JLinkSettings.ini"
- 
-JLink info:
-------------
-DLL: V4.40c, compiled Jan 24 2012 09:30:33
-Firmware: J-Link ARM-OB STM32 compiled Aug 22 2012 19:52:04
-Hardware: V7.00
-S/N : 20090928 
-Feature(s) : RDI,FlashDL,FlashBP,JFlash,GDBFull 
- 
-* JLink Info: Found SWD-DP with ID 0x2BA01477
-* JLink Info: TPIU fitted.
-* JLink Info: ETM fitted.
-* JLink Info:   FPUnit: 6 code (BP) slots and 2 literal slots
-* JLink Info: Found Cortex-M4 r0p1, Little endian.
-ROMTableAddr = 0xE00FF003
-* JLink Info: Found SWD-DP with ID 0x2BA01477
-* JLink Info: TPIU fitted.
-* JLink Info: ETM fitted.
-* JLink Info:   FPUnit: 6 code (BP) slots and 2 literal slots
-* JLink Info: Found Cortex-M4 r0p1, Little endian.
- 
-Target info:
-------------
-Device: STM32F407VE
-VTarget = 3.300V
-State of Pins: 
-TCK: 0, TDI: 0, TDO: 1, TMS: 0, TRES: 1, TRST: 1
-Hardware-Breakpoints: 6
-Software-Breakpoints: 8192
-Watchpoints:          4
-JTAG speed: 2000 kHz
- 
-Erase Done.
-Programming Done.
-Verify OK.
-* JLink Info: Found SWD-DP with ID 0x2BA01477
-* JLink Info: TPIU fitted.
-* JLink Info: ETM fitted.
-* JLink Info:   FPUnit: 6 code (BP) slots and 2 literal slots
-* JLink Info: Found Cortex-M4 r0p1, Little endian.
-Application running ...
-Build target 'Target 1'
-compiling main.c...
-..\User\main.c(1709): warning:  #550-D: variable "status" was set but never used
-linking...
-Program Size: Code=24402 RO-data=26966 RW-data=296 ZI-data=102184  
-FromELF: creating hex file...
-".\Out\Project.axf" - 0 Error(s), 1 Warning(s).
-Load "C:\\Users\\Administrator\\Documents\\GitHub\\407_分补\\fen_bu\\uCOSII2.91+UCGUI3.90A\\MDK_Project\\Out\\Project.AXF" 
-* JLink Info: Device "STM32F407VE" selected (512 KB flash, 128 KB RAM).
-Set JLink Project File to "C:\Users\Administrator\Documents\GitHub\407_分补\fen_bu\uCOSII2.91+UCGUI3.90A\MDK_Project\JLinkSettings.ini"
- 
-JLink info:
-------------
-DLL: V4.40c, compiled Jan 24 2012 09:30:33
-Firmware: J-Link ARM-OB STM32 compiled Aug 22 2012 19:52:04
-Hardware: V7.00
-S/N : 20090928 
-Feature(s) : RDI,FlashDL,FlashBP,JFlash,GDBFull 
- 
-Load "C:\\Users\\Administrator\\Documents\\GitHub\\407_分补\\fen_bu\\uCOSII2.91+UCGUI3.90A\\MDK_Project\\Out\\Project.AXF" 
-* JLink Info: Device "STM32F407VE" selected (512 KB flash, 128 KB RAM).
-Set JLink Project File to "C:\Users\Administrator\Documents\GitHub\407_分补\fen_bu\uCOSII2.91+UCGUI3.90A\MDK_Project\JLinkSettings.ini"
- 
-JLink info:
-------------
-DLL: V4.40c, compiled Jan 24 2012 09:30:33
-Firmware: J-Link ARM-OB STM32 compiled Aug 22 2012 19:52:04
-Hardware: V7.00
-S/N : 20090928 
-Feature(s) : RDI,FlashDL,FlashBP,JFlash,GDBFull 
- 
-* JLink Info: Found SWD-DP with ID 0x2BA01477
-* JLink Info: TPIU fitted.
-* JLink Info: ETM fitted.
-* JLink Info:   FPUnit: 6 code (BP) slots and 2 literal slots
-* JLink Info: Found Cortex-M4 r0p1, Little endian.
-ROMTableAddr = 0xE00FF003
-* JLink Info: Found SWD-DP with ID 0x2BA01477
-* JLink Info: TPIU fitted.
-* JLink Info: ETM fitted.
-* JLink Info:   FPUnit: 6 code (BP) slots and 2 literal slots
-* JLink Info: Found Cortex-M4 r0p1, Little endian.
- 
-Target info:
-------------
-Device: STM32F407VE
-VTarget = 3.300V
-State of Pins: 
-TCK: 0, TDI: 0, TDO: 1, TMS: 0, TRES: 1, TRST: 1
-Hardware-Breakpoints: 6
-Software-Breakpoints: 8192
-Watchpoints:          4
-JTAG speed: 2000 kHz
- 
-Erase Done.
-Programming Done.
-Verify OK.
-* JLink Info: Found SWD-DP with ID 0x2BA01477
-* JLink Info: TPIU fitted.
-* JLink Info: ETM fitted.
-* JLink Info:   FPUnit: 6 code (BP) slots and 2 literal slots
-* JLink Info: Found Cortex-M4 r0p1, Little endian.
-Application running ...
-Build target 'Target 1'
-compiling main.c...
-..\User\main.c(1709): warning:  #550-D: variable "status" was set but never used
-linking...
-Program Size: Code=24402 RO-data=26966 RW-data=296 ZI-data=102184  
-FromELF: creating hex file...
-".\Out\Project.axf" - 0 Error(s), 1 Warning(s).
-Load "C:\\Users\\Administrator\\Documents\\GitHub\\407_分补\\fen_bu\\uCOSII2.91+UCGUI3.90A\\MDK_Project\\Out\\Project.AXF" 
-* JLink Info: Device "STM32F407VE" selected (512 KB flash, 128 KB RAM).
-Set JLink Project File to "C:\Users\Administrator\Documents\GitHub\407_分补\fen_bu\uCOSII2.91+UCGUI3.90A\MDK_Project\JLinkSettings.ini"
- 
-JLink info:
-------------
-DLL: V4.40c, compiled Jan 24 2012 09:30:33
-Firmware: J-Link ARM-OB STM32 compiled Aug 22 2012 19:52:04
-Hardware: V7.00
-S/N : 20090928 
-Feature(s) : RDI,FlashDL,FlashBP,JFlash,GDBFull 
- 
-Load "C:\\Users\\Administrator\\Documents\\GitHub\\407_分补\\fen_bu\\uCOSII2.91+UCGUI3.90A\\MDK_Project\\Out\\Project.AXF" 
-* JLink Info: Device "STM32F407VE" selected (512 KB flash, 128 KB RAM).
-Set JLink Project File to "C:\Users\Administrator\Documents\GitHub\407_分补\fen_bu\uCOSII2.91+UCGUI3.90A\MDK_Project\JLinkSettings.ini"
- 
-JLink info:
-------------
-DLL: V4.40c, compiled Jan 24 2012 09:30:33
-Firmware: J-Link ARM-OB STM32 compiled Aug 22 2012 19:52:04
-Hardware: V7.00
-S/N : 20090928 
-Feature(s) : RDI,FlashDL,FlashBP,JFlash,GDBFull 
- 
-* JLink Info: Found SWD-DP with ID 0x2BA01477
-* JLink Info: TPIU fitted.
-* JLink Info: ETM fitted.
-* JLink Info:   FPUnit: 6 code (BP) slots and 2 literal slots
-* JLink Info: Found Cortex-M4 r0p1, Little endian.
-ROMTableAddr = 0xE00FF003
-* JLink Info: Found SWD-DP with ID 0x2BA01477
-* JLink Info: TPIU fitted.
-* JLink Info: ETM fitted.
-* JLink Info:   FPUnit: 6 code (BP) slots and 2 literal slots
-* JLink Info: Found Cortex-M4 r0p1, Little endian.
- 
-Target info:
-------------
-Device: STM32F407VE
-VTarget = 3.300V
-State of Pins: 
-TCK: 0, TDI: 0, TDO: 1, TMS: 0, TRES: 1, TRST: 1
-Hardware-Breakpoints: 6
-Software-Breakpoints: 8192
-Watchpoints:          4
-JTAG speed: 2000 kHz
- 
-Erase Done.
-Programming Done.
-Verify OK.
-* JLink Info: Found SWD-DP with ID 0x2BA01477
-* JLink Info: TPIU fitted.
-* JLink Info: ETM fitted.
-* JLink Info:   FPUnit: 6 code (BP) slots and 2 literal slots
-* JLink Info: Found Cortex-M4 r0p1, Little endian.
-Application running ...
-Build target 'Target 1'
-compiling main.c...
-..\User\main.c(1709): warning:  #550-D: variable "status" was set but never used
-linking...
-Program Size: Code=24422 RO-data=26970 RW-data=296 ZI-data=102184  
-FromELF: creating hex file...
-".\Out\Project.axf" - 0 Error(s), 1 Warning(s).
-Load "C:\\Users\\Administrator\\Documents\\GitHub\\407_分补\\fen_bu\\uCOSII2.91+UCGUI3.90A\\MDK_Project\\Out\\Project.AXF" 
-* JLink Info: Device "STM32F407VE" selected (512 KB flash, 128 KB RAM).
-Set JLink Project File to "C:\Users\Administrator\Documents\GitHub\407_分补\fen_bu\uCOSII2.91+UCGUI3.90A\MDK_Project\JLinkSettings.ini"
- 
-JLink info:
-------------
-DLL: V4.40c, compiled Jan 24 2012 09:30:33
-Firmware: J-Link ARM-OB STM32 compiled Aug 22 2012 19:52:04
-Hardware: V7.00
-S/N : 20090928 
-Feature(s) : RDI,FlashDL,FlashBP,JFlash,GDBFull 
- 
-* JLink Info: Found SWD-DP with ID 0x2BA01477
-* JLink Info: TPIU fitted.
-* JLink Info: ETM fitted.
-* JLink Info:   FPUnit: 6 code (BP) slots and 2 literal slots
-* JLink Info: Found Cortex-M4 r0p1, Little endian.
-ROMTableAddr = 0xE00FF003
-* JLink Info: Found SWD-DP with ID 0x2BA01477
-* JLink Info: TPIU fitted.
-* JLink Info: ETM fitted.
-* JLink Info:   FPUnit: 6 code (BP) slots and 2 literal slots
-* JLink Info: Found Cortex-M4 r0p1, Little endian.
- 
-Target info:
-------------
-Device: STM32F407VE
-VTarget = 3.300V
-State of Pins: 
-TCK: 0, TDI: 0, TDO: 1, TMS: 0, TRES: 1, TRST: 1
-Hardware-Breakpoints: 6
-Software-Breakpoints: 8192
-Watchpoints:          4
-JTAG speed: 2000 kHz
- 
-Erase Done.
-Programming Done.
-Verify OK.
-* JLink Info: Found SWD-DP with ID 0x2BA01477
-* JLink Info: TPIU fitted.
-* JLink Info: ETM fitted.
-* JLink Info:   FPUnit: 6 code (BP) slots and 2 literal slots
-* JLink Info: Found Cortex-M4 r0p1, Little endian.
-Application running ...
-Build target 'Target 1'
-compiling main.c...
-..\User\main.c(1709): warning:  #550-D: variable "status" was set but never used
-linking...
-Program Size: Code=24722 RO-data=26966 RW-data=296 ZI-data=102184  
-FromELF: creating hex file...
-".\Out\Project.axf" - 0 Error(s), 1 Warning(s).
-Load "C:\\Users\\Administrator\\Documents\\GitHub\\407_分补\\fen_bu\\uCOSII2.91+UCGUI3.90A\\MDK_Project\\Out\\Project.AXF" 
-* JLink Info: Device "STM32F407VE" selected (512 KB flash, 128 KB RAM).
-Set JLink Project File to "C:\Users\Administrator\Documents\GitHub\407_分补\fen_bu\uCOSII2.91+UCGUI3.90A\MDK_Project\JLinkSettings.ini"
- 
-JLink info:
-------------
-DLL: V4.40c, compiled Jan 24 2012 09:30:33
-Firmware: J-Link ARM-OB STM32 compiled Aug 22 2012 19:52:04
-Hardware: V7.00
-S/N : 20090928 
-Feature(s) : RDI,FlashDL,FlashBP,JFlash,GDBFull 
- 
-* JLink Info: Found SWD-DP with ID 0x2BA01477
-* JLink Info: TPIU fitted.
-* JLink Info: ETM fitted.
-* JLink Info:   FPUnit: 6 code (BP) slots and 2 literal slots
-* JLink Info: Found Cortex-M4 r0p1, Little endian.
-ROMTableAddr = 0xE00FF003
-* JLink Info: Found SWD-DP with ID 0x2BA01477
-* JLink Info: TPIU fitted.
-* JLink Info: ETM fitted.
-* JLink Info:   FPUnit: 6 code (BP) slots and 2 literal slots
-* JLink Info: Found Cortex-M4 r0p1, Little endian.
- 
-Target info:
-------------
-Device: STM32F407VE
-VTarget = 3.300V
-State of Pins: 
-TCK: 0, TDI: 0, TDO: 1, TMS: 0, TRES: 1, TRST: 1
+TCK: 0, TDI: 1, TDO: 1, TMS: 0, TRES: 1, TRST: 1
 Hardware-Breakpoints: 6
 Software-Breakpoints: 8192
 Watchpoints:          4
