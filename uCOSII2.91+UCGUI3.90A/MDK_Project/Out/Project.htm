@@ -3,7 +3,7 @@
 <title>Static Call Graph - [.\Out\Project.axf]</title></head>
 <body><HR>
 <H1>Static Call Graph for image .\Out\Project.axf</H1><HR>
-<BR><P>#&#060CALLGRAPH&#062# ARM Linker, 4.1 [Build 894]: Last Updated: Mon Sep 30 18:45:13 2013
+<BR><P>#&#060CALLGRAPH&#062# ARM Linker, 4.1 [Build 894]: Last Updated: Sun Oct 06 17:53:18 2013
 <BR><P>
 <H3>Maximum Stack Usage =      14728 bytes + Unknown(Functions without stacksize, Cycles, Untraceable Function Pointers)</H3><H3>
 Call chain for Maximum Stack Depth:</H3>
@@ -2166,7 +2166,7 @@ Global Symbols
 <BR><BR>[Called By]<UL><LI><a href="#[b5]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;rs485_trans_computer
 </UL>
 
-<P><STRONG><a name="[ad]"></a>computer_gonglu</STRONG> (Thumb, 4258 bytes, Stack size 14568 bytes, main.o(i.computer_gonglu))
+<P><STRONG><a name="[ad]"></a>computer_gonglu</STRONG> (Thumb, 4332 bytes, Stack size 14568 bytes, main.o(i.computer_gonglu))
 <BR><BR>[Stack]<UL><LI>Max Depth = 14728 + Unknown Stack Size
 <LI>Call Chain = computer_gonglu &rArr; __hardfp_atan2 &rArr; atan &rArr; __hardfp_atan &rArr; __kernel_poly &rArr; __aeabi_dmul
 </UL>
@@ -2281,8 +2281,8 @@ Global Symbols
 <BR>[Called By]<UL><LI><a href="#[b3]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;scanf_slave_machine
 </UL>
 
-<P><STRONG><a name="[140]"></a>inquiry_slave_status_dis</STRONG> (Thumb, 214 bytes, Stack size 56 bytes, main.o(i.inquiry_slave_status_dis))
-<BR><BR>[Stack]<UL><LI>Max Depth = 112 + Unknown Stack Size
+<P><STRONG><a name="[140]"></a>inquiry_slave_status_dis</STRONG> (Thumb, 142 bytes, Stack size 40 bytes, main.o(i.inquiry_slave_status_dis))
+<BR><BR>[Stack]<UL><LI>Max Depth = 96 + Unknown Stack Size
 <LI>Call Chain = inquiry_slave_status_dis &rArr; computer_trans_rs485 &rArr; RS485_Send_Data
 </UL>
 <BR>[Calls]<UL><LI><a href="#[b4]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;OSMboxPend
@@ -2377,7 +2377,7 @@ Global Symbols
 </UL>
 
 <P><STRONG><a name="[b3]"></a>scanf_slave_machine</STRONG> (Thumb, 86 bytes, Stack size 16 bytes, main.o(i.scanf_slave_machine))
-<BR><BR>[Stack]<UL><LI>Max Depth = 128 + Unknown Stack Size
+<BR><BR>[Stack]<UL><LI>Max Depth = 112 + Unknown Stack Size
 <LI>Call Chain = scanf_slave_machine &rArr; inquiry_slave_status_dis &rArr; computer_trans_rs485 &rArr; RS485_Send_Data
 </UL>
 <BR>[Calls]<UL><LI><a href="#[140]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;inquiry_slave_status_dis
@@ -2684,7 +2684,7 @@ Local Symbols
 <BR>[Address Reference Count : 1]<UL><LI> main.o(i.main)
 </UL>
 <P><STRONG><a name="[63]"></a>App_Taskcomputer</STRONG> (Thumb, 20 bytes, Stack size 8 bytes, main.o(i.App_Taskcomputer))
-<BR><BR>[Stack]<UL><LI>Max Depth = 136 + Unknown Stack Size
+<BR><BR>[Stack]<UL><LI>Max Depth = 120 + Unknown Stack Size
 <LI>Call Chain = App_Taskcomputer &rArr; scanf_slave_machine &rArr; inquiry_slave_status_dis &rArr; computer_trans_rs485 &rArr; RS485_Send_Data
 </UL>
 <BR>[Calls]<UL><LI><a href="#[b2]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;OSSemPend
