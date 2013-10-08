@@ -172,8 +172,12 @@ void NVIC_Configuration(void);
 
 
 /********************************switch_A_B_C**************************************************/
-#define ON_time 13400
-#define OFF_time 15000	
+//#define ON_time 13400//60
+//#define OFF_time 15600//60
+
+#define ON_time 13400                 //100
+#define OFF_time 15000		   //1//100
+
 u8 key_A=0,key_B=0,key_C=0;
 u8  subswitchABC_onoff	 (u8 relay,u8 message ,u8 flag);
 
@@ -255,7 +259,11 @@ NVIC_Configuration();
 GPIO_Configuration();
 initmybox();//初始化自身信息
  init_nodelist();
-set_now_mystatus(mybox.myid,3,3,3,0,0,0,0,0,0);
+{while(subswitchABC_onoff(1,0,1)==0)break;}		  //投
+{while(subswitchABC_onoff(2,0,1)==0)break;}		  //投
+{while(subswitchABC_onoff(3,0,1)==0)break;}		  //投
+
+set_now_mystatus(mybox.myid,1,1,1,0,0,0,0,0,0);
 
 os_err = os_err; 
 
@@ -1553,7 +1561,7 @@ void initmybox()//初始化自身信息
   mybox.master=0;
  mybox.start='&';
 ///mybox.myid=AT24CXX_ReadOneByte(0x0010);
-mybox.myid=1;
+mybox.myid=2;
  mybox.source=0;
  mybox.destination=0;
  mybox.send=0;
@@ -1766,6 +1774,8 @@ uint32_t  testIndex = 0,a,b,c;
 float32_t sine=0;
 u16 wugongkvar_95,wugongkvar_95A,wugongkvar_95B,wugongkvar_95C;
 /*********************A_phase*********************************/
+//for(s=1;s<=5;s++)
+{
 ADC3_CH10_DMA_Config_VA();
 ADC1_CH1_DMA_Config_CA();
 
@@ -1827,7 +1837,6 @@ dianya_zhi_A=dianya_zhi_A/2.6125;
 dianliuzhi_A=maxValue_C/100;
  dianliuzhi_A=1.0554*dianliuzhi_A;
 gonglvshishu_A=arm_cos_f32(angle[0]-angle[1])*100;//功率因素
-//wugongkvar_A=dianya_zhi_A*dianliuzhi_A*arm_sin_f32(angle[0]-angle[1])/1000;
 arm_sqrt_f32(1-(arm_cos_f32(angle[0]-angle[1]))*(arm_cos_f32(angle[0]-angle[1])),&sine);
         a=dianya_zhi_A*dianliuzhi_A*sine/10;
 	wugongkvar_A=dianya_zhi_A*dianliuzhi_A*sine/1000;
@@ -1840,17 +1849,20 @@ arm_sqrt_f32(1-(arm_cos_f32(angle[0]-angle[1]))*(arm_cos_f32(angle[0]-angle[1]))
 				angle[2]=((angle[1]-angle[0])*360)/PI2-90;
 				if(angle[2]>0.0)
                                {
-				if(angle[2]<90)L_C_flag_A=0;
+				if(angle[2]<90)L_C_flag_A=1;
+								if(angle[2]>90&&angle[2]<180)L_C_flag_A=0;
+
 				if(angle[2]>180&&angle[2]<270)L_C_flag_A=0;
 
-						//			dianya_zhi_A=angle[2];
-						//			gonglvshishu_A=1;
+								//	dianya_zhi_A=angle[2];
+								//	gonglvshishu_A=1;
 
 				}
 
 				else if(angle[2]<=0.0)
 				{
-					if((angle[2]>=-360.0&&angle[2]<-270.0))L_C_flag_A=0;
+					if((angle[2]>=-360.0&&angle[2]<-270.0))L_C_flag_A=1;
+										if((angle[2]>=-270.0&&angle[2]<-180.0))L_C_flag_A=0;
 					if((angle[2]>=-450.0&&angle[2]<-360.0))L_C_flag_A=1;
 					if((angle[2]>-90.0&&angle[2]<=0.0))L_C_flag_A=1;
 					if((angle[2]>-180.0&&angle[2]<=-90.0))L_C_flag_A=0;
@@ -2025,7 +2037,8 @@ wugongkvar=(a+b+c)/100;
 
    order_trans_rs485(mybox.myid,0,0,0,0);
 tempshuzhi=slave_dis[0];
-delay_ms(1000);
+delay_ms(300);
+}
 //computer_trans_rs485(mybox.myid,slave_dis[1],1,3,1,CONTROL);
 
 //computer_trans_rs485(mybox.myid,slave_dis[1],1,3,0,CONTROL);
@@ -2125,7 +2138,7 @@ if(dis_list[slave_dis[i]].work_status[0]==0)
 computer_trans_rs485(mybox.myid,slave_dis[i],1,1,1,CONTROL);
 set_statuslist(slave_dis[i],dis_list[slave_dis[i]].size[0],1,dis_list[slave_dis[i]].work_time[0],0,1,dis_list,comm_list);
 dis_list[slave_dis[i]].work_status[0]=1;
-delay_ms(500);
+//delay_ms(1000);
 break;
 }
 
@@ -2144,7 +2157,7 @@ computer_trans_rs485(mybox.myid,slave_dis[i],1,2,1,CONTROL);
 set_statuslist(slave_dis[i],dis_list[slave_dis[i]].size[0],1,dis_list[slave_dis[i]].work_time[0],0,2,dis_list,comm_list);
 dis_list[slave_dis[i]].work_status[1]=1;
 
-delay_ms(1000);
+//delay_ms(1000);
 break;
 }
 
@@ -2165,7 +2178,7 @@ computer_trans_rs485(mybox.myid,slave_dis[i],1,3,1,CONTROL);
 set_statuslist(slave_dis[i],dis_list[slave_dis[i]].size[0],1,dis_list[slave_dis[i]].work_time[0],0,3,dis_list,comm_list);
 dis_list[slave_dis[i]].work_status[2]=1;
 
-delay_ms(1000);
+//delay_ms(1000);
 break;
 }
 
@@ -2188,7 +2201,7 @@ for(i=1;i<=slave_dis[0];i++)
 {
 computer_trans_rs485(mybox.myid,slave_dis[i],1,1,0,CONTROL);
 set_statuslist(slave_dis[i],dis_list[slave_dis[i]].size[0],0,dis_list[slave_dis[i]].work_time[0],0,1,dis_list,comm_list);
-delay_ms(1000);
+//delay_ms(1000);
 break;
 }
 
@@ -2205,7 +2218,7 @@ for(i=1;i<=slave_dis[0];i++)
 {
 computer_trans_rs485(mybox.myid,slave_dis[i],1,2,0,CONTROL);
 set_statuslist(slave_dis[i],dis_list[slave_dis[i]].size[0],0,dis_list[slave_dis[i]].work_time[0],0,2,dis_list,comm_list);
-delay_ms(1000);
+//delay_ms(1000);
 break;
 }
 
@@ -2224,7 +2237,7 @@ for(i=1;i<=slave_dis[0];i++)
 {
 computer_trans_rs485(mybox.myid,slave_dis[i],1,3,0,CONTROL);
 set_statuslist(slave_dis[i],dis_list[slave_dis[i]].size[0],0,dis_list[slave_dis[i]].work_time[0],0,3,dis_list,comm_list);
-delay_ms(1000);
+//delay_ms(1000);
 break;
 }
 
@@ -2262,7 +2275,43 @@ break;
 }
 }
        }
- }
+if(flag_0==0)
+{
+if(slave_dis[0]>0)
+{
+for(i=1;i<=slave_dis[0];i++)
+//if(dis_list[slave_dis[i]].work_status[0]==1)
+{
+computer_trans_rs485(mybox.myid,slave_dis[i],1,1,0,CONTROL);
+set_statuslist(slave_dis[i],dis_list[slave_dis[i]].size[0],0,dis_list[slave_dis[i]].work_time[0],0,1,dis_list,comm_list);
+break;
+}
+
+
+for(i=1;i<=slave_dis[0];i++)
+//if(dis_list[slave_dis[i]].work_status[1]==1)
+{
+computer_trans_rs485(mybox.myid,slave_dis[i],1,2,0,CONTROL);
+set_statuslist(slave_dis[i],dis_list[slave_dis[i]].size[0],0,dis_list[slave_dis[i]].work_time[0],0,2,dis_list,comm_list);
+break;
+}
+
+
+for(i=1;i<=slave_dis[0];i++)
+//if(dis_list[slave_dis[i]].work_status[2]==1)
+{
+computer_trans_rs485(mybox.myid,slave_dis[i],1,3,0,CONTROL);
+set_statuslist(slave_dis[i],dis_list[slave_dis[i]].size[0],0,dis_list[slave_dis[i]].work_time[0],0,3,dis_list,comm_list);
+break;
+}
+
+
+
+}
+
+}
+
+}
 }
 
 
@@ -2270,7 +2319,7 @@ void scanf_slave_machine()
 {
 u8 i,j=0;
 u8 count=1;
-for(i=1;i<=3;i++)
+for(i=1;i<=2;i++)
 	{  
 	j=inquiry_slave_status_dis(i,dis_list,comm_list);   
         if(j==1){slave_dis[count]=i;count++;}
@@ -2279,7 +2328,7 @@ for(i=1;i<=3;i++)
 count=1;
 j=0;	  
 
-for(i=4;i<=6;i++)
+for(i=3;i<=5;i++)
 	{  
 	j=inquiry_slave_status_comm(i,dis_list,comm_list);   
         if(j==1){slave_comm[count]=i;count++;}
