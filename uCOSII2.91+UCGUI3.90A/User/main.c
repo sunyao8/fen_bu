@@ -389,6 +389,7 @@ swicth_A=OSMboxCreate((void*)0);
 */	  
 static  void  App_TaskMaster(void		*p_arg )
 {  
+u8 scan_init=1;
 
 	for(;;)
 		{
@@ -401,9 +402,13 @@ static  void  App_TaskMaster(void		*p_arg )
  if(start_scan==1)
  	{ scanf_slave_machine();  start_scan=0;}
  */
-computer_gonglu();
+ computer_gonglu();
 
+if(scan_init==1)
+{
 OSSemPost(computer_sem);
+ scan_init=1;
+}
 delay_ms(1000);
 
 
@@ -494,7 +499,11 @@ for(;;)
    	{
    	OSSemPend(computer_sem,0,&err);
 #if (FUNCTION_MODULE == DF_THREE)
+
+
  scanf_slave_machine();
+
+
 //inquiry_slave_status_dis(3,dis_list,comm_list);   
 #endif
 
@@ -1261,8 +1270,8 @@ void RS485_Init(u32 bound)
 	if(USART_GetITStatus(USART2, USART_IT_RXNE) != RESET) //接收到数据
 	{	
 		 RS485_RX_BUF[RS485_RX_CNT++]=USART_ReceiveData(USART2); 	//读取接收到的数据
-		if(RS485_RX_BUF[RS485_RX_CNT-1]=='&'){RS485_RX_BUF[0]='&'; RS485_RX_CNT=1;}
-		if(RS485_RX_BUF[RS485_RX_CNT-1]=='*')
+		if(RS485_RX_BUF[RS485_RX_CNT-1]=='$'){RS485_RX_BUF[0]='$'; RS485_RX_CNT=1;}
+		if(RS485_RX_BUF[RS485_RX_CNT-1]=='?')
 		{
 				RS485_RX_CNT=0;
 
@@ -1270,6 +1279,16 @@ void RS485_Init(u32 bound)
 			if(RS485_RX_BUF[1]=='#'){OSMboxPost(RS485_STUTAS_MBOX,(void*)&RS485_RX_BUF);}
 				  else OSMboxPost(RS485_MBOX,(void*)&RS485_RX_BUF);
 		} 
+
+			if(RS485_RX_BUF[RS485_RX_CNT-1]=='&'){RS485_RX_BUF[0]='&'; RS485_RX_CNT=1;}
+		if(RS485_RX_BUF[RS485_RX_CNT-1]=='*')
+		{
+				RS485_RX_CNT=0;
+
+				
+				if(RS485_RX_BUF[1]=='#'){OSMboxPost(RS485_STUTAS_MBOX,(void*)&RS485_RX_BUF);}
+		} 
+	
 	}  	
 	OSIntExit();  											 
 
@@ -1450,7 +1469,7 @@ return 0;
     {
     if(ctr==CPT_A)
     	{
-      rs485buf[0]='&';//协议头
+      rs485buf[0]='$';//协议头
 	rs485buf[1]=(dianya_zhi_A& (uint16_t)0x00FF);
 	rs485buf[2]=((dianya_zhi_A& (uint16_t)0xFF00)>>8);
 	rs485buf[3]=(dianliuzhi_A& (uint16_t)0x00FF);
@@ -1459,13 +1478,13 @@ return 0;
 	rs485buf[6]=((wugongkvar_A& (uint16_t)0xFF00)>>8);
 	rs485buf[7]=gonglvshishu_A;
 	rs485buf[8]=ctr;
-	rs485buf[9]='*';//协议尾
+	rs485buf[9]='?';//协议尾
 	RS485_Send_Data(rs485buf,10);//发送5个字节
     	}
 	/************************************/
     if(ctr==CPT_B)
     	{
-      rs485buf[0]='&';//协议头
+      rs485buf[0]='$';//协议头
 	rs485buf[1]=(dianya_zhi_B& (uint16_t)0x00FF);
 	rs485buf[2]=((dianya_zhi_B& (uint16_t)0xFF00)>>8);
 	rs485buf[3]=(dianliuzhi_B& (uint16_t)0x00FF);
@@ -1474,14 +1493,14 @@ return 0;
 	rs485buf[6]=((wugongkvar_B& (uint16_t)0xFF00)>>8);
 	rs485buf[7]=gonglvshishu_B;
 	rs485buf[8]=ctr;
-	rs485buf[9]='*';//协议尾
+	rs485buf[9]='?';//协议尾
 	RS485_Send_Data(rs485buf,10);//发送5个字节
     	}
 
 /***************************************************/
     if(ctr==CPT_C)
     	{
-       rs485buf[0]='&';//协议头
+       rs485buf[0]='$';//协议头
        rs485buf[1]=(dianya_zhi_C& (uint16_t)0x00FF);
 	rs485buf[2]=((dianya_zhi_C& (uint16_t)0xFF00)>>8);
 	rs485buf[3]=(dianliuzhi_C& (uint16_t)0x00FF);
@@ -1490,14 +1509,14 @@ return 0;
 	rs485buf[6]=((wugongkvar_C& (uint16_t)0xFF00)>>8);
 	rs485buf[7]=gonglvshishu_C;
 	rs485buf[8]=ctr;
-	rs485buf[9]='*';//协议尾
+	rs485buf[9]='?';//协议尾
 	RS485_Send_Data(rs485buf,10);//发送5个字节
     	}
 /*********************************************/
-	  // 	if(destination==source){mybox.send=send;slave_control(relay, message);}//如果信息发给的自己
 
     	}
 #endif
+/*
   if(ctr==CPT_LL)
     	{
        rs485buf[0]='&';//协议头
@@ -1512,10 +1531,10 @@ return 0;
 	rs485buf[9]='*';//协议尾
 	RS485_Send_Data(rs485buf,10);//发送5个字节
     	}
-
+*/
   if(ctr==CONTROL)
   	{
-      rs485buf[0]='&';//协议头
+      rs485buf[0]='$';//协议头
 	rs485buf[1]=source;
 	rs485buf[2]=destination;
 	rs485buf[3]=send;
@@ -1524,7 +1543,7 @@ return 0;
 	rs485buf[6]=(dianya_zhi& (uint16_t)0x00FF);
 	rs485buf[7]=((dianya_zhi& (uint16_t)0xFF00)>>8);
 	rs485buf[8]=ctr;
-	rs485buf[9]='*';//协议尾
+	rs485buf[9]='?';//协议尾
 	RS485_Send_Data(rs485buf,10);//发送5个字节
 
   	}
@@ -1561,7 +1580,7 @@ void initmybox()//初始化自身信息
   mybox.master=0;
  mybox.start='&';
 ///mybox.myid=AT24CXX_ReadOneByte(0x0010);
-mybox.myid=2;
+mybox.myid=1;
  mybox.source=0;
  mybox.destination=0;
  mybox.send=0;
@@ -1702,7 +1721,7 @@ return 1;
 /**********************/
  void status_trans_rs485_dis(statusbox *mystatus)//从机程序
 {  	
-       rs485buf[0]='&';
+       rs485buf[0]='$';
 	rs485buf[1]='#';
 	rs485buf[2]=mystatus->myid;
 	rs485buf[3]=mystatus->size[0];
@@ -1717,7 +1736,7 @@ return 1;
 //	rs485buf[10]=mystatus->work_time[1];
 //	rs485buf[11]=mystatus->work_time[2];
 
-	rs485buf[9]='*';
+	rs485buf[9]='?';
 	RS485_Send_Data(rs485buf,10);//发送10个字节
 }
 /**************/
@@ -1749,7 +1768,7 @@ set_statuslist(i,0,0,0,0,3,dis_list,comm_list);
 /*********************************/
 void computer_gonglu()
 {
-int i=0;
+int i=0,s=1;
 u8 flag_1=0,flag_0=0;
 arm_status status; 
 arm_rfft_instance_f32 S;
@@ -1774,7 +1793,7 @@ uint32_t  testIndex = 0,a,b,c;
 float32_t sine=0;
 u16 wugongkvar_95,wugongkvar_95A,wugongkvar_95B,wugongkvar_95C;
 /*********************A_phase*********************************/
-//for(s=1;s<=5;s++)
+//for(s=1;s<=9;s++)
 {
 ADC3_CH10_DMA_Config_VA();
 ADC1_CH1_DMA_Config_CA();
@@ -2037,7 +2056,7 @@ wugongkvar=(a+b+c)/100;
 
    order_trans_rs485(mybox.myid,0,0,0,0);
 tempshuzhi=slave_dis[0];
-delay_ms(300);
+delay_ms(1000);
 }
 //computer_trans_rs485(mybox.myid,slave_dis[1],1,3,1,CONTROL);
 
@@ -2337,8 +2356,38 @@ for(i=3;i<=5;i++)
 
 }
 
+/**************************************************************
 
+******************************************************************/
+/*
+void init_sortlist(u8 *index)
+{
+u8 i=1,a,j=1;
+u8 t,k,w,s;
+index[1]=1;
+index[2]=0;
+index[3]=0;
 
+index[0]=3;
+for(i=2;i<=slave_dis[0];i++)
+{
+  
+	   k=comm_list[slave_dis[i]].myid;
+	   for(j=i-1;j>=1&&t>comm_list[j].size[0];j--)
+	   	{comm_list[slave_dis[j+1]].myid=comm_list[slave_dis[j]].myid;
+         comm_list[slave_dis[j+1]].size[0]=comm_list[slave_dis[j]].size[0];
+		 comm_list[slave_dis[j+1]].work_time[0]=comm_list[slave_dis[j]].work_time[0];
+	    }
+	   comm_list[slave_dis[j+1]].myid=k;
+	   comm_list[slave_dis[j+1]].size[0]=t;
+       comm_list[slave_dis[j+1]].work_time[0]=w;
+            comm_list[slave_dis[j+1]].work_status[0]=s;
+
+}
+
+}
+
+*/
 
 /***********************************************************************
 TIME_4
