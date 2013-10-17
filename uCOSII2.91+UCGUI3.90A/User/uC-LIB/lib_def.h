@@ -121,11 +121,11 @@
 #define COMMON                                                 0
 #define DF_THREE                                               1
 
-#define CONTROL                                                '('
+#define CONTROL                                                '/'
 #define CPT_A                                                     '%'
 #define CPT_B                                                     '@'
 #define CPT_C                                                     '!'
-#define CPT_LL                                                    '^'
+//#define CPT_LL                                                    '^'
 
 /********************************************************/
 #define  DEF_DISABLED                                      0
