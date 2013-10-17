@@ -125,7 +125,7 @@
 #define CPT_A                                                     '%'
 #define CPT_B                                                     '@'
 #define CPT_C                                                     '!'
-//#define CPT_LL                                                    '^'
+#define CPT_LL                                                    '^'
 
 /********************************************************/
 #define  DEF_DISABLED                                      0

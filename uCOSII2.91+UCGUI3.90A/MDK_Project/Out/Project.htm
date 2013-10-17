@@ -3,7 +3,7 @@
 <title>Static Call Graph - [.\Out\Project.axf]</title></head>
 <body><HR>
 <H1>Static Call Graph for image .\Out\Project.axf</H1><HR>
-<BR><P>#&#060CALLGRAPH&#062# ARM Linker, 4.1 [Build 894]: Last Updated: Thu Oct 17 10:44:57 2013
+<BR><P>#&#060CALLGRAPH&#062# ARM Linker, 4.1 [Build 894]: Last Updated: Thu Oct 17 14:24:42 2013
 <BR><P>
 <H3>Maximum Stack Usage =      14736 bytes + Unknown(Functions without stacksize, Cycles, Untraceable Function Pointers)</H3><H3>
 Call chain for Maximum Stack Depth:</H3>
@@ -1938,7 +1938,7 @@ Global Symbols
 <BR>[Address Reference Count : 1]<UL><LI> startup_stm32f4xx.o(.text)
 </UL>
 <P><STRONG><a name="[2a]"></a>TIM4_IRQHandler</STRONG> (Thumb, 72 bytes, Stack size 8 bytes, main.o(i.TIM4_IRQHandler))
-<BR><BR>[Stack]<UL><LI>Max Depth = 72 + Unknown Stack Size
+<BR><BR>[Stack]<UL><LI>Max Depth = 88 + Unknown Stack Size
 <LI>Call Chain = TIM4_IRQHandler &rArr; turn_master_id &rArr; order_trans_rs485 &rArr; RS485_Send_Data
 </UL>
 <BR>[Calls]<UL><LI><a href="#[117]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;TIM_GetITStatus
@@ -2170,7 +2170,7 @@ Global Symbols
 <BR><BR>[Called By]<UL><LI><a href="#[b5]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;rs485_trans_computer
 </UL>
 
-<P><STRONG><a name="[b3]"></a>computer_gonglu</STRONG> (Thumb, 4878 bytes, Stack size 14568 bytes, main.o(i.computer_gonglu))
+<P><STRONG><a name="[b3]"></a>computer_gonglu</STRONG> (Thumb, 4874 bytes, Stack size 14568 bytes, main.o(i.computer_gonglu))
 <BR><BR>[Stack]<UL><LI>Max Depth = 14728 + Unknown Stack Size
 <LI>Call Chain = computer_gonglu &rArr; __hardfp_atan2 &rArr; atan &rArr; __hardfp_atan &rArr; __kernel_poly &rArr; __aeabi_dmul
 </UL>
@@ -2272,8 +2272,8 @@ Global Symbols
 <BR><BR>[Called By]<UL><LI><a href="#[73]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;main
 </UL>
 
-<P><STRONG><a name="[13e]"></a>inquiry_slave_status_comm</STRONG> (Thumb, 64 bytes, Stack size 24 bytes, main.o(i.inquiry_slave_status_comm))
-<BR><BR>[Stack]<UL><LI>Max Depth = 88 + Unknown Stack Size
+<P><STRONG><a name="[13e]"></a>inquiry_slave_status_comm</STRONG> (Thumb, 68 bytes, Stack size 32 bytes, main.o(i.inquiry_slave_status_comm))
+<BR><BR>[Stack]<UL><LI>Max Depth = 96 + Unknown Stack Size
 <LI>Call Chain = inquiry_slave_status_comm &rArr; rs485_trans_status_comm &rArr; set_statuslist
 </UL>
 <BR>[Calls]<UL><LI><a href="#[b4]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;OSMboxPend
@@ -2341,8 +2341,8 @@ Global Symbols
 <BR>[Called By]<UL><LI><a href="#[72]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__rt_entry_main
 </UL>
 
-<P><STRONG><a name="[139]"></a>order_trans_rs485</STRONG> (Thumb, 74 bytes, Stack size 8 bytes, main.o(i.order_trans_rs485))
-<BR><BR>[Stack]<UL><LI>Max Depth = 40<LI>Call Chain = order_trans_rs485 &rArr; RS485_Send_Data
+<P><STRONG><a name="[139]"></a>order_trans_rs485</STRONG> (Thumb, 102 bytes, Stack size 24 bytes, main.o(i.order_trans_rs485))
+<BR><BR>[Stack]<UL><LI>Max Depth = 56<LI>Call Chain = order_trans_rs485 &rArr; RS485_Send_Data
 </UL>
 <BR>[Calls]<UL><LI><a href="#[111]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;RS485_Send_Data
 </UL>
@@ -2432,8 +2432,8 @@ Global Symbols
 <LI><a href="#[73]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;main
 </UL>
 
-<P><STRONG><a name="[119]"></a>turn_master_id</STRONG> (Thumb, 48 bytes, Stack size 24 bytes, main.o(i.turn_master_id))
-<BR><BR>[Stack]<UL><LI>Max Depth = 64 + Unknown Stack Size
+<P><STRONG><a name="[119]"></a>turn_master_id</STRONG> (Thumb, 52 bytes, Stack size 24 bytes, main.o(i.turn_master_id))
+<BR><BR>[Stack]<UL><LI>Max Depth = 80 + Unknown Stack Size
 <LI>Call Chain = turn_master_id &rArr; order_trans_rs485 &rArr; RS485_Send_Data
 </UL>
 <BR>[Calls]<UL><LI><a href="#[ee]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;OSTaskResume

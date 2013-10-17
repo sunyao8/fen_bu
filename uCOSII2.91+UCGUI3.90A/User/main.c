@@ -172,7 +172,7 @@ void set_now_mystatus(u8 ,u8 ,u8 ,u8 );
 void USART2_IRQHandler(void);
 u16 comp_16(u16 a,u16 b);
 int rs485_trans_order(u8 *tx_r485);//解析由主机发送过来的信号，并发送给下位机
- void order_trans_rs485(u8 source,u8 destination, u8 send,u8 relay,u8 message);//主机程序，主机命令解析成RS485信息，发送给目的从机
+ void order_trans_rs485(u8 source,u8 destination, u8 send,u8 relay,u8 message,u8 ctr);//主机程序，主机命令解析成RS485信息，发送给目的从机
  void computer_trans_rs485(u8 source,u8 destination, u8 send,u8 relay,u8 message,u8 ctr);//主机程序，主机计算出来数据解析成RS485信息，发送给目的从机
  u8 rs485_trans_computer(u8 *tx_r485);//解析由主机发送过来的信号，并发送给下位机
 void NVIC_Configuration(void);
@@ -1354,9 +1354,9 @@ int rs485_trans_order(u8 *tx_r485)//解析由主机发送过来的信号，并发送给下位机
 
 }
 
- void order_trans_rs485(u8 source,u8 destination, u8 send,u8 relay,u8 message)//主机程序，主机命令解析成RS485信息，发送给目的从机
+ void order_trans_rs485(u8 source,u8 destination, u8 send,u8 relay,u8 message,u8 ctr)//主机程序，主机命令解析成RS485信息，发送给目的从机
 {  
-
+  if(ctr==CONTROL)
     {
       rs485buf[0]='&';//协议头
 	rs485buf[1]=source;
@@ -1364,16 +1364,28 @@ int rs485_trans_order(u8 *tx_r485)//解析由主机发送过来的信号，并发送给下位机
 	rs485buf[3]=send;
 	rs485buf[4]=relay;
 	rs485buf[5]=message;
-	rs485buf[6]=(dianya_zhi & (uint16_t)0x00FF);
-	rs485buf[7]=((dianya_zhi & (uint16_t)0xFF00)>>8);
-	rs485buf[8]=(dianliuzhi& (uint16_t)0x00FF);
-	rs485buf[9]=((dianliuzhi& (uint16_t)0xFF00)>>8);
-	rs485buf[10]=(wugongkvar& (uint16_t)0x00FF);
-	rs485buf[11]=((wugongkvar& (uint16_t)0xFF00)>>8);
-	//rs485buf[12]=tempshuzhi;
-	rs485buf[12]=gonglvshishu;
-	rs485buf[13]='*';//协议尾
-	RS485_Send_Data(rs485buf,14);//发送5个字节
+	rs485buf[6]=0;
+	rs485buf[7]=gonglvshishu;	
+	rs485buf[8]=ctr;
+	rs485buf[9]='*';//协议尾
+	RS485_Send_Data(rs485buf,10);//发送5个字节
+
+  }
+	
+if(ctr==CPT_LL )
+
+		{
+      rs485buf[0]='&';//协议头	
+	rs485buf[1]=(dianya_zhi & (uint16_t)0x00FF);
+	rs485buf[2]=((dianya_zhi & (uint16_t)0xFF00)>>8);
+	rs485buf[3]=(dianliuzhi& (uint16_t)0x00FF);
+	rs485buf[4]=((dianliuzhi& (uint16_t)0xFF00)>>8);
+	rs485buf[5]=(wugongkvar& (uint16_t)0x00FF);
+	rs485buf[6]=((wugongkvar& (uint16_t)0xFF00)>>8);
+	rs485buf[7]=gonglvshishu;	
+	rs485buf[8]=ctr;	
+	rs485buf[9]='*';//协议尾
+	RS485_Send_Data(rs485buf,10);//发送5个字节
 	  // 	if(destination==source){mybox.send=send;slave_control(relay, message);}//如果信息发给的自己
 
     	}
@@ -1645,7 +1657,7 @@ u8 inquiry_slave_status_comm(u8 count,u8 id,status_dis_node *dis_list,status_com
         u8 err;
 	
 
-   order_trans_rs485(mybox.myid,id,2,0,0);
+   order_trans_rs485(mybox.myid,id,2,0,0,CONTROL);
    msg=(u8 *)OSMboxPend(RS485_STUTAS_MBOX,OS_TICKS_PER_SEC/10,&err);
    if(err==OS_ERR_TIMEOUT){ return 0;}//(u8 id, u8 size, u8 work_status, u8 work_time) 
 	else 
@@ -2026,7 +2038,7 @@ gonglvshishu=(gonglvshishu_A+gonglvshishu_B+gonglvshishu_C)/3;
 wugongkvar=(a+b+c)/100;
   wugongkvar_95=wugongkvar_95A+wugongkvar_95B+wugongkvar_95C;
 
-   order_trans_rs485(mybox.myid,0,0,0,0);
+   order_trans_rs485(mybox.myid,0,0,0,0,CPT_LL);
 tempshuzhi=comm_list[1].size[0];
 delay_ms(1000);
 }
@@ -2053,9 +2065,9 @@ delay_ms(1000);
 //computer_trans_rs485(0,0,0,0,0,CPT_LL);
 
 /***************************************************/
-//order_trans_rs485(1,3,1,1,0);
+//order_trans_rs485(1,3,1,1,0,CONTROL);
 //delay_ms(2000);
-//order_trans_rs485(1,3,1,1,1);
+//order_trans_rs485(1,3,1,1,1,CONTROL);
 //delay_ms(2000);
 
 
@@ -2068,7 +2080,7 @@ if(slave_comm[0]>0)
 for(i=slave_comm[3];i<=slave_comm[9];i++)
 if(comm_list[i].work_status[0]==0)
 {
-order_trans_rs485(mybox.myid,comm_list[i].myid,1,1,1);
+order_trans_rs485(mybox.myid,comm_list[i].myid,1,1,1,CONTROL);
 set_statuslist(i,comm_list[i].myid,comm_list[i].size[0],1,comm_list[i].work_time[0],1,1,dis_list,comm_list);
 delay_ms(3000);
 change_Queue(1,20,dis_list,comm_list,slave_dis,slave_comm);
@@ -2080,7 +2092,7 @@ return 0 ;
 for(i=slave_comm[6];i<=slave_comm[12];i++)
 if(comm_list[i].work_status[1]==0)
 {
-order_trans_rs485(mybox.myid,comm_list[i].myid,1,2,1);
+order_trans_rs485(mybox.myid,comm_list[i].myid,1,2,1,CONTROL);
 set_statuslist(i,comm_list[i].myid,comm_list[i].size[1],1,comm_list[i].work_time[1],1,2,dis_list,comm_list);
 delay_ms(3000);
 change_Queue(2,20,dis_list,comm_list,slave_dis,slave_comm);
@@ -2096,7 +2108,7 @@ return 0;
 for(i=slave_comm[2];i<=slave_comm[8]-1;i++)
 if(comm_list[i].work_status[0]==0)
 {
-order_trans_rs485(mybox.myid,comm_list[i].myid,1,1,1);
+order_trans_rs485(mybox.myid,comm_list[i].myid,1,1,1,CONTROL);
 set_statuslist(i,comm_list[i].myid,comm_list[i].size[0],1,comm_list[i].work_time[0],1,1,dis_list,comm_list);
 tempshuzhi=comm_list[i].myid;
 delay_ms(3000);
@@ -2109,7 +2121,7 @@ return 0;
 for(i=slave_comm[5];i<=slave_comm[11]-1;i++)
 if(comm_list[i].work_status[1]==0)
 {
-order_trans_rs485(mybox.myid,comm_list[i].myid,1,2,1);
+order_trans_rs485(mybox.myid,comm_list[i].myid,1,2,1,CONTROL);
 set_statuslist(i,comm_list[i].myid,comm_list[i].size[1],1,comm_list[i].work_time[1],1,2,dis_list,comm_list);
 delay_ms(3000);
 change_Queue(2,10,dis_list,comm_list,slave_dis,slave_comm);
@@ -2127,7 +2139,7 @@ return 0;
 for(i=slave_comm[1];i<=slave_comm[7]-1;i++)
 if(comm_list[i].work_status[0]==0)
 {
-order_trans_rs485(mybox.myid,comm_list[i].myid,1,1,1);
+order_trans_rs485(mybox.myid,comm_list[i].myid,1,1,1,CONTROL);
 set_statuslist(i,comm_list[i].myid,comm_list[i].size[0],1,comm_list[i].work_time[0],1,1,dis_list,comm_list);
 delay_ms(3000);
 change_Queue(1,5,dis_list,comm_list,slave_dis,slave_comm);
@@ -2138,7 +2150,7 @@ return 0;
 for(i=slave_comm[4];i<=slave_comm[10]-1;i++)
 if(comm_list[i].work_status[1]==0)
 {
-order_trans_rs485(mybox.myid,comm_list[i].myid,1,2,1);
+order_trans_rs485(mybox.myid,comm_list[i].myid,1,2,1,CONTROL);
 set_statuslist(i,comm_list[i].myid,comm_list[i].size[1],1,comm_list[i].work_time[1],1,2,dis_list,comm_list);
 delay_ms(3000);
 change_Queue(2,5,dis_list,comm_list,slave_dis,slave_comm);
@@ -2166,7 +2178,7 @@ for(i=slave_comm[1];i<=slave_comm[7]-1;i++)
 if(comm_list[i].work_status[0]==1)
 
 {
-order_trans_rs485(mybox.myid,comm_list[i].myid,1,1,0);
+order_trans_rs485(mybox.myid,comm_list[i].myid,1,1,0,CONTROL);
 set_statuslist(i,comm_list[i].myid,comm_list[i].size[0],0,comm_list[i].work_time[0],1,1,dis_list,comm_list);
 delay_ms(3000);
 return 0;
@@ -2176,7 +2188,7 @@ return 0;
 for(i=slave_comm[4];i<=slave_comm[10]-1;i++)
 if(comm_list[i].work_status[1]==1)
 {
-order_trans_rs485(mybox.myid,comm_list[i].myid,1,2,0);
+order_trans_rs485(mybox.myid,comm_list[i].myid,1,2,0,CONTROL);
 set_statuslist(i,comm_list[i].myid,comm_list[i].size[1],0,comm_list[i].work_time[1],1,2,dis_list,comm_list);
 delay_ms(3000);
 return 0;
@@ -2193,7 +2205,7 @@ for(i=slave_comm[2];i<=slave_comm[8]-1;i++)
 if(comm_list[i].work_status[0]==1)
 
 {
-order_trans_rs485(mybox.myid,comm_list[i].myid,1,1,0);
+order_trans_rs485(mybox.myid,comm_list[i].myid,1,1,0,CONTROL);
 set_statuslist(i,comm_list[i].myid,comm_list[i].size[0],0,comm_list[i].work_time[0],1,1,dis_list,comm_list);
 delay_ms(3000);
 return 0;
@@ -2203,7 +2215,7 @@ return 0;
 for(i=slave_comm[5];i<=slave_comm[11]-1;i++)
 if(comm_list[i].work_status[1]==1)
 {
-order_trans_rs485(mybox.myid,comm_list[i].myid,1,2,0);
+order_trans_rs485(mybox.myid,comm_list[i].myid,1,2,0,CONTROL);
 set_statuslist(i,comm_list[i].myid,comm_list[i].size[1],0,comm_list[i].work_time[1],1,2,dis_list,comm_list);
 delay_ms(3000);
 return 0;
@@ -2216,7 +2228,7 @@ for(i=slave_comm[3];i<=slave_comm[9];i++)
 if(comm_list[i].work_status[0]==1)
 
 {
-order_trans_rs485(mybox.myid,comm_list[i].myid,1,1,0);
+order_trans_rs485(mybox.myid,comm_list[i].myid,1,1,0,CONTROL);
 set_statuslist(i,comm_list[i].myid,comm_list[i].size[0],0,comm_list[i].work_time[0],1,1,dis_list,comm_list);
 delay_ms(3000);
 return 0;
@@ -2226,7 +2238,7 @@ return 0;
 for(i=slave_comm[6];i<=slave_comm[12];i++)
 if(comm_list[i].work_status[1]==1)
 {
-order_trans_rs485(mybox.myid,comm_list[i].myid,1,2,0);
+order_trans_rs485(mybox.myid,comm_list[i].myid,1,2,0,CONTROL);
 set_statuslist(i,comm_list[i].myid,comm_list[i].size[1],0,comm_list[i].work_time[1],1,2,dis_list,comm_list);
 delay_ms(3000);
 return 0;
@@ -2368,7 +2380,7 @@ for(i=slave_comm[3];i<=slave_comm[9];i++)
 if(comm_list[i].work_status[0]==1)
 
 {
-order_trans_rs485(mybox.myid,comm_list[i].myid,1,1,0);
+order_trans_rs485(mybox.myid,comm_list[i].myid,1,1,0,CONTROL);
 set_statuslist(i,comm_list[i].myid,comm_list[i].size[0],0,comm_list[i].work_time[0],1,1,dis_list,comm_list);
 delay_ms(3000);
 return 0;
@@ -2378,7 +2390,7 @@ return 0;
 for(i=slave_comm[6];i<=slave_comm[12];i++)
 if(comm_list[i].work_status[1]==1)
 {
-order_trans_rs485(mybox.myid,comm_list[i].myid,1,2,0);
+order_trans_rs485(mybox.myid,comm_list[i].myid,1,2,0,CONTROL);
 set_statuslist(i,comm_list[i].myid,comm_list[i].size[1],0,comm_list[i].work_time[1],1,2,dis_list,comm_list);
 delay_ms(3000);
 return 0;
@@ -2393,7 +2405,7 @@ for(i=slave_comm[2];i<=slave_comm[8]-1;i++)
 if(comm_list[i].work_status[0]==1)
 
 {
-order_trans_rs485(mybox.myid,comm_list[i].myid,1,1,0);
+order_trans_rs485(mybox.myid,comm_list[i].myid,1,1,0,CONTROL);
 set_statuslist(i,comm_list[i].myid,comm_list[i].size[0],0,comm_list[i].work_time[0],1,1,dis_list,comm_list);
 delay_ms(3000);
 return 0;
@@ -2403,7 +2415,7 @@ return 0;
 for(i=slave_comm[5];i<=slave_comm[11]-1;i++)
 if(comm_list[i].work_status[1]==1)
 {
-order_trans_rs485(mybox.myid,comm_list[i].myid,1,2,0);
+order_trans_rs485(mybox.myid,comm_list[i].myid,1,2,0,CONTROL);
 set_statuslist(i,comm_list[i].myid,comm_list[i].size[1],0,comm_list[i].work_time[1],1,2,dis_list,comm_list);
 delay_ms(3000);
 return 0;
@@ -2416,7 +2428,7 @@ for(i=slave_comm[1];i<=slave_comm[7]-1;i++)
 if(comm_list[i].work_status[0]==1)
 
 {
-order_trans_rs485(mybox.myid,comm_list[i].myid,1,1,0);
+order_trans_rs485(mybox.myid,comm_list[i].myid,1,1,0,CONTROL);
 set_statuslist(i,comm_list[i].myid,comm_list[i].size[0],0,comm_list[i].work_time[0],1,1,dis_list,comm_list);
 delay_ms(3000);
 return 0;
@@ -2426,7 +2438,7 @@ return 0;
 for(i=slave_comm[4];i<=slave_comm[10]-1;i++)
 if(comm_list[i].work_status[1]==1)
 {
-order_trans_rs485(mybox.myid,comm_list[i].myid,1,2,0);
+order_trans_rs485(mybox.myid,comm_list[i].myid,1,2,0,CONTROL);
 set_statuslist(i,comm_list[i].myid,comm_list[i].size[1],0,comm_list[i].work_time[1],1,2,dis_list,comm_list);
 delay_ms(3000);
 return 0;
@@ -2521,7 +2533,6 @@ for(i=1;i<=2;i++)
       slave_dis[0]=count-1;
 
 
-
 count=1;
 j=0;
 
@@ -2573,6 +2584,8 @@ break;
 
     }
 }
+
+
 }
 
 /**************************************************************/
@@ -2944,7 +2957,7 @@ void turn_master_id(u8 id)//改变当前整个系统中主机的ID号
 	{ 
 	  flag=cont;
       if(id==(flag)){
-	  	   order_trans_rs485(mybox.myid,0,0,0,0);
+	  	   order_trans_rs485(mybox.myid,0,0,0,0,CPT_LL);
 	//delay_time(2);
          mybox.master=1;
 		 hguestnum=111;
