@@ -246,7 +246,7 @@ CPU_INT08U  os_err;
 
     OS_CPU_SysTickInit();/* Initialize the SysTick.                              */
 	delay_init();
-	delay_us(200000);
+	delay_us(500000);
 NVIC_Configuration();
 GPIO_Configuration();
 initmybox();//初始化自身信息
@@ -1575,7 +1575,7 @@ void initmybox()//初始化自身信息
   mybox.master=0;
  mybox.start='&';
 ///mybox.myid=AT24CXX_ReadOneByte(0x0010);
-mybox.myid=1;
+mybox.myid=2;
  mybox.source=0;
  mybox.destination=0;
  mybox.send=0;
@@ -2535,7 +2535,6 @@ for(i=1;i<=2;i++)
 
 count=1;
 j=0;
-
 {
 for(i=3;i<=5;i++)
 	{  
@@ -2579,12 +2578,13 @@ slave_comm[0]--;
 break;	
 }
 		}
-			}
+	
+	flag_comm=0;
+		}
 
 
     }
 }
-
 
 }
 
