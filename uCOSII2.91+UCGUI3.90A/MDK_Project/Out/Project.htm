@@ -3,7 +3,7 @@
 <title>Static Call Graph - [.\Out\Project.axf]</title></head>
 <body><HR>
 <H1>Static Call Graph for image .\Out\Project.axf</H1><HR>
-<BR><P>#&#060CALLGRAPH&#062# ARM Linker, 4.1 [Build 894]: Last Updated: Thu Oct 17 18:15:15 2013
+<BR><P>#&#060CALLGRAPH&#062# ARM Linker, 4.1 [Build 894]: Last Updated: Sat Oct 19 16:20:23 2013
 <BR><P>
 <H3>Maximum Stack Usage =      14736 bytes + Unknown(Functions without stacksize, Cycles, Untraceable Function Pointers)</H3><H3>
 Call chain for Maximum Stack Depth:</H3>
@@ -958,7 +958,7 @@ Global Symbols
 <BR>[Address Reference Count : 1]<UL><LI> startup_stm32f4xx.o(RESET)
 </UL>
 <P><STRONG><a name="[b8]"></a>Clera_lcd</STRONG> (Thumb, 32 bytes, Stack size 16 bytes, ht1621.o(i.Clera_lcd))
-<BR><BR>[Stack]<UL><LI>Max Depth = 68<LI>Call Chain = Clera_lcd &rArr; Write_1621 &rArr; SendDataBit_1621 &rArr; delay_us
+<BR><BR>[Stack]<UL><LI>Max Depth = 68<LI>Call Chain = Clera_lcd &rArr; Write_1621 &rArr; SendBit_1621 &rArr; delay_us
 </UL>
 <BR>[Calls]<UL><LI><a href="#[b9]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Write_1621
 </UL>
@@ -1010,6 +1010,7 @@ Global Symbols
 <BR><BR>[Called By]<UL><LI><a href="#[145]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;subswitchABC_onoff
 <LI><a href="#[111]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;RS485_Send_Data
 <LI><a href="#[10a]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;RS485_Init
+<LI><a href="#[113]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;SendBit_1621
 <LI><a href="#[9f]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;IIC_Wait_Ack
 <LI><a href="#[a0]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;IIC_Stop
 <LI><a href="#[9d]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;IIC_Start
@@ -1019,13 +1020,13 @@ Global Symbols
 <LI><a href="#[bb]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;WriteAll_1621
 <LI><a href="#[114]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;SendDataBit_1621
 <LI><a href="#[c4]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;SendCmd
-<LI><a href="#[113]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;SendBit_1621
 </UL>
 
 <P><STRONG><a name="[c3]"></a>GPIO_SetBits</STRONG> (Thumb, 4 bytes, Stack size 0 bytes, stm32f4xx_gpio.o(i.GPIO_SetBits))
 <BR><BR>[Called By]<UL><LI><a href="#[c2]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;HT1621_Init
 <LI><a href="#[145]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;subswitchABC_onoff
 <LI><a href="#[111]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;RS485_Send_Data
+<LI><a href="#[113]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;SendBit_1621
 <LI><a href="#[9f]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;IIC_Wait_Ack
 <LI><a href="#[a0]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;IIC_Stop
 <LI><a href="#[9d]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;IIC_Start
@@ -1035,11 +1036,10 @@ Global Symbols
 <LI><a href="#[bb]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;WriteAll_1621
 <LI><a href="#[114]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;SendDataBit_1621
 <LI><a href="#[c4]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;SendCmd
-<LI><a href="#[113]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;SendBit_1621
 </UL>
 
 <P><STRONG><a name="[ba]"></a>Graf_con_u</STRONG> (Thumb, 204 bytes, Stack size 32 bytes, ht1621.o(i.Graf_con_u))
-<BR><BR>[Stack]<UL><LI>Max Depth = 92<LI>Call Chain = Graf_con_u &rArr; WriteAll_1621 &rArr; SendDataBit_1621 &rArr; delay_us
+<BR><BR>[Stack]<UL><LI>Max Depth = 92<LI>Call Chain = Graf_con_u &rArr; WriteAll_1621 &rArr; SendBit_1621 &rArr; delay_us
 </UL>
 <BR>[Calls]<UL><LI><a href="#[b9]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Write_1621
 <LI><a href="#[bb]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;WriteAll_1621
@@ -1048,7 +1048,7 @@ Global Symbols
 </UL>
 
 <P><STRONG><a name="[bc]"></a>Graf_cuirrent</STRONG> (Thumb, 148 bytes, Stack size 24 bytes, ht1621.o(i.Graf_cuirrent))
-<BR><BR>[Stack]<UL><LI>Max Depth = 84<LI>Call Chain = Graf_cuirrent &rArr; WriteAll_1621 &rArr; SendDataBit_1621 &rArr; delay_us
+<BR><BR>[Stack]<UL><LI>Max Depth = 84<LI>Call Chain = Graf_cuirrent &rArr; WriteAll_1621 &rArr; SendBit_1621 &rArr; delay_us
 </UL>
 <BR>[Calls]<UL><LI><a href="#[b9]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Write_1621
 <LI><a href="#[bb]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;WriteAll_1621
@@ -1057,7 +1057,7 @@ Global Symbols
 </UL>
 
 <P><STRONG><a name="[bd]"></a>Graf_id</STRONG> (Thumb, 152 bytes, Stack size 32 bytes, ht1621.o(i.Graf_id))
-<BR><BR>[Stack]<UL><LI>Max Depth = 92<LI>Call Chain = Graf_id &rArr; WriteAll_1621 &rArr; SendDataBit_1621 &rArr; delay_us
+<BR><BR>[Stack]<UL><LI>Max Depth = 92<LI>Call Chain = Graf_id &rArr; WriteAll_1621 &rArr; SendBit_1621 &rArr; delay_us
 </UL>
 <BR>[Calls]<UL><LI><a href="#[b9]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Write_1621
 <LI><a href="#[bb]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;WriteAll_1621
@@ -1066,7 +1066,7 @@ Global Symbols
 </UL>
 
 <P><STRONG><a name="[be]"></a>Graf_qkvar</STRONG> (Thumb, 150 bytes, Stack size 24 bytes, ht1621.o(i.Graf_qkvar))
-<BR><BR>[Stack]<UL><LI>Max Depth = 84<LI>Call Chain = Graf_qkvar &rArr; WriteAll_1621 &rArr; SendDataBit_1621 &rArr; delay_us
+<BR><BR>[Stack]<UL><LI>Max Depth = 84<LI>Call Chain = Graf_qkvar &rArr; WriteAll_1621 &rArr; SendBit_1621 &rArr; delay_us
 </UL>
 <BR>[Calls]<UL><LI><a href="#[b9]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Write_1621
 <LI><a href="#[bb]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;WriteAll_1621
@@ -1075,7 +1075,7 @@ Global Symbols
 </UL>
 
 <P><STRONG><a name="[bf]"></a>Graf_setid</STRONG> (Thumb, 92 bytes, Stack size 24 bytes, ht1621.o(i.Graf_setid))
-<BR><BR>[Stack]<UL><LI>Max Depth = 84<LI>Call Chain = Graf_setid &rArr; WriteAll_1621 &rArr; SendDataBit_1621 &rArr; delay_us
+<BR><BR>[Stack]<UL><LI>Max Depth = 84<LI>Call Chain = Graf_setid &rArr; WriteAll_1621 &rArr; SendBit_1621 &rArr; delay_us
 </UL>
 <BR>[Calls]<UL><LI><a href="#[b9]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Write_1621
 <LI><a href="#[bb]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;WriteAll_1621
@@ -1084,7 +1084,7 @@ Global Symbols
 </UL>
 
 <P><STRONG><a name="[c0]"></a>Graf_temp</STRONG> (Thumb, 92 bytes, Stack size 24 bytes, ht1621.o(i.Graf_temp))
-<BR><BR>[Stack]<UL><LI>Max Depth = 84<LI>Call Chain = Graf_temp &rArr; WriteAll_1621 &rArr; SendDataBit_1621 &rArr; delay_us
+<BR><BR>[Stack]<UL><LI>Max Depth = 84<LI>Call Chain = Graf_temp &rArr; WriteAll_1621 &rArr; SendBit_1621 &rArr; delay_us
 </UL>
 <BR>[Calls]<UL><LI><a href="#[b9]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Write_1621
 <LI><a href="#[bb]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;WriteAll_1621
@@ -1093,7 +1093,7 @@ Global Symbols
 </UL>
 
 <P><STRONG><a name="[c1]"></a>Graf_ver</STRONG> (Thumb, 100 bytes, Stack size 24 bytes, ht1621.o(i.Graf_ver))
-<BR><BR>[Stack]<UL><LI>Max Depth = 84<LI>Call Chain = Graf_ver &rArr; WriteAll_1621 &rArr; SendDataBit_1621 &rArr; delay_us
+<BR><BR>[Stack]<UL><LI>Max Depth = 84<LI>Call Chain = Graf_ver &rArr; WriteAll_1621 &rArr; SendBit_1621 &rArr; delay_us
 </UL>
 <BR>[Calls]<UL><LI><a href="#[b9]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Write_1621
 <LI><a href="#[bb]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;WriteAll_1621
@@ -2058,12 +2058,12 @@ Global Symbols
 <BR>[Address Reference Count : 1]<UL><LI> startup_stm32f4xx.o(RESET)
 </UL>
 <P><STRONG><a name="[bb]"></a>WriteAll_1621</STRONG> (Thumb, 72 bytes, Stack size 24 bytes, ht1621.o(i.WriteAll_1621))
-<BR><BR>[Stack]<UL><LI>Max Depth = 60<LI>Call Chain = WriteAll_1621 &rArr; SendDataBit_1621 &rArr; delay_us
+<BR><BR>[Stack]<UL><LI>Max Depth = 60<LI>Call Chain = WriteAll_1621 &rArr; SendBit_1621 &rArr; delay_us
 </UL>
 <BR>[Calls]<UL><LI><a href="#[c3]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;GPIO_SetBits
 <LI><a href="#[c5]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;GPIO_ResetBits
-<LI><a href="#[114]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;SendDataBit_1621
 <LI><a href="#[113]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;SendBit_1621
+<LI><a href="#[114]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;SendDataBit_1621
 </UL>
 <BR>[Called By]<UL><LI><a href="#[c1]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Graf_ver
 <LI><a href="#[c0]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Graf_temp
@@ -2075,12 +2075,12 @@ Global Symbols
 </UL>
 
 <P><STRONG><a name="[b9]"></a>Write_1621</STRONG> (Thumb, 54 bytes, Stack size 16 bytes, ht1621.o(i.Write_1621))
-<BR><BR>[Stack]<UL><LI>Max Depth = 52<LI>Call Chain = Write_1621 &rArr; SendDataBit_1621 &rArr; delay_us
+<BR><BR>[Stack]<UL><LI>Max Depth = 52<LI>Call Chain = Write_1621 &rArr; SendBit_1621 &rArr; delay_us
 </UL>
 <BR>[Calls]<UL><LI><a href="#[c3]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;GPIO_SetBits
 <LI><a href="#[c5]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;GPIO_ResetBits
-<LI><a href="#[114]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;SendDataBit_1621
 <LI><a href="#[113]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;SendBit_1621
+<LI><a href="#[114]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;SendDataBit_1621
 </UL>
 <BR>[Called By]<UL><LI><a href="#[c1]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Graf_ver
 <LI><a href="#[c0]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Graf_temp
@@ -2170,7 +2170,7 @@ Global Symbols
 <BR><BR>[Called By]<UL><LI><a href="#[b5]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;rs485_trans_computer
 </UL>
 
-<P><STRONG><a name="[b3]"></a>computer_gonglu</STRONG> (Thumb, 4874 bytes, Stack size 14568 bytes, main.o(i.computer_gonglu))
+<P><STRONG><a name="[b3]"></a>computer_gonglu</STRONG> (Thumb, 4748 bytes, Stack size 14568 bytes, main.o(i.computer_gonglu))
 <BR><BR>[Stack]<UL><LI>Max Depth = 14728 + Unknown Stack Size
 <LI>Call Chain = computer_gonglu &rArr; __hardfp_atan2 &rArr; atan &rArr; __hardfp_atan &rArr; __kernel_poly &rArr; __aeabi_dmul
 </UL>
@@ -2247,12 +2247,12 @@ Global Symbols
 <LI><a href="#[145]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;subswitchABC_onoff
 <LI><a href="#[73]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;main
 <LI><a href="#[b3]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;computer_gonglu
+<LI><a href="#[113]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;SendBit_1621
 <LI><a href="#[9f]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;IIC_Wait_Ack
 <LI><a href="#[a0]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;IIC_Stop
 <LI><a href="#[9d]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;IIC_Start
 <LI><a href="#[9e]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;IIC_Send_Byte
 <LI><a href="#[114]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;SendDataBit_1621
-<LI><a href="#[113]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;SendBit_1621
 </UL>
 
 <P><STRONG><a name="[123]"></a>fabs</STRONG> (Thumb, 32 bytes, Stack size 8 bytes, fabs.o(i.fabs))
@@ -2296,7 +2296,7 @@ Global Symbols
 
 <P><STRONG><a name="[aa]"></a>key_idset</STRONG> (Thumb, 548 bytes, Stack size 40 bytes, key.o(i.key_idset))
 <BR><BR>[Stack]<UL><LI>Max Depth = 132 + Unknown Stack Size
-<LI>Call Chain = key_idset &rArr; Graf_id &rArr; WriteAll_1621 &rArr; SendDataBit_1621 &rArr; delay_us
+<LI>Call Chain = key_idset &rArr; Graf_id &rArr; WriteAll_1621 &rArr; SendBit_1621 &rArr; delay_us
 </UL>
 <BR>[Calls]<UL><LI><a href="#[c6]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;delay_us
 <LI><a href="#[142]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;GPIO_ReadInputDataBit

@@ -254,7 +254,7 @@ initmybox();//初始化自身信息
 {while(subswitchABC_onoff(2,0,1)==0)break;}		  //投
 {while(subswitchABC_onoff(3,0,1)==0)break;}		  //投
 
-set_now_mystatus(mybox.myid,5,5,5);
+set_now_mystatus(mybox.myid,6,6,6);
 os_err = os_err; 
 
 
@@ -401,7 +401,7 @@ OSSemPost(computer_sem);
  scan_init=1;
 }
 
-delay_ms(1000);
+delay_ms(1500);
 
 
 					// delay_ms(100);
@@ -433,7 +433,7 @@ static  void  App_Taskslave_three(void *p_arg)
 		        }	 		
    msg=(u8 *)OSMboxPend(RS485_MBOX,0,&err);//接收到有数据
    rs485_trans_computer(msg);
-   	 dog_clock=10;
+   	 dog_clock=20;
    // key_idset();//按键与显示功能
 
 }
@@ -859,7 +859,7 @@ RS485_Init(9600);
 
 
 /*************************TIME*******************************/
-	TIM4_Int_Init(9999,7199);//10Khz的计数频率，计数10K次为1000ms 
+	TIM4_Int_Init(9999*2,7199);//10Khz的计数频率，计数10K次为1000ms 
 /************************************************************/
 
 
@@ -1575,7 +1575,7 @@ void initmybox()//初始化自身信息
   mybox.master=0;
  mybox.start='&';
 ///mybox.myid=AT24CXX_ReadOneByte(0x0010);
-mybox.myid=2;
+mybox.myid=1;
  mybox.source=0;
  mybox.destination=0;
  mybox.send=0;
@@ -1658,7 +1658,7 @@ u8 inquiry_slave_status_comm(u8 count,u8 id,status_dis_node *dis_list,status_com
 	
 
    order_trans_rs485(mybox.myid,id,2,0,0,CONTROL);
-   msg=(u8 *)OSMboxPend(RS485_STUTAS_MBOX,OS_TICKS_PER_SEC/10,&err);
+   msg=(u8 *)OSMboxPend(RS485_STUTAS_MBOX,OS_TICKS_PER_SEC/20,&err);
    if(err==OS_ERR_TIMEOUT){ return 0;}//(u8 id, u8 size, u8 work_status, u8 work_time) 
 	else 
 	{  rs485_trans_status_comm(count,msg,dis_list,comm_list);return 1;}
@@ -2039,8 +2039,9 @@ wugongkvar=(a+b+c)/100;
   wugongkvar_95=wugongkvar_95A+wugongkvar_95B+wugongkvar_95C;
 
    order_trans_rs485(mybox.myid,0,0,0,0,CPT_LL);
-tempshuzhi=comm_list[1].size[0];
-delay_ms(1000);
+
+//tempshuzhi=comm_list[1].size[0];
+//delay_ms(1000);
 }
 //computer_trans_rs485(mybox.myid,slave_dis[1],1,3,1,CONTROL);
 
@@ -2082,8 +2083,8 @@ if(comm_list[i].work_status[0]==0)
 {
 order_trans_rs485(mybox.myid,comm_list[i].myid,1,1,1,CONTROL);
 set_statuslist(i,comm_list[i].myid,comm_list[i].size[0],1,comm_list[i].work_time[0],1,1,dis_list,comm_list);
-delay_ms(3000);
 change_Queue(1,20,dis_list,comm_list,slave_dis,slave_comm);
+delay_ms(3000);
 return 0 ;
 }
 
@@ -2094,8 +2095,8 @@ if(comm_list[i].work_status[1]==0)
 {
 order_trans_rs485(mybox.myid,comm_list[i].myid,1,2,1,CONTROL);
 set_statuslist(i,comm_list[i].myid,comm_list[i].size[1],1,comm_list[i].work_time[1],1,2,dis_list,comm_list);
-delay_ms(3000);
 change_Queue(2,20,dis_list,comm_list,slave_dis,slave_comm);
+delay_ms(3000);
 return 0;
 }
 
@@ -2110,9 +2111,8 @@ if(comm_list[i].work_status[0]==0)
 {
 order_trans_rs485(mybox.myid,comm_list[i].myid,1,1,1,CONTROL);
 set_statuslist(i,comm_list[i].myid,comm_list[i].size[0],1,comm_list[i].work_time[0],1,1,dis_list,comm_list);
-tempshuzhi=comm_list[i].myid;
-delay_ms(3000);
 change_Queue(1,10,dis_list,comm_list,slave_dis,slave_comm);
+delay_ms(3000);
 return 0;
 
 }
@@ -2123,8 +2123,8 @@ if(comm_list[i].work_status[1]==0)
 {
 order_trans_rs485(mybox.myid,comm_list[i].myid,1,2,1,CONTROL);
 set_statuslist(i,comm_list[i].myid,comm_list[i].size[1],1,comm_list[i].work_time[1],1,2,dis_list,comm_list);
-delay_ms(3000);
 change_Queue(2,10,dis_list,comm_list,slave_dis,slave_comm);
+delay_ms(3000);
 return 0;
 }
 
@@ -2141,8 +2141,8 @@ if(comm_list[i].work_status[0]==0)
 {
 order_trans_rs485(mybox.myid,comm_list[i].myid,1,1,1,CONTROL);
 set_statuslist(i,comm_list[i].myid,comm_list[i].size[0],1,comm_list[i].work_time[0],1,1,dis_list,comm_list);
-delay_ms(3000);
 change_Queue(1,5,dis_list,comm_list,slave_dis,slave_comm);
+delay_ms(3000);
 return 0;
 }
 
@@ -2152,8 +2152,8 @@ if(comm_list[i].work_status[1]==0)
 {
 order_trans_rs485(mybox.myid,comm_list[i].myid,1,2,1,CONTROL);
 set_statuslist(i,comm_list[i].myid,comm_list[i].size[1],1,comm_list[i].work_time[1],1,2,dis_list,comm_list);
-delay_ms(3000);
 change_Queue(2,5,dis_list,comm_list,slave_dis,slave_comm);
+delay_ms(3000);
 return 0;
 }
 
@@ -2462,7 +2462,7 @@ if(dis_list[i].work_status[0]==1)
 {
 computer_trans_rs485(mybox.myid,dis_list[i].myid,1,1,0,CONTROL);
 dis_list[i].work_status[0]=0;
-delay_ms(500);
+delay_ms(3000);
 break;
 }
 
@@ -2479,7 +2479,7 @@ if(dis_list[i].work_status[1]==1)
 {
 computer_trans_rs485(mybox.myid,dis_list[i].myid,1,2,0,CONTROL);
 dis_list[i].work_status[1]=0;
-delay_ms(500);
+delay_ms(3000);
 break;
 }
 
@@ -2498,7 +2498,7 @@ if(dis_list[i].work_status[2]==1)
 {
 computer_trans_rs485(mybox.myid,dis_list[i].myid,1,3,0,CONTROL);
 dis_list[i].work_status[2]=0;
-delay_ms(500);
+delay_ms(3000);
 break;
 }
 
