@@ -486,8 +486,8 @@ static  void  App_Taskcomputer	 (void		*p_arg )
 
 {  
 u8 err;
- static status_dis_node     dis_list[10];
-static status_comm_node comm_list[10];
+ static status_dis_node     dis_list[33];
+static status_comm_node comm_list[33];
 static  u8 slave_dis[1];
 static  u8 slave_comm[20];
 
@@ -1638,11 +1638,15 @@ if(dis_comm==1)
   	{
 	   comm_list[count].myid=id;
    	   comm_list[count].size[0]=size;
+   	   comm_list[count].work_status[0]=work_status;
+      // comm_list[count].work_time[0]=work_time;
   	}
   if(relay==2)
   	{
 	   comm_list[count].myid=id;
    	   comm_list[count].size[1]=size;
+   	   comm_list[count].work_status[1]=work_status;
+      // comm_list[count].work_time[1]=work_time;
   	}  
 }
 
@@ -1654,7 +1658,7 @@ u8 inquiry_slave_status_comm(u8 count,u8 id,status_dis_node *dis_list,status_com
 	
 
    order_trans_rs485(mybox.myid,id,3,0,0,CONTROL);
-   msg=(u8 *)OSMboxPend(RS485_STUTAS_MBOX,OS_TICKS_PER_SEC/10,&err);
+   msg=(u8 *)OSMboxPend(RS485_STUTAS_MBOX,OS_TICKS_PER_SEC/30,&err);
    if(err==OS_ERR_TIMEOUT){ return 0;}//(u8 id, u8 size, u8 work_status, u8 work_time) 
 	else 
 	{  rs485_trans_status_comm(count,msg,dis_list,comm_list);return 1;}
@@ -1664,8 +1668,8 @@ u8 inquiry_slave_status_comm(u8 count,u8 id,status_dis_node *dis_list,status_com
 /*******************************/
  void rs485_trans_status_comm(u8 count,u8 *tx_r485,status_dis_node *dis_list,status_comm_node *comm_list)//主机程序，主机命令解析成RS485信息，发送给目的从机
  	{
- 	 set_statuslist(count,tx_r485[2],tx_r485[3],0,0,1,1,dis_list,comm_list);//主机状态信息写入状态表
-	   set_statuslist(count,tx_r485[2],tx_r485[4],0,0,1,2,dis_list,comm_list);//主机状态信息写入状态表
+ 	 set_statuslist(count,tx_r485[2],tx_r485[3],tx_r485[5],0,1,1,dis_list,comm_list);//主机状态信息写入状态表
+	   set_statuslist(count,tx_r485[2],tx_r485[4],tx_r485[6],0,1,2,dis_list,comm_list);//主机状态信息写入状态表
       
    }
 /**********************************/
@@ -1816,7 +1820,7 @@ dianya_zhi_A=dianya_zhi_A/2.6125;
 	/* Calculates maxValue and returns corresponding BIN value */ 
 	arm_max_f32(reslut, fftSize/2, &maxValue_C, &testIndex);
 
-dianliuzhi_A=maxValue_C/100;
+dianliuzhi_A=6*maxValue_C/100;
  dianliuzhi_A=1.0554*dianliuzhi_A;
 gonglvshishu_A=arm_cos_f32(angle[0]-angle[1])*100;//功率因素
 
@@ -1923,7 +1927,7 @@ dianya_zhi_B=dianya_zhi_B/2.6125;
 	/* Calculates maxValue and returns corresponding BIN value */ 
 	arm_max_f32(reslut, fftSize/2, &maxValue_C, &testIndex);
 
-dianliuzhi_B=maxValue_C/100;
+dianliuzhi_B=6*maxValue_C/100;
  dianliuzhi_B=1.0554*dianliuzhi_B;
 gonglvshishu_B=arm_cos_f32(angle[0]-angle[1])*100;//功率因素
 arm_sqrt_f32(1-(arm_cos_f32(angle[0]-angle[1]))*(arm_cos_f32(angle[0]-angle[1])),&sine);
@@ -2004,7 +2008,7 @@ dianya_zhi_C=dianya_zhi_C/2.6125;
 	/* Calculates maxValue and returns corresponding BIN value */ 
 	arm_max_f32(reslut, fftSize/2, &maxValue_C, &testIndex);
 
-dianliuzhi_C=maxValue_C/100;
+dianliuzhi_C=6*maxValue_C/100;
  dianliuzhi_C=1.0554*dianliuzhi_C;
 gonglvshishu_C=arm_cos_f32(angle[0]-angle[1])*100;//功率因素
 arm_sqrt_f32(1-(arm_cos_f32(angle[0]-angle[1]))*(arm_cos_f32(angle[0]-angle[1])),&sine);
@@ -2068,7 +2072,7 @@ wugongkvar=(a+b+c)/100;
 //delay_ms(2000);
 
 
-if(gonglvshishu<90&&L_C_flag_A==1)
+if(gonglvshishu<93&&L_C_flag_A==1)
  {
 if(slave_comm[0]>0)
       {
@@ -2078,9 +2082,9 @@ for(i=slave_comm[3];i<=slave_comm[9];i++)
 if(comm_list[i].work_status[0]==0)
 {
 order_trans_rs485(mybox.myid,comm_list[i].myid,1,1,1,CONTROL);
-comm_list[i].work_status[0]=1;
+set_statuslist(i,comm_list[i].myid,comm_list[i].size[0],1,comm_list[i].work_time[0],1,1,dis_list,comm_list);
 change_Queue(1,20,dis_list,comm_list,slave_dis,slave_comm);
-delay_ms(3000);
+//delay_ms(1000);
 return 0 ;
 }
 
@@ -2090,9 +2094,9 @@ for(i=slave_comm[6];i<=slave_comm[12];i++)
 if(comm_list[i].work_status[1]==0)
 {
 order_trans_rs485(mybox.myid,comm_list[i].myid,1,2,1,CONTROL);
-comm_list[i].work_status[1]=1;
+set_statuslist(i,comm_list[i].myid,comm_list[i].size[1],1,comm_list[i].work_time[1],1,2,dis_list,comm_list);
 change_Queue(2,20,dis_list,comm_list,slave_dis,slave_comm);
-delay_ms(3000);
+//delay_ms(1000);
 return 0;
 }
 
@@ -2106,9 +2110,9 @@ for(i=slave_comm[2];i<=slave_comm[8]-1;i++)
 if(comm_list[i].work_status[0]==0)
 {
 order_trans_rs485(mybox.myid,comm_list[i].myid,1,1,1,CONTROL);
-comm_list[i].work_status[0]=1;
+set_statuslist(i,comm_list[i].myid,comm_list[i].size[0],1,comm_list[i].work_time[0],1,1,dis_list,comm_list);
 change_Queue(1,10,dis_list,comm_list,slave_dis,slave_comm);
-delay_ms(3000);
+//delay_ms(1000);
 return 0;
 
 }
@@ -2118,9 +2122,9 @@ for(i=slave_comm[5];i<=slave_comm[11]-1;i++)
 if(comm_list[i].work_status[1]==0)
 {
 order_trans_rs485(mybox.myid,comm_list[i].myid,1,2,1,CONTROL);
-comm_list[i].work_status[1]=1;
+set_statuslist(i,comm_list[i].myid,comm_list[i].size[1],1,comm_list[i].work_time[1],1,2,dis_list,comm_list);
 change_Queue(2,10,dis_list,comm_list,slave_dis,slave_comm);
-delay_ms(3000);
+//delay_ms(1000);
 return 0;
 }
 
@@ -2136,9 +2140,9 @@ for(i=slave_comm[1];i<=slave_comm[7]-1;i++)
 if(comm_list[i].work_status[0]==0)
 {
 order_trans_rs485(mybox.myid,comm_list[i].myid,1,1,1,CONTROL);
-comm_list[i].work_status[0]=1;
+set_statuslist(i,comm_list[i].myid,comm_list[i].size[0],1,comm_list[i].work_time[0],1,1,dis_list,comm_list);
 change_Queue(1,5,dis_list,comm_list,slave_dis,slave_comm);
-delay_ms(3000);
+//delay_ms(1000);
 return 0;
 }
 
@@ -2147,9 +2151,9 @@ for(i=slave_comm[4];i<=slave_comm[10]-1;i++)
 if(comm_list[i].work_status[1]==0)
 {
 order_trans_rs485(mybox.myid,comm_list[i].myid,1,2,1,CONTROL);
-comm_list[i].work_status[1]=1;
+set_statuslist(i,comm_list[i].myid,comm_list[i].size[1],1,comm_list[i].work_time[1],1,2,dis_list,comm_list);
 change_Queue(2,5,dis_list,comm_list,slave_dis,slave_comm);
-delay_ms(3000);
+//delay_ms(1000);
 return 0;
 }
 
@@ -2164,7 +2168,7 @@ return 0;
 }
  }
 
-if(gonglvshishu>95&&L_C_flag_A==1)
+if(gonglvshishu>=94&&L_C_flag_A==1)
    
 {
 if(slave_comm[0]>0)
@@ -2175,8 +2179,8 @@ if(comm_list[i].work_status[0]==1)
 
 {
 order_trans_rs485(mybox.myid,comm_list[i].myid,1,1,0,CONTROL);
-comm_list[i].work_status[0]=0;
-delay_ms(3000);
+set_statuslist(i,comm_list[i].myid,comm_list[i].size[0],0,comm_list[i].work_time[0],1,1,dis_list,comm_list);
+//delay_ms(1000);
 return 0;
 }
 
@@ -2185,8 +2189,8 @@ for(i=slave_comm[4];i<=slave_comm[10]-1;i++)
 if(comm_list[i].work_status[1]==1)
 {
 order_trans_rs485(mybox.myid,comm_list[i].myid,1,2,0,CONTROL);
-comm_list[i].work_status[1]=0;
-delay_ms(3000);
+set_statuslist(i,comm_list[i].myid,comm_list[i].size[1],0,comm_list[i].work_time[1],1,2,dis_list,comm_list);
+//delay_ms(1000);
 return 0;
 }
 }
@@ -2202,8 +2206,8 @@ if(comm_list[i].work_status[0]==1)
 
 {
 order_trans_rs485(mybox.myid,comm_list[i].myid,1,1,0,CONTROL);
-comm_list[i].work_status[0]=0;
-delay_ms(3000);
+set_statuslist(i,comm_list[i].myid,comm_list[i].size[0],0,comm_list[i].work_time[0],1,1,dis_list,comm_list);
+//delay_ms(1000);
 return 0;
 }
 
@@ -2212,8 +2216,8 @@ for(i=slave_comm[5];i<=slave_comm[11]-1;i++)
 if(comm_list[i].work_status[1]==1)
 {
 order_trans_rs485(mybox.myid,comm_list[i].myid,1,2,0,CONTROL);
-comm_list[i].work_status[1]=0;
-delay_ms(3000);
+set_statuslist(i,comm_list[i].myid,comm_list[i].size[1],0,comm_list[i].work_time[1],1,2,dis_list,comm_list);
+//delay_ms(1000);
 return 0;
 }
 }
@@ -2225,8 +2229,8 @@ if(comm_list[i].work_status[0]==1)
 
 {
 order_trans_rs485(mybox.myid,comm_list[i].myid,1,1,0,CONTROL);
-comm_list[i].work_status[0]=0;
-delay_ms(3000);
+set_statuslist(i,comm_list[i].myid,comm_list[i].size[0],0,comm_list[i].work_time[0],1,1,dis_list,comm_list);
+//delay_ms(1000);
 return 0;
 }
 
@@ -2235,8 +2239,8 @@ for(i=slave_comm[6];i<=slave_comm[12];i++)
 if(comm_list[i].work_status[1]==1)
 {
 order_trans_rs485(mybox.myid,comm_list[i].myid,1,2,0,CONTROL);
-comm_list[i].work_status[1]=0;
-delay_ms(3000);
+set_statuslist(i,comm_list[i].myid,comm_list[i].size[1],0,comm_list[i].work_time[1],1,2,dis_list,comm_list);
+//delay_ms(1000);
 return 0;
 }
 }
@@ -2249,7 +2253,7 @@ return 0;
 if(1)
 
   {
-if(gonglvshishu_A<90&&L_C_flag_A==1)
+if(gonglvshishu_A<93&&L_C_flag_A==1)
 {
 if(slave_dis[0]>0)
 {
@@ -2258,7 +2262,7 @@ if(dis_list[i].size[0]<wugongkvar_A&&dis_list[i].work_status[0]==0)
 {
 computer_trans_rs485(mybox.myid,dis_list[i].myid,1,1,1,CONTROL);
 dis_list[i].work_status[0]=1;
-delay_ms(3000);
+//delay_ms(1000);
 return 0;
 }
 
@@ -2266,7 +2270,7 @@ return 0;
 
 
 }
-if(gonglvshishu_B<90&&L_C_flag_A==1)
+if(gonglvshishu_B<93&&L_C_flag_A==1)
 {
 if(slave_dis[0]>0)
 {
@@ -2276,7 +2280,7 @@ if(dis_list[i].size[1]<wugongkvar_B&&dis_list[i].work_status[1]==0)
 computer_trans_rs485(mybox.myid,dis_list[i].myid,1,2,1,CONTROL);
 dis_list[i].work_status[1]=1;
 
-delay_ms(3000);
+//delay_ms(1000);
 return 0;
 }
 
@@ -2285,7 +2289,7 @@ return 0;
 
 }
 
-if(gonglvshishu_C<90&&L_C_flag_A==1)
+if(gonglvshishu_C<93&&L_C_flag_A==1)
 
 {
 if(slave_dis[0]>0)
@@ -2296,7 +2300,7 @@ if(dis_list[i].size[2]<wugongkvar_C&&dis_list[i].work_status[2]==0)
 computer_trans_rs485(mybox.myid,dis_list[i].myid,1,3,1,CONTROL);
 dis_list[i].work_status[2]=1;
 
-delay_ms(3000);
+//delay_ms(1000);
 return 0;
 }
 
@@ -2310,7 +2314,7 @@ return 0;
 if(1)
 
 {
-if(gonglvshishu_A>95&&L_C_flag_A==1)
+if(gonglvshishu_A>=94&&L_C_flag_A==1)
 {
 if(slave_dis[0]>0)
 {
@@ -2319,7 +2323,7 @@ if(dis_list[i].work_status[0]==1)
 {
 computer_trans_rs485(mybox.myid,dis_list[i].myid,1,1,0,CONTROL);
 dis_list[i].work_status[0]=0;
-delay_ms(3000);
+//delay_ms(1000);
 return 0;
 }
 
@@ -2327,7 +2331,7 @@ return 0;
 
 
 }
-if(gonglvshishu_B>95&&L_C_flag_A==1)
+if(gonglvshishu_B>=94&&L_C_flag_A==1)
 {
 if(slave_dis[0]>0)
 {
@@ -2336,7 +2340,7 @@ if(dis_list[i].work_status[1]==1)
 {
 computer_trans_rs485(mybox.myid,dis_list[i].myid,1,2,0,CONTROL);
 dis_list[i].work_status[1]=0;
-delay_ms(3000);
+//delay_ms(1000);
 return 0;
 }
 
@@ -2345,7 +2349,7 @@ return 0;
 
 }
 
-if(gonglvshishu_C>95&&L_C_flag_A==1)
+if(gonglvshishu_C>=94&&L_C_flag_A==1)
 
 {
 if(slave_dis[0]>0)
@@ -2355,7 +2359,7 @@ if(dis_list[i].work_status[2]==1)
 {
 computer_trans_rs485(mybox.myid,dis_list[i].myid,1,3,0,CONTROL);
 dis_list[i].work_status[2]=0;
-delay_ms(3000);
+//delay_ms(1000);
 return 0;
 }
 
@@ -2377,8 +2381,8 @@ if(comm_list[i].work_status[0]==1)
 
 {
 order_trans_rs485(mybox.myid,comm_list[i].myid,1,1,0,CONTROL);
-comm_list[i].work_status[0]=0;
-delay_ms(3000);
+set_statuslist(i,comm_list[i].myid,comm_list[i].size[0],0,comm_list[i].work_time[0],1,1,dis_list,comm_list);
+//delay_ms(1000);
 return 0;
 }
 
@@ -2387,8 +2391,8 @@ for(i=slave_comm[6];i<=slave_comm[12];i++)
 if(comm_list[i].work_status[1]==1)
 {
 order_trans_rs485(mybox.myid,comm_list[i].myid,1,2,0,CONTROL);
-comm_list[i].work_status[1]=0;
-delay_ms(3000);
+set_statuslist(i,comm_list[i].myid,comm_list[i].size[1],0,comm_list[i].work_time[1],1,2,dis_list,comm_list);
+//delay_ms(1000);
 return 0;
 }
 }
@@ -2402,8 +2406,8 @@ if(comm_list[i].work_status[0]==1)
 
 {
 order_trans_rs485(mybox.myid,comm_list[i].myid,1,1,0,CONTROL);
-comm_list[i].work_status[0]=0;
-delay_ms(3000);
+set_statuslist(i,comm_list[i].myid,comm_list[i].size[0],0,comm_list[i].work_time[0],1,1,dis_list,comm_list);
+//delay_ms(1000);
 return 0;
 }
 
@@ -2412,8 +2416,8 @@ for(i=slave_comm[5];i<=slave_comm[11]-1;i++)
 if(comm_list[i].work_status[1]==1)
 {
 order_trans_rs485(mybox.myid,comm_list[i].myid,1,2,0,CONTROL);
-comm_list[i].work_status[1]=0;
-delay_ms(3000);
+set_statuslist(i,comm_list[i].myid,comm_list[i].size[1],0,comm_list[i].work_time[1],1,2,dis_list,comm_list);
+//delay_ms(1000);
 return 0;
 }
 }
@@ -2425,8 +2429,8 @@ if(comm_list[i].work_status[0]==1)
 
 {
 order_trans_rs485(mybox.myid,comm_list[i].myid,1,1,0,CONTROL);
-comm_list[i].work_status[0]=0;
-delay_ms(3000);
+set_statuslist(i,comm_list[i].myid,comm_list[i].size[0],0,comm_list[i].work_time[0],1,1,dis_list,comm_list);
+//delay_ms(1000);
 return 0;
 }
 
@@ -2435,8 +2439,8 @@ for(i=slave_comm[4];i<=slave_comm[10]-1;i++)
 if(comm_list[i].work_status[1]==1)
 {
 order_trans_rs485(mybox.myid,comm_list[i].myid,1,2,0,CONTROL);
-comm_list[i].work_status[1]=0;
-delay_ms(3000);
+set_statuslist(i,comm_list[i].myid,comm_list[i].size[1],0,comm_list[i].work_time[1],1,2,dis_list,comm_list);
+//delay_ms(1000);
 return 0;
 }
 }
@@ -2458,7 +2462,7 @@ if(dis_list[i].work_status[0]==1)
 {
 computer_trans_rs485(mybox.myid,dis_list[i].myid,1,1,0,CONTROL);
 dis_list[i].work_status[0]=0;
-delay_ms(3000);
+//delay_ms(1000);
 break;
 }
 
@@ -2475,7 +2479,7 @@ if(dis_list[i].work_status[1]==1)
 {
 computer_trans_rs485(mybox.myid,dis_list[i].myid,1,2,0,CONTROL);
 dis_list[i].work_status[1]=0;
-delay_ms(3000);
+//delay_ms(1000);
 break;
 }
 
@@ -2494,7 +2498,7 @@ if(dis_list[i].work_status[2]==1)
 {
 computer_trans_rs485(mybox.myid,dis_list[i].myid,1,3,0,CONTROL);
 dis_list[i].work_status[2]=0;
-delay_ms(3000);
+//delay_ms(1000);
 break;
 }
 
@@ -2515,12 +2519,13 @@ return 0;
 
 void scanf_slave_machine(status_dis_node *dis_list,status_comm_node *comm_list,u8 *slave_dis,u8 *slave_comm)
 {
-u8 i,j=0,g,c,flag_comm=0;
+u8 i,j=0,g,flag_comm=0;
+//u8 c;
 u8 count=1;
 
 for(i=1;i<=2;i++)
 	{  
-	for(c=1;c<=2;c++)
+//	for(c=1;c<=2;c++)
 		{
 	j=inquiry_slave_status_dis(count,i,dis_list,comm_list); 
 	if(j==1){count++;break;}
@@ -2532,7 +2537,7 @@ for(i=1;i<=2;i++)
 count=1;
 j=0;
 {
-for(i=3;i<=5;i++)
+for(i=3;i<=32;i++)
 	{  
 
 for(g=1;g<=slave_comm[0];g++)
@@ -2542,7 +2547,7 @@ else flag_comm=0;
 }
 if(flag_comm==0)
 		{
-	for(c=1;c<=2;c++)
+//	for(c=1;c<=2;c++)
 		{
 	j=inquiry_slave_status_comm(slave_comm[0]+1,i,dis_list,comm_list);
 	        if(j==1){slave_comm[0]++;break;}
@@ -2551,10 +2556,11 @@ if(flag_comm==0)
 
 if(flag_comm==1)
 		{
-	for(c=1;c<=2;c++)
-		{
+
+{
 	j=inquiry_slave_status_comm(g,i,dis_list,comm_list);
-	        if(j==0)
+/*
+			if(j==0)
 		{
 for(i=g;i<slave_comm[0];i++)
   {
@@ -2573,6 +2579,8 @@ for(i=g;i<slave_comm[0];i++)
 slave_comm[0]--;
 break;	
 }
+*/		
+
 		}
 	
 	flag_comm=0;
