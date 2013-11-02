@@ -26,7 +26,8 @@
 #define IIC_SCL_0     GPIO_ResetBits(GPIOB, GPIO_Pin_13)//SCL 
 #define IIC_SDA_0    GPIO_ResetBits(GPIOB, GPIO_Pin_14)//SDA	 
 
-#define READ_SDA   PBin(14)  //输入SDA 
+#define READ_SDA  GPIO_ReadInputDataBit(GPIOB,GPIO_Pin_14)
+
 
 //IIC所有操作函数
 void IIC_Init(void);                //初始化IIC的IO口				 

@@ -118,6 +118,7 @@ void ADC2_CH13_DMA_Config_A1(void);
 void ADC2_CH14_DMA_Config_B1(void);
 void ADC2_CH15_DMA_Config_C1(void);
 
+void ADC1_CH1_DMA_Config_VC_phase(void);
 
 void Init_ADC(void);
 
@@ -400,6 +401,7 @@ if(scan_init==1)
 OSSemPost(computer_sem);
  scan_init=1;
 }
+   mybox.myid=AT24CXX_ReadOneByte(0x0010);
 
 delay_ms(1500);
 
@@ -434,6 +436,8 @@ static  void  App_Taskslave_three(void *p_arg)
    msg=(u8 *)OSMboxPend(RS485_MBOX,0,&err);//接收到有数据
    rs485_trans_computer(msg);
    	 dog_clock=20;
+   mybox.myid=AT24CXX_ReadOneByte(0x0010);
+
    // key_idset();//按键与显示功能
 
 }
@@ -896,7 +900,12 @@ I[i]=I[NPT/2-1+i];
 
 }
 }
+void ADC1_CH1_DMA_Config_VC_phase(void)
+{
+  ADC_RegularChannelConfig(ADC1, ADC_Channel_12, 1, ADC_SampleTime_3Cycles);
+ADC_SoftwareStartConv(ADC1);
 
+}
 
 void ADC3_CH10_DMA_Config_VA(void)
 {
@@ -1574,8 +1583,9 @@ void initmybox()//初始化自身信息
   
   mybox.master=0;
  mybox.start='&';
-///mybox.myid=AT24CXX_ReadOneByte(0x0010);
-mybox.myid=2;
+mybox.myid=AT24CXX_ReadOneByte(0x0010);
+id_num=AT24CXX_ReadOneByte(0x0010);
+//mybox.myid=1;
  mybox.source=0;
  mybox.destination=0;
  mybox.send=0;
@@ -1758,6 +1768,7 @@ uint32_t doBitReverse = 1;
 uint32_t  testIndex = 0,a,b,c; 
  double angle[3]; 
 float32_t sine=0;
+u16 phase;
 u16 wugongkvar_95,wugongkvar_95A,wugongkvar_95B,wugongkvar_95C;
 /*********************A_phase*********************************/
 //for(s=1;s<=9;s++)
@@ -1789,8 +1800,7 @@ allphase(testInput_V,testInput_C);
 	arm_rfft_f32(&S, testInput_V,testOutput); 
 
              testIndex=1;
-	 angle[0]=atan2(testOutput[2*testIndex],testOutput[2*testIndex+1]);//电压初始相位
-
+		angle[0]=atan2(testOutput[2*testIndex],testOutput[2*testIndex+1]);//电压初始相位
 	/* Process the data through the Complex Magnitude Module for  
 	calculating the magnitude at each bin */ 
 
@@ -1977,7 +1987,6 @@ allphase(testInput_V,testInput_C);
 
              testIndex=1;
 	 angle[0]=atan2(testOutput[2*testIndex],testOutput[2*testIndex+1]);//电压初始相位
-
 	/* Process the data through the Complex Magnitude Module for  
 	calculating the magnitude at each bin */ 
 
@@ -2023,6 +2032,65 @@ arm_sqrt_f32(1-(arm_cos_f32(angle[0]-angle[1]))*(arm_cos_f32(angle[0]-angle[1]))
 //	gonglvshishu_C=comm_list[slave_comm[0]].size[0];
 
 }
+
+/*********************判断相序*******************************/
+{
+
+ADC3_CH10_DMA_Config_VA();
+ADC1_CH1_DMA_Config_VC_phase();
+
+{
+ for(i=0;i<TEST_LENGTH_SAMPLES;i++)
+	 	{
+	 	
+	 	
+testInput_C[i]=(float32_t)((ADC_Converted_CValue-ADC_Converted_base)*3.3/4096);///  1550
+
+testInput_V[i]=(float32_t)((ADC_Converted_VValue-ADC_Converted_base)*3.3/4096);///  1550
+
+delay_us(36);//36->512
+
+        }
+
+ 
+allphase(testInput_V,testInput_C);
+
+ 
+	status = arm_rfft_init_f32(&S,&S_CFFT, fftSize,  
+	  								ifftFlag, doBitReverse); 
+	 
+	/* Process the data through the CFFT/CIFFT module */ 
+	arm_rfft_f32(&S, testInput_V,testOutput); 
+
+             testIndex=1;
+		angle[0]=atan2(testOutput[2*testIndex],testOutput[2*testIndex+1]);//A相初始相位
+
+/******************************************************************/
+	arm_rfft_f32(&S, testInput_C,testOutput); 
+         
+	angle[1]=atan2(testOutput[2*testIndex],testOutput[2*testIndex+1]);//C相初始相位
+
+
+}
+if((angle[0]-angle[1])>0)
+{
+phase=((angle[0]-angle[1])*360)/PI2;
+if(phase>=118&&phase<=122)dianya_zhi_A=phase;//正序
+
+}
+else 
+	{
+	phase=((angle[1]-angle[0])*360)/PI2;
+if(phase>=238&&phase<=242)dianya_zhi_A=phase;//正序
+
+
+     }
+}
+/************************判断相序end**************************/
+
+
+
+
 
 
 /****************************************************/

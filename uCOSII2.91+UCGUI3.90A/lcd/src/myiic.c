@@ -87,8 +87,8 @@ u8 IIC_Wait_Ack(void)
   GPIO_InitStructure.GPIO_PuPd = GPIO_PuPd_NOPULL ;
   GPIO_Init(GPIOB, &GPIO_InitStructure);
 
-	IIC_SDA_1;delay_us(1);	   
-	IIC_SCL_1;delay_us(1);	 
+	IIC_SDA_1;delay_us(2);	   
+	IIC_SCL_1;delay_us(2);	 
 	while(READ_SDA)
 	{
 		ucErrTime++;
@@ -115,9 +115,9 @@ void IIC_Ack(void)
   GPIO_Init(GPIOB, &GPIO_InitStructure);
 
 	IIC_SDA_0;
-	delay_us(2);
+	delay_us(3);
 	IIC_SCL_1;
-	delay_us(2);
+	delay_us(3);
 	IIC_SCL_0;
 }
 //不产生ACK应答		    
@@ -134,9 +134,9 @@ void IIC_NAck(void)
   GPIO_Init(GPIOB, &GPIO_InitStructure);
 
 	IIC_SDA_1;
-	delay_us(2);
+	delay_us(3);
 	IIC_SCL_1;
-	delay_us(2);
+	delay_us(3);
 	IIC_SCL_0;
 }					 				     
 //IIC发送一个字节
@@ -163,11 +163,11 @@ void IIC_Send_Byte(u8 txd)
 						if(((txd&0x80)>>7)==1)IIC_SDA_1;
 
         txd<<=1; 	  
-		delay_us(2);   //对TEA5767这三个延时都是必须的
+		delay_us(3);   //对TEA5767这三个延时都是必须的
 		IIC_SCL_1;
-		delay_us(2); 
+		delay_us(3); 
 		IIC_SCL_0;	
-		delay_us(2);
+		delay_us(3);
     }	 
 } 	    
 //读1个字节，ack=1时，发送ACK，ack=0，发送nACK   
@@ -185,11 +185,11 @@ u8 IIC_Read_Byte(unsigned char ack)
     for(i=0;i<8;i++ )
 	{
         IIC_SCL_0; 
-        delay_us(2);
+        delay_us(3);
 		IIC_SCL_1;
         receive<<=1;
         if(READ_SDA)receive++;   
-		delay_us(1); 
+		delay_us(2); 
     }					 
     if (!ack)
         IIC_NAck();//发送nACK
