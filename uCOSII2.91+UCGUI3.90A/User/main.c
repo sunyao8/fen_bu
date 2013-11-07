@@ -42,6 +42,12 @@ static  OS_STK         App_TaskComputerStk[APP_TASK_COMPUTER_STK_SIZE];
 static  OS_STK         App_TaskMasterStk[APP_TASK_Master_STK_SIZE];
 #define  APP_TASK_Master_PRIO                               2
 
+#define SETID_TASK_PRIO       			0 
+//设置任务堆栈大小
+#define SETID_STK_SIZE  		    		64
+//任务堆栈
+OS_STK SETID_TASK_STK[SETID_STK_SIZE];
+//任务函数
 
 /***************************************************/
  typedef struct  
@@ -74,6 +80,7 @@ static  void  App_TaskLCD		(void		*p_arg); ;
 static  void  App_Taskslave_three		(void		*p_arg);  
 static  void  App_Taskcomputer	 (void		*p_arg );
 static  void  App_TaskMaster(void		*p_arg );
+static  void SETID_task(void *pdata);
 
 
 /*
@@ -232,9 +239,10 @@ u8 L_C_flag_A=1;//感性容性标准变量
 
 #define TEST_LENGTH_SAMPLES 512*2 
  
-
-
-
+u8 phase_flag=0;
+u16 T=100;
+u8 RT_FLAG=0;
+//u8 scan_init=4;
 
 INT32S main (void)
 {
@@ -360,6 +368,7 @@ swicth_A=OSMboxCreate((void*)0);
 	 	OSTaskCreate(App_TaskLCD,(void *)0,(OS_STK*)&App_TaskLCDStk[APP_TASK_LCD_STK_SIZE-1],APP_TASK_LCD_PRIO);	 				   
 	 	OSTaskCreate(App_Taskcomputer,(void *)0,(OS_STK*)&App_TaskComputerStk[APP_TASK_COMPUTER_STK_SIZE-1],APP_TASK_COMPUTER_PRIO);	 				   
 	 	OSTaskCreate(App_TaskMaster,(void *)0,(OS_STK*)&App_TaskMasterStk[APP_TASK_Master_STK_SIZE-1],APP_TASK_Master_PRIO);	 				   
+	     OSTaskCreate(SETID_task,(void *)0,(OS_STK*)&SETID_TASK_STK[SETID_STK_SIZE-1],SETID_TASK_PRIO);
 
      }
 
@@ -380,7 +389,6 @@ swicth_A=OSMboxCreate((void*)0);
 */	  
 static  void  App_TaskMaster(void		*p_arg )
 {  
-u8 scan_init=1;
 // static status_dis_node     dis_list[10];
  //static status_comm_node comm_list[10];
 
@@ -395,16 +403,22 @@ u8 scan_init=1;
  if(start_scan==1)
  	{ scanf_slave_machine();  start_scan=0;}
  */
-
+ if(mybox.master==1)
+ 	{
+hguestnum=111;
+OSSemPost(computer_sem);
+/*
+if(scan_init!=0) scan_init--;
 if(scan_init==1)
 {
-OSSemPost(computer_sem);
- scan_init=1;
+RT_FLAG=0;
+scan_init=0;
 }
+*/
    mybox.myid=AT24CXX_ReadOneByte(0x0010);
 
 delay_ms(1500);
-
+ 	}
 
 					// delay_ms(100);
 
@@ -528,6 +542,55 @@ for(;;)
 * Note(s)     : none.
 *********************************************************************************************************
 */	  
+
+
+
+void SETID_task(void *pdata)
+
+{
+        OS_CPU_SR cpu_sr=0;  	    	
+          while(1)
+          	{
+		  id_num=AT24CXX_ReadOneByte(0x0010);
+	///	  id_num=1;//测试开发板使用
+		if(id_num<1||id_num>33)
+			{            		
+                                      mybox.master=2;
+			             OS_ENTER_CRITICAL();
+                      		OSTaskSuspend( APP_TASK_SLAVE3_PRIO  );//挂起主机任状态.
+                      		OSTaskSuspend( APP_TASK_COMPUTER_PRIO);
+                                   OSTaskSuspend(APP_TASK_Master_PRIO);
+						OS_EXIT_CRITICAL();
+			//		HT595_Send_Byte(YELLOW_YELLOW|background_light_on);
+								   
+		       }
+               else if(id_num<=32&&id_num>=1)
+               	{ 
+                                  mybox.master=0;
+				      mybox.myid=id_num;
+			//	HT595_Send_Byte((GREEN_GREEN)|background_light_on);
+				   OS_ENTER_CRITICAL();
+		 OSTaskResume(APP_TASK_SLAVE3_PRIO );//启动主机任务状态
+		 OSTaskResume(APP_TASK_COMPUTER_PRIO );//启动显示任务状态
+		 OSTaskResume(APP_TASK_Master_PRIO );//启动从机任务状态
+               OSTaskSuspend(SETID_TASK_PRIO);
+			   OS_EXIT_CRITICAL();	
+			 }
+
+		  }
+
+}
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -1302,6 +1365,13 @@ void RS485_Init(u32 bound)
 void RS485_Send_Data(u8 *buf,u8 len)
 {
 	u8 t;
+	    GPIO_InitTypeDef GPIO_InitStructure;
+
+	 GPIO_InitStructure.GPIO_Pin = GPIO_Pin_15;				 //本工程配置
+ 	GPIO_InitStructure.GPIO_Mode = GPIO_Mode_OUT; 		 //推挽输出
+ 	GPIO_InitStructure.GPIO_OType = GPIO_OType_PP;
+ 	GPIO_InitStructure.GPIO_Speed = GPIO_Speed_50MHz;
+ 		GPIO_Init(GPIOB, &GPIO_InitStructure);	
 	RS485_TX_EN_1;			//设置为发送模式
   	for(t=0;t<len;t++)		//循环发送数据
 	{		   
@@ -1583,9 +1653,6 @@ void initmybox()//初始化自身信息
   
   mybox.master=0;
  mybox.start='&';
-mybox.myid=AT24CXX_ReadOneByte(0x0010);
-id_num=AT24CXX_ReadOneByte(0x0010);
-//mybox.myid=1;
  mybox.source=0;
  mybox.destination=0;
  mybox.send=0;
@@ -1756,7 +1823,7 @@ float32_t maxValue=0.0,maxValue_C=0.0;
 
 float32_t testOutput[TEST_LENGTH_SAMPLES*2/2]; 
 float32_t reslut[TEST_LENGTH_SAMPLES/2]; 
-
+u16 TR[]={40,50,60,80,100,120,160,200,240,300,400,500,600,800,1000,1200};
 /* ------------------------------------------------------------------ 
 * Global variables for FFT Bin Example 
 * ------------------------------------------------------------------- */ 
@@ -1769,6 +1836,8 @@ uint32_t  testIndex = 0,a,b,c;
  double angle[3]; 
 float32_t sine=0;
 u16 phase;
+static u8 var;
+u16 gl[2];
 u16 wugongkvar_95,wugongkvar_95A,wugongkvar_95B,wugongkvar_95C;
 /*********************A_phase*********************************/
 //for(s=1;s<=9;s++)
@@ -1830,8 +1899,9 @@ dianya_zhi_A=dianya_zhi_A/2.6125;
 	/* Calculates maxValue and returns corresponding BIN value */ 
 	arm_max_f32(reslut, fftSize/2, &maxValue_C, &testIndex);
 
-dianliuzhi_A=6*maxValue_C/100;
- dianliuzhi_A=1.0554*dianliuzhi_A;
+
+ dianliuzhi_A=1.1*maxValue_C;
+dianliuzhi_A=T*dianliuzhi_A/10000;
 gonglvshishu_A=arm_cos_f32(angle[0]-angle[1])*100;//功率因素
 
 //dianya_zhi_A=0;
@@ -1937,8 +2007,8 @@ dianya_zhi_B=dianya_zhi_B/2.6125;
 	/* Calculates maxValue and returns corresponding BIN value */ 
 	arm_max_f32(reslut, fftSize/2, &maxValue_C, &testIndex);
 
-dianliuzhi_B=6*maxValue_C/100;
- dianliuzhi_B=1.0554*dianliuzhi_B;
+ dianliuzhi_B=1.1*maxValue_C;
+dianliuzhi_B=T*dianliuzhi_B/10000;
 gonglvshishu_B=arm_cos_f32(angle[0]-angle[1])*100;//功率因素
 arm_sqrt_f32(1-(arm_cos_f32(angle[0]-angle[1]))*(arm_cos_f32(angle[0]-angle[1])),&sine);
          b=dianya_zhi_B*dianliuzhi_B*sine/10;
@@ -2017,8 +2087,8 @@ dianya_zhi_C=dianya_zhi_C/2.6125;
 	/* Calculates maxValue and returns corresponding BIN value */ 
 	arm_max_f32(reslut, fftSize/2, &maxValue_C, &testIndex);
 
-dianliuzhi_C=6*maxValue_C/100;
- dianliuzhi_C=1.0554*dianliuzhi_C;
+ dianliuzhi_C=1.1*maxValue_C;
+dianliuzhi_C=T*dianliuzhi_C/10000;
 gonglvshishu_C=arm_cos_f32(angle[0]-angle[1])*100;//功率因素
 arm_sqrt_f32(1-(arm_cos_f32(angle[0]-angle[1]))*(arm_cos_f32(angle[0]-angle[1])),&sine);
            c=dianya_zhi_C*dianliuzhi_C*sine/10;
@@ -2075,18 +2145,22 @@ allphase(testInput_V,testInput_C);
 if((angle[0]-angle[1])>0)
 {
 phase=((angle[0]-angle[1])*360)/PI2;
-if(phase>=118&&phase<=122)dianya_zhi_A=phase;//正序
-
+if(phase>=118&&phase<=122)phase_flag=0;//正序
+else phase_flag=1;
 }
 else 
 	{
 	phase=((angle[1]-angle[0])*360)/PI2;
-if(phase>=238&&phase<=242)dianya_zhi_A=phase;//正序
+if(phase>=238&&phase<=242)phase_flag=0;//正序
+else phase_flag=1;
 
 
      }
 }
 /************************判断相序end**************************/
+
+
+
 
 
 
@@ -2108,38 +2182,174 @@ wugongkvar=(a+b+c)/100;
 
    order_trans_rs485(mybox.myid,0,0,0,0,CPT_LL);
 
-//tempshuzhi=comm_list[1].size[0];
-//delay_ms(1000);
+
 }
-//computer_trans_rs485(mybox.myid,slave_dis[1],1,3,1,CONTROL);
+/*********************变比判断*******************************/
+if(0)
+//if(RT_FLAG==0)
 
-//computer_trans_rs485(mybox.myid,slave_dis[1],1,3,0,CONTROL);
+{
+u8 *msg;
+        u8 err;
+gl[0]=wugongkvar;
+if(slave_comm[0]>0)
 
-//tempshuzhi=dis_list[2].size[0];
-// tempshuzhi=slave_comm[0];
- //inquiry_slave_status_dis(2,dis_list,comm_list);   
-//tempshuzhi=dis_list[2].size[0];
-//tempshuzhi= inquiry_slave_status_dis(2,dis_list,comm_list);   
+{
+      	{
+for(i=slave_comm[3];i<=slave_comm[9];i++)
+if(comm_list[i].work_status[0]==0)
+{
 
-//tempshuzhi=slave_dis[1];
-//wugongkvar_A=dis_list[2].size[0];
-
-//inquiry_slave_status_dis(4,dis_list,comm_list);   
-//wugongkvar_B=dis_list[3].size[0];
-
-//inquiry_slave_status_comm(5,dis_list,comm_list);   
-//wugongkvar_C=comm_list[5].size[0];
-
-/****************************************************/
-//computer_trans_rs485(0,0,0,0,0,CPT_LL);
-
-/***************************************************/
-//order_trans_rs485(1,3,1,1,0,CONTROL);
-//delay_ms(2000);
-//order_trans_rs485(1,3,1,1,1,CONTROL);
-//delay_ms(2000);
+order_trans_rs485(mybox.myid,comm_list[i].myid,4,1,1,CONTROL);
+   msg=(u8 *)OSMboxPend(RS485_STUTAS_MBOX,OS_TICKS_PER_SEC/30,&err);
+      if(err==OS_ERR_TIMEOUT)RT_FLAG=0;
+	else 
+		{
+set_statuslist(i,comm_list[i].myid,comm_list[i].size[0],1,comm_list[i].work_time[0],1,1,dis_list,comm_list);
+change_Queue(1,20,dis_list,comm_list,slave_dis,slave_comm);
+RT_FLAG=1;
+var=20;
+		}
+return 0 ;
+}
 
 
+{
+for(i=slave_comm[6];i<=slave_comm[12];i++)
+if(comm_list[i].work_status[1]==0)
+	{
+
+order_trans_rs485(mybox.myid,comm_list[i].myid,4,2,1,CONTROL);
+   msg=(u8 *)OSMboxPend(RS485_STUTAS_MBOX,OS_TICKS_PER_SEC/30,&err);
+      if(err==OS_ERR_TIMEOUT)RT_FLAG=0;
+	else 
+		{
+set_statuslist(i,comm_list[i].myid,comm_list[i].size[0],1,comm_list[i].work_time[0],1,2,dis_list,comm_list);
+change_Queue(2,20,dis_list,comm_list,slave_dis,slave_comm);
+RT_FLAG=1;
+var=20;
+		}
+return 0 ;
+}
+
+
+}
+      	}
+
+
+{
+for(i=slave_comm[2];i<=slave_comm[8]-1;i++)
+if(comm_list[i].work_status[0]==0)
+	{
+
+order_trans_rs485(mybox.myid,comm_list[i].myid,4,1,1,CONTROL);
+   msg=(u8 *)OSMboxPend(RS485_STUTAS_MBOX,OS_TICKS_PER_SEC/30,&err);
+      if(err==OS_ERR_TIMEOUT)RT_FLAG=0;
+	else 
+		{
+set_statuslist(i,comm_list[i].myid,comm_list[i].size[0],1,comm_list[i].work_time[0],1,1,dis_list,comm_list);
+change_Queue(1,10,dis_list,comm_list,slave_dis,slave_comm);
+RT_FLAG=1;
+var=10;
+		}
+return 0 ;
+}
+
+
+{
+for(i=slave_comm[5];i<=slave_comm[11]-1;i++)
+if(comm_list[i].work_status[1]==0)
+{
+
+order_trans_rs485(mybox.myid,comm_list[i].myid,4,2,1,CONTROL);
+   msg=(u8 *)OSMboxPend(RS485_STUTAS_MBOX,OS_TICKS_PER_SEC/30,&err);
+      if(err==OS_ERR_TIMEOUT)RT_FLAG=0;
+	else 
+		{
+set_statuslist(i,comm_list[i].myid,comm_list[i].size[0],1,comm_list[i].work_time[0],1,2,dis_list,comm_list);
+change_Queue(2,10,dis_list,comm_list,slave_dis,slave_comm);
+RT_FLAG=1;
+var=10;
+		}
+return 0 ;
+}
+
+
+
+}
+
+
+	  }
+
+
+{
+for(i=slave_comm[1];i<=slave_comm[7]-1;i++)
+if(comm_list[i].work_status[0]==0)
+	{
+
+order_trans_rs485(mybox.myid,comm_list[i].myid,4,1,1,CONTROL);
+   msg=(u8 *)OSMboxPend(RS485_STUTAS_MBOX,OS_TICKS_PER_SEC/30,&err);
+      if(err==OS_ERR_TIMEOUT)RT_FLAG=0;
+	else 
+		{
+set_statuslist(i,comm_list[i].myid,comm_list[i].size[0],1,comm_list[i].work_time[0],1,1,dis_list,comm_list);
+change_Queue(1,5,dis_list,comm_list,slave_dis,slave_comm);
+RT_FLAG=1;
+var=5;
+		}
+return 0 ;
+}
+
+
+{
+for(i=slave_comm[4];i<=slave_comm[10]-1;i++)
+if(comm_list[i].work_status[1]==0)
+{
+
+order_trans_rs485(mybox.myid,comm_list[i].myid,4,2,1,CONTROL);
+   msg=(u8 *)OSMboxPend(RS485_STUTAS_MBOX,OS_TICKS_PER_SEC/30,&err);
+      if(err==OS_ERR_TIMEOUT)RT_FLAG=0;
+	else 
+		{
+set_statuslist(i,comm_list[i].myid,comm_list[i].size[0],1,comm_list[i].work_time[0],1,2,dis_list,comm_list);
+change_Queue(2,5,dis_list,comm_list,slave_dis,slave_comm);
+RT_FLAG=1;
+var=5;
+		}
+return 0 ;
+}
+
+
+}
+
+      	}
+
+
+
+
+      
+}
+
+}
+if(RT_FLAG==1)
+{
+u16 min=65535;
+gl[1]=wugongkvar;
+for(i=0;i<16;i++)
+{
+if(abs((gl[0]-gl[1])*TR[i]-var)<=min){min=abs((gl[0]-gl[1])*TR[i]-var);T=TR[i];}
+
+}
+RT_FLAG=2;
+}
+
+tempshuzhi=slave_comm[0];
+
+/**************************end*************************/
+//if(RT_FLAG==2)
+if(1)
+
+{
 if(gonglvshishu<93&&L_C_flag_A==1)
  {
 if(slave_comm[0]>0)
@@ -2579,6 +2789,7 @@ break;
 
 }
 
+}
 }
 return 0;
 
@@ -3032,7 +3243,6 @@ void turn_master_id(u8 id)//改变当前整个系统中主机的ID号
 	  	   order_trans_rs485(mybox.myid,0,0,0,0,CPT_LL);
 	//delay_time(2);
          mybox.master=1;
-		 hguestnum=111;
 	    OSTaskResume(APP_TASK_Master_PRIO);
 		cont=1;
 	  }
@@ -3087,3 +3297,5 @@ void assert_failed(uint8_t* file, uint32_t line)
 /*********************************************************************************************************
       END FILE
 *********************************************************************************************************/
+
+
