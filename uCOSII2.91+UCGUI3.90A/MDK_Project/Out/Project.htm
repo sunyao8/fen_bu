@@ -3,7 +3,7 @@
 <title>Static Call Graph - [.\Out\Project.axf]</title></head>
 <body><HR>
 <H1>Static Call Graph for image .\Out\Project.axf</H1><HR>
-<BR><P>#&#060CALLGRAPH&#062# ARM Linker, 4.1 [Build 894]: Last Updated: Thu Nov 07 22:18:21 2013
+<BR><P>#&#060CALLGRAPH&#062# ARM Linker, 4.1 [Build 894]: Last Updated: Sat Nov 09 11:33:06 2013
 <BR><P>
 <H3>Maximum Stack Usage =      14800 bytes + Unknown(Functions without stacksize, Cycles, Untraceable Function Pointers)</H3><H3>
 Call chain for Maximum Stack Depth:</H3>
@@ -1406,6 +1406,7 @@ Global Symbols
 </UL>
 <BR>[Called By]<UL><LI><a href="#[148]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;inquiry_slave_status_dis
 <LI><a href="#[146]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;inquiry_slave_status_comm
+<LI><a href="#[b7]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;computer_gonglu
 <LI><a href="#[61]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;App_Taskslave_three
 </UL>
 
@@ -2075,7 +2076,7 @@ Global Symbols
 <BR>[Called By]<UL><LI><a href="#[121]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;TIM4_Int_Init
 </UL>
 
-<P><STRONG><a name="[32]"></a>USART2_IRQHandler</STRONG> (Thumb, 154 bytes, Stack size 88 bytes, main.o(i.USART2_IRQHandler))
+<P><STRONG><a name="[32]"></a>USART2_IRQHandler</STRONG> (Thumb, 174 bytes, Stack size 88 bytes, main.o(i.USART2_IRQHandler))
 <BR><BR>[Stack]<UL><LI>Max Depth = 136 + Unknown Stack Size
 <LI>Call Chain = USART2_IRQHandler &rArr; OSMboxPost &rArr; OS_EventTaskRdy &rArr; OS_EventTaskRemoveMulti
 </UL>
@@ -2248,7 +2249,7 @@ Global Symbols
 <BR>[Called By]<UL><LI><a href="#[131]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__hardfp_atan2
 </UL>
 
-<P><STRONG><a name="[143]"></a>change_Queue</STRONG> (Thumb, 586 bytes, Stack size 28 bytes, main.o(i.change_Queue))
+<P><STRONG><a name="[143]"></a>change_Queue</STRONG> (Thumb, 594 bytes, Stack size 28 bytes, main.o(i.change_Queue))
 <BR><BR>[Stack]<UL><LI>Max Depth = 28<LI>Call Chain = change_Queue
 </UL>
 <BR>[Called By]<UL><LI><a href="#[b7]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;computer_gonglu
@@ -2258,8 +2259,9 @@ Global Symbols
 <BR><BR>[Called By]<UL><LI><a href="#[b9]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;rs485_trans_computer
 </UL>
 
-<P><STRONG><a name="[b7]"></a>computer_gonglu</STRONG> (Thumb, 5336 bytes, Stack size 14632 bytes, main.o(i.computer_gonglu))
-<BR><BR>[Stack]<UL><LI>Max Depth = 14792<LI>Call Chain = computer_gonglu &rArr; __hardfp_atan2 &rArr; atan &rArr; __hardfp_atan &rArr; __kernel_poly &rArr; __aeabi_dmul
+<P><STRONG><a name="[b7]"></a>computer_gonglu</STRONG> (Thumb, 6352 bytes, Stack size 14632 bytes, main.o(i.computer_gonglu))
+<BR><BR>[Stack]<UL><LI>Max Depth = 14792 + Unknown Stack Size
+<LI>Call Chain = computer_gonglu &rArr; __hardfp_atan2 &rArr; atan &rArr; __hardfp_atan &rArr; __kernel_poly &rArr; __aeabi_dmul
 </UL>
 <BR>[Calls]<UL><LI><a href="#[cb]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;delay_us
 <LI><a href="#[7f]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;arm_rfft_init_f32
@@ -2267,6 +2269,7 @@ Global Symbols
 <LI><a href="#[139]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;arm_max_f32
 <LI><a href="#[13c]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;arm_cos_f32
 <LI><a href="#[138]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;arm_cmplx_mag_f32
+<LI><a href="#[b8]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;OSMboxPend
 <LI><a href="#[142]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;set_statuslist
 <LI><a href="#[141]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;order_trans_rs485
 <LI><a href="#[140]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;computer_trans_rs485
@@ -2352,7 +2355,7 @@ Global Symbols
 <LI><a href="#[131]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__hardfp_atan2
 </UL>
 
-<P><STRONG><a name="[b6]"></a>init_Queue</STRONG> (Thumb, 556 bytes, Stack size 32 bytes, main.o(i.init_Queue))
+<P><STRONG><a name="[b6]"></a>init_Queue</STRONG> (Thumb, 562 bytes, Stack size 32 bytes, main.o(i.init_Queue))
 <BR><BR>[Stack]<UL><LI>Max Depth = 32<LI>Call Chain = init_Queue
 </UL>
 <BR>[Called By]<UL><LI><a href="#[63]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;App_Taskcomputer
@@ -2727,7 +2730,7 @@ Global Symbols
 <H3>
 Local Symbols
 </H3>
-<P><STRONG><a name="[a6]"></a>App_TaskCreate</STRONG> (Thumb, 136 bytes, Stack size 32 bytes, main.o(i.App_TaskCreate))
+<P><STRONG><a name="[a6]"></a>App_TaskCreate</STRONG> (Thumb, 144 bytes, Stack size 32 bytes, main.o(i.App_TaskCreate))
 <BR><BR>[Stack]<UL><LI>Max Depth = 152 + Unknown Stack Size
 <LI>Call Chain = App_TaskCreate &rArr; OSTaskCreateExt &rArr; OS_TCBInit &rArr; OSTaskCreateHook &rArr; App_TaskCreateHook &rArr; OSView_TaskCreateHook &rArr; OSView_TimeGetCycles
 </UL>

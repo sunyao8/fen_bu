@@ -141,7 +141,7 @@ u8 computer_gonglu(status_dis_node *dis_list,status_comm_node *comm_list,u8 *,u8
 #define EN_USART2_RX 	1			//0,不接收;1,接收.
 #define RS485_TX_EN_1		GPIO_SetBits(GPIOB, GPIO_Pin_15)	// 485模式控制.0,接收;1,发送.本工程用PB15
 #define RS485_TX_EN_0		GPIO_ResetBits(GPIOB, GPIO_Pin_15)	// 485模式控制.0,接收;1,发送.本工程用PB15
- OS_EVENT * RS485_MBOX,* RS485_STUTAS_MBOX;			//	rs485邮箱信号量
+ OS_EVENT * RS485_MBOX,* RS485_STUTAS_MBOX,* RS485_RT;			//	rs485邮箱信号量
  OS_EVENT *computer_sem,*swicth_ABC;			 //
  OS_EVENT *swicth_A;			 //
 
@@ -240,7 +240,7 @@ u8 L_C_flag_A=1;//感性容性标准变量
 #define TEST_LENGTH_SAMPLES 512*2 
  
 u8 phase_flag=0;
-u16 T=100;
+u16 T=1;
 u8 RT_FLAG=0;
 //u8 scan_init=4;
 
@@ -350,6 +350,7 @@ CPU_INT08U  os_err;
 RS485_MBOX=OSMboxCreate((void*)0);
 RS485_STUTAS_MBOX=OSMboxCreate((void*)0);
 computer_sem=OSSemCreate(0);
+RS485_RT=OSMboxCreate((void*)0);
 swicth_A=OSMboxCreate((void*)0);
 	os_err = OSTaskCreateExt((void (*)(void *)) App_Taskslave_three,
                              (void          * ) 0,
@@ -1355,6 +1356,8 @@ void RS485_Init(u32 bound)
 
 				
 				if(RS485_RX_BUF[1]=='#'){OSMboxPost(RS485_STUTAS_MBOX,(void*)&RS485_RX_BUF);}
+				if(RS485_RX_BUF[1]=='+'){OSMboxPost(RS485_RT,(void*)&RS485_RX_BUF);}
+
 		} 
 	
 	}  	
@@ -2184,26 +2187,26 @@ wugongkvar=(a+b+c)/100;
 
 
 }
+
 /*********************变比判断*******************************/
-if(0)
-//if(RT_FLAG==0)
+//if(1)
+if(RT_FLAG==0)
 
 {
-u8 *msg;
         u8 err;
 gl[0]=wugongkvar;
 if(slave_comm[0]>0)
 
 {
       	{
-for(i=slave_comm[3];i<=slave_comm[9];i++)
+for(i=slave_comm[3];i<=slave_comm[9]-1;i++)
 if(comm_list[i].work_status[0]==0)
 {
 
 order_trans_rs485(mybox.myid,comm_list[i].myid,4,1,1,CONTROL);
-   msg=(u8 *)OSMboxPend(RS485_STUTAS_MBOX,OS_TICKS_PER_SEC/30,&err);
-      if(err==OS_ERR_TIMEOUT)RT_FLAG=0;
-	else 
+ OSMboxPend(RS485_RT,OS_TICKS_PER_SEC/30,&err);
+     if(err==OS_ERR_TIMEOUT)RT_FLAG=0;
+else 
 		{
 set_statuslist(i,comm_list[i].myid,comm_list[i].size[0],1,comm_list[i].work_time[0],1,1,dis_list,comm_list);
 change_Queue(1,20,dis_list,comm_list,slave_dis,slave_comm);
@@ -2215,13 +2218,13 @@ return 0 ;
 
 
 {
-for(i=slave_comm[6];i<=slave_comm[12];i++)
+for(i=slave_comm[6];i<=slave_comm[12]-1;i++)
 if(comm_list[i].work_status[1]==0)
 	{
 
 order_trans_rs485(mybox.myid,comm_list[i].myid,4,2,1,CONTROL);
-   msg=(u8 *)OSMboxPend(RS485_STUTAS_MBOX,OS_TICKS_PER_SEC/30,&err);
-      if(err==OS_ERR_TIMEOUT)RT_FLAG=0;
+OSMboxPend(RS485_RT,OS_TICKS_PER_SEC/30,&err);
+     if(err==OS_ERR_TIMEOUT)RT_FLAG=0;
 	else 
 		{
 set_statuslist(i,comm_list[i].myid,comm_list[i].size[0],1,comm_list[i].work_time[0],1,2,dis_list,comm_list);
@@ -2243,9 +2246,9 @@ if(comm_list[i].work_status[0]==0)
 	{
 
 order_trans_rs485(mybox.myid,comm_list[i].myid,4,1,1,CONTROL);
-   msg=(u8 *)OSMboxPend(RS485_STUTAS_MBOX,OS_TICKS_PER_SEC/30,&err);
-      if(err==OS_ERR_TIMEOUT)RT_FLAG=0;
-	else 
+OSMboxPend(RS485_RT,OS_TICKS_PER_SEC/30,&err);
+  if(err==OS_ERR_TIMEOUT)RT_FLAG=0;
+else 
 		{
 set_statuslist(i,comm_list[i].myid,comm_list[i].size[0],1,comm_list[i].work_time[0],1,1,dis_list,comm_list);
 change_Queue(1,10,dis_list,comm_list,slave_dis,slave_comm);
@@ -2262,8 +2265,8 @@ if(comm_list[i].work_status[1]==0)
 {
 
 order_trans_rs485(mybox.myid,comm_list[i].myid,4,2,1,CONTROL);
-   msg=(u8 *)OSMboxPend(RS485_STUTAS_MBOX,OS_TICKS_PER_SEC/30,&err);
-      if(err==OS_ERR_TIMEOUT)RT_FLAG=0;
+OSMboxPend(RS485_RT,OS_TICKS_PER_SEC/30,&err);
+if(err==OS_ERR_TIMEOUT)RT_FLAG=0;
 	else 
 		{
 set_statuslist(i,comm_list[i].myid,comm_list[i].size[0],1,comm_list[i].work_time[0],1,2,dis_list,comm_list);
@@ -2288,8 +2291,8 @@ if(comm_list[i].work_status[0]==0)
 	{
 
 order_trans_rs485(mybox.myid,comm_list[i].myid,4,1,1,CONTROL);
-   msg=(u8 *)OSMboxPend(RS485_STUTAS_MBOX,OS_TICKS_PER_SEC/30,&err);
-      if(err==OS_ERR_TIMEOUT)RT_FLAG=0;
+  OSMboxPend(RS485_RT,OS_TICKS_PER_SEC/30,&err);
+     if(err==OS_ERR_TIMEOUT)RT_FLAG=0;
 	else 
 		{
 set_statuslist(i,comm_list[i].myid,comm_list[i].size[0],1,comm_list[i].work_time[0],1,1,dis_list,comm_list);
@@ -2307,8 +2310,8 @@ if(comm_list[i].work_status[1]==0)
 {
 
 order_trans_rs485(mybox.myid,comm_list[i].myid,4,2,1,CONTROL);
-   msg=(u8 *)OSMboxPend(RS485_STUTAS_MBOX,OS_TICKS_PER_SEC/30,&err);
-      if(err==OS_ERR_TIMEOUT)RT_FLAG=0;
+OSMboxPend(RS485_RT,OS_TICKS_PER_SEC/30,&err);
+    if(err==OS_ERR_TIMEOUT)RT_FLAG=0;
 	else 
 		{
 set_statuslist(i,comm_list[i].myid,comm_list[i].size[0],1,comm_list[i].work_time[0],1,2,dis_list,comm_list);
@@ -2342,12 +2345,12 @@ if(abs((gl[0]-gl[1])*TR[i]-var)<=min){min=abs((gl[0]-gl[1])*TR[i]-var);T=TR[i];}
 }
 RT_FLAG=2;
 }
+tempshuzhi=T;
 
-tempshuzhi=slave_comm[0];
 
 /**************************end*************************/
-//if(RT_FLAG==2)
-if(1)
+if(RT_FLAG==2)
+
 
 {
 if(gonglvshishu<93&&L_C_flag_A==1)
@@ -2356,7 +2359,7 @@ if(slave_comm[0]>0)
       {
       if(wugongkvar>=20)
       	{
-for(i=slave_comm[3];i<=slave_comm[9];i++)
+for(i=slave_comm[3];i<=slave_comm[9]-1;i++)
 if(comm_list[i].work_status[0]==0)
 {
 order_trans_rs485(mybox.myid,comm_list[i].myid,1,1,1,CONTROL);
@@ -2368,7 +2371,7 @@ return 0 ;
 
 
 {
-for(i=slave_comm[6];i<=slave_comm[12];i++)
+for(i=slave_comm[6];i<=slave_comm[12]-1;i++)
 if(comm_list[i].work_status[1]==0)
 {
 order_trans_rs485(mybox.myid,comm_list[i].myid,1,2,1,CONTROL);
@@ -2502,7 +2505,7 @@ return 0;
 }
 
 {
-for(i=slave_comm[3];i<=slave_comm[9];i++)
+for(i=slave_comm[3];i<=slave_comm[9]-1;i++)
 if(comm_list[i].work_status[0]==1)
 
 {
@@ -2513,7 +2516,7 @@ return 0;
 }
 
 {
-for(i=slave_comm[6];i<=slave_comm[12];i++)
+for(i=slave_comm[6];i<=slave_comm[12]-1;i++)
 if(comm_list[i].work_status[1]==1)
 {
 order_trans_rs485(mybox.myid,comm_list[i].myid,1,2,0,CONTROL);
@@ -2654,7 +2657,7 @@ if(L_C_flag_A==0)
 if(slave_comm[0]>0)
       {
 {
-for(i=slave_comm[3];i<=slave_comm[9];i++)
+for(i=slave_comm[3];i<=slave_comm[9]-1;i++)
 if(comm_list[i].work_status[0]==1)
 
 {
@@ -2665,7 +2668,7 @@ return 0;
 }
 
 {
-for(i=slave_comm[6];i<=slave_comm[12];i++)
+for(i=slave_comm[6];i<=slave_comm[12]-1;i++)
 if(comm_list[i].work_status[1]==1)
 {
 order_trans_rs485(mybox.myid,comm_list[i].myid,1,2,0,CONTROL);
@@ -2957,7 +2960,7 @@ if(comm_list[i].size[0]==20)
 slave_comm[3]=i;
 break;
 }
-slave_comm[9]=slave_comm[0];
+slave_comm[9]=slave_comm[0]+1;
 if(i>slave_comm[0]){slave_comm[3]=0;slave_comm[9]=0;}
 
 
@@ -3043,7 +3046,7 @@ slave_comm[6]=i;
 break;
 }
 
-slave_comm[12]=slave_comm[0];
+slave_comm[12]=slave_comm[0]+1;
 if(i>slave_comm[0]){slave_comm[6]=0;slave_comm[12]=0;}
 
 }
@@ -3111,7 +3114,7 @@ if(Level==20)
 	   w=comm_list[slave_comm[3]].work_time[0];
 	   s=	comm_list[slave_comm[3]].work_status[0];
 
-for(i=slave_comm[3];i<slave_comm[9];i++)
+for(i=slave_comm[3];i<slave_comm[9]-1;i++)
   {
           comm_list[i].size[0]=comm_list[i+1].size[0];
 	   comm_list[i].myid=comm_list[i+1].myid;
@@ -3119,10 +3122,10 @@ for(i=slave_comm[3];i<slave_comm[9];i++)
 	   comm_list[i].work_status[0]=comm_list[i+1].work_status[0];
 
   }
-        comm_list[slave_comm[9]].size[0]=t;
-	  comm_list[slave_comm[9]].myid=g;
-	  comm_list[slave_comm[9]].work_time[0]=w;
-	  comm_list[slave_comm[9]].work_status[0]=s;
+        comm_list[slave_comm[9]-1].size[0]=t;
+	  comm_list[slave_comm[9]-1].myid=g;
+	  comm_list[slave_comm[9]-1].work_time[0]=w;
+	  comm_list[slave_comm[9]-1].work_status[0]=s;
 
 	
 }
@@ -3183,7 +3186,7 @@ if(Level==20)
 	   w=comm_list[slave_comm[6]].work_time[1];
 	   s=	comm_list[slave_comm[6]].work_status[1];
 
-for(i=slave_comm[6];i<slave_comm[12];i++)
+for(i=slave_comm[6];i<slave_comm[12]-1;i++)
   {
           comm_list[i].size[1]=comm_list[i+1].size[1];
 	   comm_list[i].myid=comm_list[i+1].myid;
@@ -3191,10 +3194,10 @@ for(i=slave_comm[6];i<slave_comm[12];i++)
 	   comm_list[i].work_status[1]=comm_list[i+1].work_status[1];
 
   }
-        comm_list[slave_comm[12]].size[1]=t;
-	  comm_list[slave_comm[12]].myid=g;
-	  comm_list[slave_comm[12]].work_time[1]=w;
-	  comm_list[slave_comm[12]].work_status[1]=s;
+        comm_list[slave_comm[12]-1].size[1]=t;
+	  comm_list[slave_comm[12]-1].myid=g;
+	  comm_list[slave_comm[12]-1].work_time[1]=w;
+	  comm_list[slave_comm[12]-1].work_status[1]=s;
 
 	
 }
