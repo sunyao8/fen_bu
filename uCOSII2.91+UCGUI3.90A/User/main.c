@@ -1905,9 +1905,10 @@ dianya_zhi_A=dianya_zhi_A/2.6125;
 
 
  dianliuzhi_A=1.1*maxValue_C;
-dianliuzhi_A=T*dianliuzhi_A/1000;
-
-gonglvshishu_A=arm_cos_f32(angle[0]-angle[1])*100;//功率因素
+ if(dianliuzhi_A/100<=12)dianliuzhi_A=0;
+else dianliuzhi_A=T*dianliuzhi_A/1000;
+if(dianliuzhi_A==0)gonglvshishu_A=99;
+else gonglvshishu_A=arm_cos_f32(angle[0]-angle[1])*100;//功率因素
 
 //dianya_zhi_A=0;
 //	dianya_zhi_A=comm_list[slave_comm[5]].myid;
@@ -2013,8 +2014,13 @@ dianya_zhi_B=dianya_zhi_B/2.6125;
 	arm_max_f32(reslut, fftSize/2, &maxValue_C, &testIndex);
 
  dianliuzhi_B=1.1*maxValue_C;
-dianliuzhi_B=T*dianliuzhi_B/1000;
-gonglvshishu_B=arm_cos_f32(angle[0]-angle[1])*100;//功率因素
+  if(dianliuzhi_B/100<=12)dianliuzhi_B=0;
+else dianliuzhi_B=T*dianliuzhi_B/1000;
+if(dianliuzhi_B==0)gonglvshishu_B=99;
+else gonglvshishu_B=arm_cos_f32(angle[0]-angle[1])*100;//功率因素
+
+//dianliuzhi_B=T*dianliuzhi_B/1000;
+//gonglvshishu_B=arm_cos_f32(angle[0]-angle[1])*100;//功率因素
 arm_sqrt_f32(1-(arm_cos_f32(angle[0]-angle[1]))*(arm_cos_f32(angle[0]-angle[1])),&sine);
          b=dianya_zhi_B*dianliuzhi_B*sine/10;
 	wugongkvar_B=dianya_zhi_B*dianliuzhi_B*sine/1000;
@@ -2093,8 +2099,13 @@ dianya_zhi_C=dianya_zhi_C/2.6125;
 	arm_max_f32(reslut, fftSize/2, &maxValue_C, &testIndex);
 
  dianliuzhi_C=1.1*maxValue_C;
-dianliuzhi_C=T*dianliuzhi_C/1000;
-gonglvshishu_C=arm_cos_f32(angle[0]-angle[1])*100;//功率因素
+  if(dianliuzhi_C/100<=12)dianliuzhi_C=0;
+else dianliuzhi_C=T*dianliuzhi_C/1000;
+if(dianliuzhi_C==0)gonglvshishu_C=99;
+else gonglvshishu_C=arm_cos_f32(angle[0]-angle[1])*100;//功率因素
+
+//dianliuzhi_C=T*dianliuzhi_C/1000;
+//gonglvshishu_C=arm_cos_f32(angle[0]-angle[1])*100;//功率因素
 arm_sqrt_f32(1-(arm_cos_f32(angle[0]-angle[1]))*(arm_cos_f32(angle[0]-angle[1])),&sine);
            c=dianya_zhi_C*dianliuzhi_C*sine/10;
 	wugongkvar_C=dianya_zhi_C*dianliuzhi_C*sine/1000;
