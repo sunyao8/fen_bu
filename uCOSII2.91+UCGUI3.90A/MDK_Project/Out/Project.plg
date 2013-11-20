@@ -2154,3 +2154,401 @@ Verify OK.
 * JLink Info:   FPUnit: 6 code (BP) slots and 2 literal slots
 * JLink Info: Found Cortex-M4 r0p1, Little endian.
 Application running ...
+Build target 'Target 1'
+compiling main.c...
+..\User\main.c(527): error:  #167: argument of type "status_comm_node *" is incompatible with parameter of type "u8 *"
+..\User\main.c(527): error:  #167: argument of type "u8 *" is incompatible with parameter of type "u8"
+..\User\main.c(1755): error:  #140: too many arguments in function call
+..\User\main.c(1760): error:  #147-D: declaration is incompatible with "void rs485_trans_status_comm(u8, u8 *, status_dis_node *, status_comm_node *)" (declared at line 225)
+..\User\main.c(1819): error:  #165: too few arguments in function call
+..\User\main.c(1820): error:  #165: too few arguments in function call
+..\User\main.c(1821): error:  #165: too few arguments in function call
+..\User\main.c(1828): error:  #147-D: declaration is incompatible with "u8 computer_gonglu(status_dis_node *, status_comm_node *, u8 *, u8 *)" (declared at line 135)
+..\User\main.c(1916): warning:  #1035-D: single-precision operand implicitly converted to double-precision
+..\User\main.c(2025): warning:  #1035-D: single-precision operand implicitly converted to double-precision
+..\User\main.c(2110): warning:  #1035-D: single-precision operand implicitly converted to double-precision
+..\User\main.c(2446): warning:  #1035-D: single-precision operand implicitly converted to double-precision
+..\User\main.c(2552): warning:  #1035-D: single-precision operand implicitly converted to double-precision
+..\User\main.c(2625): warning:  #1035-D: single-precision operand implicitly converted to double-precision
+..\User\main.c(2689): error:  #167: argument of type "status_comm_node *" is incompatible with parameter of type "u8 *"
+..\User\main.c(2689): error:  #140: too many arguments in function call
+..\User\main.c(2706): error:  #167: argument of type "status_comm_node *" is incompatible with parameter of type "u8 *"
+..\User\main.c(2706): error:  #140: too many arguments in function call
+..\User\main.c(2725): error:  #167: argument of type "status_comm_node *" is incompatible with parameter of type "u8 *"
+..\User\main.c(2725): error:  #140: too many arguments in function call
+..\User\main.c(2741): error:  #167: argument of type "status_comm_node *" is incompatible with parameter of type "u8 *"
+..\User\main.c(2741): error:  #140: too many arguments in function call
+..\User\main.c(2762): error:  #167: argument of type "status_comm_node *" is incompatible with parameter of type "u8 *"
+..\User\main.c(2762): error:  #140: too many arguments in function call
+..\User\main.c(2770): error:  #142: expression must have pointer-to-object type
+..\User\main.c(2778): error:  #167: argument of type "status_comm_node *" is incompatible with parameter of type "u8 *"
+..\User\main.c(2778): error:  #140: too many arguments in function call
+..\User\main.c(2674): warning:  #177-D: variable "err" was declared but never referenced
+..\User\main.c(1830): warning:  #177-D: variable "s" was declared but never referenced
+..\User\main.c(1831): warning:  #550-D: variable "status" was set but never used
+..\User\main.c(1854): warning:  #550-D: variable "wugongkvar_95" was set but never used
+..\User\main.c(3191): error:  #140: too many arguments in function call
+..\User\main.c(3475): error:  #147-D: declaration is incompatible with "void change_Queue(u8, u8, status_dis_node *, status_comm_node *, u8 *, u8 *)" (declared at line 234)
+..\User\main.c(3584): error:  #142: expression must have pointer-to-object type
+..\User\main.c(3585): error:  #142: expression must have pointer-to-object type
+..\User\main.c(3586): error:  #142: expression must have pointer-to-object type
+..\User\main.c(3587): error:  #142: expression must have pointer-to-object type
+Target not created
+Build target 'Target 1'
+compiling main.c...
+..\User\main.c(1756): error:  #140: too many arguments in function call
+..\User\main.c(1761): error:  #147-D: declaration is incompatible with "void rs485_trans_status_comm(u8, u8 *, status_dis_node *, status_comm_node *)" (declared at line 225)
+..\User\main.c(1820): error:  #165: too few arguments in function call
+..\User\main.c(1821): error:  #165: too few arguments in function call
+..\User\main.c(1822): error:  #165: too few arguments in function call
+..\User\main.c(1829): error:  #147-D: declaration is incompatible with "u8 computer_gonglu(status_dis_node *, status_comm_node *, u8 *, u8 *)" (declared at line 135)
+..\User\main.c(1917): warning:  #1035-D: single-precision operand implicitly converted to double-precision
+..\User\main.c(2026): warning:  #1035-D: single-precision operand implicitly converted to double-precision
+..\User\main.c(2111): warning:  #1035-D: single-precision operand implicitly converted to double-precision
+..\User\main.c(2447): warning:  #1035-D: single-precision operand implicitly converted to double-precision
+..\User\main.c(2553): warning:  #1035-D: single-precision operand implicitly converted to double-precision
+..\User\main.c(2626): warning:  #1035-D: single-precision operand implicitly converted to double-precision
+..\User\main.c(2690): error:  #167: argument of type "status_comm_node *" is incompatible with parameter of type "u8 *"
+..\User\main.c(2690): error:  #140: too many arguments in function call
+..\User\main.c(2707): error:  #167: argument of type "status_comm_node *" is incompatible with parameter of type "u8 *"
+..\User\main.c(2707): error:  #140: too many arguments in function call
+..\User\main.c(2726): error:  #167: argument of type "status_comm_node *" is incompatible with parameter of type "u8 *"
+..\User\main.c(2726): error:  #140: too many arguments in function call
+..\User\main.c(2742): error:  #167: argument of type "status_comm_node *" is incompatible with parameter of type "u8 *"
+..\User\main.c(2742): error:  #140: too many arguments in function call
+..\User\main.c(2763): error:  #167: argument of type "status_comm_node *" is incompatible with parameter of type "u8 *"
+..\User\main.c(2763): error:  #140: too many arguments in function call
+..\User\main.c(2771): error:  #142: expression must have pointer-to-object type
+..\User\main.c(2779): error:  #167: argument of type "status_comm_node *" is incompatible with parameter of type "u8 *"
+..\User\main.c(2779): error:  #140: too many arguments in function call
+..\User\main.c(2675): warning:  #177-D: variable "err" was declared but never referenced
+..\User\main.c(1831): warning:  #177-D: variable "s" was declared but never referenced
+..\User\main.c(1832): warning:  #550-D: variable "status" was set but never used
+..\User\main.c(1855): warning:  #550-D: variable "wugongkvar_95" was set but never used
+..\User\main.c(3192): error:  #140: too many arguments in function call
+..\User\main.c(3476): error:  #147-D: declaration is incompatible with "void change_Queue(u8, u8, status_dis_node *, status_comm_node *, u8 *, u8 *)" (declared at line 234)
+..\User\main.c(3585): error:  #142: expression must have pointer-to-object type
+..\User\main.c(3586): error:  #142: expression must have pointer-to-object type
+..\User\main.c(3587): error:  #142: expression must have pointer-to-object type
+..\User\main.c(3588): error:  #142: expression must have pointer-to-object type
+Target not created
+Build target 'Target 1'
+compiling main.c...
+..\User\main.c(1756): error:  #140: too many arguments in function call
+..\User\main.c(1761): error:  #147-D: declaration is incompatible with "void rs485_trans_status_comm(u8, u8 *, status_dis_node *, status_comm_node *)" (declared at line 225)
+..\User\main.c(1820): error:  #165: too few arguments in function call
+..\User\main.c(1821): error:  #165: too few arguments in function call
+..\User\main.c(1822): error:  #165: too few arguments in function call
+..\User\main.c(1829): error:  #147-D: declaration is incompatible with "u8 computer_gonglu(status_dis_node *, status_comm_node *, u8 *, u8 *)" (declared at line 135)
+..\User\main.c(1917): warning:  #1035-D: single-precision operand implicitly converted to double-precision
+..\User\main.c(2026): warning:  #1035-D: single-precision operand implicitly converted to double-precision
+..\User\main.c(2111): warning:  #1035-D: single-precision operand implicitly converted to double-precision
+..\User\main.c(2447): warning:  #1035-D: single-precision operand implicitly converted to double-precision
+..\User\main.c(2553): warning:  #1035-D: single-precision operand implicitly converted to double-precision
+..\User\main.c(2626): warning:  #1035-D: single-precision operand implicitly converted to double-precision
+..\User\main.c(2690): error:  #167: argument of type "status_comm_node *" is incompatible with parameter of type "u8 *"
+..\User\main.c(2690): error:  #140: too many arguments in function call
+..\User\main.c(2707): error:  #167: argument of type "status_comm_node *" is incompatible with parameter of type "u8 *"
+..\User\main.c(2707): error:  #140: too many arguments in function call
+..\User\main.c(2726): error:  #167: argument of type "status_comm_node *" is incompatible with parameter of type "u8 *"
+..\User\main.c(2726): error:  #140: too many arguments in function call
+..\User\main.c(2742): error:  #167: argument of type "status_comm_node *" is incompatible with parameter of type "u8 *"
+..\User\main.c(2742): error:  #140: too many arguments in function call
+..\User\main.c(2763): error:  #167: argument of type "status_comm_node *" is incompatible with parameter of type "u8 *"
+..\User\main.c(2763): error:  #140: too many arguments in function call
+..\User\main.c(2771): error:  #142: expression must have pointer-to-object type
+..\User\main.c(2779): error:  #167: argument of type "status_comm_node *" is incompatible with parameter of type "u8 *"
+..\User\main.c(2779): error:  #140: too many arguments in function call
+..\User\main.c(2675): warning:  #177-D: variable "err" was declared but never referenced
+..\User\main.c(1831): warning:  #177-D: variable "s" was declared but never referenced
+..\User\main.c(1832): warning:  #550-D: variable "status" was set but never used
+..\User\main.c(1855): warning:  #550-D: variable "wugongkvar_95" was set but never used
+..\User\main.c(3192): error:  #140: too many arguments in function call
+..\User\main.c(3476): error:  #147-D: declaration is incompatible with "void change_Queue(u8, u8, status_dis_node *, status_comm_node *, u8 *, u8 *)" (declared at line 234)
+..\User\main.c(3585): error:  #142: expression must have pointer-to-object type
+..\User\main.c(3586): error:  #142: expression must have pointer-to-object type
+..\User\main.c(3587): error:  #142: expression must have pointer-to-object type
+..\User\main.c(3588): error:  #142: expression must have pointer-to-object type
+Target not created
+Build target 'Target 1'
+compiling main.c...
+..\User\main.c(529): error:  #167: argument of type "status_comm_node *" is incompatible with parameter of type "u8 *"
+..\User\main.c(529): error:  #140: too many arguments in function call
+..\User\main.c(1756): error:  #140: too many arguments in function call
+..\User\main.c(1761): error:  #147-D: declaration is incompatible with "void rs485_trans_status_comm(u8, u8 *, status_dis_node *, status_comm_node *)" (declared at line 225)
+..\User\main.c(1820): error:  #165: too few arguments in function call
+..\User\main.c(1821): error:  #165: too few arguments in function call
+..\User\main.c(1822): error:  #165: too few arguments in function call
+..\User\main.c(1829): error:  #147-D: declaration is incompatible with "u8 computer_gonglu(status_dis_node *, status_comm_node *, u8 *, u8 *)" (declared at line 135)
+..\User\main.c(1917): warning:  #1035-D: single-precision operand implicitly converted to double-precision
+..\User\main.c(2026): warning:  #1035-D: single-precision operand implicitly converted to double-precision
+..\User\main.c(2111): warning:  #1035-D: single-precision operand implicitly converted to double-precision
+..\User\main.c(2447): warning:  #1035-D: single-precision operand implicitly converted to double-precision
+..\User\main.c(2553): warning:  #1035-D: single-precision operand implicitly converted to double-precision
+..\User\main.c(2626): warning:  #1035-D: single-precision operand implicitly converted to double-precision
+..\User\main.c(2690): error:  #167: argument of type "status_comm_node *" is incompatible with parameter of type "u8 *"
+..\User\main.c(2690): error:  #140: too many arguments in function call
+..\User\main.c(2707): error:  #167: argument of type "status_comm_node *" is incompatible with parameter of type "u8 *"
+..\User\main.c(2707): error:  #140: too many arguments in function call
+..\User\main.c(2726): error:  #167: argument of type "status_comm_node *" is incompatible with parameter of type "u8 *"
+..\User\main.c(2726): error:  #140: too many arguments in function call
+..\User\main.c(2742): error:  #167: argument of type "status_comm_node *" is incompatible with parameter of type "u8 *"
+..\User\main.c(2742): error:  #140: too many arguments in function call
+..\User\main.c(2763): error:  #167: argument of type "status_comm_node *" is incompatible with parameter of type "u8 *"
+..\User\main.c(2763): error:  #140: too many arguments in function call
+..\User\main.c(2771): error:  #142: expression must have pointer-to-object type
+..\User\main.c(2779): error:  #167: argument of type "status_comm_node *" is incompatible with parameter of type "u8 *"
+..\User\main.c(2779): error:  #140: too many arguments in function call
+..\User\main.c(2675): warning:  #177-D: variable "err" was declared but never referenced
+..\User\main.c(1831): warning:  #177-D: variable "s" was declared but never referenced
+..\User\main.c(1832): warning:  #550-D: variable "status" was set but never used
+..\User\main.c(1855): warning:  #550-D: variable "wugongkvar_95" was set but never used
+..\User\main.c(3192): error:  #140: too many arguments in function call
+..\User\main.c(3476): error:  #147-D: declaration is incompatible with "void change_Queue(u8, u8, status_dis_node *, status_comm_node *, u8 *, u8 *)" (declared at line 234)
+..\User\main.c(3585): error:  #142: expression must have pointer-to-object type
+..\User\main.c(3586): error:  #142: expression must have pointer-to-object type
+..\User\main.c(3587): error:  #142: expression must have pointer-to-object type
+..\User\main.c(3588): error:  #142: expression must have pointer-to-object type
+Target not created
+Build target 'Target 1'
+compiling main.c...
+..\User\main.c(1820): error:  #165: too few arguments in function call
+..\User\main.c(1821): error:  #165: too few arguments in function call
+..\User\main.c(1822): error:  #165: too few arguments in function call
+..\User\main.c(1917): warning:  #1035-D: single-precision operand implicitly converted to double-precision
+..\User\main.c(2026): warning:  #1035-D: single-precision operand implicitly converted to double-precision
+..\User\main.c(2111): warning:  #1035-D: single-precision operand implicitly converted to double-precision
+..\User\main.c(2447): warning:  #1035-D: single-precision operand implicitly converted to double-precision
+..\User\main.c(2553): warning:  #1035-D: single-precision operand implicitly converted to double-precision
+..\User\main.c(2626): warning:  #1035-D: single-precision operand implicitly converted to double-precision
+..\User\main.c(2690): error:  #167: argument of type "status_comm_node *" is incompatible with parameter of type "u8 *"
+..\User\main.c(2690): error:  #140: too many arguments in function call
+..\User\main.c(2707): error:  #167: argument of type "status_comm_node *" is incompatible with parameter of type "u8 *"
+..\User\main.c(2707): error:  #140: too many arguments in function call
+..\User\main.c(2726): error:  #167: argument of type "status_comm_node *" is incompatible with parameter of type "u8 *"
+..\User\main.c(2726): error:  #140: too many arguments in function call
+..\User\main.c(2742): error:  #167: argument of type "status_comm_node *" is incompatible with parameter of type "u8 *"
+..\User\main.c(2742): error:  #140: too many arguments in function call
+..\User\main.c(2763): error:  #167: argument of type "status_comm_node *" is incompatible with parameter of type "u8 *"
+..\User\main.c(2763): error:  #140: too many arguments in function call
+..\User\main.c(2771): error:  #142: expression must have pointer-to-object type
+..\User\main.c(2779): error:  #167: argument of type "status_comm_node *" is incompatible with parameter of type "u8 *"
+..\User\main.c(2779): error:  #140: too many arguments in function call
+..\User\main.c(2675): warning:  #177-D: variable "err" was declared but never referenced
+..\User\main.c(1831): warning:  #177-D: variable "s" was declared but never referenced
+..\User\main.c(1832): warning:  #550-D: variable "status" was set but never used
+..\User\main.c(1855): warning:  #550-D: variable "wugongkvar_95" was set but never used
+..\User\main.c(3192): error:  #140: too many arguments in function call
+..\User\main.c(3476): error:  #147-D: declaration is incompatible with "void change_Queue(u8, u8, status_dis_node *, status_comm_node *, u8 *, u8 *)" (declared at line 234)
+..\User\main.c(3585): error:  #142: expression must have pointer-to-object type
+..\User\main.c(3586): error:  #142: expression must have pointer-to-object type
+..\User\main.c(3587): error:  #142: expression must have pointer-to-object type
+..\User\main.c(3588): error:  #142: expression must have pointer-to-object type
+Target not created
+Build target 'Target 1'
+compiling main.c...
+..\User\main.c(1917): warning:  #1035-D: single-precision operand implicitly converted to double-precision
+..\User\main.c(2026): warning:  #1035-D: single-precision operand implicitly converted to double-precision
+..\User\main.c(2111): warning:  #1035-D: single-precision operand implicitly converted to double-precision
+..\User\main.c(2447): warning:  #1035-D: single-precision operand implicitly converted to double-precision
+..\User\main.c(2553): warning:  #1035-D: single-precision operand implicitly converted to double-precision
+..\User\main.c(2626): warning:  #1035-D: single-precision operand implicitly converted to double-precision
+..\User\main.c(2690): error:  #167: argument of type "status_comm_node *" is incompatible with parameter of type "u8 *"
+..\User\main.c(2690): error:  #140: too many arguments in function call
+..\User\main.c(2707): error:  #167: argument of type "status_comm_node *" is incompatible with parameter of type "u8 *"
+..\User\main.c(2707): error:  #140: too many arguments in function call
+..\User\main.c(2726): error:  #167: argument of type "status_comm_node *" is incompatible with parameter of type "u8 *"
+..\User\main.c(2726): error:  #140: too many arguments in function call
+..\User\main.c(2742): error:  #167: argument of type "status_comm_node *" is incompatible with parameter of type "u8 *"
+..\User\main.c(2742): error:  #140: too many arguments in function call
+..\User\main.c(2763): error:  #167: argument of type "status_comm_node *" is incompatible with parameter of type "u8 *"
+..\User\main.c(2763): error:  #140: too many arguments in function call
+..\User\main.c(2771): error:  #142: expression must have pointer-to-object type
+..\User\main.c(2779): error:  #167: argument of type "status_comm_node *" is incompatible with parameter of type "u8 *"
+..\User\main.c(2779): error:  #140: too many arguments in function call
+..\User\main.c(2675): warning:  #177-D: variable "err" was declared but never referenced
+..\User\main.c(1831): warning:  #177-D: variable "s" was declared but never referenced
+..\User\main.c(1832): warning:  #550-D: variable "status" was set but never used
+..\User\main.c(1855): warning:  #550-D: variable "wugongkvar_95" was set but never used
+..\User\main.c(3192): error:  #140: too many arguments in function call
+..\User\main.c(3476): error:  #147-D: declaration is incompatible with "void change_Queue(u8, u8, status_dis_node *, status_comm_node *, u8 *, u8 *)" (declared at line 234)
+..\User\main.c(3585): error:  #142: expression must have pointer-to-object type
+..\User\main.c(3586): error:  #142: expression must have pointer-to-object type
+..\User\main.c(3587): error:  #142: expression must have pointer-to-object type
+..\User\main.c(3588): error:  #142: expression must have pointer-to-object type
+Target not created
+Build target 'Target 1'
+compiling main.c...
+..\User\main.c(1917): warning:  #1035-D: single-precision operand implicitly converted to double-precision
+..\User\main.c(2026): warning:  #1035-D: single-precision operand implicitly converted to double-precision
+..\User\main.c(2111): warning:  #1035-D: single-precision operand implicitly converted to double-precision
+..\User\main.c(2447): warning:  #1035-D: single-precision operand implicitly converted to double-precision
+..\User\main.c(2553): warning:  #1035-D: single-precision operand implicitly converted to double-precision
+..\User\main.c(2626): warning:  #1035-D: single-precision operand implicitly converted to double-precision
+..\User\main.c(2771): error:  #142: expression must have pointer-to-object type
+..\User\main.c(2675): warning:  #177-D: variable "err" was declared but never referenced
+..\User\main.c(1831): warning:  #177-D: variable "s" was declared but never referenced
+..\User\main.c(1832): warning:  #550-D: variable "status" was set but never used
+..\User\main.c(1855): warning:  #550-D: variable "wugongkvar_95" was set but never used
+..\User\main.c(3192): error:  #140: too many arguments in function call
+..\User\main.c(3585): error:  #142: expression must have pointer-to-object type
+..\User\main.c(3586): error:  #142: expression must have pointer-to-object type
+..\User\main.c(3587): error:  #142: expression must have pointer-to-object type
+..\User\main.c(3588): error:  #142: expression must have pointer-to-object type
+Target not created
+Build target 'Target 1'
+compiling main.c...
+..\User\main.c(1917): warning:  #1035-D: single-precision operand implicitly converted to double-precision
+..\User\main.c(2026): warning:  #1035-D: single-precision operand implicitly converted to double-precision
+..\User\main.c(2111): warning:  #1035-D: single-precision operand implicitly converted to double-precision
+..\User\main.c(2447): warning:  #1035-D: single-precision operand implicitly converted to double-precision
+..\User\main.c(2553): warning:  #1035-D: single-precision operand implicitly converted to double-precision
+..\User\main.c(2626): warning:  #1035-D: single-precision operand implicitly converted to double-precision
+..\User\main.c(2675): warning:  #177-D: variable "err" was declared but never referenced
+..\User\main.c(1831): warning:  #177-D: variable "s" was declared but never referenced
+..\User\main.c(1832): warning:  #550-D: variable "status" was set but never used
+..\User\main.c(1855): warning:  #550-D: variable "wugongkvar_95" was set but never used
+..\User\main.c(3192): error:  #140: too many arguments in function call
+..\User\main.c(3585): error:  #142: expression must have pointer-to-object type
+..\User\main.c(3586): error:  #142: expression must have pointer-to-object type
+..\User\main.c(3587): error:  #142: expression must have pointer-to-object type
+..\User\main.c(3588): error:  #142: expression must have pointer-to-object type
+Target not created
+Build target 'Target 1'
+compiling main.c...
+..\User\main.c(1917): warning:  #1035-D: single-precision operand implicitly converted to double-precision
+..\User\main.c(2026): warning:  #1035-D: single-precision operand implicitly converted to double-precision
+..\User\main.c(2111): warning:  #1035-D: single-precision operand implicitly converted to double-precision
+..\User\main.c(2447): warning:  #1035-D: single-precision operand implicitly converted to double-precision
+..\User\main.c(2553): warning:  #1035-D: single-precision operand implicitly converted to double-precision
+..\User\main.c(2626): warning:  #1035-D: single-precision operand implicitly converted to double-precision
+..\User\main.c(2675): warning:  #177-D: variable "err" was declared but never referenced
+..\User\main.c(1831): warning:  #177-D: variable "s" was declared but never referenced
+..\User\main.c(1832): warning:  #550-D: variable "status" was set but never used
+..\User\main.c(1855): warning:  #550-D: variable "wugongkvar_95" was set but never used
+..\User\main.c(3585): error:  #142: expression must have pointer-to-object type
+..\User\main.c(3586): error:  #142: expression must have pointer-to-object type
+..\User\main.c(3587): error:  #142: expression must have pointer-to-object type
+..\User\main.c(3588): error:  #142: expression must have pointer-to-object type
+Target not created
+Build target 'Target 1'
+compiling main.c...
+..\User\main.c(1917): warning:  #1035-D: single-precision operand implicitly converted to double-precision
+..\User\main.c(2026): warning:  #1035-D: single-precision operand implicitly converted to double-precision
+..\User\main.c(2111): warning:  #1035-D: single-precision operand implicitly converted to double-precision
+..\User\main.c(2447): warning:  #1035-D: single-precision operand implicitly converted to double-precision
+..\User\main.c(2553): warning:  #1035-D: single-precision operand implicitly converted to double-precision
+..\User\main.c(2626): warning:  #1035-D: single-precision operand implicitly converted to double-precision
+..\User\main.c(2675): warning:  #177-D: variable "err" was declared but never referenced
+..\User\main.c(1831): warning:  #177-D: variable "s" was declared but never referenced
+..\User\main.c(1832): warning:  #550-D: variable "status" was set but never used
+..\User\main.c(1855): warning:  #550-D: variable "wugongkvar_95" was set but never used
+linking...
+Program Size: Code=36076 RO-data=26996 RW-data=316 ZI-data=102524  
+FromELF: creating hex file...
+".\Out\Project.axf" - 0 Error(s), 10 Warning(s).
+Load "C:\\Users\\Administrator\\Documents\\GitHub\\407_分补\\fen_bu\\uCOSII2.91+UCGUI3.90A\\MDK_Project\\Out\\Project.AXF" 
+* JLink Info: Device "STM32F407VE" selected (512 KB flash, 128 KB RAM).
+Set JLink Project File to "C:\Users\Administrator\Documents\GitHub\407_分补\fen_bu\uCOSII2.91+UCGUI3.90A\MDK_Project\JLinkSettings.ini"
+ 
+JLink info:
+------------
+DLL: V4.40c, compiled Jan 24 2012 09:30:33
+Firmware: J-Link ARM-OB STM32 compiled Aug 22 2012 19:52:04
+Hardware: V7.00
+S/N : 20090928 
+Feature(s) : RDI,FlashDL,FlashBP,JFlash,GDBFull 
+ 
+* JLink Info: Found SWD-DP with ID 0x2BA01477
+* JLink Info: TPIU fitted.
+* JLink Info: ETM fitted.
+* JLink Info:   FPUnit: 6 code (BP) slots and 2 literal slots
+* JLink Info: Found Cortex-M4 r0p1, Little endian.
+ROMTableAddr = 0xE00FF003
+* JLink Info: Found SWD-DP with ID 0x2BA01477
+* JLink Info: TPIU fitted.
+* JLink Info: ETM fitted.
+* JLink Info:   FPUnit: 6 code (BP) slots and 2 literal slots
+* JLink Info: Found Cortex-M4 r0p1, Little endian.
+ 
+Target info:
+------------
+Device: STM32F407VE
+VTarget = 3.300V
+State of Pins: 
+TCK: 0, TDI: 1, TDO: 1, TMS: 0, TRES: 1, TRST: 1
+Hardware-Breakpoints: 6
+Software-Breakpoints: 8192
+Watchpoints:          4
+JTAG speed: 2000 kHz
+ 
+Erase Done.
+Programming Done.
+Verify OK.
+* JLink Info: Found SWD-DP with ID 0x2BA01477
+* JLink Info: TPIU fitted.
+* JLink Info: ETM fitted.
+* JLink Info:   FPUnit: 6 code (BP) slots and 2 literal slots
+* JLink Info: Found Cortex-M4 r0p1, Little endian.
+Application running ...
+Build target 'Target 1'
+compiling main.c...
+..\User\main.c(1917): warning:  #1035-D: single-precision operand implicitly converted to double-precision
+..\User\main.c(2026): warning:  #1035-D: single-precision operand implicitly converted to double-precision
+..\User\main.c(2111): warning:  #1035-D: single-precision operand implicitly converted to double-precision
+..\User\main.c(2447): warning:  #1035-D: single-precision operand implicitly converted to double-precision
+..\User\main.c(2553): warning:  #1035-D: single-precision operand implicitly converted to double-precision
+..\User\main.c(2626): warning:  #1035-D: single-precision operand implicitly converted to double-precision
+..\User\main.c(2675): warning:  #177-D: variable "err" was declared but never referenced
+..\User\main.c(1831): warning:  #177-D: variable "s" was declared but never referenced
+..\User\main.c(1832): warning:  #550-D: variable "status" was set but never used
+..\User\main.c(1855): warning:  #550-D: variable "wugongkvar_95" was set but never used
+linking...
+Program Size: Code=36068 RO-data=26996 RW-data=316 ZI-data=102524  
+FromELF: creating hex file...
+".\Out\Project.axf" - 0 Error(s), 10 Warning(s).
+Load "C:\\Users\\Administrator\\Documents\\GitHub\\407_分补\\fen_bu\\uCOSII2.91+UCGUI3.90A\\MDK_Project\\Out\\Project.AXF" 
+Load "C:\\Users\\Administrator\\Documents\\GitHub\\407_分补\\fen_bu\\uCOSII2.91+UCGUI3.90A\\MDK_Project\\Out\\Project.AXF" 
+* JLink Info: Device "STM32F407VE" selected (512 KB flash, 128 KB RAM).
+Set JLink Project File to "C:\Users\Administrator\Documents\GitHub\407_分补\fen_bu\uCOSII2.91+UCGUI3.90A\MDK_Project\JLinkSettings.ini"
+ 
+JLink info:
+------------
+DLL: V4.40c, compiled Jan 24 2012 09:30:33
+Firmware: J-Link ARM-OB STM32 compiled Aug 22 2012 19:52:04
+Hardware: V7.00
+S/N : 20090928 
+Feature(s) : RDI,FlashDL,FlashBP,JFlash,GDBFull 
+ 
+* JLink Info: Found SWD-DP with ID 0x2BA01477
+* JLink Info: TPIU fitted.
+* JLink Info: ETM fitted.
+* JLink Info:   FPUnit: 6 code (BP) slots and 2 literal slots
+* JLink Info: Found Cortex-M4 r0p1, Little endian.
+ROMTableAddr = 0xE00FF003
+* JLink Info: Found SWD-DP with ID 0x2BA01477
+* JLink Info: TPIU fitted.
+* JLink Info: ETM fitted.
+* JLink Info:   FPUnit: 6 code (BP) slots and 2 literal slots
+* JLink Info: Found Cortex-M4 r0p1, Little endian.
+ 
+Target info:
+------------
+Device: STM32F407VE
+VTarget = 3.300V
+State of Pins: 
+TCK: 0, TDI: 1, TDO: 1, TMS: 0, TRES: 1, TRST: 1
+Hardware-Breakpoints: 6
+Software-Breakpoints: 8192
+Watchpoints:          4
+JTAG speed: 2000 kHz
+ 
+Erase Done.
+Programming Done.
+Verify OK.
+* JLink Info: Found SWD-DP with ID 0x2BA01477
+* JLink Info: TPIU fitted.
+* JLink Info: ETM fitted.
+* JLink Info:   FPUnit: 6 code (BP) slots and 2 literal slots
+* JLink Info: Found Cortex-M4 r0p1, Little endian.
+Application running ...

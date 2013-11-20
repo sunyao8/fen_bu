@@ -3,9 +3,9 @@
 <title>Static Call Graph - [.\Out\Project.axf]</title></head>
 <body><HR>
 <H1>Static Call Graph for image .\Out\Project.axf</H1><HR>
-<BR><P>#&#060CALLGRAPH&#062# ARM Linker, 4.1 [Build 894]: Last Updated: Tue Nov 19 09:42:00 2013
+<BR><P>#&#060CALLGRAPH&#062# ARM Linker, 4.1 [Build 894]: Last Updated: Wed Nov 20 10:01:17 2013
 <BR><P>
-<H3>Maximum Stack Usage =      14800 bytes + Unknown(Functions without stacksize, Cycles, Untraceable Function Pointers)</H3><H3>
+<H3>Maximum Stack Usage =      14808 bytes + Unknown(Functions without stacksize, Cycles, Untraceable Function Pointers)</H3><H3>
 Call chain for Maximum Stack Depth:</H3>
 App_Taskcomputer &rArr; computer_gonglu &rArr; __hardfp_atan2 &rArr; atan &rArr; __hardfp_atan &rArr; __kernel_poly &rArr; __aeabi_dmul
 <P>
@@ -2249,8 +2249,8 @@ Global Symbols
 <BR>[Called By]<UL><LI><a href="#[132]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__hardfp_atan2
 </UL>
 
-<P><STRONG><a name="[143]"></a>change_Queue</STRONG> (Thumb, 668 bytes, Stack size 28 bytes, main.o(i.change_Queue))
-<BR><BR>[Stack]<UL><LI>Max Depth = 28<LI>Call Chain = change_Queue
+<P><STRONG><a name="[143]"></a>change_Queue</STRONG> (Thumb, 1944 bytes, Stack size 32 bytes, main.o(i.change_Queue))
+<BR><BR>[Stack]<UL><LI>Max Depth = 32<LI>Call Chain = change_Queue
 </UL>
 <BR>[Called By]<UL><LI><a href="#[b8]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;computer_gonglu
 </UL>
@@ -2259,7 +2259,7 @@ Global Symbols
 <BR><BR>[Called By]<UL><LI><a href="#[ba]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;rs485_trans_computer
 </UL>
 
-<P><STRONG><a name="[b8]"></a>computer_gonglu</STRONG> (Thumb, 8888 bytes, Stack size 14632 bytes, main.o(i.computer_gonglu))
+<P><STRONG><a name="[b8]"></a>computer_gonglu</STRONG> (Thumb, 9324 bytes, Stack size 14632 bytes, main.o(i.computer_gonglu))
 <BR><BR>[Stack]<UL><LI>Max Depth = 14792 + Unknown Stack Size
 <LI>Call Chain = computer_gonglu &rArr; __hardfp_atan2 &rArr; atan &rArr; __hardfp_atan &rArr; __kernel_poly &rArr; __aeabi_dmul
 </UL>
@@ -2355,8 +2355,8 @@ Global Symbols
 <LI><a href="#[132]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__hardfp_atan2
 </UL>
 
-<P><STRONG><a name="[b7]"></a>init_Queue</STRONG> (Thumb, 666 bytes, Stack size 32 bytes, main.o(i.init_Queue))
-<BR><BR>[Stack]<UL><LI>Max Depth = 32<LI>Call Chain = init_Queue
+<P><STRONG><a name="[b7]"></a>init_Queue</STRONG> (Thumb, 752 bytes, Stack size 36 bytes, main.o(i.init_Queue))
+<BR><BR>[Stack]<UL><LI>Max Depth = 36<LI>Call Chain = init_Queue
 </UL>
 <BR>[Called By]<UL><LI><a href="#[63]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;App_Taskcomputer
 </UL>
@@ -2365,8 +2365,8 @@ Global Symbols
 <BR><BR>[Called By]<UL><LI><a href="#[74]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;main
 </UL>
 
-<P><STRONG><a name="[146]"></a>inquiry_slave_status_comm</STRONG> (Thumb, 68 bytes, Stack size 32 bytes, main.o(i.inquiry_slave_status_comm))
-<BR><BR>[Stack]<UL><LI>Max Depth = 116 + Unknown Stack Size
+<P><STRONG><a name="[146]"></a>inquiry_slave_status_comm</STRONG> (Thumb, 88 bytes, Stack size 40 bytes, main.o(i.inquiry_slave_status_comm))
+<BR><BR>[Stack]<UL><LI>Max Depth = 124 + Unknown Stack Size
 <LI>Call Chain = inquiry_slave_status_comm &rArr; order_trans_rs485 &rArr; RS485_Send_Data &rArr; GPIO_Init
 </UL>
 <BR>[Calls]<UL><LI><a href="#[b9]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;OSMboxPend
@@ -2456,24 +2456,24 @@ Global Symbols
 <BR>[Called By]<UL><LI><a href="#[61]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;App_Taskslave_three
 </UL>
 
-<P><STRONG><a name="[147]"></a>rs485_trans_status_comm</STRONG> (Thumb, 68 bytes, Stack size 48 bytes, main.o(i.rs485_trans_status_comm))
-<BR><BR>[Stack]<UL><LI>Max Depth = 64<LI>Call Chain = rs485_trans_status_comm &rArr; set_statuslist
+<P><STRONG><a name="[147]"></a>rs485_trans_status_comm</STRONG> (Thumb, 88 bytes, Stack size 56 bytes, main.o(i.rs485_trans_status_comm))
+<BR><BR>[Stack]<UL><LI>Max Depth = 76<LI>Call Chain = rs485_trans_status_comm &rArr; set_statuslist
 </UL>
 <BR>[Calls]<UL><LI><a href="#[142]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;set_statuslist
 </UL>
 <BR>[Called By]<UL><LI><a href="#[146]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;inquiry_slave_status_comm
 </UL>
 
-<P><STRONG><a name="[149]"></a>rs485_trans_status_dis</STRONG> (Thumb, 94 bytes, Stack size 44 bytes, main.o(i.rs485_trans_status_dis))
-<BR><BR>[Stack]<UL><LI>Max Depth = 60<LI>Call Chain = rs485_trans_status_dis &rArr; set_statuslist
+<P><STRONG><a name="[149]"></a>rs485_trans_status_dis</STRONG> (Thumb, 106 bytes, Stack size 52 bytes, main.o(i.rs485_trans_status_dis))
+<BR><BR>[Stack]<UL><LI>Max Depth = 72<LI>Call Chain = rs485_trans_status_dis &rArr; set_statuslist
 </UL>
 <BR>[Calls]<UL><LI><a href="#[142]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;set_statuslist
 </UL>
 <BR>[Called By]<UL><LI><a href="#[148]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;inquiry_slave_status_dis
 </UL>
 
-<P><STRONG><a name="[b6]"></a>scanf_slave_machine</STRONG> (Thumb, 118 bytes, Stack size 32 bytes, main.o(i.scanf_slave_machine))
-<BR><BR>[Stack]<UL><LI>Max Depth = 148 + Unknown Stack Size
+<P><STRONG><a name="[b6]"></a>scanf_slave_machine</STRONG> (Thumb, 136 bytes, Stack size 40 bytes, main.o(i.scanf_slave_machine))
+<BR><BR>[Stack]<UL><LI>Max Depth = 164 + Unknown Stack Size
 <LI>Call Chain = scanf_slave_machine &rArr; inquiry_slave_status_comm &rArr; order_trans_rs485 &rArr; RS485_Send_Data &rArr; GPIO_Init
 </UL>
 <BR>[Calls]<UL><LI><a href="#[148]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;inquiry_slave_status_dis
@@ -2488,8 +2488,8 @@ Global Symbols
 <BR>[Called By]<UL><LI><a href="#[74]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;main
 </UL>
 
-<P><STRONG><a name="[142]"></a>set_statuslist</STRONG> (Thumb, 82 bytes, Stack size 16 bytes, main.o(i.set_statuslist))
-<BR><BR>[Stack]<UL><LI>Max Depth = 16<LI>Call Chain = set_statuslist
+<P><STRONG><a name="[142]"></a>set_statuslist</STRONG> (Thumb, 86 bytes, Stack size 20 bytes, main.o(i.set_statuslist))
+<BR><BR>[Stack]<UL><LI>Max Depth = 20<LI>Call Chain = set_statuslist
 </UL>
 <BR>[Called By]<UL><LI><a href="#[149]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;rs485_trans_status_dis
 <LI><a href="#[147]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;rs485_trans_status_comm
@@ -2779,8 +2779,8 @@ Local Symbols
 </UL>
 <BR>[Address Reference Count : 1]<UL><LI> main.o(i.main)
 </UL>
-<P><STRONG><a name="[63]"></a>App_Taskcomputer</STRONG> (Thumb, 70 bytes, Stack size 8 bytes, main.o(i.App_Taskcomputer))
-<BR><BR>[Stack]<UL><LI>Max Depth = 14800 + Unknown Stack Size
+<P><STRONG><a name="[63]"></a>App_Taskcomputer</STRONG> (Thumb, 106 bytes, Stack size 16 bytes, main.o(i.App_Taskcomputer))
+<BR><BR>[Stack]<UL><LI>Max Depth = 14808 + Unknown Stack Size
 <LI>Call Chain = App_Taskcomputer &rArr; computer_gonglu &rArr; __hardfp_atan2 &rArr; atan &rArr; __hardfp_atan &rArr; __kernel_poly &rArr; __aeabi_dmul
 </UL>
 <BR>[Calls]<UL><LI><a href="#[b5]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;OSSemPend
