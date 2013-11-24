@@ -28,25 +28,33 @@ static  OS_STK         App_TaskStartStk[APP_TASK_START_STK_SIZE];
 
 #define  APP_TASK_LCD_STK_SIZE                          1024u
 static  OS_STK         App_TaskLCDStk[APP_TASK_LCD_STK_SIZE];
-#define  APP_TASK_LCD_PRIO                               4
+#define  APP_TASK_LCD_PRIO                               5
 
 #define  APP_TASK_SLAVE3_STK_SIZE                          10240u
 static  OS_STK         App_TaskSLAVE3Stk[APP_TASK_SLAVE3_STK_SIZE];
-#define  APP_TASK_SLAVE3_PRIO                               1
+#define  APP_TASK_SLAVE3_PRIO                               2
 
 #define  APP_TASK_COMPUTER_STK_SIZE                       1024u    
 static  OS_STK         App_TaskComputerStk[APP_TASK_COMPUTER_STK_SIZE];
-#define  APP_TASK_COMPUTER_PRIO                               3
+#define  APP_TASK_COMPUTER_PRIO                               4
 
 #define  APP_TASK_Master_STK_SIZE                         10240u
 static  OS_STK         App_TaskMasterStk[APP_TASK_Master_STK_SIZE];
-#define  APP_TASK_Master_PRIO                               2
+#define  APP_TASK_Master_PRIO                               3
 
-#define SETID_TASK_PRIO       			0 
+#define SETID_TASK_PRIO       			1 
 //设置任务堆栈大小
 #define SETID_STK_SIZE  		    		64
 //任务堆栈
 OS_STK SETID_TASK_STK[SETID_STK_SIZE];
+
+#define urgent_TASK_PRIO       			0 
+//设置任务堆栈大小
+#define urgent_STK_SIZE  		    		64
+//任务堆栈
+OS_STK urgent_TASK_STK[urgent_STK_SIZE];
+
+
 //任务函数
 
 /***************************************************/
@@ -82,7 +90,7 @@ static  void  App_Taskslave_three		(void		*p_arg);
 static  void  App_Taskcomputer	 (void		*p_arg );
 static  void  App_TaskMaster(void		*p_arg );
 static  void SETID_task(void *pdata);
-
+static  void urgent_task(void *pdata);
 
 /*
 *********************************************************************************************************
@@ -143,8 +151,7 @@ u8 computer_gonglu(status_dis_node *dis_list,status_comm_node *comm_list_1,statu
 #define RS485_TX_EN_1		GPIO_SetBits(GPIOB, GPIO_Pin_15)	// 485模式控制.0,接收;1,发送.本工程用PB15
 #define RS485_TX_EN_0		GPIO_ResetBits(GPIOB, GPIO_Pin_15)	// 485模式控制.0,接收;1,发送.本工程用PB15
  OS_EVENT * RS485_MBOX,* RS485_STUTAS_MBOX,* RS485_RT;			//	rs485邮箱信号量
- OS_EVENT *computer_sem,*swicth_ABC;			 //
- OS_EVENT *swicth_A;			 //
+ OS_EVENT *computer_sem,*urgent_sem;			 //
 
 static u8 rs485buf[LEN_control];//发送控制信息
 
@@ -156,7 +163,6 @@ u8 RS485_RX_CNT=0;
 
  typedef struct  
 { 
-  u8 start;
   u8 myid;      //本电容箱ID号
   u8 source;
   u8 destination; //目的电容箱
@@ -164,27 +170,32 @@ u8 RS485_RX_CNT=0;
   u8 relay;    //第几组电容器
   u8 message;     //开关信息
   u8 master;      //主机令牌
-  u8 end;   
 }box;
-box mybox;
+static box mybox;
  typedef struct  
 { 
   u8 myid;      //本电容箱ID号
   u8 size[3];      //容量单位千法
+  u8 work_status[3];
 }statusbox;
 
 static statusbox status_box;
+u8 auto_on=1;
 void RS485_Init(u32 bound);
 void initmybox(void);//初始化自身信息
-void set_now_mystatus(u8 ,u8 ,u8 ,u8 );
+void set_now_mystatus(u8 ,u8 ,u8 ,u8,u8,u8,u8 );
 
 void USART2_IRQHandler(void);
+ void EXTI15_10_IRQHandler(void);
+ void TIM3_IRQHandler(void) ; //TIM3中断
+
 u16 comp_16(u16 a,u16 b);
 int rs485_trans_order(u8 *tx_r485);//解析由主机发送过来的信号，并发送给下位机
  void order_trans_rs485(u8 source,u8 destination, u8 send,u8 relay,u8 message,u8 ctr);//主机程序，主机命令解析成RS485信息，发送给目的从机
  void computer_trans_rs485(u8 source,u8 destination, u8 send,u8 relay,u8 message,u8 ctr);//主机程序，主机计算出来数据解析成RS485信息，发送给目的从机
  u8 rs485_trans_computer(u8 *tx_r485);//解析由主机发送过来的信号，并发送给下位机
 void NVIC_Configuration(void);
+void EXTI_Configuration(void);//初始化函数
 
 /***********************************485_end****************************************************/
 
@@ -197,7 +208,6 @@ void NVIC_Configuration(void);
 #define ON_time 13400                 //100
 #define OFF_time 15000		   //1//100
 
-u8 key_A=0,key_B=0,key_C=0;
 u16 var=0;
 
 u8  subswitchABC_onoff	 (u8 relay,u8 message ,u8 flag);
@@ -208,7 +218,7 @@ u8  subswitchABC_onoff	 (u8 relay,u8 message ,u8 flag);
 /************************************TIME******************************************************/
 u16  dog_clock=10;
 u8 cont=0;//用于更改主机号的记次数器
- void TIM4_Int_Init(u16 arr,u16 psc);
+ void TIM3_Int_Init(u16 arr,u16 psc);
 void delay_time(u32 time);
  void heartbeat(u8 t);
 
@@ -263,12 +273,14 @@ CPU_INT08U  os_err;
 	delay_us(500000);
 NVIC_Configuration();
 GPIO_Configuration();
+ EXTI_Configuration();//初始化函数
+
 initmybox();//初始化自身信息
 {while(subswitchABC_onoff(1,0,1)==0)break;}		  //投
 {while(subswitchABC_onoff(2,0,1)==0)break;}		  //投
 {while(subswitchABC_onoff(3,0,1)==0)break;}		  //投
 
-set_now_mystatus(mybox.myid,6,6,6);
+set_now_mystatus(mybox.myid,6,6,6,0,0,0);
 os_err = os_err; 
 
 
@@ -356,16 +368,7 @@ RS485_MBOX=OSMboxCreate((void*)0);
 RS485_STUTAS_MBOX=OSMboxCreate((void*)0);
 computer_sem=OSSemCreate(0);
 RS485_RT=OSMboxCreate((void*)0);
-swicth_A=OSMboxCreate((void*)0);
-	os_err = OSTaskCreateExt((void (*)(void *)) App_Taskslave_three,
-                             (void          * ) 0,
-                             (OS_STK        * )&App_TaskSLAVE3Stk[APP_TASK_SLAVE3_STK_SIZE - 1],
-                             (INT8U           ) APP_TASK_SLAVE3_PRIO,
-                             (INT16U          ) APP_TASK_SLAVE3_PRIO,
-                             (OS_STK        * )&App_TaskSLAVE3Stk[0],
-                             (INT32U          ) APP_TASK_SLAVE3_STK_SIZE,
-                             (void          * )0,
-                             (INT16U          )(OS_TASK_OPT_STK_CLR | OS_TASK_OPT_STK_CHK));
+urgent_sem=OSSemCreate(0);
                              
 
 #if OS_TASK_NAME_EN > 0
@@ -374,7 +377,9 @@ swicth_A=OSMboxCreate((void*)0);
 	 	OSTaskCreate(App_TaskLCD,(void *)0,(OS_STK*)&App_TaskLCDStk[APP_TASK_LCD_STK_SIZE-1],APP_TASK_LCD_PRIO);	 				   
 	 	OSTaskCreate(App_Taskcomputer,(void *)0,(OS_STK*)&App_TaskComputerStk[APP_TASK_COMPUTER_STK_SIZE-1],APP_TASK_COMPUTER_PRIO);	 				   
 	 	OSTaskCreate(App_TaskMaster,(void *)0,(OS_STK*)&App_TaskMasterStk[APP_TASK_Master_STK_SIZE-1],APP_TASK_Master_PRIO);	 				   
-	     OSTaskCreate(SETID_task,(void *)0,(OS_STK*)&SETID_TASK_STK[SETID_STK_SIZE-1],SETID_TASK_PRIO);
+		 OSTaskCreate(App_Taskslave_three,(void *)0,(OS_STK*)&App_TaskSLAVE3Stk[APP_TASK_SLAVE3_STK_SIZE-1],APP_TASK_SLAVE3_PRIO);		 
+		 OSTaskCreate(SETID_task,(void *)0,(OS_STK*)&SETID_TASK_STK[SETID_STK_SIZE-1],SETID_TASK_PRIO);		 
+  OSTaskCreate(urgent_task,(void *)0,(OS_STK*)&urgent_TASK_STK[urgent_STK_SIZE-1],urgent_TASK_PRIO);
 
      }
 
@@ -397,7 +402,6 @@ static  void  App_TaskMaster(void		*p_arg )
 {  
 // static status_dis_node     dis_list[10];
  //static status_comm_node comm_list[10];
-
 	for(;;)
 		{
 
@@ -405,13 +409,14 @@ static  void  App_TaskMaster(void		*p_arg )
 		 	{
 			OSTaskSuspend(APP_TASK_Master_PRIO);//挂起从机任务
 		        }
-/*
- if(start_scan==1)
- 	{ scanf_slave_machine();  start_scan=0;}
- */
+ 
+
+
  if(mybox.master==1)
  	{
+ 	
 hguestnum=111;
+
 OSSemPost(computer_sem);
 
 if(scan_init!=0) {scan_init--;order_trans_rs485(mybox.myid,0,1,1,0,CONTROL);order_trans_rs485(mybox.myid,0,1,2,0,CONTROL);}
@@ -422,11 +427,10 @@ scan_init=0;
 }
 
    mybox.myid=AT24CXX_ReadOneByte(0x0010);
-
-delay_ms(1500);
+	
  	}
 
-					// delay_ms(100);
+delay_ms(1500);
 
 	        }
    	
@@ -563,9 +567,8 @@ void SETID_task(void *pdata)
 		  id_num=AT24CXX_ReadOneByte(0x0010);
 	///	  id_num=1;//测试开发板使用
 		if(id_num<1||id_num>33)
-			{            		
+			{        	OS_ENTER_CRITICAL();    		
                                       mybox.master=2;
-			             OS_ENTER_CRITICAL();
                       		OSTaskSuspend( APP_TASK_SLAVE3_PRIO  );//挂起主机任状态.
                       		OSTaskSuspend( APP_TASK_COMPUTER_PRIO);
                                    OSTaskSuspend(APP_TASK_Master_PRIO);
@@ -575,10 +578,11 @@ void SETID_task(void *pdata)
 		       }
                else if(id_num<=32&&id_num>=1)
                	{ 
+               				   OS_ENTER_CRITICAL();
+
                                   mybox.master=0;
 				      mybox.myid=id_num;
 			//	HT595_Send_Byte((GREEN_GREEN)|background_light_on);
-				   OS_ENTER_CRITICAL();
 		 OSTaskResume(APP_TASK_SLAVE3_PRIO );//启动主机任务状态
 		 OSTaskResume(APP_TASK_COMPUTER_PRIO );//启动显示任务状态
 		 OSTaskResume(APP_TASK_Master_PRIO );//启动从机任务状态
@@ -589,16 +593,6 @@ void SETID_task(void *pdata)
 		  }
 
 }
-
-
-
-
-
-
-
-
-
-
 
 
 
@@ -620,7 +614,64 @@ void SETID_task(void *pdata)
 * Note(s)     : none.
 *********************************************************************************************************
 */
+void urgent_task(void *pdata)
 
+{
+u8 err;
+
+          while(1)
+          	{
+       	OSSemPend(urgent_sem,0,&err);      	
+if(KEY1==1&&auto_on==0)
+	{   
+
+		  auto_on=1;
+                 if(	status_box.work_status[0]==1)
+		   {while(subswitchABC_onoff(1,0,1)==0)break;}		  //投
+                 if(	status_box.work_status[1]==1)
+		   {while(subswitchABC_onoff(2,0,1)==0)break;}		  //投
+                 if(	status_box.work_status[2]==1)
+		   {while(subswitchABC_onoff(3,0,1)==0)break;}		  //投
+
+ }
+     if(KEY1==0&&auto_on==1)
+ 	{
+
+		auto_on=0;
+                 if(	status_box.work_status[0]==0)
+		   {while(subswitchABC_onoff(1,1,1)==0)break;}		  //投
+                 if(	status_box.work_status[1]==0)
+		   {while(subswitchABC_onoff(2,1,1)==0)break;}		  //投
+                 if(	status_box.work_status[2]==0)
+		   {while(subswitchABC_onoff(3,1,1)==0)break;}		  //投
+
+	 }
+
+
+		  }
+
+}
+
+
+
+
+
+
+/*
+*********************************************************************************************************
+*                                          App_Taskcomputer	 (void		*p_arg )
+*
+* Description : The startup task.  The uC/OS-II ticker should only be initialize once multitasking starts.
+*
+* Argument(s) : p_arg       Argument passed to 'App_TaskStart()' by 'OSTaskCreate()'.
+*
+* Return(s)   : none.
+*
+* Caller(s)   : This is a task.
+*
+* Note(s)     : none.
+*********************************************************************************************************
+*/
 
 u8  subswitchABC_onoff	 (u8 relay,u8 message ,u8 flag)
 
@@ -669,7 +720,7 @@ b=(float32_t)((ADC_Converted_VValue));///  1550
 			   delay_ms(100);
          GPIO_ResetBits(GPIOD,GPIO_Pin_8);
 		 GPIO_ResetBits(GPIOD,GPIO_Pin_9);
-		 		key_A=1;
+				status_box.work_status[0]=0;
 			  max=0;
 			  a=0;
 			  b=0;
@@ -707,7 +758,7 @@ GPIO_ResetBits(GPIOD,GPIO_Pin_8); //PD2->1
 			 delay_ms(100);//脉冲延时
 		 GPIO_ResetBits(GPIOD,GPIO_Pin_9);
 		 GPIO_ResetBits(GPIOD,GPIO_Pin_8);
-		 		key_A=0;
+				status_box.work_status[0]=1;
 				return 1;
 		
 		   
@@ -756,7 +807,7 @@ b=(float32_t)((ADC_Converted_VValue));///  1550
 			   delay_ms(100);
          GPIO_ResetBits(GPIOD,GPIO_Pin_10);
 		 GPIO_ResetBits(GPIOD,GPIO_Pin_11);
-		 		key_A=1;
+				status_box.work_status[1]=0;
 			  max=0;
 			  a=0;
 			  b=0;
@@ -794,7 +845,7 @@ GPIO_ResetBits(GPIOD,GPIO_Pin_8); //PD2->1
 			 delay_ms(100);//脉冲延时
 		 GPIO_ResetBits(GPIOD,GPIO_Pin_10);
 		 GPIO_ResetBits(GPIOD,GPIO_Pin_11);
-		 		key_A=0;
+				status_box.work_status[1]=1;
 				return 1;
 		
 		   
@@ -843,7 +894,7 @@ b=(float32_t)((ADC_Converted_VValue));///  1550
 			   delay_ms(100);
          GPIO_ResetBits(GPIOD,GPIO_Pin_12);
 		 GPIO_ResetBits(GPIOD,GPIO_Pin_13);
-		 		key_A=1;
+				status_box.work_status[2]=0;
 			  max=0;
 			  a=0;
 			  b=0;
@@ -881,7 +932,7 @@ GPIO_ResetBits(GPIOD,GPIO_Pin_8); //PD2->1
 			 delay_ms(100);//脉冲延时
 		 GPIO_ResetBits(GPIOD,GPIO_Pin_12);
 		 GPIO_ResetBits(GPIOD,GPIO_Pin_13);
-		 		key_A=0;
+		 				status_box.work_status[2]=1;
 				return 1;
 		
 		   
@@ -935,7 +986,7 @@ RS485_Init(9600);
 
 
 /*************************TIME*******************************/
-	TIM4_Int_Init(9999*2,7199);//10Khz的计数频率，计数10K次为1000ms 
+	TIM3_Int_Init(9999,7199);//10Khz的计数频率，计数10K次为1000ms 
 /************************************************************/
 
 
@@ -1518,7 +1569,8 @@ return 1;
   #endif
 
 
-
+if(auto_on==1)
+  	{
 if(tx_r485[5]==CONTROL)
 
 {
@@ -1546,6 +1598,7 @@ if(tx_r485[4]==1)
    
 }
 
+  	}
 return 0;
 
 }
@@ -1663,13 +1716,12 @@ void initmybox()//初始化自身信息
 {  	 
   
   mybox.master=0;
- mybox.start='&';
+  mybox.myid=AT24CXX_ReadOneByte(0x0010);
  mybox.source=0;
  mybox.destination=0;
  mybox.send=0;
  mybox.relay=0;
  mybox.message=0;
- mybox.end='*';	
 
 /*
 status_box.myid=1;
@@ -1685,15 +1737,15 @@ status_box.work_time[2]=0;
 */
 }
 
-void set_now_mystatus(u8 myid,u8 size_1,u8 size_2,u8 size_3)
+void set_now_mystatus(u8 myid,u8 size_1,u8 size_2,u8 size_3,u8 work_status_1 ,u8 work_status_2,u8 work_status_3)
  {
 status_box.myid=myid;
 status_box.size[0]=size_1;
 status_box.size[1]=size_2;
 status_box.size[2]=size_3;
-//status_box.work_status[0]=work_status_1;
-//status_box.work_status[1]=work_status_2;
-//status_box.work_status[2]=work_status_3;
+status_box.work_status[0]=work_status_1;
+status_box.work_status[1]=work_status_2;
+status_box.work_status[2]=work_status_3;
 
  }
 
@@ -3785,43 +3837,49 @@ for(i=slave_comm[6];i<slave_comm[12]-1;i++)
 TIME_4
 
 **********************************************************************/
- void TIM4_Int_Init(u16 arr,u16 psc)
+ void TIM3_Int_Init(u16 arr,u16 psc)
 
 {
     TIM_TimeBaseInitTypeDef  TIM_TimeBaseStructure;
 	NVIC_InitTypeDef NVIC_InitStructure;
 
-	RCC_APB1PeriphClockCmd(RCC_APB1Periph_TIM4, ENABLE); //时钟使能
+	RCC_APB1PeriphClockCmd(RCC_APB1Periph_TIM3, ENABLE); //时钟使能
 	
 	//定时器TIM4初始化
 	TIM_TimeBaseStructure.TIM_Period = arr; //设置在下一个更新事件装入活动的自动重装载寄存器周期的值	
 	TIM_TimeBaseStructure.TIM_Prescaler =psc; //设置用来作为TIMx时钟频率除数的预分频值
 	TIM_TimeBaseStructure.TIM_ClockDivision = TIM_CKD_DIV1; //设置时钟分割:TDTS = Tck_tim
 	TIM_TimeBaseStructure.TIM_CounterMode = TIM_CounterMode_Up;  //TIM向上计数模式
-	TIM_TimeBaseInit(TIM4, &TIM_TimeBaseStructure); //根据指定的参数初始化TIMx的时间基数单位
+	TIM_TimeBaseInit(TIM3, &TIM_TimeBaseStructure); //根据指定的参数初始化TIMx的时间基数单位
  
-	TIM_ITConfig(TIM4,TIM_IT_Update,ENABLE ); //使能指定的TIM4中断,允许更新中断
+	TIM_ITConfig(TIM3,TIM_IT_Update,ENABLE ); //使能指定的TIM4中断,允许更新中断
 
 	//中断优先级NVIC设置
-	NVIC_InitStructure.NVIC_IRQChannel = TIM4_IRQn;  //TIM4中断
-	NVIC_InitStructure.NVIC_IRQChannelPreemptionPriority = 0;  //先占优先级0级
-	NVIC_InitStructure.NVIC_IRQChannelSubPriority = 3;  //从优先级3级
+			NVIC_PriorityGroupConfig(NVIC_PriorityGroup_2);	//设置NVIC中断分组2:2位抢占优先级，2位响应优先级
+	NVIC_InitStructure.NVIC_IRQChannel = TIM3_IRQn;  //TIM4中断
+	NVIC_InitStructure.NVIC_IRQChannelPreemptionPriority =1;  //先占优先级0级
+	NVIC_InitStructure.NVIC_IRQChannelSubPriority = 1;  //从优先级3级
 	NVIC_InitStructure.NVIC_IRQChannelCmd = ENABLE; //IRQ通道被使能
 	NVIC_Init(&NVIC_InitStructure);  //初始化NVIC寄存器
 
 
-	TIM_Cmd(TIM4, ENABLE);  //使能TIMx					 
+	TIM_Cmd(TIM3, ENABLE);  //使能TIMx					 
 }
 void turn_master_id(u8 id)//改变当前整个系统中主机的ID号
 {
    u8 flag=0;
+          OS_CPU_SR cpu_sr=0;  	    	
+ 
 	{ 
 	  flag=cont;
       if(id==(flag)){
 	  	   order_trans_rs485(mybox.myid,0,0,0,0,CPT_LL);
 	//delay_time(2);
+		OS_ENTER_CRITICAL();    		
          mybox.master=1;
 	    OSTaskResume(APP_TASK_Master_PRIO);
+	OS_EXIT_CRITICAL();
+	
 		cont=1;
 	  }
 	 //  LED1=!LED1;
@@ -3829,12 +3887,12 @@ void turn_master_id(u8 id)//改变当前整个系统中主机的ID号
       }
    }
 
- void TIM4_IRQHandler(void)   //TIM4中断
+ void TIM3_IRQHandler(void)   //TIM3中断
 {	 
 	OSIntEnter();   
-	if (TIM_GetITStatus(TIM4, TIM_IT_Update) != RESET)  //检查TIM4更新中断发生与否
+	if (TIM_GetITStatus(TIM3, TIM_IT_Update) != RESET)  //检查TIM4更新中断发生与否
 		{	  
-		TIM_ClearITPendingBit(TIM4, TIM_IT_Update  );  //清除TIMx更新中断标志
+		TIM_ClearITPendingBit(TIM3, TIM_IT_Update  );  //清除TIMx更新中断标志
 	if(mybox.master==0)	
 		{
 		
@@ -3851,6 +3909,82 @@ void turn_master_id(u8 id)//改变当前整个系统中主机的ID号
 	   	OSIntExit();  
 
  	}
+
+
+/******************************************************/
+void EXTI_Configuration(void)//初始化函数
+{
+	GPIO_InitTypeDef GPIO_InitStructure;
+	EXTI_InitTypeDef EXTI_InitStructure;
+	NVIC_InitTypeDef NVIC_InitStructure;
+	
+	//打开时钟
+	 RCC_AHB1PeriphClockCmd(RCC_AHB1Periph_GPIOA, ENABLE);
+  RCC_APB2PeriphClockCmd(RCC_APB2Periph_SYSCFG, ENABLE);
+	
+	 GPIO_InitStructure.GPIO_Mode = GPIO_Mode_IN;
+  GPIO_InitStructure.GPIO_PuPd = GPIO_PuPd_NOPULL;
+  GPIO_InitStructure.GPIO_Pin = GPIO_Pin_12;
+  GPIO_Init(GPIOA, &GPIO_InitStructure);
+	 		
+	//使能外部中断复用时钟
+	
+	//映射GPIOE的Pin0至EXTILine0
+	  SYSCFG_EXTILineConfig(EXTI_PortSourceGPIOA, EXTI_PinSource12);
+
+
+
+
+EXTI_InitStructure.EXTI_Line = EXTI_Line12;
+  EXTI_InitStructure.EXTI_Mode = EXTI_Mode_Interrupt;
+  EXTI_InitStructure.EXTI_Trigger = EXTI_Trigger_Rising_Falling;  
+  EXTI_InitStructure.EXTI_LineCmd = ENABLE;
+  EXTI_Init(&EXTI_InitStructure);
+	
+	//NVIC_PriorityGroupConfig(NVIC_PriorityGroup_4);         	//嵌套分组为组0
+	NVIC_InitStructure.NVIC_IRQChannel = EXTI15_10_IRQn;      	//中断通道为通道10
+	NVIC_InitStructure.NVIC_IRQChannelPreemptionPriority = 1;   //抢断优先级为0
+	NVIC_InitStructure.NVIC_IRQChannelSubPriority =1;    		//响应优先级为0
+	NVIC_InitStructure.NVIC_IRQChannelCmd = ENABLE;     		//开中断
+	NVIC_Init(&NVIC_InitStructure);
+	 EXTI_GenerateSWInterrupt(EXTI_Line12);
+
+}
+
+
+void EXTI15_10_IRQHandler(void)
+{
+	OSIntEnter();   
+
+  if(EXTI_GetITStatus(EXTI_Line12) != RESET)
+	
+	{
+
+	OSSemPost(urgent_sem);
+
+	}
+      EXTI_ClearITPendingBit(EXTI_Line12);
+
+	   	OSIntExit();  
+
+}
+
+/*************************************************/
+void LIGHT(u8 status_1,u8 status_2,u8 status_3)
+{
+if(status_1==0&&status_2==1)HT595_Send_Byte((GREEN_RED)|background_light_on);
+if(status_1==1&&status_2==0)HT595_Send_Byte((RED_GREEN)|background_light_on);
+if(status_1==0&&status_2==0)HT595_Send_Byte((GREEN_GREEN)|background_light_on);
+if(status_1==1&&status_2==1)HT595_Send_Byte((RED_RED)|background_light_on);
+if(status_1==2&&status_2==2)HT595_Send_Byte((YELLOW_YELLOW)|background_light_on);
+
+}
+
+/*************************************************/
+
+
+
+
 #ifdef  USE_FULL_ASSERT
 
 /**

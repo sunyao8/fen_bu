@@ -14,7 +14,8 @@
 
 //#define KEY0 PAin(11)   	//PA11为显示板设置按键
 #define KEY0 GPIO_ReadInputDataBit(GPIOA,GPIO_Pin_11)
-#define KEY1 PAin(12)	//PA12为手动投切开关
+#define KEY1 GPIO_ReadInputDataBit(GPIOA,GPIO_Pin_12)
+
 
 void KEY_Init(void);//IO初始化
 void key_idset(void);					    
