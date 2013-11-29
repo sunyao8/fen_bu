@@ -756,16 +756,6 @@
           </Files>
         </Group>
         <Group>
-          <GroupName>uC-OS-II/LIB/Port</GroupName>
-          <Files>
-            <File>
-              <FileName>lib_mem_a.asm</FileName>
-              <FileType>2</FileType>
-              <FilePath>..\User\uC-LIB\Ports\RealView\lib_mem_a.asm</FilePath>
-            </File>
-          </Files>
-        </Group>
-        <Group>
           <GroupName>uC-OS-II/VIEW/Source</GroupName>
           <Files>
             <File>
@@ -847,6 +837,16 @@
               <FileName>LCDConf.h</FileName>
               <FileType>5</FileType>
               <FilePath>..\User\uCGUI\Config\LCDConf.h</FilePath>
+            </File>
+          </Files>
+        </Group>
+        <Group>
+          <GroupName>uC-OS-II/LIB/Port</GroupName>
+          <Files>
+            <File>
+              <FileName>lib_mem_a.asm</FileName>
+              <FileType>2</FileType>
+              <FilePath>..\User\uC-LIB\Ports\RealView\lib_mem_a.asm</FilePath>
             </File>
           </Files>
         </Group>

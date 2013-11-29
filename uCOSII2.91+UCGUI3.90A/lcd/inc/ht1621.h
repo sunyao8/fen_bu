@@ -37,12 +37,15 @@
 	//ht1621数据，74hc595数据输入时钟端
 #define RCLK_595_0 GPIO_ResetBits(GPIOB, GPIO_Pin_9)	//74hc595输出锁存器锁存时钟端
 
-
-#define GREEN_RED 0X73
-#define RED_GREEN 0X6D
-#define RED_RED 0X75
-#define GREEN_GREEN 0X6B
-#define YELLOW_YELLOW 0X61
+#define RED_RED_GREEN 0X35
+#define RED_GREEN_RED 0X4D
+#define GREEN_RED_RED 0X53
+#define GREEN_RED_GREEN 0X33
+#define RED_GREEN_GREEN 0X2D
+#define GREEN_GREEN_RED 0X4B
+#define GREEN_GREEN_GREEN 0X2B
+#define RED_RED_RED 0X55
+#define YELLOW_YELLOW_YELLOW 0X01
 #define OFF_OFF 0X7F
 #define background_light_on 0X80
 

@@ -1187,27 +1187,6 @@
   </Group>
 
   <Group>
-    <GroupName>uC-OS-II/LIB/Port</GroupName>
-    <tvExp>0</tvExp>
-    <tvExpOptDlg>0</tvExpOptDlg>
-    <cbSel>0</cbSel>
-    <File>
-      <GroupNumber>10</GroupNumber>
-      <FileNumber>66</FileNumber>
-      <FileType>2</FileType>
-      <tvExp>0</tvExp>
-      <Focus>0</Focus>
-      <ColumnNumber>0</ColumnNumber>
-      <tvExpOptDlg>0</tvExpOptDlg>
-      <TopLine>0</TopLine>
-      <CurrentLine>0</CurrentLine>
-      <bDave2>0</bDave2>
-      <PathWithFileName>..\User\uC-LIB\Ports\RealView\lib_mem_a.asm</PathWithFileName>
-      <FilenameWithoutPath>lib_mem_a.asm</FilenameWithoutPath>
-    </File>
-  </Group>
-
-  <Group>
     <GroupName>uC-OS-II/VIEW/Source</GroupName>
     <tvExp>0</tvExp>
     <tvExpOptDlg>0</tvExpOptDlg>
@@ -1290,8 +1269,8 @@
       <Focus>0</Focus>
       <ColumnNumber>0</ColumnNumber>
       <tvExpOptDlg>0</tvExpOptDlg>
-      <TopLine>0</TopLine>
-      <CurrentLine>0</CurrentLine>
+      <TopLine>180</TopLine>
+      <CurrentLine>193</CurrentLine>
       <bDave2>0</bDave2>
       <PathWithFileName>..\User\uCGUI\GUI_X_uCOS.c</PathWithFileName>
       <FilenameWithoutPath>GUI_X_uCOS.c</FilenameWithoutPath>
@@ -1407,6 +1386,27 @@
       <bDave2>0</bDave2>
       <PathWithFileName>..\User\uCGUI\Config\LCDConf.h</PathWithFileName>
       <FilenameWithoutPath>LCDConf.h</FilenameWithoutPath>
+    </File>
+  </Group>
+
+  <Group>
+    <GroupName>uC-OS-II/LIB/Port</GroupName>
+    <tvExp>0</tvExp>
+    <tvExpOptDlg>0</tvExpOptDlg>
+    <cbSel>0</cbSel>
+    <File>
+      <GroupNumber>10</GroupNumber>
+      <FileNumber>66</FileNumber>
+      <FileType>2</FileType>
+      <tvExp>0</tvExp>
+      <Focus>0</Focus>
+      <ColumnNumber>0</ColumnNumber>
+      <tvExpOptDlg>0</tvExpOptDlg>
+      <TopLine>0</TopLine>
+      <CurrentLine>0</CurrentLine>
+      <bDave2>0</bDave2>
+      <PathWithFileName>..\User\uC-LIB\Ports\RealView\lib_mem_a.asm</PathWithFileName>
+      <FilenameWithoutPath>lib_mem_a.asm</FilenameWithoutPath>
     </File>
   </Group>
 

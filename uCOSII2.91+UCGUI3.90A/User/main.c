@@ -71,7 +71,7 @@ OS_STK urgent_TASK_STK[urgent_STK_SIZE];
  typedef struct  
 { 
   u8 dis_comm;//dis=0 comm=1
-  u8 myid;      //本电容箱ID号
+  u8 myid[3];      //本电容箱ID号
   u8 size[3];      //容量单位千法
   u8 work_status[3];    //工作状态 1 为投入工作；0 为没有工作
 }status_dis_node;
@@ -162,7 +162,7 @@ u8 RS485_RX_CNT=0;
 
 
  typedef struct  
-{ 
+{ u8 start;
   u8 myid;      //本电容箱ID号
   u8 source;
   u8 destination; //目的电容箱
@@ -170,6 +170,7 @@ u8 RS485_RX_CNT=0;
   u8 relay;    //第几组电容器
   u8 message;     //开关信息
   u8 master;      //主机令牌
+u8 end;
 }box;
 static box mybox;
  typedef struct  
@@ -211,6 +212,8 @@ void EXTI_Configuration(void);//初始化函数
 u16 var=0;
 
 u8  subswitchABC_onoff	 (u8 relay,u8 message ,u8 flag);
+void LIGHT_backligt_on(u8 status_1,u8 status_2,u8 status_3);
+void LIGHT_backligt_off(u8 status_1,u8 status_2,u8 status_3);
 
 /***********************************end*******************************************************/
 
@@ -226,6 +229,8 @@ void delay_time(u32 time);
 
 /************************************TIME_end******************************************************/
 
+void init_Queue_dis(status_dis_node *dis_list,u8 *slave_dis);
+void change_Queue_dis(u8 abc,u8 Level, status_dis_node *dis_list,u8 *slave_dis);
 
 
 /************************************MAster data structure*******************/
@@ -258,7 +263,7 @@ u8 phase_flag=0;
 u16 T=10;
 u8 RT_FLAG=3;
 u16 scan_init=20;
-
+u8 MASTER=0;
 INT32S main (void)
 {
 CPU_INT08U  os_err;
@@ -379,7 +384,7 @@ urgent_sem=OSSemCreate(0);
 	 	OSTaskCreate(App_TaskMaster,(void *)0,(OS_STK*)&App_TaskMasterStk[APP_TASK_Master_STK_SIZE-1],APP_TASK_Master_PRIO);	 				   
 		 OSTaskCreate(App_Taskslave_three,(void *)0,(OS_STK*)&App_TaskSLAVE3Stk[APP_TASK_SLAVE3_STK_SIZE-1],APP_TASK_SLAVE3_PRIO);		 
 		 OSTaskCreate(SETID_task,(void *)0,(OS_STK*)&SETID_TASK_STK[SETID_STK_SIZE-1],SETID_TASK_PRIO);		 
-  OSTaskCreate(urgent_task,(void *)0,(OS_STK*)&urgent_TASK_STK[urgent_STK_SIZE-1],urgent_TASK_PRIO);
+OSTaskCreate(urgent_task,(void *)0,(OS_STK*)&urgent_TASK_STK[urgent_STK_SIZE-1],urgent_TASK_PRIO);
 
      }
 
@@ -405,14 +410,14 @@ static  void  App_TaskMaster(void		*p_arg )
 	for(;;)
 		{
 
- if(mybox.master==0)
+ if(MASTER==0)
 		 	{
 			OSTaskSuspend(APP_TASK_Master_PRIO);//挂起从机任务
 		        }
  
 
 
- if(mybox.master==1)
+ if(MASTER==1)
  	{
  	
 hguestnum=111;
@@ -453,7 +458,7 @@ static  void  App_Taskslave_three(void *p_arg)
    // OSStatInit();                                            /* Determine CPU capacity.                              */
 	for(;;)
    	{	 
-        if(mybox.master==1)
+        if(MASTER==1)
 		 	{
 			OSTaskSuspend(APP_TASK_SLAVE3_PRIO);//挂起从机任务
 		        }	 		
@@ -518,7 +523,7 @@ u8 err;
 static status_comm_node comm_list_1[33];
 static status_comm_node comm_list_2[33];
 
-static  u8 slave_dis[1];
+static  u8 slave_dis[20];
 static  u8 slave_comm[20];
 
 for(;;)
@@ -530,6 +535,8 @@ for(;;)
  scanf_slave_machine(dis_list,comm_list_1,comm_list_2,slave_dis,slave_comm);
  init_Queue(dis_list,comm_list_1,slave_dis,slave_comm,1);
   init_Queue(dis_list,comm_list_2,slave_dis,slave_comm,2);
+  init_Queue_dis(dis_list,slave_dis);
+
  computer_gonglu(dis_list,comm_list_1,comm_list_2,slave_dis,slave_comm);
 
 
@@ -568,7 +575,7 @@ void SETID_task(void *pdata)
 	///	  id_num=1;//测试开发板使用
 		if(id_num<1||id_num>33)
 			{        	OS_ENTER_CRITICAL();    		
-                                      mybox.master=2;
+                                   MASTER=2;
                       		OSTaskSuspend( APP_TASK_SLAVE3_PRIO  );//挂起主机任状态.
                       		OSTaskSuspend( APP_TASK_COMPUTER_PRIO);
                                    OSTaskSuspend(APP_TASK_Master_PRIO);
@@ -580,7 +587,7 @@ void SETID_task(void *pdata)
                	{ 
                				   OS_ENTER_CRITICAL();
 
-                                  mybox.master=0;
+                                  MASTER=0;
 				      mybox.myid=id_num;
 			//	HT595_Send_Byte((GREEN_GREEN)|background_light_on);
 		 OSTaskResume(APP_TASK_SLAVE3_PRIO );//启动主机任务状态
@@ -721,6 +728,8 @@ b=(float32_t)((ADC_Converted_VValue));///  1550
          GPIO_ResetBits(GPIOD,GPIO_Pin_8);
 		 GPIO_ResetBits(GPIOD,GPIO_Pin_9);
 				status_box.work_status[0]=0;
+ LIGHT_backligt_on(status_box.work_status[0],status_box.work_status[1],status_box.work_status[2]);
+				
 			  max=0;
 			  a=0;
 			  b=0;
@@ -759,6 +768,7 @@ GPIO_ResetBits(GPIOD,GPIO_Pin_8); //PD2->1
 		 GPIO_ResetBits(GPIOD,GPIO_Pin_9);
 		 GPIO_ResetBits(GPIOD,GPIO_Pin_8);
 				status_box.work_status[0]=1;
+		 LIGHT_backligt_on(status_box.work_status[0],status_box.work_status[1],status_box.work_status[2]);		
 				return 1;
 		
 		   
@@ -808,6 +818,7 @@ b=(float32_t)((ADC_Converted_VValue));///  1550
          GPIO_ResetBits(GPIOD,GPIO_Pin_10);
 		 GPIO_ResetBits(GPIOD,GPIO_Pin_11);
 				status_box.work_status[1]=0;
+			 LIGHT_backligt_on(status_box.work_status[0],status_box.work_status[1],status_box.work_status[2]);	
 			  max=0;
 			  a=0;
 			  b=0;
@@ -846,6 +857,7 @@ GPIO_ResetBits(GPIOD,GPIO_Pin_8); //PD2->1
 		 GPIO_ResetBits(GPIOD,GPIO_Pin_10);
 		 GPIO_ResetBits(GPIOD,GPIO_Pin_11);
 				status_box.work_status[1]=1;
+	 LIGHT_backligt_on(status_box.work_status[0],status_box.work_status[1],status_box.work_status[2]);			
 				return 1;
 		
 		   
@@ -895,6 +907,7 @@ b=(float32_t)((ADC_Converted_VValue));///  1550
          GPIO_ResetBits(GPIOD,GPIO_Pin_12);
 		 GPIO_ResetBits(GPIOD,GPIO_Pin_13);
 				status_box.work_status[2]=0;
+ LIGHT_backligt_on(status_box.work_status[0],status_box.work_status[1],status_box.work_status[2]);
 			  max=0;
 			  a=0;
 			  b=0;
@@ -933,6 +946,7 @@ GPIO_ResetBits(GPIOD,GPIO_Pin_8); //PD2->1
 		 GPIO_ResetBits(GPIOD,GPIO_Pin_12);
 		 GPIO_ResetBits(GPIOD,GPIO_Pin_13);
 		 				status_box.work_status[2]=1;
+ LIGHT_backligt_on(status_box.work_status[0],status_box.work_status[1],status_box.work_status[2]);
 				return 1;
 		
 		   
@@ -986,7 +1000,7 @@ RS485_Init(9600);
 
 
 /*************************TIME*******************************/
-	TIM3_Int_Init(9999,7199);//10Khz的计数频率，计数10K次为1000ms 
+	TIM3_Int_Init(9999*2,7199);//10Khz的计数频率，计数10K次为1000ms 
 /************************************************************/
 
 
@@ -1755,21 +1769,27 @@ if(dis_comm==0)
 {
 if(relay==1)
         {
-       dis_list[count].myid=id;
+       dis_list[count].myid[0]=id;
+	dis_list[count].myid[1]=id;
+       dis_list[count].myid[2]=id;
    	   dis_list[count].size[0]=size;
-  // 	   dis_list[count].work_status[0]=work_status;
+   	   dis_list[count].work_status[0]=work_status;
        }
 if(relay==2)
         {
-       dis_list[count].myid=id;
+               dis_list[count].myid[0]=id;
+	dis_list[count].myid[1]=id;
+       dis_list[count].myid[2]=id;
    	   dis_list[count].size[1]=size;
-   //	   dis_list[count].work_status[1]=work_status;
+   	   dis_list[count].work_status[1]=work_status;
        }
 if(relay==3)
         {
-       dis_list[count].myid=id;
+               dis_list[count].myid[0]=id;
+	dis_list[count].myid[1]=id;
+       dis_list[count].myid[2]=id;
    	   dis_list[count].size[2]=size;
- //  	   dis_list[count].work_status[2]=work_status;
+   	   dis_list[count].work_status[2]=work_status;
        }
 }
 if(dis_comm==1)
@@ -2951,12 +2971,15 @@ if(1)
 if(gonglvshishu_A<93&&L_C_flag_A==1)
 {
 if(slave_dis[0]>0)
+      if(wugongkvar_A>=6)	
 {
-for(i=1;i<=slave_dis[0];i++)
-if(dis_list[i].size[0]<wugongkvar_A&&dis_list[i].work_status[0]==0)
+for(i=slave_dis[3];i<=slave_dis[9]-1;i++)
+if(dis_list[i].work_status[0]==0)
 {
-computer_trans_rs485(mybox.myid,dis_list[i].myid,1,1,1,CONTROL);
+computer_trans_rs485(mybox.myid,dis_list[i].myid[0],1,1,1,CONTROL);
 dis_list[i].work_status[0]=1;
+change_Queue_dis(0,6,dis_list,slave_dis);
+
 //delay_ms(1000);
 return 0;
 }
@@ -2964,16 +2987,82 @@ return 0;
 }
 
 
+if(slave_dis[0]>0)
+      if(wugongkvar_A>=3)	
+{
+for(i=slave_dis[2];i<=slave_dis[8]-1;i++)
+if(dis_list[i].work_status[0]==0)
+{
+computer_trans_rs485(mybox.myid,dis_list[i].myid[0],1,1,1,CONTROL);
+dis_list[i].work_status[0]=1;
+change_Queue_dis(0,3,dis_list,slave_dis);
+
+//delay_ms(1000);
+return 0;
+}
+
+}
+
+if(slave_dis[0]>0)
+      if(wugongkvar_A>=1)	
+{
+for(i=slave_dis[1];i<=slave_dis[7]-1;i++)
+if(dis_list[i].work_status[0]==0)
+{
+computer_trans_rs485(mybox.myid,dis_list[i].myid[0],1,1,1,CONTROL);
+dis_list[i].work_status[0]=1;
+change_Queue_dis(0,1,dis_list,slave_dis);
+
+//delay_ms(1000);
+return 0;
+}
+
+}	  
 }
 if(gonglvshishu_B<93&&L_C_flag_A==1)
 {
 if(slave_dis[0]>0)
+      if(wugongkvar_B>=6)	
 {
-for(i=1;i<=slave_dis[0];i++)
-if(dis_list[i].size[1]<wugongkvar_B&&dis_list[i].work_status[1]==0)
+for(i=slave_dis[6];i<=slave_dis[12]-1;i++)
+if(dis_list[i].work_status[1]==0)
 {
-computer_trans_rs485(mybox.myid,dis_list[i].myid,1,2,1,CONTROL);
+computer_trans_rs485(mybox.myid,dis_list[i].myid[1],1,2,1,CONTROL);
 dis_list[i].work_status[1]=1;
+change_Queue_dis(1,6,dis_list,slave_dis);
+
+//delay_ms(1000);
+return 0;
+}
+
+}
+
+if(slave_dis[0]>0)
+      if(wugongkvar_B>=3)	
+{
+for(i=slave_dis[5];i<=slave_dis[11]-1;i++)
+if(dis_list[i].work_status[1]==0)
+{
+computer_trans_rs485(mybox.myid,dis_list[i].myid[1],1,2,1,CONTROL);
+dis_list[i].work_status[1]=1;
+change_Queue_dis(1,3,dis_list,slave_dis);
+
+//delay_ms(1000);
+return 0;
+}
+
+}
+
+
+if(slave_dis[0]>0)
+      if(wugongkvar_B>=1)	
+{
+for(i=slave_dis[4];i<=slave_dis[10]-1;i++)
+if(dis_list[i].work_status[1]==0)
+{
+computer_trans_rs485(mybox.myid,dis_list[i].myid[1],1,2,1,CONTROL);
+dis_list[i].work_status[1]=1;
+change_Queue_dis(1,1,dis_list,slave_dis);
 
 //delay_ms(1000);
 return 0;
@@ -2988,12 +3077,29 @@ if(gonglvshishu_C<93&&L_C_flag_A==1)
 
 {
 if(slave_dis[0]>0)
+      if(wugongkvar_C>=6)	
 {
-for(i=1;i<=slave_dis[0];i++)
-if(dis_list[i].size[2]<wugongkvar_C&&dis_list[i].work_status[2]==0)
+for(i=slave_dis[17];i<=slave_dis[18]-1;i++)
+if(dis_list[i].work_status[2]==0)
 {
-computer_trans_rs485(mybox.myid,dis_list[i].myid,1,3,1,CONTROL);
+computer_trans_rs485(mybox.myid,dis_list[i].myid[2],1,3,1,CONTROL);
 dis_list[i].work_status[2]=1;
+change_Queue_dis(2,6,dis_list,slave_dis);
+
+//delay_ms(1000);
+return 0;
+}
+
+}
+if(slave_dis[0]>0)
+      if(wugongkvar_C>=3)	
+{
+for(i=slave_dis[15];i<=slave_dis[16]-1;i++)
+if(dis_list[i].work_status[2]==0)
+{
+computer_trans_rs485(mybox.myid,dis_list[i].myid[2],1,3,1,CONTROL);
+dis_list[i].work_status[2]=1;
+change_Queue_dis(2,3,dis_list,slave_dis);
 
 //delay_ms(1000);
 return 0;
@@ -3001,7 +3107,21 @@ return 0;
 
 }
 
+if(slave_dis[0]>0)
+      if(wugongkvar_C>=1)	
+{
+for(i=slave_dis[13];i<=slave_dis[14]-1;i++)
+if(dis_list[i].work_status[2]==0)
+{
+computer_trans_rs485(mybox.myid,dis_list[i].myid[2],1,3,1,CONTROL);
+dis_list[i].work_status[2]=1;
+change_Queue_dis(2,1,dis_list,slave_dis);
 
+//delay_ms(1000);
+return 0;
+}
+
+}
 }
 	
   }
@@ -3009,57 +3129,126 @@ return 0;
 if(1)
 
 {
-if(gonglvshishu_A>=94&&L_C_flag_A==1)
+if(gonglvshishu_A>94&&L_C_flag_A==1)
 {
+
 if(slave_dis[0]>0)
 {
-for(i=1;i<=slave_dis[0];i++)
+for(i=slave_dis[1];i<=slave_dis[7]-1;i++)
 if(dis_list[i].work_status[0]==1)
 {
-computer_trans_rs485(mybox.myid,dis_list[i].myid,1,1,0,CONTROL);
+computer_trans_rs485(mybox.myid,dis_list[i].myid[0],1,1,0,CONTROL);
 dis_list[i].work_status[0]=0;
-//delay_ms(1000);
+return 0;
+}
+
+}	  
+
+if(slave_dis[0]>0)
+{
+for(i=slave_dis[2];i<=slave_dis[8]-1;i++)
+if(dis_list[i].work_status[0]==1)
+{
+computer_trans_rs485(mybox.myid,dis_list[i].myid[0],1,1,0,CONTROL);
+dis_list[i].work_status[0]=0;
 return 0;
 }
 
 }
 
+if(slave_dis[0]>0)
+{
+for(i=slave_dis[3];i<=slave_dis[9]-1;i++)
+if(dis_list[i].work_status[0]==1)
+{
+computer_trans_rs485(mybox.myid,dis_list[i].myid[0],1,1,0,CONTROL);
+dis_list[i].work_status[0]=0;
+return 0;
+}
 
 }
-if(gonglvshishu_B>=94&&L_C_flag_A==1)
+
+}
+if(gonglvshishu_B>94&&L_C_flag_A==1)
 {
 if(slave_dis[0]>0)
 {
-for(i=1;i<=slave_dis[0];i++)
+for(i=slave_dis[4];i<=slave_dis[10]-1;i++)
 if(dis_list[i].work_status[1]==1)
 {
-computer_trans_rs485(mybox.myid,dis_list[i].myid,1,2,0,CONTROL);
+computer_trans_rs485(mybox.myid,dis_list[i].myid[1],1,2,0,CONTROL);
 dis_list[i].work_status[1]=0;
-//delay_ms(1000);
 return 0;
 }
 
 }
 
 
+if(slave_dis[0]>0)
+{
+for(i=slave_dis[5];i<=slave_dis[11]-1;i++)
+if(dis_list[i].work_status[1]==1)
+{
+computer_trans_rs485(mybox.myid,dis_list[i].myid[1],1,2,0,CONTROL);
+dis_list[i].work_status[1]=0;
+return 0;
 }
 
-if(gonglvshishu_C>=94&&L_C_flag_A==1)
+}
+
+if(slave_dis[0]>0)
+{
+for(i=slave_dis[6];i<=slave_dis[12]-1;i++)
+if(dis_list[i].work_status[1]==1)
+{
+computer_trans_rs485(mybox.myid,dis_list[i].myid[1],1,2,0,CONTROL);
+dis_list[i].work_status[1]=0;
+return 0;
+}
+
+}
+
+
+
+}
+
+if(gonglvshishu_C>94&&L_C_flag_A==1)
 
 {
 if(slave_dis[0]>0)
 {
-for(i=1;i<=slave_dis[0];i++)
+for(i=slave_dis[13];i<=slave_dis[14]-1;i++)
 if(dis_list[i].work_status[2]==1)
 {
-computer_trans_rs485(mybox.myid,dis_list[i].myid,1,3,0,CONTROL);
+computer_trans_rs485(mybox.myid,dis_list[i].myid[2],1,3,0,CONTROL);
 dis_list[i].work_status[2]=0;
-//delay_ms(1000);
 return 0;
 }
 
 }
 
+if(slave_dis[0]>0)
+{
+for(i=slave_dis[15];i<=slave_dis[16]-1;i++)
+if(dis_list[i].work_status[2]==1)
+{
+computer_trans_rs485(mybox.myid,dis_list[i].myid[2],1,3,0,CONTROL);
+dis_list[i].work_status[2]=0;
+return 0;
+}
+
+}
+if(slave_dis[0]>0)
+{
+for(i=slave_dis[17];i<=slave_dis[18]-1;i++)
+if(dis_list[i].work_status[2]==1)
+{
+computer_trans_rs485(mybox.myid,dis_list[i].myid[2],1,3,0,CONTROL);
+dis_list[i].work_status[2]=0;
+return 0;
+}
+
+}
 
 }
 	
@@ -3164,36 +3353,82 @@ return 0 ;
        }
 if(1)
 {
+/************************A*****************************/
+
+{
 if(slave_dis[0]>0)
 {
-if(L_C_flag_A==0)
-{
-if(slave_dis[0]>0)
-{
-for(i=1;i<=slave_dis[0];i++)
+for(i=slave_dis[3];i<=slave_dis[9]-1;i++)
 if(dis_list[i].work_status[0]==1)
 {
-computer_trans_rs485(mybox.myid,dis_list[i].myid,1,1,0,CONTROL);
+computer_trans_rs485(mybox.myid,dis_list[i].myid[0],1,1,0,CONTROL);
 dis_list[i].work_status[0]=0;
-//delay_ms(1000);
-break;
+return 0;
 }
 
 }
 
 
+if(slave_dis[0]>0)
+{
+for(i=slave_dis[2];i<=slave_dis[8]-1;i++)
+if(dis_list[i].work_status[0]==1)
+{
+computer_trans_rs485(mybox.myid,dis_list[i].myid[0],1,1,0,CONTROL);
+dis_list[i].work_status[0]=0;
+return 0;
 }
-if(L_C_flag_A==0)
+
+}
+
+if(slave_dis[0]>0)
+{
+for(i=slave_dis[1];i<=slave_dis[7]-1;i++)
+if(dis_list[i].work_status[0]==1)
+{
+computer_trans_rs485(mybox.myid,dis_list[i].myid[0],1,1,0,CONTROL);
+dis_list[i].work_status[0]=0;
+return 0;
+}
+
+}	  
+}
+
+/************************B*****************************/
 {
 if(slave_dis[0]>0)
 {
-for(i=1;i<=slave_dis[0];i++)
+for(i=slave_dis[6];i<=slave_dis[12]-1;i++)
 if(dis_list[i].work_status[1]==1)
 {
-computer_trans_rs485(mybox.myid,dis_list[i].myid,1,2,0,CONTROL);
+computer_trans_rs485(mybox.myid,dis_list[i].myid[1],1,2,0,CONTROL);
 dis_list[i].work_status[1]=0;
-//delay_ms(1000);
-break;
+return 0;
+}
+
+}
+
+if(slave_dis[0]>0)
+{
+for(i=slave_dis[5];i<=slave_dis[11]-1;i++)
+if(dis_list[i].work_status[1]==1)
+{
+computer_trans_rs485(mybox.myid,dis_list[i].myid[1],1,2,0,CONTROL);
+dis_list[i].work_status[1]=0;
+return 0;
+}
+
+}
+
+
+if(slave_dis[0]>0)
+{
+for(i=slave_dis[4];i<=slave_dis[10]-1;i++)
+if(dis_list[i].work_status[1]==1)
+{
+computer_trans_rs485(mybox.myid,dis_list[i].myid[1],1,2,0,CONTROL);
+dis_list[i].work_status[1]=0;
+return 0;
 }
 
 }
@@ -3201,28 +3436,46 @@ break;
 
 }
 
-if(L_C_flag_A==0)
+/************************C*****************************/
 
 {
 if(slave_dis[0]>0)
 {
-for(i=1;i<=slave_dis[0];i++)
+for(i=slave_dis[17];i<=slave_dis[18]-1;i++)
 if(dis_list[i].work_status[2]==1)
 {
-computer_trans_rs485(mybox.myid,dis_list[i].myid,1,3,0,CONTROL);
+computer_trans_rs485(mybox.myid,dis_list[i].myid[2],1,3,0,CONTROL);
 dis_list[i].work_status[2]=0;
-//delay_ms(1000);
-break;
+return 0;
+}
+
+}
+if(slave_dis[0]>0)
+{
+for(i=slave_dis[15];i<=slave_dis[16]-1;i++)
+if(dis_list[i].work_status[2]==1)
+{
+computer_trans_rs485(mybox.myid,dis_list[i].myid[2],1,3,0,CONTROL);
+dis_list[i].work_status[2]=0;
+return 0;
 }
 
 }
 
+if(slave_dis[0]>0)
+{
+for(i=slave_dis[13];i<=slave_dis[14]-1;i++)
+if(dis_list[i].work_status[2]==1)
+{
+computer_trans_rs485(mybox.myid,dis_list[i].myid[2],1,3,0,CONTROL);
+dis_list[i].work_status[2]=0;
+return 0;
+}
 
+}
 }
 	
   }
-
-}
 
 }
 }
@@ -3524,6 +3777,301 @@ if(i>slave_comm[0]){slave_comm[12]=slave_comm[0]+1;}
 }
 /********************************/
 }	
+
+
+void init_Queue_dis(status_dis_node *dis_list,u8 *slave_dis)
+
+{
+
+u8 i,j;
+
+u8 t=0;
+u8 g=0;
+u8 s=0;
+{
+for(i=2;i<=slave_dis[0];i++)
+{
+  
+          t=dis_list[i].size[0];
+	   g=dis_list[i].myid[0];
+	   s=	dis_list[i].work_status[0];
+	   for(j=i-1;j>=1;j--)
+	   	{
+	   	if(t<dis_list[j].size[0])
+	   		{
+	   	dis_list[j+1].myid[0]=dis_list[j].myid[0];
+               dis_list[j+1].size[0]=dis_list[j].size[0];
+		 	dis_list[j+1].work_status[0]=dis_list[j].work_status[0];
+
+	   		}
+		else break;
+		}
+	   dis_list[j+1].myid[0]=g;
+	   dis_list[j+1].size[0]=t;
+            dis_list[j+1].work_status[0]=s;
+}
+for(i=1;i<=slave_dis[0];i++)
+if(dis_list[i].size[0]==1)
+{
+slave_dis[1]=i;
+break;
+}
+if(i>slave_dis[0]){slave_dis[1]=0;slave_dis[7]=0;}
+
+if(slave_dis[1]!=0)
+{
+for(i=slave_dis[1];i<=slave_dis[0];i++)
+if(dis_list[i].size[0]!=1)
+{
+slave_dis[7]=i;
+break;
+}
+if(i>slave_dis[0]){slave_dis[7]=slave_dis[0]+1;}
+
+}
+
+
+for(i=1;i<=slave_dis[0];i++)
+if(dis_list[i].size[0]==3)
+{
+slave_dis[2]=i;
+break;
+}
+if(i>slave_dis[0]){slave_dis[2]=0;slave_dis[8]=0;}
+
+if(slave_dis[2]!=0)
+{
+for(i=slave_dis[2];i<=slave_dis[0];i++)
+if(dis_list[i].size[0]!=3)
+{
+slave_dis[8]=i;
+break;
+}
+if(i>slave_dis[0]){slave_dis[8]=slave_dis[0]+1;}
+
+}
+
+
+
+for(i=1;i<=slave_dis[0];i++)
+if(dis_list[i].size[0]==6)
+{
+slave_dis[3]=i;
+break;
+}
+if(i>slave_dis[0]){slave_dis[3]=0;slave_dis[9]=0;}
+if(slave_dis[3]!=0)
+{
+for(i=slave_dis[3];i<=slave_dis[0];i++)
+if(dis_list[i].size[0]!=6)
+{
+slave_dis[9]=i;
+break;
+}
+if(i>slave_dis[0]){slave_dis[9]=slave_dis[0]+1;}
+
+}
+
+
+
+
+}
+
+
+/***************************************************/
+{
+for(i=2;i<=slave_dis[0];i++)
+{
+  
+          t=dis_list[i].size[1];
+	   g=dis_list[i].myid[1];//设置myid两个
+	   s=	dis_list[i].work_status[1];
+
+	   for(j=i-1;j>=1;j--)
+	   	{
+	   	if(t<dis_list[j].size[1])
+	   		{
+		dis_list[j+1].myid[1]=dis_list[j].myid[1];
+               dis_list[j+1].size[1]=dis_list[j].size[1];
+		 dis_list[j+1].work_status[1]=dis_list[j].work_status[1];
+
+	   		}
+		else break;
+	       }
+	   dis_list[j+1].myid[1]=g;
+	   dis_list[j+1].size[1]=t;
+            dis_list[j+1].work_status[1]=s;
+
+
+}
+
+
+for(i=1;i<=slave_dis[0];i++)
+if(dis_list[i].size[1]==1)
+{
+slave_dis[4]=i;
+break;
+}
+if(i>slave_dis[0]){slave_dis[4]=0;slave_dis[10]=0;}
+
+if(slave_dis[4]!=0)
+{
+for(i=slave_dis[4];i<=slave_dis[0];i++)
+if(dis_list[i].size[1]!=1)
+{
+slave_dis[10]=i;
+break;
+}
+if(i>slave_dis[0]){slave_dis[10]=slave_dis[0]+1;}
+
+}
+
+
+
+for(i=1;i<=slave_dis[0];i++)
+if(dis_list[i].size[1]==3)
+{
+slave_dis[5]=i;
+break;
+}
+if(i>slave_dis[0]){slave_dis[5]=0;slave_dis[11]=0;}
+
+if(slave_dis[5]!=0)
+{
+for(i=slave_dis[5];i<=slave_dis[0];i++)
+if(dis_list[i].size[1]!=3)
+{
+slave_dis[11]=i;
+break;
+}
+if(i>slave_dis[0]){slave_dis[11]=slave_dis[0]+1;}
+
+}
+
+
+
+
+for(i=1;i<=slave_dis[0];i++)
+if(dis_list[i].size[1]==6)
+{
+slave_dis[6]=i;
+break;
+}
+//slave_comm[12]=slave_comm[0]+1;
+if(i>slave_dis[0]){slave_dis[6]=0;slave_dis[12]=0;}
+if(slave_dis[6]!=0)
+{
+for(i=slave_dis[6];i<=slave_dis[0];i++)
+if(dis_list[i].size[1]!=6)
+{
+slave_dis[12]=i;
+break;
+}
+if(i>slave_dis[0]){slave_dis[12]=slave_dis[0]+1;}
+
+}
+}
+/***********************************/
+{
+for(i=2;i<=slave_dis[0];i++)
+{
+  
+          t=dis_list[i].size[2];
+	   g=dis_list[i].myid[2];//设置myid两个
+	   s=	dis_list[i].work_status[2];
+
+	   for(j=i-1;j>=1;j--)
+	   	{
+	   	if(t<dis_list[j].size[2])
+	   		{
+		dis_list[j+1].myid[2]=dis_list[j].myid[2];
+               dis_list[j+1].size[2]=dis_list[j].size[2];
+		 dis_list[j+1].work_status[2]=dis_list[j].work_status[2];
+
+	   		}
+		else break;
+	       }
+	   dis_list[j+1].myid[2]=g;
+	   dis_list[j+1].size[2]=t;
+            dis_list[j+1].work_status[2]=s;
+
+
+}
+
+
+for(i=1;i<=slave_dis[0];i++)
+if(dis_list[i].size[2]==1)
+{
+slave_dis[13]=i;
+break;
+}
+if(i>slave_dis[0]){slave_dis[13]=0;slave_dis[14]=0;}
+
+if(slave_dis[13]!=0)
+{
+for(i=slave_dis[13];i<=slave_dis[0];i++)
+if(dis_list[i].size[2]!=1)
+{
+slave_dis[14]=i;
+break;
+}
+if(i>slave_dis[0]){slave_dis[14]=slave_dis[0]+1;}
+
+}
+
+
+
+for(i=1;i<=slave_dis[0];i++)
+if(dis_list[i].size[2]==3)
+{
+slave_dis[15]=i;
+break;
+}
+if(i>slave_dis[0]){slave_dis[15]=0;slave_dis[16]=0;}
+
+if(slave_dis[15]!=0)
+{
+for(i=slave_dis[15];i<=slave_dis[0];i++)
+if(dis_list[i].size[2]!=3)
+{
+slave_dis[16]=i;
+break;
+}
+if(i>slave_dis[0]){slave_dis[16]=slave_dis[0]+1;}
+
+}
+
+
+
+
+for(i=1;i<=slave_dis[0];i++)
+if(dis_list[i].size[2]==6)
+{
+slave_dis[17]=i;
+break;
+}
+//slave_comm[12]=slave_comm[0]+1;
+if(i>slave_dis[0]){slave_dis[17]=0;slave_dis[18]=0;}
+if(slave_dis[17]!=0)
+{
+for(i=slave_dis[17];i<=slave_dis[0];i++)
+if(dis_list[i].size[2]!=6)
+{
+slave_dis[18]=i;
+break;
+}
+if(i>slave_dis[0]){slave_dis[18]=slave_dis[0]+1;}
+
+}
+}
+
+
+
+
+/********************************/
+}
+
+
 
 void change_Queue(u8 list_flag,u8 Level, status_dis_node *dis_list,status_comm_node *comm_list_1,status_comm_node *comm_list_2,u8 *slave_dis,u8 *slave_comm)
 {
@@ -3830,8 +4378,225 @@ for(i=slave_comm[6];i<slave_comm[12]-1;i++)
 }
 
 }
+/*********************************************************************/
+void change_Queue_dis(u8 abc,u8 Level, status_dis_node *dis_list,u8 *slave_dis)
+{
+u8 i;
+u8 t=0, g=0,s=0;
+
+{
+if(Level==1)
+	
+{
+if(abc==0)
+{
+if(slave_dis[1]!=0)
+
+{
+          t=dis_list[slave_dis[1]].size[abc];
+	   g=dis_list[slave_dis[1]].myid[abc];
+	   s=	dis_list[slave_dis[1]].work_status[abc];
+for(i=slave_dis[1];i<slave_dis[7]-1;i++)
+  {
+          dis_list[i].size[abc]=dis_list[i+1].size[abc];
+	   dis_list[i].myid[abc]=dis_list[i+1].myid[abc];
+	   dis_list[i].work_status[abc]=dis_list[i+1].work_status[abc];
+
+  }
+        dis_list[slave_dis[7]-1].size[abc]=t;
+	  dis_list[slave_dis[7]-1].myid[abc]=g;
+	  dis_list[slave_dis[7]-1].work_status[abc]=s;
+}
+}
+/***********************************************************************************/
+if(abc==1)
+
+{
+if(slave_dis[4]!=0)
+
+{
+          t=dis_list[slave_dis[4]].size[abc];
+	   g=dis_list[slave_dis[4]].myid[abc];
+	   s=	dis_list[slave_dis[4]].work_status[abc];
+for(i=slave_dis[4];i<slave_dis[10]-1;i++)
+  {
+          dis_list[i].size[abc]=dis_list[i+1].size[abc];
+	   dis_list[i].myid[abc]=dis_list[i+1].myid[abc];
+	   dis_list[i].work_status[abc]=dis_list[i+1].work_status[abc];
+
+  }
+        dis_list[slave_dis[10]-1].size[abc]=t;
+	  dis_list[slave_dis[10]-1].myid[abc]=g;
+	  dis_list[slave_dis[10]-1].work_status[abc]=s;
+}
+}
+
+/***********************************************************************************/
+if(abc==2)
+{
+if(slave_dis[13]!=0)
+
+{
+          t=dis_list[slave_dis[13]].size[abc];
+	   g=dis_list[slave_dis[13]].myid[abc];
+	   s=	dis_list[slave_dis[13]].work_status[abc];
+for(i=slave_dis[13];i<slave_dis[14]-1;i++)
+  {
+          dis_list[i].size[abc]=dis_list[i+1].size[abc];
+	   dis_list[i].myid[abc]=dis_list[i+1].myid[abc];
+	   dis_list[i].work_status[abc]=dis_list[i+1].work_status[abc];
+
+  }
+        dis_list[slave_dis[14]-1].size[abc]=t;
+	  dis_list[slave_dis[14]-1].myid[abc]=g;
+	  dis_list[slave_dis[14]-1].work_status[abc]=s;
+}
+}
+}
+/***********************************************************************************/
+/***********************************************************************************/
+if(Level==3)
+
+{
+if(abc==0)
+{
+if(slave_dis[2]!=0)
+
+{
+          t=dis_list[slave_dis[2]].size[abc];
+	   g=dis_list[slave_dis[2]].myid[abc];
+	   s=	dis_list[slave_dis[2]].work_status[abc];
+for(i=slave_dis[2];i<slave_dis[8]-1;i++)
+  {
+          dis_list[i].size[abc]=dis_list[i+1].size[abc];
+	   dis_list[i].myid[abc]=dis_list[i+1].myid[abc];
+	   dis_list[i].work_status[abc]=dis_list[i+1].work_status[abc];
+
+  }
+        dis_list[slave_dis[8]-1].size[abc]=t;
+	  dis_list[slave_dis[8]-1].myid[abc]=g;
+	  dis_list[slave_dis[8]-1].work_status[abc]=s;
+}
+}
+/***********************************************************************************/
+if(abc==1)
+
+{
+if(slave_dis[5]!=0)
+
+{
+          t=dis_list[slave_dis[5]].size[abc];
+	   g=dis_list[slave_dis[5]].myid[abc];
+	   s=	dis_list[slave_dis[5]].work_status[abc];
+for(i=slave_dis[5];i<slave_dis[11]-1;i++)
+  {
+          dis_list[i].size[abc]=dis_list[i+1].size[abc];
+	   dis_list[i].myid[abc]=dis_list[i+1].myid[abc];
+	   dis_list[i].work_status[abc]=dis_list[i+1].work_status[abc];
+
+  }
+        dis_list[slave_dis[11]-1].size[abc]=t;
+	  dis_list[slave_dis[11]-1].myid[abc]=g;
+	  dis_list[slave_dis[11]-1].work_status[abc]=s;
+}
+}
+
+/***********************************************************************************/
+if(abc==2)
+{
+if(slave_dis[15]!=0)
+
+{
+          t=dis_list[slave_dis[15]].size[abc];
+	   g=dis_list[slave_dis[15]].myid[abc];
+	   s=	dis_list[slave_dis[15]].work_status[abc];
+for(i=slave_dis[15];i<slave_dis[16]-1;i++)
+  {
+          dis_list[i].size[abc]=dis_list[i+1].size[abc];
+	   dis_list[i].myid[abc]=dis_list[i+1].myid[abc];
+	   dis_list[i].work_status[abc]=dis_list[i+1].work_status[abc];
+
+  }
+        dis_list[slave_dis[16]-1].size[abc]=t;
+	  dis_list[slave_dis[16]-1].myid[abc]=g;
+	  dis_list[slave_dis[16]-1].work_status[abc]=s;
+}
+}
+}
+/***********************************************************************************/
+/***********************************************************************************/
+if(Level==6)
+{
+if(abc==0)
+{
+if(slave_dis[3]!=0)
+
+{
+          t=dis_list[slave_dis[3]].size[abc];
+	   g=dis_list[slave_dis[3]].myid[abc];
+	   s=	dis_list[slave_dis[3]].work_status[abc];
+for(i=slave_dis[3];i<slave_dis[9]-1;i++)
+  {
+          dis_list[i].size[abc]=dis_list[i+1].size[abc];
+	   dis_list[i].myid[abc]=dis_list[i+1].myid[abc];
+	   dis_list[i].work_status[abc]=dis_list[i+1].work_status[abc];
+
+  }
+        dis_list[slave_dis[9]-1].size[abc]=t;
+	  dis_list[slave_dis[9]-1].myid[abc]=g;
+	  dis_list[slave_dis[9]-1].work_status[abc]=s;
+}
+}
+/***********************************************************************************/
+if(abc==1)
+
+{
+if(slave_dis[6]!=0)
+
+{
+          t=dis_list[slave_dis[6]].size[abc];
+	   g=dis_list[slave_dis[6]].myid[abc];
+	   s=	dis_list[slave_dis[6]].work_status[abc];
+for(i=slave_dis[6];i<slave_dis[12]-1;i++)
+  {
+          dis_list[i].size[abc]=dis_list[i+1].size[abc];
+	   dis_list[i].myid[abc]=dis_list[i+1].myid[abc];
+	   dis_list[i].work_status[abc]=dis_list[i+1].work_status[abc];
+
+  }
+        dis_list[slave_dis[12]-1].size[abc]=t;
+	  dis_list[slave_dis[12]-1].myid[abc]=g;
+	  dis_list[slave_dis[12]-1].work_status[abc]=s;
+}
+}
+
+/***********************************************************************************/
+if(abc==2)
+{
+if(slave_dis[17]!=0)
+
+{
+          t=dis_list[slave_dis[17]].size[abc];
+	   g=dis_list[slave_dis[17]].myid[abc];
+	   s=	dis_list[slave_dis[17]].work_status[abc];
+for(i=slave_dis[17];i<slave_dis[18]-1;i++)
+  {
+          dis_list[i].size[abc]=dis_list[i+1].size[abc];
+	   dis_list[i].myid[abc]=dis_list[i+1].myid[abc];
+	   dis_list[i].work_status[abc]=dis_list[i+1].work_status[abc];
+
+  }
+        dis_list[slave_dis[18]-1].size[abc]=t;
+	  dis_list[slave_dis[18]-1].myid[abc]=g;
+	  dis_list[slave_dis[18]-1].work_status[abc]=s;
+}
+}
+}
 
 
+}
+
+}
 
 /***********************************************************************
 TIME_4
@@ -3876,8 +4641,8 @@ void turn_master_id(u8 id)//改变当前整个系统中主机的ID号
 	  	   order_trans_rs485(mybox.myid,0,0,0,0,CPT_LL);
 	//delay_time(2);
 		OS_ENTER_CRITICAL();    		
-         mybox.master=1;
-	    OSTaskResume(APP_TASK_Master_PRIO);
+MASTER=1;
+OSTaskResume(APP_TASK_Master_PRIO);
 	OS_EXIT_CRITICAL();
 	
 		cont=1;
@@ -3893,7 +4658,7 @@ void turn_master_id(u8 id)//改变当前整个系统中主机的ID号
 	if (TIM_GetITStatus(TIM3, TIM_IT_Update) != RESET)  //检查TIM4更新中断发生与否
 		{	  
 		TIM_ClearITPendingBit(TIM3, TIM_IT_Update  );  //清除TIMx更新中断标志
-	if(mybox.master==0)	
+	if(MASTER==0)	
 		{
 		
 		if(dog_clock==0)
@@ -3970,15 +4735,40 @@ void EXTI15_10_IRQHandler(void)
 }
 
 /*************************************************/
-void LIGHT(u8 status_1,u8 status_2,u8 status_3)
+void LIGHT_backligt_on(u8 status_1,u8 status_2,u8 status_3)
 {
-if(status_1==0&&status_2==1)HT595_Send_Byte((GREEN_RED)|background_light_on);
-if(status_1==1&&status_2==0)HT595_Send_Byte((RED_GREEN)|background_light_on);
-if(status_1==0&&status_2==0)HT595_Send_Byte((GREEN_GREEN)|background_light_on);
-if(status_1==1&&status_2==1)HT595_Send_Byte((RED_RED)|background_light_on);
-if(status_1==2&&status_2==2)HT595_Send_Byte((YELLOW_YELLOW)|background_light_on);
+if(status_1==0&&status_2==1&&status_3==0)HT595_Send_Byte((GREEN_RED_GREEN)|background_light_on);
+if(status_1==1&&status_2==0&&status_3==0)HT595_Send_Byte((RED_GREEN_GREEN)|background_light_on);
+if(status_1==0&&status_2==0&&status_3==0)HT595_Send_Byte((GREEN_GREEN_GREEN)|background_light_on);
+if(status_1==1&&status_2==1&&status_3==0)HT595_Send_Byte((RED_RED_GREEN)|background_light_on);
+
+if(status_1==0&&status_2==1&&status_3==1)HT595_Send_Byte((GREEN_RED_RED)|background_light_on);
+if(status_1==1&&status_2==0&&status_3==1)HT595_Send_Byte((RED_GREEN_RED)|background_light_on);
+if(status_1==0&&status_2==0&&status_3==1)HT595_Send_Byte((GREEN_GREEN_RED)|background_light_on);
+if(status_1==1&&status_2==1&&status_3==1)HT595_Send_Byte((RED_RED_RED)|background_light_on);
+
+if(status_1==2&&status_2==2&&status_3==2)HT595_Send_Byte((YELLOW_YELLOW_YELLOW)|background_light_on);
 
 }
+
+
+/*************************************************/
+void LIGHT_backligt_off(u8 status_1,u8 status_2,u8 status_3)
+{
+if(status_1==0&&status_2==1&&status_3==0)HT595_Send_Byte((GREEN_RED_GREEN));
+if(status_1==1&&status_2==0&&status_3==0)HT595_Send_Byte((RED_GREEN_GREEN));
+if(status_1==0&&status_2==0&&status_3==0)HT595_Send_Byte((GREEN_GREEN_GREEN));
+if(status_1==1&&status_2==1&&status_3==0)HT595_Send_Byte((RED_RED_GREEN));
+
+if(status_1==0&&status_2==1&&status_3==1)HT595_Send_Byte((GREEN_RED_RED));
+if(status_1==1&&status_2==0&&status_3==1)HT595_Send_Byte((RED_GREEN_RED));
+if(status_1==0&&status_2==0&&status_3==1)HT595_Send_Byte((GREEN_GREEN_RED));
+if(status_1==1&&status_2==1&&status_3==1)HT595_Send_Byte((RED_RED_RED));
+
+if(status_1==2&&status_2==2&&status_3==2)HT595_Send_Byte((YELLOW_YELLOW_YELLOW));
+
+}
+
 
 /*************************************************/
 
@@ -4009,5 +4799,6 @@ void assert_failed(uint8_t* file, uint32_t line)
 /*********************************************************************************************************
       END FILE
 *********************************************************************************************************/
+
 
 
