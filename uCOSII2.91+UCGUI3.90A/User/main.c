@@ -3480,9 +3480,10 @@ return 0;
 
 void scanf_slave_machine(status_dis_node *dis_list,status_comm_node *comm_list_1,status_comm_node *comm_list_2,u8 *slave_dis,u8 *slave_comm)
 {
-u8 i,j=0,g,flag_comm=0,flag_dis=0;
+u8 i,j=0,g,flag_comm=0,flag_dis=0,s;
 //u8 c;
-
+u8 *msg;
+  u8 err;
 for(i=1;i<=7;i++)
 {  
 
@@ -3514,7 +3515,9 @@ for(i=8;i<=32;i++)
 
 for(g=1;g<=slave_comm[0];g++)
 {
-if(i==comm_list_1[g].myid||i==comm_list_2[g].myid){flag_comm=1;break;}
+if(i==comm_list_1[g].myid){flag_comm=1;break;}
+if(i==comm_list_2[g].myid){flag_comm=2;break;}
+
 else flag_comm=0;
 }
 if(flag_comm==0)
@@ -3525,8 +3528,42 @@ if(flag_comm==0)
 	        if(j==1){slave_comm[0]++;break;}
 		}
 			}
+if(flag_comm==1||flag_comm==2)
+
+{
+{order_trans_rs485(mybox.myid,i,3,0,0,CONTROL); 
+  msg=(u8 *)OSMboxPend(RS485_STUTAS_MBOX,OS_TICKS_PER_SEC/10,&err);
+     if(err==OS_ERR_TIMEOUT);
+else {
+	if(flag_comm==1)
+		{
+	if(comm_list_1[g].group==1)comm_list_1[g].work_status=msg[5];
+         else {comm_list_1[g].work_status=msg[6];}
+		for(s=1;s<=slave_comm[0];s++)
+                   if(i==comm_list_2[s].myid)
+				   	{
+	if(comm_list_2[g].group==1){comm_list_2[g].work_status=msg[5];break;}
+         else {comm_list_2[g].work_status=msg[6];break;}
+            }
+            }
+	if(flag_comm==2)
+		{
+	if(comm_list_2[g].group==1)comm_list_2[g].work_status=msg[5];
+         else {comm_list_2[g].work_status=msg[6];}
+		 		for(s=1;s<=slave_comm[0];s++)
+                   if(i==comm_list_1[s].myid)
+				   	{
+	if(comm_list_1[g].group==1){comm_list_1[g].work_status=msg[5];break;}
+         else {comm_list_1[g].work_status=msg[6];break;}
+            }
+            }
+       }
+
+}
+	
 
 
+}
 	flag_comm=0;
        j=0;
     }

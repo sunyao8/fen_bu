@@ -3,7 +3,7 @@
 <title>Static Call Graph - [.\Out\Project.axf]</title></head>
 <body><HR>
 <H1>Static Call Graph for image .\Out\Project.axf</H1><HR>
-<BR><P>#&#060CALLGRAPH&#062# ARM Linker, 4.1 [Build 894]: Last Updated: Sat Nov 30 20:55:42 2013
+<BR><P>#&#060CALLGRAPH&#062# ARM Linker, 4.1 [Build 894]: Last Updated: Mon Dec 02 19:59:45 2013
 <BR><P>
 <H3>Maximum Stack Usage =      14808 bytes + Unknown(Functions without stacksize, Cycles, Untraceable Function Pointers)</H3><H3>
 Call chain for Maximum Stack Depth:</H3>
@@ -1475,7 +1475,8 @@ Global Symbols
 <LI><a href="#[f0]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;OS_EventTaskWait
 <LI><a href="#[f2]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;OS_EventTaskRemove
 </UL>
-<BR>[Called By]<UL><LI><a href="#[154]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;inquiry_slave_status_dis
+<BR>[Called By]<UL><LI><a href="#[b6]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;scanf_slave_machine
+<LI><a href="#[154]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;inquiry_slave_status_dis
 <LI><a href="#[152]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;inquiry_slave_status_comm
 <LI><a href="#[b9]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;computer_gonglu
 <LI><a href="#[64]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;App_Taskslave_three
@@ -2540,6 +2541,7 @@ Global Symbols
 <BR>[Calls]<UL><LI><a href="#[124]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;RS485_Send_Data
 </UL>
 <BR>[Called By]<UL><LI><a href="#[12b]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;turn_master_id
+<LI><a href="#[b6]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;scanf_slave_machine
 <LI><a href="#[152]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;inquiry_slave_status_comm
 <LI><a href="#[b9]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;computer_gonglu
 <LI><a href="#[63]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;App_TaskMaster
@@ -2572,11 +2574,13 @@ Global Symbols
 <BR>[Called By]<UL><LI><a href="#[154]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;inquiry_slave_status_dis
 </UL>
 
-<P><STRONG><a name="[b6]"></a>scanf_slave_machine</STRONG> (Thumb, 172 bytes, Stack size 32 bytes, main.o(i.scanf_slave_machine))
-<BR><BR>[Stack]<UL><LI>Max Depth = 156 + Unknown Stack Size
+<P><STRONG><a name="[b6]"></a>scanf_slave_machine</STRONG> (Thumb, 378 bytes, Stack size 48 bytes, main.o(i.scanf_slave_machine))
+<BR><BR>[Stack]<UL><LI>Max Depth = 172 + Unknown Stack Size
 <LI>Call Chain = scanf_slave_machine &rArr; inquiry_slave_status_comm &rArr; order_trans_rs485 &rArr; RS485_Send_Data &rArr; GPIO_Init
 </UL>
-<BR>[Calls]<UL><LI><a href="#[154]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;inquiry_slave_status_dis
+<BR>[Calls]<UL><LI><a href="#[ba]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;OSMboxPend
+<LI><a href="#[b1]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;order_trans_rs485
+<LI><a href="#[154]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;inquiry_slave_status_dis
 <LI><a href="#[152]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;inquiry_slave_status_comm
 </UL>
 <BR>[Called By]<UL><LI><a href="#[62]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;App_Taskcomputer
