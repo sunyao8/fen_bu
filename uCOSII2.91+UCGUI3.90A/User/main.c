@@ -1539,8 +1539,9 @@ if(ctr==CPT_LL )
 	rs485buf[6]=((wugongkvar& (uint16_t)0xFF00)>>8);
 	rs485buf[7]=gonglvshishu;	
 	rs485buf[8]=ctr;	
-	rs485buf[9]='*';//协议尾
-	RS485_Send_Data(rs485buf,10);//发送5个字节
+	rs485buf[9]=L_C_flag_A;		
+	rs485buf[10]='*';//协议尾
+	RS485_Send_Data(rs485buf,11);//发送5个字节
 	  // 	if(destination==source){mybox.send=send;slave_control(relay, message);}//如果信息发给的自己
 
     	}
@@ -1558,6 +1559,7 @@ if(tx_r485[8]==CPT_A)
   dianliuzhi_A=comp_16(tx_r485[3],tx_r485[4]);
   wugongkvar_A=comp_16(tx_r485[5],tx_r485[6]);
   gonglvshishu_A=tx_r485[7];
+  L_C_flag_A=tx_r485[9];
 return 1;
 }
 
@@ -1633,8 +1635,9 @@ return 0;
 	rs485buf[6]=((wugongkvar_A& (uint16_t)0xFF00)>>8);
 	rs485buf[7]=gonglvshishu_A;
 	rs485buf[8]=ctr;
-	rs485buf[9]='?';//协议尾
-	RS485_Send_Data(rs485buf,10);//发送5个字节
+	rs485buf[9]=L_C_flag_A;//协议尾
+	rs485buf[10]='?';//协议尾
+	RS485_Send_Data(rs485buf,11);//发送5个字节
     	}
 	/************************************/
     if(ctr==CPT_B)
@@ -1919,6 +1922,65 @@ float32_t sine=0;
 u16 phase;
 s32 gl[2];
 u16 wugongkvar_95,wugongkvar_95A,wugongkvar_95B,wugongkvar_95C;
+
+
+
+/*********************判断相序*******************************/
+{
+
+ADC3_CH10_DMA_Config_VA();
+ADC1_CH1_DMA_Config_VC_phase();
+
+{
+ for(i=0;i<TEST_LENGTH_SAMPLES;i++)
+	 	{
+	 	
+	 	
+testInput_C[i]=(float32_t)((ADC_Converted_CValue-ADC_Converted_base)*3.3/4096);///  1550
+
+testInput_V[i]=(float32_t)((ADC_Converted_VValue-ADC_Converted_base)*3.3/4096);///  1550
+
+delay_us(36);//36->512
+
+        }
+
+ 
+allphase(testInput_V,testInput_C);
+
+ 
+	status = arm_rfft_init_f32(&S,&S_CFFT, fftSize,  
+	  								ifftFlag, doBitReverse); 
+	 
+	/* Process the data through the CFFT/CIFFT module */ 
+	arm_rfft_f32(&S, testInput_V,testOutput); 
+
+             testIndex=1;
+		angle[0]=atan2(testOutput[2*testIndex],testOutput[2*testIndex+1]);//A相初始相位
+
+/******************************************************************/
+	arm_rfft_f32(&S, testInput_C,testOutput); 
+         
+	angle[1]=atan2(testOutput[2*testIndex],testOutput[2*testIndex+1]);//C相初始相位
+
+
+}
+if((angle[0]-angle[1])>0)
+{
+phase=((angle[0]-angle[1])*360)/PI2;
+if(phase>=118&&phase<=122)phase_flag=0;//正序
+else phase_flag=1;
+}
+else 
+	{
+	phase=((angle[1]-angle[0])*360)/PI2;
+if(phase>=238&&phase<=242)phase_flag=0;//正序
+else phase_flag=1;
+
+
+     }
+}
+/************************判断相序end**************************/
+
 /*********************A_phase*********************************/
 //for(s=1;s<=9;s++)
 {
@@ -2025,6 +2087,7 @@ arm_sqrt_f32(1-(arm_cos_f32(angle[0]-angle[1]))*(arm_cos_f32(angle[0]-angle[1]))
 				//	dianya_zhi_A=-angle[2];
 				//	gonglvshishu_A=2;
 			     }
+//if(phase_flag==1){if(L_C_flag_A==0)L_C_flag_A=1;if(L_C_flag_A==1)L_C_flag_A=0;}				
 computer_trans_rs485(0,33,0,0,0,CPT_A);
 
 /*********************B_phase*********************************/
@@ -2195,61 +2258,7 @@ arm_sqrt_f32(1-(arm_cos_f32(angle[0]-angle[1]))*(arm_cos_f32(angle[0]-angle[1]))
 
 }
 
-/*********************判断相序*******************************/
-{
 
-ADC3_CH10_DMA_Config_VA();
-ADC1_CH1_DMA_Config_VC_phase();
-
-{
- for(i=0;i<TEST_LENGTH_SAMPLES;i++)
-	 	{
-	 	
-	 	
-testInput_C[i]=(float32_t)((ADC_Converted_CValue-ADC_Converted_base)*3.3/4096);///  1550
-
-testInput_V[i]=(float32_t)((ADC_Converted_VValue-ADC_Converted_base)*3.3/4096);///  1550
-
-delay_us(36);//36->512
-
-        }
-
- 
-allphase(testInput_V,testInput_C);
-
- 
-	status = arm_rfft_init_f32(&S,&S_CFFT, fftSize,  
-	  								ifftFlag, doBitReverse); 
-	 
-	/* Process the data through the CFFT/CIFFT module */ 
-	arm_rfft_f32(&S, testInput_V,testOutput); 
-
-             testIndex=1;
-		angle[0]=atan2(testOutput[2*testIndex],testOutput[2*testIndex+1]);//A相初始相位
-
-/******************************************************************/
-	arm_rfft_f32(&S, testInput_C,testOutput); 
-         
-	angle[1]=atan2(testOutput[2*testIndex],testOutput[2*testIndex+1]);//C相初始相位
-
-
-}
-if((angle[0]-angle[1])>0)
-{
-phase=((angle[0]-angle[1])*360)/PI2;
-if(phase>=118&&phase<=122)phase_flag=0;//正序
-else phase_flag=1;
-}
-else 
-	{
-	phase=((angle[1]-angle[0])*360)/PI2;
-if(phase>=238&&phase<=242)phase_flag=0;//正序
-else phase_flag=1;
-
-
-     }
-}
-/************************判断相序end**************************/
 
 //tempshuzhi=phase_flag;
 
@@ -2738,7 +2747,6 @@ if(RT_FLAG==2)
 
 
 {
-        u8 err;
 
 if(gonglvshishu<93&&L_C_flag_A==1)
  {

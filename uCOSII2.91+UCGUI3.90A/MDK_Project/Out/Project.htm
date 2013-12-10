@@ -3,7 +3,7 @@
 <title>Static Call Graph - [.\Out\Project.axf]</title></head>
 <body><HR>
 <H1>Static Call Graph for image .\Out\Project.axf</H1><HR>
-<BR><P>#&#060CALLGRAPH&#062# ARM Linker, 4.1 [Build 894]: Last Updated: Tue Dec 03 14:12:18 2013
+<BR><P>#&#060CALLGRAPH&#062# ARM Linker, 4.1 [Build 894]: Last Updated: Tue Dec 10 21:00:53 2013
 <BR><P>
 <H3>Maximum Stack Usage =      14808 bytes + Unknown(Functions without stacksize, Cycles, Untraceable Function Pointers)</H3><H3>
 Call chain for Maximum Stack Depth:</H3>
@@ -622,11 +622,11 @@ Global Symbols
 
 <P><STRONG><a name="[194]"></a>CPU_WaitForExcept</STRONG> (Thumb, 0 bytes, Stack size unknown bytes, cpu_a.o(.text), UNUSED)
 
-<P><STRONG><a name="[147]"></a>arm_cos_f32</STRONG> (Thumb, 188 bytes, Stack size 0 bytes, arm_cos_f32.o(.text))
+<P><STRONG><a name="[148]"></a>arm_cos_f32</STRONG> (Thumb, 188 bytes, Stack size 0 bytes, arm_cos_f32.o(.text))
 <BR><BR>[Called By]<UL><LI><a href="#[b9]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;computer_gonglu
 </UL>
 
-<P><STRONG><a name="[143]"></a>arm_cmplx_mag_f32</STRONG> (Thumb, 236 bytes, Stack size 0 bytes, arm_cmplx_mag_f32.o(.text))
+<P><STRONG><a name="[145]"></a>arm_cmplx_mag_f32</STRONG> (Thumb, 236 bytes, Stack size 0 bytes, arm_cmplx_mag_f32.o(.text))
 <BR><BR>[Called By]<UL><LI><a href="#[b9]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;computer_gonglu
 </UL>
 
@@ -657,7 +657,7 @@ Global Symbols
 <BR>[Called By]<UL><LI><a href="#[b9]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;computer_gonglu
 </UL>
 
-<P><STRONG><a name="[144]"></a>arm_max_f32</STRONG> (Thumb, 124 bytes, Stack size 12 bytes, arm_max_f32.o(.text))
+<P><STRONG><a name="[146]"></a>arm_max_f32</STRONG> (Thumb, 124 bytes, Stack size 12 bytes, arm_max_f32.o(.text))
 <BR><BR>[Stack]<UL><LI>Max Depth = 12<LI>Call Chain = arm_max_f32
 </UL>
 <BR>[Called By]<UL><LI><a href="#[b9]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;computer_gonglu
@@ -2347,16 +2347,16 @@ Global Symbols
 <BR><BR>[Called By]<UL><LI><a href="#[bb]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;rs485_trans_computer
 </UL>
 
-<P><STRONG><a name="[b9]"></a>computer_gonglu</STRONG> (Thumb, 10300 bytes, Stack size 14632 bytes, main.o(i.computer_gonglu))
+<P><STRONG><a name="[b9]"></a>computer_gonglu</STRONG> (Thumb, 10332 bytes, Stack size 14632 bytes, main.o(i.computer_gonglu))
 <BR><BR>[Stack]<UL><LI>Max Depth = 14792 + Unknown Stack Size
 <LI>Call Chain = computer_gonglu &rArr; __hardfp_atan2 &rArr; atan &rArr; __hardfp_atan &rArr; __kernel_poly &rArr; __aeabi_dmul
 </UL>
 <BR>[Calls]<UL><LI><a href="#[d6]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;delay_us
 <LI><a href="#[80]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;arm_rfft_init_f32
 <LI><a href="#[7b]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;arm_rfft_f32
-<LI><a href="#[144]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;arm_max_f32
-<LI><a href="#[147]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;arm_cos_f32
-<LI><a href="#[143]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;arm_cmplx_mag_f32
+<LI><a href="#[146]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;arm_max_f32
+<LI><a href="#[148]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;arm_cos_f32
+<LI><a href="#[145]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;arm_cmplx_mag_f32
 <LI><a href="#[ba]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;OSMboxPend
 <LI><a href="#[14c]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;set_statuslist
 <LI><a href="#[b1]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;order_trans_rs485
@@ -2371,14 +2371,14 @@ Global Symbols
 <LI><a href="#[8a]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;ADC1_CH4_DMA_Config_CB
 <LI><a href="#[89]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;ADC1_CH1_DMA_Config_VC_phase
 <LI><a href="#[86]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;ADC1_CH1_DMA_Config_CA
-<LI><a href="#[148]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;arm_sqrt_f32
+<LI><a href="#[149]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;arm_sqrt_f32
 <LI><a href="#[142]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__aeabi_f2d
-<LI><a href="#[149]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__aeabi_cdrcmple
+<LI><a href="#[143]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__aeabi_cdrcmple
 <LI><a href="#[136]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__aeabi_dmul
 <LI><a href="#[14a]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__aeabi_cdcmple
-<LI><a href="#[145]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__aeabi_ui2d
+<LI><a href="#[147]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__aeabi_ui2d
 <LI><a href="#[13f]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__aeabi_i2d
-<LI><a href="#[146]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__aeabi_d2uiz
+<LI><a href="#[144]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__aeabi_d2uiz
 <LI><a href="#[138]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__aeabi_ddiv
 <LI><a href="#[137]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__aeabi_dsub
 <LI><a href="#[140]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__aeabi_d2f
@@ -2388,7 +2388,7 @@ Global Symbols
 <BR>[Called By]<UL><LI><a href="#[62]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;App_Taskcomputer
 </UL>
 
-<P><STRONG><a name="[14b]"></a>computer_trans_rs485</STRONG> (Thumb, 176 bytes, Stack size 16 bytes, main.o(i.computer_trans_rs485))
+<P><STRONG><a name="[14b]"></a>computer_trans_rs485</STRONG> (Thumb, 192 bytes, Stack size 16 bytes, main.o(i.computer_trans_rs485))
 <BR><BR>[Stack]<UL><LI>Max Depth = 76<LI>Call Chain = computer_trans_rs485 &rArr; RS485_Send_Data &rArr; GPIO_Init
 </UL>
 <BR>[Calls]<UL><LI><a href="#[124]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;RS485_Send_Data
@@ -2535,7 +2535,7 @@ Global Symbols
 <BR>[Called By]<UL><LI><a href="#[74]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__rt_entry_main
 </UL>
 
-<P><STRONG><a name="[b1]"></a>order_trans_rs485</STRONG> (Thumb, 102 bytes, Stack size 24 bytes, main.o(i.order_trans_rs485))
+<P><STRONG><a name="[b1]"></a>order_trans_rs485</STRONG> (Thumb, 120 bytes, Stack size 24 bytes, main.o(i.order_trans_rs485))
 <BR><BR>[Stack]<UL><LI>Max Depth = 84<LI>Call Chain = order_trans_rs485 &rArr; RS485_Send_Data &rArr; GPIO_Init
 </UL>
 <BR>[Calls]<UL><LI><a href="#[124]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;RS485_Send_Data
@@ -2547,7 +2547,7 @@ Global Symbols
 <LI><a href="#[63]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;App_TaskMaster
 </UL>
 
-<P><STRONG><a name="[bb]"></a>rs485_trans_computer</STRONG> (Thumb, 230 bytes, Stack size 8 bytes, main.o(i.rs485_trans_computer))
+<P><STRONG><a name="[bb]"></a>rs485_trans_computer</STRONG> (Thumb, 236 bytes, Stack size 8 bytes, main.o(i.rs485_trans_computer))
 <BR><BR>[Stack]<UL><LI>Max Depth = 132 + Unknown Stack Size
 <LI>Call Chain = rs485_trans_computer &rArr; subswitchABC_onoff &rArr; LIGHT_backligt_on &rArr; HT595_Send_Byte &rArr; delay_us
 </UL>
@@ -2574,7 +2574,7 @@ Global Symbols
 <BR>[Called By]<UL><LI><a href="#[154]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;inquiry_slave_status_dis
 </UL>
 
-<P><STRONG><a name="[b6]"></a>scanf_slave_machine</STRONG> (Thumb, 378 bytes, Stack size 48 bytes, main.o(i.scanf_slave_machine))
+<P><STRONG><a name="[b6]"></a>scanf_slave_machine</STRONG> (Thumb, 386 bytes, Stack size 48 bytes, main.o(i.scanf_slave_machine))
 <BR><BR>[Stack]<UL><LI>Max Depth = 172 + Unknown Stack Size
 <LI>Call Chain = scanf_slave_machine &rArr; inquiry_slave_status_comm &rArr; order_trans_rs485 &rArr; RS485_Send_Data &rArr; GPIO_Init
 </UL>
@@ -2624,7 +2624,7 @@ Global Symbols
 <LI><a href="#[8d]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;ADC2_CH14_DMA_Config_B1
 <LI><a href="#[8c]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;ADC2_CH13_DMA_Config_A1
 <LI><a href="#[136]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__aeabi_dmul
-<LI><a href="#[145]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__aeabi_ui2d
+<LI><a href="#[147]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__aeabi_ui2d
 <LI><a href="#[140]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__aeabi_d2f
 </UL>
 <BR>[Called By]<UL><LI><a href="#[bb]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;rs485_trans_computer
@@ -2702,7 +2702,7 @@ Global Symbols
 <LI><a href="#[15d]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__fpl_dnaninf
 </UL>
 
-<P><STRONG><a name="[146]"></a>__aeabi_d2uiz</STRONG> (Thumb, 0 bytes, Stack size 32 bytes, dfixu.o(x$fpl$dfixu))
+<P><STRONG><a name="[144]"></a>__aeabi_d2uiz</STRONG> (Thumb, 0 bytes, Stack size 32 bytes, dfixu.o(x$fpl$dfixu))
 <BR><BR>[Stack]<UL><LI>Max Depth = 32<LI>Call Chain = __aeabi_d2uiz
 </UL>
 <BR>[Called By]<UL><LI><a href="#[b9]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;computer_gonglu
@@ -2718,7 +2718,7 @@ Global Symbols
 
 <P><STRONG><a name="[1a6]"></a>_dflt</STRONG> (Thumb, 46 bytes, Stack size 0 bytes, dflt_clz.o(x$fpl$dflt), UNUSED)
 
-<P><STRONG><a name="[145]"></a>__aeabi_ui2d</STRONG> (Thumb, 0 bytes, Stack size 0 bytes, dflt_clz.o(x$fpl$dfltu))
+<P><STRONG><a name="[147]"></a>__aeabi_ui2d</STRONG> (Thumb, 0 bytes, Stack size 0 bytes, dflt_clz.o(x$fpl$dfltu))
 <BR><BR>[Called By]<UL><LI><a href="#[157]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;subswitchABC_onoff
 <LI><a href="#[b9]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;computer_gonglu
 </UL>
@@ -2772,7 +2772,7 @@ Global Symbols
 <LI><a href="#[15e]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;_dadd
 </UL>
 
-<P><STRONG><a name="[149]"></a>__aeabi_cdrcmple</STRONG> (Thumb, 0 bytes, Stack size 16 bytes, drleqf.o(x$fpl$drleqf))
+<P><STRONG><a name="[143]"></a>__aeabi_cdrcmple</STRONG> (Thumb, 0 bytes, Stack size 16 bytes, drleqf.o(x$fpl$drleqf))
 <BR><BR>[Stack]<UL><LI>Max Depth = 16<LI>Call Chain = __aeabi_cdrcmple
 </UL>
 <BR>[Called By]<UL><LI><a href="#[b9]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;computer_gonglu
@@ -2921,7 +2921,7 @@ Local Symbols
 </UL>
 <BR>[Address Reference Count : 1]<UL><LI> main.o(i.App_TaskCreate)
 </UL>
-<P><STRONG><a name="[148]"></a>arm_sqrt_f32</STRONG> (Thumb, 36 bytes, Stack size 0 bytes, main.o(i.arm_sqrt_f32))
+<P><STRONG><a name="[149]"></a>arm_sqrt_f32</STRONG> (Thumb, 36 bytes, Stack size 0 bytes, main.o(i.arm_sqrt_f32))
 <BR><BR>[Called By]<UL><LI><a href="#[b9]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;computer_gonglu
 </UL>
 
