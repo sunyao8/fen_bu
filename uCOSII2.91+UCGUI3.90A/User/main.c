@@ -1895,6 +1895,8 @@ return 1;
 
 
 /*********************************/
+extern u8 flag_ABC;
+
 u8 computer_gonglu(status_dis_node *dis_list,status_comm_node *comm_list_1,status_comm_node *comm_list_2,u8 *slave_dis,u8 *slave_comm)
 {
 int i=0,s=1;
@@ -1922,10 +1924,11 @@ float32_t sine=0;
 u16 phase;
 s32 gl[2];
 u16 wugongkvar_95,wugongkvar_95A,wugongkvar_95B,wugongkvar_95C;
-
+static u8 init=1;
 
 
 /*********************判断相序*******************************/
+if(init==1)
 {
 
 ADC3_CH10_DMA_Config_VA();
@@ -1978,6 +1981,18 @@ else phase_flag=1;
 
 
      }
+
+/********************初始第一屏根据相序显示ABC**************************/
+{
+	if(phase_flag==0)
+		flag_ABC=1;
+	if(phase_flag==1)
+		flag_ABC=3;
+		Clera_lcd();
+	Graf_con_u(gonglvshishu_A,dianya_zhi_A);
+}
+/***************************************************/
+	init=0;
 }
 /************************判断相序end**************************/
 

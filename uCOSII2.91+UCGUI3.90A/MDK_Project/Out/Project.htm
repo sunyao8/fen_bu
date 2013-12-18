@@ -3,7 +3,7 @@
 <title>Static Call Graph - [.\Out\Project.axf]</title></head>
 <body><HR>
 <H1>Static Call Graph for image .\Out\Project.axf</H1><HR>
-<BR><P>#&#060CALLGRAPH&#062# ARM Linker, 4.1 [Build 894]: Last Updated: Tue Dec 10 21:00:53 2013
+<BR><P>#&#060CALLGRAPH&#062# ARM Linker, 4.1 [Build 894]: Last Updated: Wed Dec 18 17:04:05 2013
 <BR><P>
 <H3>Maximum Stack Usage =      14808 bytes + Unknown(Functions without stacksize, Cycles, Untraceable Function Pointers)</H3><H3>
 Call chain for Maximum Stack Depth:</H3>
@@ -1004,6 +1004,7 @@ Global Symbols
 <BR>[Calls]<UL><LI><a href="#[bf]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Write_1621
 </UL>
 <BR>[Called By]<UL><LI><a href="#[ae]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;key_idset
+<LI><a href="#[b9]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;computer_gonglu
 </UL>
 
 <P><STRONG><a name="[93]"></a>DMA_Cmd</STRONG> (Thumb, 20 bytes, Stack size 0 bytes, stm32f4xx_dma.o(i.DMA_Cmd))
@@ -1139,16 +1140,17 @@ Global Symbols
 <LI><a href="#[9e]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;IIC_Init
 </UL>
 
-<P><STRONG><a name="[c9]"></a>Graf_con_u</STRONG> (Thumb, 204 bytes, Stack size 32 bytes, ht1621.o(i.Graf_con_u))
-<BR><BR>[Stack]<UL><LI>Max Depth = 92<LI>Call Chain = Graf_con_u &rArr; WriteAll_1621 &rArr; SendDataBit_1621 &rArr; delay_us
+<P><STRONG><a name="[c9]"></a>Graf_con_u</STRONG> (Thumb, 304 bytes, Stack size 24 bytes, ht1621.o(i.Graf_con_u))
+<BR><BR>[Stack]<UL><LI>Max Depth = 84<LI>Call Chain = Graf_con_u &rArr; WriteAll_1621 &rArr; SendDataBit_1621 &rArr; delay_us
 </UL>
 <BR>[Calls]<UL><LI><a href="#[bf]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Write_1621
 <LI><a href="#[ca]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;WriteAll_1621
 </UL>
 <BR>[Called By]<UL><LI><a href="#[ae]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;key_idset
+<LI><a href="#[b9]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;computer_gonglu
 </UL>
 
-<P><STRONG><a name="[cb]"></a>Graf_cuirrent</STRONG> (Thumb, 148 bytes, Stack size 24 bytes, ht1621.o(i.Graf_cuirrent))
+<P><STRONG><a name="[cb]"></a>Graf_cuirrent</STRONG> (Thumb, 220 bytes, Stack size 24 bytes, ht1621.o(i.Graf_cuirrent))
 <BR><BR>[Stack]<UL><LI>Max Depth = 84<LI>Call Chain = Graf_cuirrent &rArr; WriteAll_1621 &rArr; SendDataBit_1621 &rArr; delay_us
 </UL>
 <BR>[Calls]<UL><LI><a href="#[bf]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Write_1621
@@ -1157,8 +1159,8 @@ Global Symbols
 <BR>[Called By]<UL><LI><a href="#[ae]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;key_idset
 </UL>
 
-<P><STRONG><a name="[cc]"></a>Graf_id</STRONG> (Thumb, 152 bytes, Stack size 32 bytes, ht1621.o(i.Graf_id))
-<BR><BR>[Stack]<UL><LI>Max Depth = 92<LI>Call Chain = Graf_id &rArr; WriteAll_1621 &rArr; SendDataBit_1621 &rArr; delay_us
+<P><STRONG><a name="[cc]"></a>Graf_id</STRONG> (Thumb, 180 bytes, Stack size 24 bytes, ht1621.o(i.Graf_id))
+<BR><BR>[Stack]<UL><LI>Max Depth = 84<LI>Call Chain = Graf_id &rArr; WriteAll_1621 &rArr; SendDataBit_1621 &rArr; delay_us
 </UL>
 <BR>[Calls]<UL><LI><a href="#[bf]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Write_1621
 <LI><a href="#[ca]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;WriteAll_1621
@@ -1166,7 +1168,7 @@ Global Symbols
 <BR>[Called By]<UL><LI><a href="#[ae]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;key_idset
 </UL>
 
-<P><STRONG><a name="[cd]"></a>Graf_qkvar</STRONG> (Thumb, 150 bytes, Stack size 24 bytes, ht1621.o(i.Graf_qkvar))
+<P><STRONG><a name="[cd]"></a>Graf_qkvar</STRONG> (Thumb, 214 bytes, Stack size 24 bytes, ht1621.o(i.Graf_qkvar))
 <BR><BR>[Stack]<UL><LI>Max Depth = 84<LI>Call Chain = Graf_qkvar &rArr; WriteAll_1621 &rArr; SendDataBit_1621 &rArr; delay_us
 </UL>
 <BR>[Calls]<UL><LI><a href="#[bf]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Write_1621
@@ -1175,8 +1177,8 @@ Global Symbols
 <BR>[Called By]<UL><LI><a href="#[ae]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;key_idset
 </UL>
 
-<P><STRONG><a name="[ce]"></a>Graf_setid</STRONG> (Thumb, 92 bytes, Stack size 24 bytes, ht1621.o(i.Graf_setid))
-<BR><BR>[Stack]<UL><LI>Max Depth = 84<LI>Call Chain = Graf_setid &rArr; WriteAll_1621 &rArr; SendDataBit_1621 &rArr; delay_us
+<P><STRONG><a name="[ce]"></a>Graf_setid</STRONG> (Thumb, 98 bytes, Stack size 16 bytes, ht1621.o(i.Graf_setid))
+<BR><BR>[Stack]<UL><LI>Max Depth = 76<LI>Call Chain = Graf_setid &rArr; WriteAll_1621 &rArr; SendDataBit_1621 &rArr; delay_us
 </UL>
 <BR>[Calls]<UL><LI><a href="#[bf]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Write_1621
 <LI><a href="#[ca]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;WriteAll_1621
@@ -1184,8 +1186,8 @@ Global Symbols
 <BR>[Called By]<UL><LI><a href="#[ae]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;key_idset
 </UL>
 
-<P><STRONG><a name="[cf]"></a>Graf_temp</STRONG> (Thumb, 92 bytes, Stack size 24 bytes, ht1621.o(i.Graf_temp))
-<BR><BR>[Stack]<UL><LI>Max Depth = 84<LI>Call Chain = Graf_temp &rArr; WriteAll_1621 &rArr; SendDataBit_1621 &rArr; delay_us
+<P><STRONG><a name="[cf]"></a>Graf_temp</STRONG> (Thumb, 118 bytes, Stack size 16 bytes, ht1621.o(i.Graf_temp))
+<BR><BR>[Stack]<UL><LI>Max Depth = 76<LI>Call Chain = Graf_temp &rArr; WriteAll_1621 &rArr; SendDataBit_1621 &rArr; delay_us
 </UL>
 <BR>[Calls]<UL><LI><a href="#[bf]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Write_1621
 <LI><a href="#[ca]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;WriteAll_1621
@@ -1193,8 +1195,8 @@ Global Symbols
 <BR>[Called By]<UL><LI><a href="#[ae]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;key_idset
 </UL>
 
-<P><STRONG><a name="[d0]"></a>Graf_ver</STRONG> (Thumb, 100 bytes, Stack size 24 bytes, ht1621.o(i.Graf_ver))
-<BR><BR>[Stack]<UL><LI>Max Depth = 84<LI>Call Chain = Graf_ver &rArr; WriteAll_1621 &rArr; SendDataBit_1621 &rArr; delay_us
+<P><STRONG><a name="[d0]"></a>Graf_ver</STRONG> (Thumb, 118 bytes, Stack size 16 bytes, ht1621.o(i.Graf_ver))
+<BR><BR>[Stack]<UL><LI>Max Depth = 76<LI>Call Chain = Graf_ver &rArr; WriteAll_1621 &rArr; SendDataBit_1621 &rArr; delay_us
 </UL>
 <BR>[Calls]<UL><LI><a href="#[bf]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Write_1621
 <LI><a href="#[ca]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;WriteAll_1621
@@ -2236,13 +2238,13 @@ Global Symbols
 <LI><a href="#[127]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;SendDataBit_1621
 <LI><a href="#[126]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;SendBit_1621
 </UL>
-<BR>[Called By]<UL><LI><a href="#[d0]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Graf_ver
+<BR>[Called By]<UL><LI><a href="#[c9]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Graf_con_u
+<LI><a href="#[d0]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Graf_ver
 <LI><a href="#[cf]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Graf_temp
 <LI><a href="#[ce]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Graf_setid
 <LI><a href="#[cd]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Graf_qkvar
 <LI><a href="#[cc]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Graf_id
 <LI><a href="#[cb]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Graf_cuirrent
-<LI><a href="#[c9]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Graf_con_u
 </UL>
 
 <P><STRONG><a name="[bf]"></a>Write_1621</STRONG> (Thumb, 54 bytes, Stack size 16 bytes, ht1621.o(i.Write_1621))
@@ -2253,14 +2255,14 @@ Global Symbols
 <LI><a href="#[127]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;SendDataBit_1621
 <LI><a href="#[126]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;SendBit_1621
 </UL>
-<BR>[Called By]<UL><LI><a href="#[d0]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Graf_ver
+<BR>[Called By]<UL><LI><a href="#[c9]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Graf_con_u
+<LI><a href="#[be]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Clera_lcd
+<LI><a href="#[d0]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Graf_ver
 <LI><a href="#[cf]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Graf_temp
 <LI><a href="#[ce]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Graf_setid
 <LI><a href="#[cd]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Graf_qkvar
 <LI><a href="#[cc]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Graf_id
 <LI><a href="#[cb]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Graf_cuirrent
-<LI><a href="#[c9]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Graf_con_u
-<LI><a href="#[be]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Clera_lcd
 </UL>
 
 <P><STRONG><a name="[133]"></a>__ARM_fpclassify</STRONG> (Thumb, 48 bytes, Stack size 8 bytes, fpclassify.o(i.__ARM_fpclassify))
@@ -2347,7 +2349,7 @@ Global Symbols
 <BR><BR>[Called By]<UL><LI><a href="#[bb]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;rs485_trans_computer
 </UL>
 
-<P><STRONG><a name="[b9]"></a>computer_gonglu</STRONG> (Thumb, 10332 bytes, Stack size 14632 bytes, main.o(i.computer_gonglu))
+<P><STRONG><a name="[b9]"></a>computer_gonglu</STRONG> (Thumb, 10392 bytes, Stack size 14632 bytes, main.o(i.computer_gonglu))
 <BR><BR>[Stack]<UL><LI>Max Depth = 14792 + Unknown Stack Size
 <LI>Call Chain = computer_gonglu &rArr; __hardfp_atan2 &rArr; atan &rArr; __hardfp_atan &rArr; __kernel_poly &rArr; __aeabi_dmul
 </UL>
@@ -2358,6 +2360,8 @@ Global Symbols
 <LI><a href="#[148]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;arm_cos_f32
 <LI><a href="#[145]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;arm_cmplx_mag_f32
 <LI><a href="#[ba]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;OSMboxPend
+<LI><a href="#[c9]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Graf_con_u
+<LI><a href="#[be]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Clera_lcd
 <LI><a href="#[14c]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;set_statuslist
 <LI><a href="#[b1]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;order_trans_rs485
 <LI><a href="#[14b]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;computer_trans_rs485
@@ -2487,20 +2491,20 @@ Global Symbols
 <BR>[Called By]<UL><LI><a href="#[b6]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;scanf_slave_machine
 </UL>
 
-<P><STRONG><a name="[ae]"></a>key_idset</STRONG> (Thumb, 548 bytes, Stack size 40 bytes, key.o(i.key_idset))
+<P><STRONG><a name="[ae]"></a>key_idset</STRONG> (Thumb, 654 bytes, Stack size 40 bytes, key.o(i.key_idset))
 <BR><BR>[Stack]<UL><LI>Max Depth = 132 + Unknown Stack Size
-<LI>Call Chain = key_idset &rArr; Graf_id &rArr; WriteAll_1621 &rArr; SendDataBit_1621 &rArr; delay_us
+<LI>Call Chain = key_idset &rArr; AT24CXX_WriteOneByte &rArr; IIC_Wait_Ack &rArr; IIC_Stop &rArr; GPIO_Init
 </UL>
 <BR>[Calls]<UL><LI><a href="#[d6]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;delay_us
+<LI><a href="#[c9]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Graf_con_u
 <LI><a href="#[d9]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;GPIO_ReadInputDataBit
+<LI><a href="#[be]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Clera_lcd
 <LI><a href="#[d0]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Graf_ver
 <LI><a href="#[cf]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Graf_temp
 <LI><a href="#[ce]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Graf_setid
 <LI><a href="#[cd]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Graf_qkvar
 <LI><a href="#[cc]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Graf_id
 <LI><a href="#[cb]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Graf_cuirrent
-<LI><a href="#[c9]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Graf_con_u
-<LI><a href="#[be]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Clera_lcd
 <LI><a href="#[a5]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;AT24CXX_WriteOneByte
 </UL>
 <BR>[Called By]<UL><LI><a href="#[61]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;App_TaskLCD
