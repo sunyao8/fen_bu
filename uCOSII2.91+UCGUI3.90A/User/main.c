@@ -135,6 +135,7 @@ void ADC2_CH14_DMA_Config_B1(void);
 void ADC2_CH15_DMA_Config_C1(void);
 
 void ADC1_CH1_DMA_Config_VC_phase(void);
+void ADC3_CH1_DMA_Config_CA_phase(void);
 
 void Init_ADC(void);
 
@@ -260,6 +261,9 @@ u8 L_C_flag_A=1;//感性容性标准变量
 #define TEST_LENGTH_SAMPLES 512*2 
  
 u8 phase_flag=0;
+
+u8 phase_flag_c=0;
+
 u16 T=10;
 u8 RT_FLAG=3;
 u16 scan_init=20;
@@ -1060,6 +1064,12 @@ ADC_SoftwareStartConv(ADC1);
 
 }
 
+void ADC3_CH1_DMA_Config_CA_phase(void)
+{
+  ADC_RegularChannelConfig(ADC3, ADC_Channel_1, 1, ADC_SampleTime_3Cycles);
+ADC_SoftwareStartConv(ADC3);
+
+}
 void ADC2_CH8_DMA_Config_VEE(void)
 
 {
@@ -1927,7 +1937,7 @@ u16 wugongkvar_95,wugongkvar_95A,wugongkvar_95B,wugongkvar_95C;
 static u8 init=1;
 
 
-/*********************判断相序*******************************/
+/*********************电压判断相序*******************************/
 if(init==1)
 {
 
@@ -1960,7 +1970,6 @@ allphase(testInput_V,testInput_C);
              testIndex=1;
 		angle[0]=atan2(testOutput[2*testIndex],testOutput[2*testIndex+1]);//A相初始相位
 
-/******************************************************************/
 	arm_rfft_f32(&S, testInput_C,testOutput); 
          
 	angle[1]=atan2(testOutput[2*testIndex],testOutput[2*testIndex+1]);//C相初始相位
@@ -1978,6 +1987,60 @@ else
 	phase=((angle[1]-angle[0])*360)/PI2;
 if(phase>=238&&phase<=242)phase_flag=0;//正序
 else phase_flag=1;
+
+
+     }
+
+
+/*********************电流相序******************************/
+
+ ADC3_CH1_DMA_Config_CA_phase();
+ADC1_CH7_DMA_Config_CC();
+
+
+{
+ for(i=0;i<TEST_LENGTH_SAMPLES;i++)
+	 	{
+	 	
+	 	
+testInput_C[i]=(float32_t)((ADC_Converted_CValue-ADC_Converted_base)*3.3/4096);///  1550
+
+testInput_V[i]=(float32_t)((ADC_Converted_VValue-ADC_Converted_base)*3.3/4096);///  1550
+
+delay_us(36);//36->512
+
+        }
+
+ 
+allphase(testInput_V,testInput_C);
+
+ 
+	status = arm_rfft_init_f32(&S,&S_CFFT, fftSize,  
+	  								ifftFlag, doBitReverse); 
+	 
+	/* Process the data through the CFFT/CIFFT module */ 
+	arm_rfft_f32(&S, testInput_V,testOutput); 
+
+             testIndex=1;
+		angle[0]=atan2(testOutput[2*testIndex],testOutput[2*testIndex+1]);//A相初始相位
+
+	arm_rfft_f32(&S, testInput_C,testOutput); 
+         
+	angle[1]=atan2(testOutput[2*testIndex],testOutput[2*testIndex+1]);//C相初始相位
+
+
+}
+if((angle[0]-angle[1])>0)
+{
+phase=((angle[0]-angle[1])*360)/PI2;
+if(phase>=118&&phase<=122)phase_flag_c=0;//正序
+else phase_flag_c=1;
+}
+else 
+	{
+	phase=((angle[1]-angle[0])*360)/PI2;
+if(phase>=238&&phase<=242)phase_flag_c=0;//正序
+else phase_flag_c=1;
 
 
      }
@@ -2000,7 +2063,10 @@ else phase_flag=1;
 //for(s=1;s<=9;s++)
 {
 ADC3_CH10_DMA_Config_VA();
-ADC1_CH1_DMA_Config_CA();
+if(phase_flag==0&&phase_flag_c==0)ADC1_CH1_DMA_Config_CA();
+if(phase_flag==1&&phase_flag_c==1)ADC1_CH1_DMA_Config_CA();
+if(phase_flag==0&&phase_flag_c==1)ADC1_CH7_DMA_Config_CC();
+if(phase_flag==1&&phase_flag_c==0)ADC1_CH7_DMA_Config_CC();
 
 {
  for(i=0;i<TEST_LENGTH_SAMPLES;i++)
@@ -2194,7 +2260,10 @@ computer_trans_rs485(0,33,0,0,0,CPT_B);
 
 {
 ADC3_CH12_DMA_Config_VC();
-ADC1_CH7_DMA_Config_CC();
+if(phase_flag==0&&phase_flag_c==0)ADC1_CH7_DMA_Config_CC();
+if(phase_flag==1&&phase_flag_c==1)ADC1_CH7_DMA_Config_CC();
+if(phase_flag==0&&phase_flag_c==1)ADC1_CH1_DMA_Config_CA();
+if(phase_flag==1&&phase_flag_c==0)ADC1_CH1_DMA_Config_CA();
  maxValue=0.0;
  maxValue_C=0.0; 
 
