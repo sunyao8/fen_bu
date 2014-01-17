@@ -21,24 +21,24 @@
 #define  k 0.8	//0.8
 #define PI2  6.28318530717959
 
-#define  APP_TASK_START_STK_SIZE                          1024u
+#define  APP_TASK_START_STK_SIZE                         64u
 static  OS_STK         App_TaskStartStk[APP_TASK_START_STK_SIZE];
 #define  APP_TASK_START_PRIO                               10
 
 
-#define  APP_TASK_LCD_STK_SIZE                          1024u
+#define  APP_TASK_LCD_STK_SIZE                          256u
 static  OS_STK         App_TaskLCDStk[APP_TASK_LCD_STK_SIZE];
 #define  APP_TASK_LCD_PRIO                               5
 
-#define  APP_TASK_SLAVE3_STK_SIZE                          10240u
+#define  APP_TASK_SLAVE3_STK_SIZE                          64u
 static  OS_STK         App_TaskSLAVE3Stk[APP_TASK_SLAVE3_STK_SIZE];
 #define  APP_TASK_SLAVE3_PRIO                               2
 
-#define  APP_TASK_COMPUTER_STK_SIZE                       1024u    
+#define  APP_TASK_COMPUTER_STK_SIZE                       10240u    
 static  OS_STK         App_TaskComputerStk[APP_TASK_COMPUTER_STK_SIZE];
 #define  APP_TASK_COMPUTER_PRIO                               4
 
-#define  APP_TASK_Master_STK_SIZE                         10240u
+#define  APP_TASK_Master_STK_SIZE                         64u
 static  OS_STK         App_TaskMasterStk[APP_TASK_Master_STK_SIZE];
 #define  APP_TASK_Master_PRIO                               3
 
@@ -584,13 +584,14 @@ void SETID_task(void *pdata)
                       		OSTaskSuspend( APP_TASK_COMPUTER_PRIO);
                                    OSTaskSuspend(APP_TASK_Master_PRIO);
 						OS_EXIT_CRITICAL();
-			//		HT595_Send_Byte(YELLOW_YELLOW|background_light_on);
+						 LIGHT_backligt_on(2,2,2);
+			delay_ms(100);
 								   
 		       }
                else if(id_num<=32&&id_num>=1)
                	{ 
                				   OS_ENTER_CRITICAL();
-
+						 LIGHT_backligt_on(0,0,0);
                                   MASTER=0;
 				      mybox.myid=id_num;
 			//	HT595_Send_Byte((GREEN_GREEN)|background_light_on);
@@ -3593,6 +3594,23 @@ if(flag_dis==0)
 		}
 			}
 
+if(flag_dis==1)
+{
+ computer_trans_rs485(mybox.myid,i,2,0,0,CONTROL);
+   msg=(u8 *)OSMboxPend(RS485_STUTAS_MBOX,OS_TICKS_PER_SEC/10,&err);
+     if(err==OS_ERR_TIMEOUT);
+else
+{
+		for(s=1;s<=slave_dis[0];s++)
+			{
+                   if(i==dis_list[s].myid[0])dis_list[s].work_status[0]=msg[6];
+                   if(i==dis_list[s].myid[1])dis_list[s].work_status[1]=msg[7];
+                   if(i==dis_list[s].myid[2])dis_list[s].work_status[2]=msg[8];
+			}
+
+}
+
+}
 
 	flag_dis=0;
        j=0;
@@ -3602,7 +3620,7 @@ if(flag_dis==0)
 
 j=0;
 {
-for(i=8;i<=32;i++)
+for(i=slave_dis[0]+1;i<=32;i++)
 	{  
 
 for(g=1;g<=slave_comm[0];g++)
