@@ -17,6 +17,7 @@ u8 gonglvshishu_A=0,gonglvshishu_B=0,gonglvshishu_C=0;
 //#endif
 extern u8 flag_ABC;
 extern u8 phase_flag;
+extern u8 light_time;
 
 //////////////////////////////////////////////////////////////////////////////////	 
 //本程序为控制器设计，未经许可，不得复制外传
@@ -48,6 +49,8 @@ RCC_AHB1PeriphClockCmd(RCC_AHB1Periph_GPIOA, ENABLE);
 
 } 
 
+extern statusbox status_box;
+
 void key_idset(void)
 {
 	
@@ -55,6 +58,10 @@ void key_idset(void)
 	if((KEY0==0)&&m)
 	{
            	  // delay_us(10000);
+           	  	{
+           	  	LIGHT_backligt_on(status_box.work_status[0],status_box.work_status[1],status_box.work_status[2]);
+           	  	light_time=3;
+				}
 	   m=0;
 	 while(KEY0==0)
 	   	{

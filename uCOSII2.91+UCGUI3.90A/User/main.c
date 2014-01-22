@@ -174,14 +174,9 @@ u8 RS485_RX_CNT=0;
 u8 end;
 }box;
 static box mybox;
- typedef struct  
-{ 
-  u8 myid;      //本电容箱ID号
-  u8 size[3];      //容量单位千法
-  u8 work_status[3];
-}statusbox;
 
-static statusbox status_box;
+
+ statusbox status_box;
 u8 auto_on=1;
 void RS485_Init(u32 bound);
 void initmybox(void);//初始化自身信息
@@ -268,6 +263,7 @@ u16 T=10;
 u8 RT_FLAG=3;
 u16 scan_init=20;
 u8 MASTER=0;
+u8 light_time=3;
 INT32S main (void)
 {
 CPU_INT08U  os_err;
@@ -636,7 +632,7 @@ u8 err;
        	OSSemPend(urgent_sem,0,&err);      	
 if(KEY1==1&&auto_on==0)
 	{   
-
+	light_time=3;
 		  auto_on=1;
                  if(	status_box.work_status[0]==1)
 		   {while(subswitchABC_onoff(1,0,1)==0)break;}		  //投
@@ -648,7 +644,7 @@ if(KEY1==1&&auto_on==0)
  }
      if(KEY1==0&&auto_on==1)
  	{
-
+	light_time=3;
 		auto_on=0;
                  if(	status_box.work_status[0]==0)
 		   {while(subswitchABC_onoff(1,1,1)==0)break;}		  //投
@@ -733,7 +729,8 @@ b=(float32_t)((ADC_Converted_VValue));///  1550
          GPIO_ResetBits(GPIOD,GPIO_Pin_8);
 		 GPIO_ResetBits(GPIOD,GPIO_Pin_9);
 				status_box.work_status[0]=0;
- LIGHT_backligt_on(status_box.work_status[0],status_box.work_status[1],status_box.work_status[2]);
+				if(light_time>0)LIGHT_backligt_on(status_box.work_status[0],status_box.work_status[1],status_box.work_status[2]);
+				if(light_time==0)LIGHT_backligt_off(status_box.work_status[0],status_box.work_status[1],status_box.work_status[2]);
 				
 			  max=0;
 			  a=0;
@@ -773,7 +770,8 @@ GPIO_ResetBits(GPIOD,GPIO_Pin_8); //PD2->1
 		 GPIO_ResetBits(GPIOD,GPIO_Pin_9);
 		 GPIO_ResetBits(GPIOD,GPIO_Pin_8);
 				status_box.work_status[0]=1;
-		 LIGHT_backligt_on(status_box.work_status[0],status_box.work_status[1],status_box.work_status[2]);		
+		if(light_time>0)LIGHT_backligt_on(status_box.work_status[0],status_box.work_status[1],status_box.work_status[2]);
+		if(light_time==0) LIGHT_backligt_off(status_box.work_status[0],status_box.work_status[1],status_box.work_status[2]);		
 				return 1;
 		
 		   
@@ -823,7 +821,8 @@ b=(float32_t)((ADC_Converted_VValue));///  1550
          GPIO_ResetBits(GPIOD,GPIO_Pin_10);
 		 GPIO_ResetBits(GPIOD,GPIO_Pin_11);
 				status_box.work_status[1]=0;
-			 LIGHT_backligt_on(status_box.work_status[0],status_box.work_status[1],status_box.work_status[2]);	
+			if(light_time>0)LIGHT_backligt_on(status_box.work_status[0],status_box.work_status[1],status_box.work_status[2]);		
+			 if(light_time==0)LIGHT_backligt_off(status_box.work_status[0],status_box.work_status[1],status_box.work_status[2]);	
 			  max=0;
 			  a=0;
 			  b=0;
@@ -862,7 +861,8 @@ GPIO_ResetBits(GPIOD,GPIO_Pin_8); //PD2->1
 		 GPIO_ResetBits(GPIOD,GPIO_Pin_10);
 		 GPIO_ResetBits(GPIOD,GPIO_Pin_11);
 				status_box.work_status[1]=1;
-	 LIGHT_backligt_on(status_box.work_status[0],status_box.work_status[1],status_box.work_status[2]);			
+	if(light_time>0)LIGHT_backligt_on(status_box.work_status[0],status_box.work_status[1],status_box.work_status[2]);				
+	 if(light_time==0)LIGHT_backligt_off(status_box.work_status[0],status_box.work_status[1],status_box.work_status[2]);			
 				return 1;
 		
 		   
@@ -912,7 +912,8 @@ b=(float32_t)((ADC_Converted_VValue));///  1550
          GPIO_ResetBits(GPIOD,GPIO_Pin_12);
 		 GPIO_ResetBits(GPIOD,GPIO_Pin_13);
 				status_box.work_status[2]=0;
- LIGHT_backligt_on(status_box.work_status[0],status_box.work_status[1],status_box.work_status[2]);
+if(light_time>0)LIGHT_backligt_on(status_box.work_status[0],status_box.work_status[1],status_box.work_status[2]);				
+if(light_time==0) LIGHT_backligt_off(status_box.work_status[0],status_box.work_status[1],status_box.work_status[2]);
 			  max=0;
 			  a=0;
 			  b=0;
@@ -951,7 +952,8 @@ GPIO_ResetBits(GPIOD,GPIO_Pin_8); //PD2->1
 		 GPIO_ResetBits(GPIOD,GPIO_Pin_12);
 		 GPIO_ResetBits(GPIOD,GPIO_Pin_13);
 		 				status_box.work_status[2]=1;
- LIGHT_backligt_on(status_box.work_status[0],status_box.work_status[1],status_box.work_status[2]);
+if(light_time>0)LIGHT_backligt_on(status_box.work_status[0],status_box.work_status[1],status_box.work_status[2]);
+if(light_time==0) LIGHT_backligt_off(status_box.work_status[0],status_box.work_status[1],status_box.work_status[2]);
 				return 1;
 		
 		   
@@ -4790,6 +4792,9 @@ OSTaskResume(APP_TASK_Master_PRIO);
 			}
 			if(dog_clock>0){dog_clock--;cont=1;}
 		 }
+	if(light_time>0)light_time--;
+ if(light_time==0)LIGHT_backligt_off(status_box.work_status[0],status_box.work_status[1],status_box.work_status[2]);
+	
 		}
 	   	OSIntExit();  
 
@@ -4844,7 +4849,7 @@ void EXTI15_10_IRQHandler(void)
   if(EXTI_GetITStatus(EXTI_Line12) != RESET)
 	
 	{
-
+	delay_us(1000);
 	OSSemPost(urgent_sem);
 
 	}
