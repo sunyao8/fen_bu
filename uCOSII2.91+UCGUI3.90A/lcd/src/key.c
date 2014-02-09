@@ -17,7 +17,7 @@ u8 gonglvshishu_A=0,gonglvshishu_B=0,gonglvshishu_C=0;
 //#endif
 extern u8 flag_ABC;
 extern u8 phase_flag;
-extern u8 light_time;
+u8 light_time=3;
 
 //////////////////////////////////////////////////////////////////////////////////	 
 //本程序为控制器设计，未经许可，不得复制外传

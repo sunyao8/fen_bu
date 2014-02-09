@@ -260,10 +260,11 @@ u8 phase_flag=0;
 u8 phase_flag_c=0;
 
 u16 T=10;
-u8 RT_FLAG=3;
+u8 RT_FLAG=2;//3//3
 u16 scan_init=20;
 u8 MASTER=0;
-u8 light_time=3;
+extern u8 light_time;
+
 INT32S main (void)
 {
 CPU_INT08U  os_err;
@@ -427,7 +428,7 @@ OSSemPost(computer_sem);
 if(scan_init!=0) {scan_init--;order_trans_rs485(mybox.myid,0,1,1,0,CONTROL);order_trans_rs485(mybox.myid,0,1,2,0,CONTROL);}
 if(scan_init==1)
 {
-RT_FLAG=0;
+RT_FLAG=2;
 scan_init=0;
 }
 
@@ -1612,6 +1613,24 @@ if(tx_r485[5]==CONTROL)
 	 	{while(subswitchABC_onoff(tx_r485[3],0,1)==0)break;}
 if(tx_r485[4]==1)
 	 	{while(subswitchABC_onoff(tx_r485[3],1,1)==1)break;}
+if(tx_r485[4]==6)
+{
+                if(status_box.work_status[0]==1)
+		   {while(subswitchABC_onoff(1,0,1)==0)break;}		  //投
+                 if(	status_box.work_status[1]==1)
+		   {while(subswitchABC_onoff(2,0,1)==0)break;}		  //投
+                 if(	status_box.work_status[2]==1)
+		   {while(subswitchABC_onoff(3,0,1)==0)break;}		  //投
+}
+if(tx_r485[4]==7)
+{
+                 if(	status_box.work_status[0]==0)
+		   {while(subswitchABC_onoff(1,1,1)==0)break;}		  //投
+                 if(	status_box.work_status[1]==0)
+		   {while(subswitchABC_onoff(2,1,1)==0)break;}		  //投
+                 if(	status_box.work_status[2]==0)
+		   {while(subswitchABC_onoff(3,1,1)==0)break;}	
+}
 	return 1;
 
 	}
@@ -3106,6 +3125,17 @@ change_Queue_dis(0,1,dis_list,slave_dis);
 return 0;
 }
 
+}	
+   if(wugongkvar_A>=status_box.size[0])	
+{
+if(status_box.work_status[0]==0)
+{
+{while(subswitchABC_onoff(1,1,1)==1)break;}		  //投
+status_box.work_status[0]=1;
+
+return 0;
+}
+
 }	  
 }
 if(gonglvshishu_B<93&&L_C_flag_A==1)
@@ -3159,7 +3189,17 @@ return 0;
 
 }
 
+   if(wugongkvar_B>=status_box.size[1])	
+{
+if(status_box.work_status[1]==0)
+{
+{while(subswitchABC_onoff(2,1,1)==1)break;}		  //投
+status_box.work_status[1]=1;
 
+return 0;
+}
+
+}
 }
 
 if(gonglvshishu_C<93&&L_C_flag_A==1)
@@ -3211,6 +3251,19 @@ return 0;
 }
 
 }
+
+
+   if(wugongkvar_C>=status_box.size[2])	
+{
+if(status_box.work_status[2]==0)
+{
+{while(subswitchABC_onoff(3,1,1)==1)break;}		  //投
+status_box.work_status[2]=1;
+
+return 0;
+}
+
+}	  
 }
 	
   }
@@ -3218,9 +3271,21 @@ return 0;
 if(1)
 
 {
+
+
 if(gonglvshishu_A>94&&L_C_flag_A==1)
 {
+if(KEY1==1)//必须是在自动条件下
+{
+if(status_box.work_status[0]==1)
+{
+{while(subswitchABC_onoff(1,0,1)==0)break;}		  //投
+status_box.work_status[0]=0;
 
+return 0;
+}
+
+}
 if(slave_dis[0]>0)
 {
 for(i=slave_dis[1];i<=slave_dis[7]-1;i++)
@@ -3260,6 +3325,17 @@ return 0;
 }
 if(gonglvshishu_B>94&&L_C_flag_A==1)
 {
+if(KEY1==1)//必须是在自动条件下
+{
+if(status_box.work_status[1]==1)
+{
+{while(subswitchABC_onoff(2,0,1)==0)break;}		  //投
+status_box.work_status[1]=0;
+
+return 0;
+}
+
+}
 if(slave_dis[0]>0)
 {
 for(i=slave_dis[4];i<=slave_dis[10]-1;i++)
@@ -3304,6 +3380,18 @@ return 0;
 if(gonglvshishu_C>94&&L_C_flag_A==1)
 
 {
+
+if(KEY1==1)//必须是在自动条件下
+{
+if(status_box.work_status[2]==1)
+{
+{while(subswitchABC_onoff(3,0,1)==0)break;}		  //投
+status_box.work_status[2]=0;
+
+return 0;
+}
+
+}
 if(slave_dis[0]>0)
 {
 for(i=slave_dis[13];i<=slave_dis[14]-1;i++)
@@ -3445,6 +3533,17 @@ if(1)
 /************************A*****************************/
 
 {
+if(KEY1==1)//必须是在自动条件下
+{
+if(status_box.work_status[0]==1)
+{
+{while(subswitchABC_onoff(1,0,1)==0)break;}		  //投
+status_box.work_status[0]=0;
+
+return 0;
+}
+
+}
 if(slave_dis[0]>0)
 {
 for(i=slave_dis[3];i<=slave_dis[9]-1;i++)
@@ -3485,6 +3584,17 @@ return 0;
 
 /************************B*****************************/
 {
+if(KEY1==1)//必须是在自动条件下
+{
+if(status_box.work_status[1]==1)
+{
+{while(subswitchABC_onoff(2,0,1)==0)break;}		  //投
+status_box.work_status[1]=0;
+
+return 0;
+}
+
+}
 if(slave_dis[0]>0)
 {
 for(i=slave_dis[6];i<=slave_dis[12]-1;i++)
@@ -3528,6 +3638,17 @@ return 0;
 /************************C*****************************/
 
 {
+if(KEY1==1)//必须是在自动条件下
+{
+if(status_box.work_status[2]==1)
+{
+{while(subswitchABC_onoff(3,0,1)==0)break;}		  //投
+status_box.work_status[2]=0;
+
+return 0;
+}
+
+}
 if(slave_dis[0]>0)
 {
 for(i=slave_dis[17];i<=slave_dis[18]-1;i++)
