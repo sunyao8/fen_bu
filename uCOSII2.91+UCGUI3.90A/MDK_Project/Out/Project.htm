@@ -3,7 +3,7 @@
 <title>Static Call Graph - [.\Out\Project.axf]</title></head>
 <body><HR>
 <H1>Static Call Graph for image .\Out\Project.axf</H1><HR>
-<BR><P>#&#060CALLGRAPH&#062# ARM Linker, 4.1 [Build 894]: Last Updated: Sun Feb 09 15:17:54 2014
+<BR><P>#&#060CALLGRAPH&#062# ARM Linker, 4.1 [Build 894]: Last Updated: Sun Mar 09 15:59:54 2014
 <BR><P>
 <H3>Maximum Stack Usage =      14808 bytes + Unknown(Functions without stacksize, Cycles, Untraceable Function Pointers)</H3><H3>
 Call chain for Maximum Stack Depth:</H3>
@@ -540,7 +540,7 @@ Global Symbols
 <LI><a href="#[f5]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;OSMboxPost
 <LI><a href="#[bb]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;OSMboxPend
 <LI><a href="#[a9]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;OSMboxCreate
-<LI><a href="#[c5]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;OSIntExit
+<LI><a href="#[c6]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;OSIntExit
 <LI><a href="#[12d]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;turn_master_id
 <LI><a href="#[65]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;SETID_task
 <LI><a href="#[fb]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;OSTimeDly
@@ -570,7 +570,7 @@ Global Symbols
 <LI><a href="#[f5]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;OSMboxPost
 <LI><a href="#[bb]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;OSMboxPend
 <LI><a href="#[a9]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;OSMboxCreate
-<LI><a href="#[c5]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;OSIntExit
+<LI><a href="#[c6]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;OSIntExit
 <LI><a href="#[12d]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;turn_master_id
 <LI><a href="#[65]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;SETID_task
 <LI><a href="#[fb]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;OSTimeDly
@@ -594,7 +594,7 @@ Global Symbols
 </UL>
 
 <P><STRONG><a name="[f0]"></a>OSIntCtxSw</STRONG> (Thumb, 0 bytes, Stack size unknown bytes, os_cpu_a.o(.text))
-<BR><BR>[Called By]<UL><LI><a href="#[c5]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;OSIntExit
+<BR><BR>[Called By]<UL><LI><a href="#[c6]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;OSIntExit
 </UL>
 
 <P><STRONG><a name="[a]"></a>PendSV_Handler</STRONG> (Thumb, 0 bytes, Stack size unknown bytes, os_cpu_a.o(.text))
@@ -1009,10 +1009,11 @@ Global Symbols
 </UL>
 <BR>[Address Reference Count : 1]<UL><LI> startup_stm32f4xx.o(RESET)
 </UL>
-<P><STRONG><a name="[bf]"></a>Clera_lcd</STRONG> (Thumb, 32 bytes, Stack size 16 bytes, ht1621.o(i.Clera_lcd))
-<BR><BR>[Stack]<UL><LI>Max Depth = 68<LI>Call Chain = Clera_lcd &rArr; Write_1621 &rArr; SendDataBit_1621 &rArr; delay_us
+<P><STRONG><a name="[bf]"></a>Clera_lcd</STRONG> (Thumb, 50 bytes, Stack size 16 bytes, ht1621.o(i.Clera_lcd))
+<BR><BR>[Stack]<UL><LI>Max Depth = 84<LI>Call Chain = Clera_lcd &rArr; Write_1621 &rArr; SendCmd &rArr; SendBit_1621 &rArr; delay_us
 </UL>
-<BR>[Calls]<UL><LI><a href="#[c0]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Write_1621
+<BR>[Calls]<UL><LI><a href="#[c1]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Write_1621
+<LI><a href="#[c0]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;SendCmd
 </UL>
 <BR>[Called By]<UL><LI><a href="#[af]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;key_idset
 <LI><a href="#[ba]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;computer_gonglu
@@ -1037,57 +1038,57 @@ Global Symbols
 <BR><BR>[Stack]<UL><LI>Max Depth = 56 + Unknown Stack Size
 <LI>Call Chain = EXTI15_10_IRQHandler &rArr; OSSemPost &rArr; OS_EventTaskRdy &rArr; OS_EventTaskRemoveMulti
 </UL>
-<BR>[Calls]<UL><LI><a href="#[c3]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;delay_us
+<BR>[Calls]<UL><LI><a href="#[c4]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;delay_us
 <LI><a href="#[b1]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;OSSemPost
-<LI><a href="#[c5]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;OSIntExit
-<LI><a href="#[c1]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;OSIntEnter
-<LI><a href="#[c2]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;EXTI_GetITStatus
-<LI><a href="#[c4]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;EXTI_ClearITPendingBit
+<LI><a href="#[c6]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;OSIntExit
+<LI><a href="#[c2]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;OSIntEnter
+<LI><a href="#[c3]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;EXTI_GetITStatus
+<LI><a href="#[c5]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;EXTI_ClearITPendingBit
 </UL>
 <BR>[Address Reference Count : 1]<UL><LI> startup_stm32f4xx.o(RESET)
 </UL>
-<P><STRONG><a name="[c4]"></a>EXTI_ClearITPendingBit</STRONG> (Thumb, 6 bytes, Stack size 0 bytes, stm32f4xx_exti.o(i.EXTI_ClearITPendingBit))
+<P><STRONG><a name="[c5]"></a>EXTI_ClearITPendingBit</STRONG> (Thumb, 6 bytes, Stack size 0 bytes, stm32f4xx_exti.o(i.EXTI_ClearITPendingBit))
 <BR><BR>[Called By]<UL><LI><a href="#[34]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;EXTI15_10_IRQHandler
 </UL>
 
-<P><STRONG><a name="[c6]"></a>EXTI_Configuration</STRONG> (Thumb, 110 bytes, Stack size 32 bytes, main.o(i.EXTI_Configuration))
+<P><STRONG><a name="[c7]"></a>EXTI_Configuration</STRONG> (Thumb, 110 bytes, Stack size 32 bytes, main.o(i.EXTI_Configuration))
 <BR><BR>[Stack]<UL><LI>Max Depth = 52<LI>Call Chain = EXTI_Configuration &rArr; GPIO_Init
 </UL>
-<BR>[Calls]<UL><LI><a href="#[c7]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;SYSCFG_EXTILineConfig
+<BR>[Calls]<UL><LI><a href="#[c8]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;SYSCFG_EXTILineConfig
 <LI><a href="#[91]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;RCC_APB2PeriphClockCmd
 <LI><a href="#[90]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;RCC_AHB1PeriphClockCmd
-<LI><a href="#[c9]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;NVIC_Init
+<LI><a href="#[ca]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;NVIC_Init
 <LI><a href="#[94]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;GPIO_Init
-<LI><a href="#[c8]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;EXTI_Init
-<LI><a href="#[ca]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;EXTI_GenerateSWInterrupt
+<LI><a href="#[c9]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;EXTI_Init
+<LI><a href="#[cb]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;EXTI_GenerateSWInterrupt
 </UL>
 <BR>[Called By]<UL><LI><a href="#[75]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;main
 </UL>
 
-<P><STRONG><a name="[ca]"></a>EXTI_GenerateSWInterrupt</STRONG> (Thumb, 10 bytes, Stack size 0 bytes, stm32f4xx_exti.o(i.EXTI_GenerateSWInterrupt))
-<BR><BR>[Called By]<UL><LI><a href="#[c6]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;EXTI_Configuration
+<P><STRONG><a name="[cb]"></a>EXTI_GenerateSWInterrupt</STRONG> (Thumb, 10 bytes, Stack size 0 bytes, stm32f4xx_exti.o(i.EXTI_GenerateSWInterrupt))
+<BR><BR>[Called By]<UL><LI><a href="#[c7]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;EXTI_Configuration
 </UL>
 
-<P><STRONG><a name="[c2]"></a>EXTI_GetITStatus</STRONG> (Thumb, 28 bytes, Stack size 0 bytes, stm32f4xx_exti.o(i.EXTI_GetITStatus))
+<P><STRONG><a name="[c3]"></a>EXTI_GetITStatus</STRONG> (Thumb, 28 bytes, Stack size 0 bytes, stm32f4xx_exti.o(i.EXTI_GetITStatus))
 <BR><BR>[Called By]<UL><LI><a href="#[34]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;EXTI15_10_IRQHandler
 </UL>
 
-<P><STRONG><a name="[c8]"></a>EXTI_Init</STRONG> (Thumb, 112 bytes, Stack size 12 bytes, stm32f4xx_exti.o(i.EXTI_Init))
+<P><STRONG><a name="[c9]"></a>EXTI_Init</STRONG> (Thumb, 112 bytes, Stack size 12 bytes, stm32f4xx_exti.o(i.EXTI_Init))
 <BR><BR>[Stack]<UL><LI>Max Depth = 12<LI>Call Chain = EXTI_Init
 </UL>
-<BR>[Called By]<UL><LI><a href="#[c6]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;EXTI_Configuration
+<BR>[Called By]<UL><LI><a href="#[c7]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;EXTI_Configuration
 </UL>
 
 <P><STRONG><a name="[94]"></a>GPIO_Init</STRONG> (Thumb, 124 bytes, Stack size 20 bytes, stm32f4xx_gpio.o(i.GPIO_Init))
 <BR><BR>[Stack]<UL><LI>Max Depth = 20<LI>Call Chain = GPIO_Init
 </UL>
 <BR>[Called By]<UL><LI><a href="#[dc]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;KEY_Init
-<LI><a href="#[d3]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;HT1621_Init
+<LI><a href="#[d4]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;HT1621_Init
 <LI><a href="#[75]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;main
 <LI><a href="#[126]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;RS485_Send_Data
 <LI><a href="#[120]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;RS485_Init
 <LI><a href="#[db]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Init_ADC
-<LI><a href="#[c6]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;EXTI_Configuration
+<LI><a href="#[c7]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;EXTI_Configuration
 <LI><a href="#[8f]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;ADC2_CH8_DMA_Config_VEE
 <LI><a href="#[d9]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;IIC_NAck
 <LI><a href="#[d8]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;IIC_Ack
@@ -1120,10 +1121,10 @@ Global Symbols
 <LI><a href="#[120]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;RS485_Init
 <LI><a href="#[d9]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;IIC_NAck
 <LI><a href="#[d8]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;IIC_Ack
-<LI><a href="#[c0]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Write_1621
-<LI><a href="#[cc]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;WriteAll_1621
+<LI><a href="#[c1]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Write_1621
+<LI><a href="#[cd]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;WriteAll_1621
 <LI><a href="#[129]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;SendDataBit_1621
-<LI><a href="#[d5]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;SendCmd
+<LI><a href="#[c0]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;SendCmd
 <LI><a href="#[128]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;SendBit_1621
 <LI><a href="#[a3]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;IIC_Wait_Ack
 <LI><a href="#[a5]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;IIC_Stop
@@ -1133,17 +1134,17 @@ Global Symbols
 <LI><a href="#[9f]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;IIC_Init
 </UL>
 
-<P><STRONG><a name="[d4]"></a>GPIO_SetBits</STRONG> (Thumb, 4 bytes, Stack size 0 bytes, stm32f4xx_gpio.o(i.GPIO_SetBits))
+<P><STRONG><a name="[d5]"></a>GPIO_SetBits</STRONG> (Thumb, 4 bytes, Stack size 0 bytes, stm32f4xx_gpio.o(i.GPIO_SetBits))
 <BR><BR>[Called By]<UL><LI><a href="#[d6]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;HT595_Send_Byte
-<LI><a href="#[d3]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;HT1621_Init
+<LI><a href="#[d4]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;HT1621_Init
 <LI><a href="#[151]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;subswitchABC_onoff
 <LI><a href="#[126]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;RS485_Send_Data
 <LI><a href="#[d9]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;IIC_NAck
 <LI><a href="#[d8]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;IIC_Ack
-<LI><a href="#[c0]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Write_1621
-<LI><a href="#[cc]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;WriteAll_1621
+<LI><a href="#[c1]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Write_1621
+<LI><a href="#[cd]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;WriteAll_1621
 <LI><a href="#[129]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;SendDataBit_1621
-<LI><a href="#[d5]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;SendCmd
+<LI><a href="#[c0]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;SendCmd
 <LI><a href="#[128]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;SendBit_1621
 <LI><a href="#[a3]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;IIC_Wait_Ack
 <LI><a href="#[a5]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;IIC_Stop
@@ -1153,86 +1154,86 @@ Global Symbols
 <LI><a href="#[9f]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;IIC_Init
 </UL>
 
-<P><STRONG><a name="[cb]"></a>Graf_con_u</STRONG> (Thumb, 304 bytes, Stack size 24 bytes, ht1621.o(i.Graf_con_u))
-<BR><BR>[Stack]<UL><LI>Max Depth = 84<LI>Call Chain = Graf_con_u &rArr; WriteAll_1621 &rArr; SendDataBit_1621 &rArr; delay_us
+<P><STRONG><a name="[cc]"></a>Graf_con_u</STRONG> (Thumb, 304 bytes, Stack size 24 bytes, ht1621.o(i.Graf_con_u))
+<BR><BR>[Stack]<UL><LI>Max Depth = 100<LI>Call Chain = Graf_con_u &rArr; WriteAll_1621 &rArr; SendCmd &rArr; SendBit_1621 &rArr; delay_us
 </UL>
-<BR>[Calls]<UL><LI><a href="#[c0]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Write_1621
-<LI><a href="#[cc]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;WriteAll_1621
+<BR>[Calls]<UL><LI><a href="#[c1]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Write_1621
+<LI><a href="#[cd]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;WriteAll_1621
 </UL>
 <BR>[Called By]<UL><LI><a href="#[af]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;key_idset
 <LI><a href="#[ba]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;computer_gonglu
 </UL>
 
-<P><STRONG><a name="[cd]"></a>Graf_cuirrent</STRONG> (Thumb, 220 bytes, Stack size 24 bytes, ht1621.o(i.Graf_cuirrent))
-<BR><BR>[Stack]<UL><LI>Max Depth = 84<LI>Call Chain = Graf_cuirrent &rArr; WriteAll_1621 &rArr; SendDataBit_1621 &rArr; delay_us
+<P><STRONG><a name="[ce]"></a>Graf_cuirrent</STRONG> (Thumb, 220 bytes, Stack size 24 bytes, ht1621.o(i.Graf_cuirrent))
+<BR><BR>[Stack]<UL><LI>Max Depth = 100<LI>Call Chain = Graf_cuirrent &rArr; WriteAll_1621 &rArr; SendCmd &rArr; SendBit_1621 &rArr; delay_us
 </UL>
-<BR>[Calls]<UL><LI><a href="#[c0]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Write_1621
-<LI><a href="#[cc]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;WriteAll_1621
-</UL>
-<BR>[Called By]<UL><LI><a href="#[af]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;key_idset
-</UL>
-
-<P><STRONG><a name="[ce]"></a>Graf_id</STRONG> (Thumb, 180 bytes, Stack size 24 bytes, ht1621.o(i.Graf_id))
-<BR><BR>[Stack]<UL><LI>Max Depth = 84<LI>Call Chain = Graf_id &rArr; WriteAll_1621 &rArr; SendDataBit_1621 &rArr; delay_us
-</UL>
-<BR>[Calls]<UL><LI><a href="#[c0]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Write_1621
-<LI><a href="#[cc]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;WriteAll_1621
+<BR>[Calls]<UL><LI><a href="#[c1]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Write_1621
+<LI><a href="#[cd]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;WriteAll_1621
 </UL>
 <BR>[Called By]<UL><LI><a href="#[af]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;key_idset
 </UL>
 
-<P><STRONG><a name="[cf]"></a>Graf_qkvar</STRONG> (Thumb, 214 bytes, Stack size 24 bytes, ht1621.o(i.Graf_qkvar))
-<BR><BR>[Stack]<UL><LI>Max Depth = 84<LI>Call Chain = Graf_qkvar &rArr; WriteAll_1621 &rArr; SendDataBit_1621 &rArr; delay_us
+<P><STRONG><a name="[cf]"></a>Graf_id</STRONG> (Thumb, 180 bytes, Stack size 24 bytes, ht1621.o(i.Graf_id))
+<BR><BR>[Stack]<UL><LI>Max Depth = 100<LI>Call Chain = Graf_id &rArr; WriteAll_1621 &rArr; SendCmd &rArr; SendBit_1621 &rArr; delay_us
 </UL>
-<BR>[Calls]<UL><LI><a href="#[c0]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Write_1621
-<LI><a href="#[cc]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;WriteAll_1621
-</UL>
-<BR>[Called By]<UL><LI><a href="#[af]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;key_idset
-</UL>
-
-<P><STRONG><a name="[d0]"></a>Graf_setid</STRONG> (Thumb, 98 bytes, Stack size 16 bytes, ht1621.o(i.Graf_setid))
-<BR><BR>[Stack]<UL><LI>Max Depth = 76<LI>Call Chain = Graf_setid &rArr; WriteAll_1621 &rArr; SendDataBit_1621 &rArr; delay_us
-</UL>
-<BR>[Calls]<UL><LI><a href="#[c0]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Write_1621
-<LI><a href="#[cc]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;WriteAll_1621
+<BR>[Calls]<UL><LI><a href="#[c1]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Write_1621
+<LI><a href="#[cd]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;WriteAll_1621
 </UL>
 <BR>[Called By]<UL><LI><a href="#[af]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;key_idset
 </UL>
 
-<P><STRONG><a name="[d1]"></a>Graf_temp</STRONG> (Thumb, 118 bytes, Stack size 16 bytes, ht1621.o(i.Graf_temp))
-<BR><BR>[Stack]<UL><LI>Max Depth = 76<LI>Call Chain = Graf_temp &rArr; WriteAll_1621 &rArr; SendDataBit_1621 &rArr; delay_us
+<P><STRONG><a name="[d0]"></a>Graf_qkvar</STRONG> (Thumb, 214 bytes, Stack size 24 bytes, ht1621.o(i.Graf_qkvar))
+<BR><BR>[Stack]<UL><LI>Max Depth = 100<LI>Call Chain = Graf_qkvar &rArr; WriteAll_1621 &rArr; SendCmd &rArr; SendBit_1621 &rArr; delay_us
 </UL>
-<BR>[Calls]<UL><LI><a href="#[c0]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Write_1621
-<LI><a href="#[cc]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;WriteAll_1621
-</UL>
-<BR>[Called By]<UL><LI><a href="#[af]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;key_idset
-</UL>
-
-<P><STRONG><a name="[d2]"></a>Graf_ver</STRONG> (Thumb, 118 bytes, Stack size 16 bytes, ht1621.o(i.Graf_ver))
-<BR><BR>[Stack]<UL><LI>Max Depth = 76<LI>Call Chain = Graf_ver &rArr; WriteAll_1621 &rArr; SendDataBit_1621 &rArr; delay_us
-</UL>
-<BR>[Calls]<UL><LI><a href="#[c0]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Write_1621
-<LI><a href="#[cc]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;WriteAll_1621
+<BR>[Calls]<UL><LI><a href="#[c1]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Write_1621
+<LI><a href="#[cd]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;WriteAll_1621
 </UL>
 <BR>[Called By]<UL><LI><a href="#[af]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;key_idset
 </UL>
 
-<P><STRONG><a name="[d3]"></a>HT1621_Init</STRONG> (Thumb, 102 bytes, Stack size 16 bytes, ht1621.o(i.HT1621_Init))
+<P><STRONG><a name="[d1]"></a>Graf_setid</STRONG> (Thumb, 98 bytes, Stack size 16 bytes, ht1621.o(i.Graf_setid))
+<BR><BR>[Stack]<UL><LI>Max Depth = 92<LI>Call Chain = Graf_setid &rArr; WriteAll_1621 &rArr; SendCmd &rArr; SendBit_1621 &rArr; delay_us
+</UL>
+<BR>[Calls]<UL><LI><a href="#[c1]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Write_1621
+<LI><a href="#[cd]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;WriteAll_1621
+</UL>
+<BR>[Called By]<UL><LI><a href="#[af]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;key_idset
+</UL>
+
+<P><STRONG><a name="[d2]"></a>Graf_temp</STRONG> (Thumb, 118 bytes, Stack size 16 bytes, ht1621.o(i.Graf_temp))
+<BR><BR>[Stack]<UL><LI>Max Depth = 92<LI>Call Chain = Graf_temp &rArr; WriteAll_1621 &rArr; SendCmd &rArr; SendBit_1621 &rArr; delay_us
+</UL>
+<BR>[Calls]<UL><LI><a href="#[c1]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Write_1621
+<LI><a href="#[cd]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;WriteAll_1621
+</UL>
+<BR>[Called By]<UL><LI><a href="#[af]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;key_idset
+</UL>
+
+<P><STRONG><a name="[d3]"></a>Graf_ver</STRONG> (Thumb, 118 bytes, Stack size 16 bytes, ht1621.o(i.Graf_ver))
+<BR><BR>[Stack]<UL><LI>Max Depth = 92<LI>Call Chain = Graf_ver &rArr; WriteAll_1621 &rArr; SendCmd &rArr; SendBit_1621 &rArr; delay_us
+</UL>
+<BR>[Calls]<UL><LI><a href="#[c1]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Write_1621
+<LI><a href="#[cd]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;WriteAll_1621
+</UL>
+<BR>[Called By]<UL><LI><a href="#[af]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;key_idset
+</UL>
+
+<P><STRONG><a name="[d4]"></a>HT1621_Init</STRONG> (Thumb, 102 bytes, Stack size 16 bytes, ht1621.o(i.HT1621_Init))
 <BR><BR>[Stack]<UL><LI>Max Depth = 68<LI>Call Chain = HT1621_Init &rArr; SendCmd &rArr; SendBit_1621 &rArr; delay_us
 </UL>
 <BR>[Calls]<UL><LI><a href="#[90]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;RCC_AHB1PeriphClockCmd
-<LI><a href="#[d4]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;GPIO_SetBits
+<LI><a href="#[d5]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;GPIO_SetBits
 <LI><a href="#[94]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;GPIO_Init
-<LI><a href="#[d5]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;SendCmd
+<LI><a href="#[c0]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;SendCmd
 </UL>
 <BR>[Called By]<UL><LI><a href="#[75]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;main
 </UL>
 
-<P><STRONG><a name="[d6]"></a>HT595_Send_Byte</STRONG> (Thumb, 94 bytes, Stack size 24 bytes, ht1621.o(i.HT595_Send_Byte))
+<P><STRONG><a name="[d6]"></a>HT595_Send_Byte</STRONG> (Thumb, 110 bytes, Stack size 24 bytes, ht1621.o(i.HT595_Send_Byte))
 <BR><BR>[Stack]<UL><LI>Max Depth = 36<LI>Call Chain = HT595_Send_Byte &rArr; delay_us
 </UL>
-<BR>[Calls]<UL><LI><a href="#[c3]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;delay_us
-<LI><a href="#[d4]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;GPIO_SetBits
+<BR>[Calls]<UL><LI><a href="#[c4]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;delay_us
+<LI><a href="#[d5]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;GPIO_SetBits
 <LI><a href="#[d7]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;GPIO_ResetBits
 </UL>
 <BR>[Called By]<UL><LI><a href="#[de]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;LIGHT_backligt_on
@@ -1249,8 +1250,8 @@ Global Symbols
 <P><STRONG><a name="[d8]"></a>IIC_Ack</STRONG> (Thumb, 78 bytes, Stack size 24 bytes, myiic.o(i.IIC_Ack))
 <BR><BR>[Stack]<UL><LI>Max Depth = 44<LI>Call Chain = IIC_Ack &rArr; GPIO_Init
 </UL>
-<BR>[Calls]<UL><LI><a href="#[c3]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;delay_us
-<LI><a href="#[d4]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;GPIO_SetBits
+<BR>[Calls]<UL><LI><a href="#[c4]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;delay_us
+<LI><a href="#[d5]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;GPIO_SetBits
 <LI><a href="#[d7]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;GPIO_ResetBits
 <LI><a href="#[94]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;GPIO_Init
 </UL>
@@ -1261,7 +1262,7 @@ Global Symbols
 <BR><BR>[Stack]<UL><LI>Max Depth = 36<LI>Call Chain = IIC_Init &rArr; GPIO_Init
 </UL>
 <BR>[Calls]<UL><LI><a href="#[90]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;RCC_AHB1PeriphClockCmd
-<LI><a href="#[d4]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;GPIO_SetBits
+<LI><a href="#[d5]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;GPIO_SetBits
 <LI><a href="#[d7]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;GPIO_ResetBits
 <LI><a href="#[94]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;GPIO_Init
 </UL>
@@ -1271,8 +1272,8 @@ Global Symbols
 <P><STRONG><a name="[d9]"></a>IIC_NAck</STRONG> (Thumb, 78 bytes, Stack size 24 bytes, myiic.o(i.IIC_NAck))
 <BR><BR>[Stack]<UL><LI>Max Depth = 44<LI>Call Chain = IIC_NAck &rArr; GPIO_Init
 </UL>
-<BR>[Calls]<UL><LI><a href="#[c3]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;delay_us
-<LI><a href="#[d4]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;GPIO_SetBits
+<BR>[Calls]<UL><LI><a href="#[c4]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;delay_us
+<LI><a href="#[d5]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;GPIO_SetBits
 <LI><a href="#[d7]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;GPIO_ResetBits
 <LI><a href="#[94]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;GPIO_Init
 </UL>
@@ -1282,8 +1283,8 @@ Global Symbols
 <P><STRONG><a name="[a4]"></a>IIC_Read_Byte</STRONG> (Thumb, 114 bytes, Stack size 40 bytes, myiic.o(i.IIC_Read_Byte))
 <BR><BR>[Stack]<UL><LI>Max Depth = 84<LI>Call Chain = IIC_Read_Byte &rArr; IIC_NAck &rArr; GPIO_Init
 </UL>
-<BR>[Calls]<UL><LI><a href="#[c3]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;delay_us
-<LI><a href="#[d4]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;GPIO_SetBits
+<BR>[Calls]<UL><LI><a href="#[c4]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;delay_us
+<LI><a href="#[d5]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;GPIO_SetBits
 <LI><a href="#[d7]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;GPIO_ResetBits
 <LI><a href="#[da]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;GPIO_ReadInputDataBit
 <LI><a href="#[94]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;GPIO_Init
@@ -1296,8 +1297,8 @@ Global Symbols
 <P><STRONG><a name="[a2]"></a>IIC_Send_Byte</STRONG> (Thumb, 120 bytes, Stack size 40 bytes, myiic.o(i.IIC_Send_Byte))
 <BR><BR>[Stack]<UL><LI>Max Depth = 60<LI>Call Chain = IIC_Send_Byte &rArr; GPIO_Init
 </UL>
-<BR>[Calls]<UL><LI><a href="#[c3]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;delay_us
-<LI><a href="#[d4]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;GPIO_SetBits
+<BR>[Calls]<UL><LI><a href="#[c4]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;delay_us
+<LI><a href="#[d5]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;GPIO_SetBits
 <LI><a href="#[d7]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;GPIO_ResetBits
 <LI><a href="#[94]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;GPIO_Init
 </UL>
@@ -1308,8 +1309,8 @@ Global Symbols
 <P><STRONG><a name="[a1]"></a>IIC_Start</STRONG> (Thumb, 78 bytes, Stack size 24 bytes, myiic.o(i.IIC_Start))
 <BR><BR>[Stack]<UL><LI>Max Depth = 44<LI>Call Chain = IIC_Start &rArr; GPIO_Init
 </UL>
-<BR>[Calls]<UL><LI><a href="#[c3]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;delay_us
-<LI><a href="#[d4]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;GPIO_SetBits
+<BR>[Calls]<UL><LI><a href="#[c4]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;delay_us
+<LI><a href="#[d5]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;GPIO_SetBits
 <LI><a href="#[d7]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;GPIO_ResetBits
 <LI><a href="#[94]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;GPIO_Init
 </UL>
@@ -1320,8 +1321,8 @@ Global Symbols
 <P><STRONG><a name="[a5]"></a>IIC_Stop</STRONG> (Thumb, 78 bytes, Stack size 24 bytes, myiic.o(i.IIC_Stop))
 <BR><BR>[Stack]<UL><LI>Max Depth = 44<LI>Call Chain = IIC_Stop &rArr; GPIO_Init
 </UL>
-<BR>[Calls]<UL><LI><a href="#[c3]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;delay_us
-<LI><a href="#[d4]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;GPIO_SetBits
+<BR>[Calls]<UL><LI><a href="#[c4]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;delay_us
+<LI><a href="#[d5]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;GPIO_SetBits
 <LI><a href="#[d7]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;GPIO_ResetBits
 <LI><a href="#[94]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;GPIO_Init
 </UL>
@@ -1333,8 +1334,8 @@ Global Symbols
 <P><STRONG><a name="[a3]"></a>IIC_Wait_Ack</STRONG> (Thumb, 104 bytes, Stack size 32 bytes, myiic.o(i.IIC_Wait_Ack))
 <BR><BR>[Stack]<UL><LI>Max Depth = 76<LI>Call Chain = IIC_Wait_Ack &rArr; IIC_Stop &rArr; GPIO_Init
 </UL>
-<BR>[Calls]<UL><LI><a href="#[c3]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;delay_us
-<LI><a href="#[d4]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;GPIO_SetBits
+<BR>[Calls]<UL><LI><a href="#[c4]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;delay_us
+<LI><a href="#[d5]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;GPIO_SetBits
 <LI><a href="#[d7]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;GPIO_ResetBits
 <LI><a href="#[da]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;GPIO_ReadInputDataBit
 <LI><a href="#[94]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;GPIO_Init
@@ -1405,12 +1406,12 @@ Global Symbols
 <BR>[Called By]<UL><LI><a href="#[75]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;main
 </UL>
 
-<P><STRONG><a name="[c9]"></a>NVIC_Init</STRONG> (Thumb, 92 bytes, Stack size 16 bytes, misc.o(i.NVIC_Init))
+<P><STRONG><a name="[ca]"></a>NVIC_Init</STRONG> (Thumb, 92 bytes, Stack size 16 bytes, misc.o(i.NVIC_Init))
 <BR><BR>[Stack]<UL><LI>Max Depth = 16<LI>Call Chain = NVIC_Init
 </UL>
 <BR>[Called By]<UL><LI><a href="#[12e]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;TIM3_Int_Init
 <LI><a href="#[120]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;RS485_Init
-<LI><a href="#[c6]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;EXTI_Configuration
+<LI><a href="#[c7]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;EXTI_Configuration
 </UL>
 
 <P><STRONG><a name="[e0]"></a>NVIC_PriorityGroupConfig</STRONG> (Thumb, 10 bytes, Stack size 0 bytes, misc.o(i.NVIC_PriorityGroupConfig))
@@ -1460,12 +1461,12 @@ Global Symbols
 <BR><BR>[Called By]<UL><LI><a href="#[e4]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;OSInit
 </UL>
 
-<P><STRONG><a name="[c1]"></a>OSIntEnter</STRONG> (Thumb, 20 bytes, Stack size 0 bytes, os_core.o(i.OSIntEnter))
+<P><STRONG><a name="[c2]"></a>OSIntEnter</STRONG> (Thumb, 20 bytes, Stack size 0 bytes, os_core.o(i.OSIntEnter))
 <BR><BR>[Called By]<UL><LI><a href="#[29]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;TIM3_IRQHandler
 <LI><a href="#[34]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;EXTI15_10_IRQHandler
 </UL>
 
-<P><STRONG><a name="[c5]"></a>OSIntExit</STRONG> (Thumb, 82 bytes, Stack size 16 bytes, os_core.o(i.OSIntExit))
+<P><STRONG><a name="[c6]"></a>OSIntExit</STRONG> (Thumb, 82 bytes, Stack size 16 bytes, os_core.o(i.OSIntExit))
 <BR><BR>[Stack]<UL><LI>Max Depth = 16 + Unknown Stack Size
 <LI>Call Chain = OSIntExit
 </UL>
@@ -1795,7 +1796,7 @@ Global Symbols
 </UL>
 <BR>[Calls]<UL><LI><a href="#[113]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;USART_ReceiveData
 <LI><a href="#[112]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;USART_GetITStatus
-<LI><a href="#[c5]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;OSIntExit
+<LI><a href="#[c6]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;OSIntExit
 <LI><a href="#[110]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;CPU_SR_Save
 <LI><a href="#[111]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;CPU_SR_Restore
 <LI><a href="#[114]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;USART_ClearITPendingBit
@@ -2008,11 +2009,11 @@ Global Symbols
 
 <P><STRONG><a name="[90]"></a>RCC_AHB1PeriphClockCmd</STRONG> (Thumb, 18 bytes, Stack size 0 bytes, stm32f4xx_rcc.o(i.RCC_AHB1PeriphClockCmd))
 <BR><BR>[Called By]<UL><LI><a href="#[dc]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;KEY_Init
-<LI><a href="#[d3]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;HT1621_Init
+<LI><a href="#[d4]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;HT1621_Init
 <LI><a href="#[75]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;main
 <LI><a href="#[120]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;RS485_Init
 <LI><a href="#[db]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Init_ADC
-<LI><a href="#[c6]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;EXTI_Configuration
+<LI><a href="#[c7]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;EXTI_Configuration
 <LI><a href="#[8f]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;ADC2_CH8_DMA_Config_VEE
 <LI><a href="#[9f]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;IIC_Init
 </UL>
@@ -2028,7 +2029,7 @@ Global Symbols
 
 <P><STRONG><a name="[91]"></a>RCC_APB2PeriphClockCmd</STRONG> (Thumb, 18 bytes, Stack size 0 bytes, stm32f4xx_rcc.o(i.RCC_APB2PeriphClockCmd))
 <BR><BR>[Called By]<UL><LI><a href="#[db]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Init_ADC
-<LI><a href="#[c6]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;EXTI_Configuration
+<LI><a href="#[c7]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;EXTI_Configuration
 <LI><a href="#[8f]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;ADC2_CH8_DMA_Config_VEE
 </UL>
 
@@ -2048,7 +2049,7 @@ Global Symbols
 <LI><a href="#[121]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;RCC_APB1PeriphClockCmd
 <LI><a href="#[90]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;RCC_AHB1PeriphClockCmd
 <LI><a href="#[e0]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;NVIC_PriorityGroupConfig
-<LI><a href="#[c9]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;NVIC_Init
+<LI><a href="#[ca]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;NVIC_Init
 <LI><a href="#[d7]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;GPIO_ResetBits
 <LI><a href="#[122]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;GPIO_PinAFConfig
 <LI><a href="#[94]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;GPIO_Init
@@ -2061,7 +2062,7 @@ Global Symbols
 </UL>
 <BR>[Calls]<UL><LI><a href="#[11a]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;USART_SendData
 <LI><a href="#[127]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;USART_GetFlagStatus
-<LI><a href="#[d4]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;GPIO_SetBits
+<LI><a href="#[d5]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;GPIO_SetBits
 <LI><a href="#[d7]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;GPIO_ResetBits
 <LI><a href="#[94]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;GPIO_Init
 </UL>
@@ -2073,43 +2074,46 @@ Global Symbols
 <P><STRONG><a name="[8]"></a>SVC_Handler</STRONG> (Thumb, 2 bytes, Stack size 0 bytes, stm32f4xx_it.o(i.SVC_Handler))
 <BR>[Address Reference Count : 1]<UL><LI> startup_stm32f4xx.o(RESET)
 </UL>
-<P><STRONG><a name="[c7]"></a>SYSCFG_EXTILineConfig</STRONG> (Thumb, 34 bytes, Stack size 8 bytes, stm32f4xx_syscfg.o(i.SYSCFG_EXTILineConfig))
+<P><STRONG><a name="[c8]"></a>SYSCFG_EXTILineConfig</STRONG> (Thumb, 34 bytes, Stack size 8 bytes, stm32f4xx_syscfg.o(i.SYSCFG_EXTILineConfig))
 <BR><BR>[Stack]<UL><LI>Max Depth = 8<LI>Call Chain = SYSCFG_EXTILineConfig
 </UL>
-<BR>[Called By]<UL><LI><a href="#[c6]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;EXTI_Configuration
+<BR>[Called By]<UL><LI><a href="#[c7]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;EXTI_Configuration
 </UL>
 
-<P><STRONG><a name="[128]"></a>SendBit_1621</STRONG> (Thumb, 78 bytes, Stack size 24 bytes, ht1621.o(i.SendBit_1621))
+<P><STRONG><a name="[128]"></a>SendBit_1621</STRONG> (Thumb, 96 bytes, Stack size 24 bytes, ht1621.o(i.SendBit_1621))
 <BR><BR>[Stack]<UL><LI>Max Depth = 36<LI>Call Chain = SendBit_1621 &rArr; delay_us
 </UL>
-<BR>[Calls]<UL><LI><a href="#[c3]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;delay_us
-<LI><a href="#[d4]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;GPIO_SetBits
+<BR>[Calls]<UL><LI><a href="#[c4]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;delay_us
+<LI><a href="#[d5]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;GPIO_SetBits
 <LI><a href="#[d7]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;GPIO_ResetBits
 </UL>
-<BR>[Called By]<UL><LI><a href="#[c0]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Write_1621
-<LI><a href="#[cc]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;WriteAll_1621
-<LI><a href="#[d5]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;SendCmd
+<BR>[Called By]<UL><LI><a href="#[c1]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Write_1621
+<LI><a href="#[cd]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;WriteAll_1621
+<LI><a href="#[c0]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;SendCmd
 </UL>
 
-<P><STRONG><a name="[d5]"></a>SendCmd</STRONG> (Thumb, 42 bytes, Stack size 16 bytes, ht1621.o(i.SendCmd))
+<P><STRONG><a name="[c0]"></a>SendCmd</STRONG> (Thumb, 42 bytes, Stack size 16 bytes, ht1621.o(i.SendCmd))
 <BR><BR>[Stack]<UL><LI>Max Depth = 52<LI>Call Chain = SendCmd &rArr; SendBit_1621 &rArr; delay_us
 </UL>
-<BR>[Calls]<UL><LI><a href="#[d4]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;GPIO_SetBits
+<BR>[Calls]<UL><LI><a href="#[d5]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;GPIO_SetBits
 <LI><a href="#[d7]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;GPIO_ResetBits
 <LI><a href="#[128]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;SendBit_1621
 </UL>
-<BR>[Called By]<UL><LI><a href="#[d3]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;HT1621_Init
+<BR>[Called By]<UL><LI><a href="#[d4]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;HT1621_Init
+<LI><a href="#[bf]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Clera_lcd
+<LI><a href="#[c1]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Write_1621
+<LI><a href="#[cd]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;WriteAll_1621
 </UL>
 
-<P><STRONG><a name="[129]"></a>SendDataBit_1621</STRONG> (Thumb, 76 bytes, Stack size 24 bytes, ht1621.o(i.SendDataBit_1621))
+<P><STRONG><a name="[129]"></a>SendDataBit_1621</STRONG> (Thumb, 94 bytes, Stack size 24 bytes, ht1621.o(i.SendDataBit_1621))
 <BR><BR>[Stack]<UL><LI>Max Depth = 36<LI>Call Chain = SendDataBit_1621 &rArr; delay_us
 </UL>
-<BR>[Calls]<UL><LI><a href="#[c3]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;delay_us
-<LI><a href="#[d4]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;GPIO_SetBits
+<BR>[Calls]<UL><LI><a href="#[c4]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;delay_us
+<LI><a href="#[d5]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;GPIO_SetBits
 <LI><a href="#[d7]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;GPIO_ResetBits
 </UL>
-<BR>[Called By]<UL><LI><a href="#[c0]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Write_1621
-<LI><a href="#[cc]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;WriteAll_1621
+<BR>[Called By]<UL><LI><a href="#[c1]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Write_1621
+<LI><a href="#[cd]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;WriteAll_1621
 </UL>
 
 <P><STRONG><a name="[153]"></a>SysTick_CLKSourceConfig</STRONG> (Thumb, 24 bytes, Stack size 0 bytes, misc.o(i.SysTick_CLKSourceConfig))
@@ -2123,7 +2127,7 @@ Global Symbols
 <BR>[Calls]<UL><LI><a href="#[108]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;OSTimeTick
 <LI><a href="#[e2]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;OS_CPU_SR_Save
 <LI><a href="#[e3]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;OS_CPU_SR_Restore
-<LI><a href="#[c5]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;OSIntExit
+<LI><a href="#[c6]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;OSIntExit
 </UL>
 <BR>[Address Reference Count : 1]<UL><LI> startup_stm32f4xx.o(RESET)
 </UL>
@@ -2140,8 +2144,8 @@ Global Symbols
 </UL>
 <BR>[Calls]<UL><LI><a href="#[12b]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;TIM_GetITStatus
 <LI><a href="#[12c]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;TIM_ClearITPendingBit
-<LI><a href="#[c5]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;OSIntExit
-<LI><a href="#[c1]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;OSIntEnter
+<LI><a href="#[c6]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;OSIntExit
+<LI><a href="#[c2]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;OSIntEnter
 <LI><a href="#[12d]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;turn_master_id
 <LI><a href="#[dd]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;LIGHT_backligt_off
 </UL>
@@ -2155,7 +2159,7 @@ Global Symbols
 <LI><a href="#[131]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;TIM_Cmd
 <LI><a href="#[121]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;RCC_APB1PeriphClockCmd
 <LI><a href="#[e0]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;NVIC_PriorityGroupConfig
-<LI><a href="#[c9]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;NVIC_Init
+<LI><a href="#[ca]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;NVIC_Init
 </UL>
 <BR>[Called By]<UL><LI><a href="#[75]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;main
 </UL>
@@ -2193,7 +2197,7 @@ Global Symbols
 <BR>[Calls]<UL><LI><a href="#[113]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;USART_ReceiveData
 <LI><a href="#[112]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;USART_GetITStatus
 <LI><a href="#[f5]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;OSMboxPost
-<LI><a href="#[c5]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;OSIntExit
+<LI><a href="#[c6]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;OSIntExit
 <LI><a href="#[110]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;CPU_SR_Save
 <LI><a href="#[111]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;CPU_SR_Restore
 </UL>
@@ -2256,39 +2260,41 @@ Global Symbols
 </UL>
 <BR>[Address Reference Count : 1]<UL><LI> startup_stm32f4xx.o(RESET)
 </UL>
-<P><STRONG><a name="[cc]"></a>WriteAll_1621</STRONG> (Thumb, 72 bytes, Stack size 24 bytes, ht1621.o(i.WriteAll_1621))
-<BR><BR>[Stack]<UL><LI>Max Depth = 60<LI>Call Chain = WriteAll_1621 &rArr; SendDataBit_1621 &rArr; delay_us
+<P><STRONG><a name="[cd]"></a>WriteAll_1621</STRONG> (Thumb, 90 bytes, Stack size 24 bytes, ht1621.o(i.WriteAll_1621))
+<BR><BR>[Stack]<UL><LI>Max Depth = 76<LI>Call Chain = WriteAll_1621 &rArr; SendCmd &rArr; SendBit_1621 &rArr; delay_us
 </UL>
-<BR>[Calls]<UL><LI><a href="#[d4]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;GPIO_SetBits
+<BR>[Calls]<UL><LI><a href="#[d5]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;GPIO_SetBits
 <LI><a href="#[d7]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;GPIO_ResetBits
 <LI><a href="#[129]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;SendDataBit_1621
+<LI><a href="#[c0]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;SendCmd
 <LI><a href="#[128]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;SendBit_1621
 </UL>
-<BR>[Called By]<UL><LI><a href="#[cb]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Graf_con_u
-<LI><a href="#[d2]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Graf_ver
-<LI><a href="#[d1]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Graf_temp
-<LI><a href="#[d0]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Graf_setid
-<LI><a href="#[cf]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Graf_qkvar
-<LI><a href="#[ce]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Graf_id
-<LI><a href="#[cd]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Graf_cuirrent
+<BR>[Called By]<UL><LI><a href="#[cc]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Graf_con_u
+<LI><a href="#[d3]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Graf_ver
+<LI><a href="#[d2]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Graf_temp
+<LI><a href="#[d1]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Graf_setid
+<LI><a href="#[d0]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Graf_qkvar
+<LI><a href="#[cf]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Graf_id
+<LI><a href="#[ce]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Graf_cuirrent
 </UL>
 
-<P><STRONG><a name="[c0]"></a>Write_1621</STRONG> (Thumb, 54 bytes, Stack size 16 bytes, ht1621.o(i.Write_1621))
-<BR><BR>[Stack]<UL><LI>Max Depth = 52<LI>Call Chain = Write_1621 &rArr; SendDataBit_1621 &rArr; delay_us
+<P><STRONG><a name="[c1]"></a>Write_1621</STRONG> (Thumb, 72 bytes, Stack size 16 bytes, ht1621.o(i.Write_1621))
+<BR><BR>[Stack]<UL><LI>Max Depth = 68<LI>Call Chain = Write_1621 &rArr; SendCmd &rArr; SendBit_1621 &rArr; delay_us
 </UL>
-<BR>[Calls]<UL><LI><a href="#[d4]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;GPIO_SetBits
+<BR>[Calls]<UL><LI><a href="#[d5]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;GPIO_SetBits
 <LI><a href="#[d7]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;GPIO_ResetBits
 <LI><a href="#[129]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;SendDataBit_1621
+<LI><a href="#[c0]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;SendCmd
 <LI><a href="#[128]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;SendBit_1621
 </UL>
-<BR>[Called By]<UL><LI><a href="#[cb]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Graf_con_u
+<BR>[Called By]<UL><LI><a href="#[cc]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Graf_con_u
 <LI><a href="#[bf]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Clera_lcd
-<LI><a href="#[d2]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Graf_ver
-<LI><a href="#[d1]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Graf_temp
-<LI><a href="#[d0]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Graf_setid
-<LI><a href="#[cf]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Graf_qkvar
-<LI><a href="#[ce]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Graf_id
-<LI><a href="#[cd]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Graf_cuirrent
+<LI><a href="#[d3]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Graf_ver
+<LI><a href="#[d2]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Graf_temp
+<LI><a href="#[d1]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Graf_setid
+<LI><a href="#[d0]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Graf_qkvar
+<LI><a href="#[cf]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Graf_id
+<LI><a href="#[ce]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Graf_cuirrent
 </UL>
 
 <P><STRONG><a name="[135]"></a>__ARM_fpclassify</STRONG> (Thumb, 48 bytes, Stack size 8 bytes, fpclassify.o(i.__ARM_fpclassify))
@@ -2379,14 +2385,14 @@ Global Symbols
 <BR><BR>[Stack]<UL><LI>Max Depth = 14792 + Unknown Stack Size
 <LI>Call Chain = computer_gonglu &rArr; __hardfp_atan2 &rArr; atan &rArr; __hardfp_atan &rArr; __kernel_poly &rArr; __aeabi_dmul
 </UL>
-<BR>[Calls]<UL><LI><a href="#[c3]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;delay_us
+<BR>[Calls]<UL><LI><a href="#[c4]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;delay_us
 <LI><a href="#[80]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;arm_rfft_init_f32
 <LI><a href="#[7b]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;arm_rfft_f32
 <LI><a href="#[148]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;arm_max_f32
 <LI><a href="#[14a]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;arm_cos_f32
 <LI><a href="#[147]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;arm_cmplx_mag_f32
 <LI><a href="#[bb]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;OSMboxPend
-<LI><a href="#[cb]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Graf_con_u
+<LI><a href="#[cc]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Graf_con_u
 <LI><a href="#[da]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;GPIO_ReadInputDataBit
 <LI><a href="#[bf]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Clera_lcd
 <LI><a href="#[151]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;subswitchABC_onoff
@@ -2443,7 +2449,7 @@ Global Symbols
 <BR><BR>[Stack]<UL><LI>Max Depth = 48 + Unknown Stack Size
 <LI>Call Chain = delay_ms &rArr; OSTimeDly &rArr; OS_Sched
 </UL>
-<BR>[Calls]<UL><LI><a href="#[c3]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;delay_us
+<BR>[Calls]<UL><LI><a href="#[c4]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;delay_us
 <LI><a href="#[fb]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;OSTimeDly
 </UL>
 <BR>[Called By]<UL><LI><a href="#[151]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;subswitchABC_onoff
@@ -2453,7 +2459,7 @@ Global Symbols
 <LI><a href="#[a6]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;AT24CXX_WriteOneByte
 </UL>
 
-<P><STRONG><a name="[c3]"></a>delay_us</STRONG> (Thumb, 50 bytes, Stack size 12 bytes, delay.o(i.delay_us))
+<P><STRONG><a name="[c4]"></a>delay_us</STRONG> (Thumb, 50 bytes, Stack size 12 bytes, delay.o(i.delay_us))
 <BR><BR>[Stack]<UL><LI>Max Depth = 12<LI>Call Chain = delay_us
 </UL>
 <BR>[Called By]<UL><LI><a href="#[af]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;key_idset
@@ -2524,20 +2530,20 @@ Global Symbols
 </UL>
 
 <P><STRONG><a name="[af]"></a>key_idset</STRONG> (Thumb, 662 bytes, Stack size 40 bytes, key.o(i.key_idset))
-<BR><BR>[Stack]<UL><LI>Max Depth = 132 + Unknown Stack Size
-<LI>Call Chain = key_idset &rArr; AT24CXX_WriteOneByte &rArr; IIC_Wait_Ack &rArr; IIC_Stop &rArr; GPIO_Init
+<BR><BR>[Stack]<UL><LI>Max Depth = 140 + Unknown Stack Size
+<LI>Call Chain = key_idset &rArr; Graf_con_u &rArr; WriteAll_1621 &rArr; SendCmd &rArr; SendBit_1621 &rArr; delay_us
 </UL>
-<BR>[Calls]<UL><LI><a href="#[c3]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;delay_us
-<LI><a href="#[cb]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Graf_con_u
+<BR>[Calls]<UL><LI><a href="#[c4]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;delay_us
+<LI><a href="#[cc]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Graf_con_u
 <LI><a href="#[da]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;GPIO_ReadInputDataBit
 <LI><a href="#[bf]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Clera_lcd
 <LI><a href="#[de]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;LIGHT_backligt_on
-<LI><a href="#[d2]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Graf_ver
-<LI><a href="#[d1]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Graf_temp
-<LI><a href="#[d0]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Graf_setid
-<LI><a href="#[cf]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Graf_qkvar
-<LI><a href="#[ce]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Graf_id
-<LI><a href="#[cd]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Graf_cuirrent
+<LI><a href="#[d3]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Graf_ver
+<LI><a href="#[d2]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Graf_temp
+<LI><a href="#[d1]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Graf_setid
+<LI><a href="#[d0]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Graf_qkvar
+<LI><a href="#[cf]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Graf_id
+<LI><a href="#[ce]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Graf_cuirrent
 <LI><a href="#[a6]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;AT24CXX_WriteOneByte
 </UL>
 <BR>[Called By]<UL><LI><a href="#[61]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;App_TaskLCD
@@ -2547,7 +2553,7 @@ Global Symbols
 <BR><BR>[Stack]<UL><LI>Max Depth = 248 + Unknown Stack Size
 <LI>Call Chain = main &rArr; OSInit &rArr; OSTmr_Init &rArr; OSTaskCreateExt &rArr; OS_TCBInit &rArr; OSTaskCreateHook &rArr; App_TaskCreateHook &rArr; OSView_TaskCreateHook &rArr; OSView_TimeGetCycles
 </UL>
-<BR>[Calls]<UL><LI><a href="#[c3]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;delay_us
+<BR>[Calls]<UL><LI><a href="#[c4]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;delay_us
 <LI><a href="#[152]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;delay_init
 <LI><a href="#[90]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;RCC_AHB1PeriphClockCmd
 <LI><a href="#[159]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;OS_CPU_SysTickInit
@@ -2557,7 +2563,7 @@ Global Symbols
 <LI><a href="#[e4]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;OSInit
 <LI><a href="#[df]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;NVIC_Configuration
 <LI><a href="#[dc]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;KEY_Init
-<LI><a href="#[d3]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;HT1621_Init
+<LI><a href="#[d4]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;HT1621_Init
 <LI><a href="#[94]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;GPIO_Init
 <LI><a href="#[9e]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;AT24CXX_Init
 <LI><a href="#[151]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;subswitchABC_onoff
@@ -2566,7 +2572,7 @@ Global Symbols
 <LI><a href="#[12e]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;TIM3_Int_Init
 <LI><a href="#[120]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;RS485_Init
 <LI><a href="#[db]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Init_ADC
-<LI><a href="#[c6]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;EXTI_Configuration
+<LI><a href="#[c7]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;EXTI_Configuration
 <LI><a href="#[8f]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;ADC2_CH8_DMA_Config_VEE
 </UL>
 <BR>[Called By]<UL><LI><a href="#[74]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__rt_entry_main
@@ -2650,9 +2656,9 @@ Global Symbols
 <BR><BR>[Stack]<UL><LI>Max Depth = 124 + Unknown Stack Size
 <LI>Call Chain = subswitchABC_onoff &rArr; LIGHT_backligt_on &rArr; HT595_Send_Byte &rArr; delay_us
 </UL>
-<BR>[Calls]<UL><LI><a href="#[c3]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;delay_us
+<BR>[Calls]<UL><LI><a href="#[c4]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;delay_us
 <LI><a href="#[a7]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;delay_ms
-<LI><a href="#[d4]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;GPIO_SetBits
+<LI><a href="#[d5]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;GPIO_SetBits
 <LI><a href="#[d7]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;GPIO_ResetBits
 <LI><a href="#[de]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;LIGHT_backligt_on
 <LI><a href="#[dd]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;LIGHT_backligt_off
@@ -2892,7 +2898,7 @@ Local Symbols
 </UL>
 
 <P><STRONG><a name="[61]"></a>App_TaskLCD</STRONG> (Thumb, 12 bytes, Stack size 0 bytes, main.o(i.App_TaskLCD))
-<BR><BR>[Stack]<UL><LI>Max Depth = 132 + Unknown Stack Size
+<BR><BR>[Stack]<UL><LI>Max Depth = 140 + Unknown Stack Size
  + In Cycle
 <LI>Call Chain = App_TaskLCD &rArr;  App_TaskLCD (Cycle)
 </UL>
@@ -2999,7 +3005,7 @@ Local Symbols
 
 <P><STRONG><a name="[ef]"></a>OS_SchedNew</STRONG> (Thumb, 24 bytes, Stack size 0 bytes, os_core.o(i.OS_SchedNew))
 <BR><BR>[Called By]<UL><LI><a href="#[f9]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;OSStart
-<LI><a href="#[c5]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;OSIntExit
+<LI><a href="#[c6]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;OSIntExit
 <LI><a href="#[f3]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;OS_Sched
 </UL>
 
