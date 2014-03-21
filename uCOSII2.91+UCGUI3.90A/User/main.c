@@ -151,14 +151,14 @@ u8 computer_gonglu(status_dis_node *dis_list,status_comm_node *comm_list_1,statu
 #define EN_USART2_RX 	1			//0,不接收;1,接收.
 #define RS485_TX_EN_1		GPIO_SetBits(GPIOB, GPIO_Pin_15)	// 485模式控制.0,接收;1,发送.本工程用PB15
 #define RS485_TX_EN_0		GPIO_ResetBits(GPIOB, GPIO_Pin_15)	// 485模式控制.0,接收;1,发送.本工程用PB15
- OS_EVENT * RS485_MBOX,* RS485_STUTAS_MBOX,* RS485_RT;			//	rs485邮箱信号量
+ OS_EVENT * RS485_MBOX,* RS485_STUTAS_MBOX,* RS485_RT,*RS485_STUTAS_MBOX_dis;			//	rs485邮箱信号量
  OS_EVENT *computer_sem,*urgent_sem;			 //
 
 static u8 rs485buf[LEN_control];//发送控制信息
 
 
 //接收到的数据长度
-u8 RS485_RX_CNT=0;  
+u32 RS485_RX_CNT=0;  
 
 
 
@@ -218,6 +218,8 @@ void LIGHT_backligt_off(u8 status_1,u8 status_2,u8 status_3);
 u16  dog_clock=10;
 u8 cont=0;//用于更改主机号的记次数器
  void TIM3_Int_Init(u16 arr,u16 psc);
+  void TIM4_Int_Init(u16 arr,u16 psc);
+
 void delay_time(u32 time);
  void heartbeat(u8 t);
 
@@ -372,6 +374,7 @@ CPU_INT08U  os_err;
 
 RS485_MBOX=OSMboxCreate((void*)0);
 RS485_STUTAS_MBOX=OSMboxCreate((void*)0);
+RS485_STUTAS_MBOX_dis=OSMboxCreate((void*)0);
 computer_sem=OSSemCreate(0);
 RS485_RT=OSMboxCreate((void*)0);
 urgent_sem=OSSemCreate(0);
@@ -1005,10 +1008,13 @@ Init_ADC();
 RS485_Init(9600);
 /************************************************************/
 
+IWDG_Init(4,625); 
 
 
 /*************************TIME*******************************/
 	TIM3_Int_Init(9999*2,7199);//10Khz的计数频率，计数10K次为1000ms 
+		TIM4_Int_Init(4999,7199);//10Khz的计数频率，计数10K次为1000ms 
+
 /************************************************************/
 
 
@@ -1419,7 +1425,7 @@ void RS485_Init(u32 bound)
 {
       CPU_SR          cpu_sr;
 
-	u8 RS485_RX_BUF[64];
+	u8 RS485_RX_BUF[512];
 	   CPU_CRITICAL_ENTER();                                       /* Tell uC/OS-II that we are starting an ISR            */
     OSIntNesting++;
     CPU_CRITICAL_EXIT();	
@@ -1431,22 +1437,51 @@ void RS485_Init(u32 bound)
 		if(RS485_RX_BUF[RS485_RX_CNT-1]=='$'){RS485_RX_BUF[0]='$'; RS485_RX_CNT=1;}
 		if(RS485_RX_BUF[RS485_RX_CNT-1]=='?')
 		{
-				RS485_RX_CNT=0;
 				
-		 OSMboxPost(RS485_MBOX,(void*)&RS485_RX_BUF);
+	if(((RS485_RX_CNT==11)&&(RS485_RX_BUF[8]==CPT_A))||((RS485_RX_CNT==10)&&(RS485_RX_BUF[8]==CPT_B))||((RS485_RX_CNT==10)&&(RS485_RX_BUF[8]==CPT_C)))
+			{OSMboxPost(RS485_MBOX,(void*)&RS485_RX_BUF);}
+						RS485_RX_CNT=0;
+
 		} 
 
+		if(RS485_RX_BUF[RS485_RX_CNT-1]=='-'){RS485_RX_BUF[0]='-'; RS485_RX_CNT=1;}
+		if(RS485_RX_BUF[RS485_RX_CNT-1]=='=')
+		{
+				
+if(((RS485_RX_CNT==7)&&(RS485_RX_BUF[5]==CONTROL)))
+			{OSMboxPost(RS485_MBOX,(void*)&RS485_RX_BUF);}
+						RS485_RX_CNT=0;
+
+		}
+
+ if(MASTER==1) //当为主机时，对共补状态信息进行处理
+ 	{
 			if(RS485_RX_BUF[RS485_RX_CNT-1]=='&'){RS485_RX_BUF[0]='&'; RS485_RX_CNT=1;}
 		if(RS485_RX_BUF[RS485_RX_CNT-1]=='*')
 		{
 				RS485_RX_CNT=0;
 
-				
+		 	
 				if(RS485_RX_BUF[1]=='#'){OSMboxPost(RS485_STUTAS_MBOX,(void*)&RS485_RX_BUF);}
 				if(RS485_RX_BUF[1]=='+'){OSMboxPost(RS485_RT,(void*)&RS485_RX_BUF);}
-
+		 	
 		} 
-	
+ 	}
+ // if((MASTER==0)&&(RS485_RX_BUF[RS485_RX_CNT-1]=='*')) RS485_RX_CNT=0;//直接清除，避免内存溢出和信息相互搅
+	/********************************************************************************************/
+ if(MASTER==1) //当为主机时，对分补状态信息进行处理
+		{
+			if(RS485_RX_BUF[RS485_RX_CNT-1]=='%'){RS485_RX_BUF[0]='%'; RS485_RX_CNT=1;}
+		if(RS485_RX_BUF[RS485_RX_CNT-1]==')')
+	{
+ 	
+				if((RS485_RX_BUF[1]=='(')&&(RS485_RX_CNT==10)){OSMboxPost(RS485_STUTAS_MBOX_dis,(void*)&RS485_RX_BUF);}
+ 	RS485_RX_CNT=0;
+		}	
+
+		}
+ if((MASTER==0)&&(RS485_RX_BUF[RS485_RX_CNT-1]==')')) RS485_RX_CNT=0;//直接清除，避免内存溢出和信息相互搅
+/********************************************************************************************/
 	}  	
 	OSIntExit();  											 
 
@@ -1613,7 +1648,7 @@ if(tx_r485[5]==CONTROL)
 	 	{while(subswitchABC_onoff(tx_r485[3],0,1)==0)break;}
 if(tx_r485[4]==1)
 	 	{while(subswitchABC_onoff(tx_r485[3],1,1)==1)break;}
-if(tx_r485[4]==6)
+if(tx_r485[4]==23)
 {
                 if(status_box.work_status[0]==1)
 		   {while(subswitchABC_onoff(1,0,1)==0)break;}		  //投
@@ -1622,14 +1657,14 @@ if(tx_r485[4]==6)
                  if(	status_box.work_status[2]==1)
 		   {while(subswitchABC_onoff(3,0,1)==0)break;}		  //投
 }
-if(tx_r485[4]==7)
+if(tx_r485[4]==24)
 {
                  if(	status_box.work_status[0]==0)
-		   {while(subswitchABC_onoff(1,1,1)==0)break;}		  //投
+		   {while(subswitchABC_onoff(1,1,1)==1)break;}		  //投
                  if(	status_box.work_status[1]==0)
-		   {while(subswitchABC_onoff(2,1,1)==0)break;}		  //投
+		   {while(subswitchABC_onoff(2,1,1)==1)break;}		  //投
                  if(	status_box.work_status[2]==0)
-		   {while(subswitchABC_onoff(3,1,1)==0)break;}	
+		   {while(subswitchABC_onoff(3,1,1)==1)break;}	
 }
 	return 1;
 
@@ -1724,13 +1759,13 @@ return 0;
 */
   if(ctr==CONTROL)
   	{
-      rs485buf[0]='$';//协议头
+      rs485buf[0]='-';//协议头
 	rs485buf[1]=destination;
 	rs485buf[2]=send;
 	rs485buf[3]=relay;
 	rs485buf[4]=message;
 	rs485buf[5]=ctr;
-	rs485buf[6]='?';//协议尾
+	rs485buf[6]='=';//协议尾
 	RS485_Send_Data(rs485buf,7);//发送5个字节
 
   	}
@@ -1854,7 +1889,14 @@ u8 inquiry_slave_status_comm(u8 count,u8 id,status_dis_node *dis_list,status_com
    msg=(u8 *)OSMboxPend(RS485_STUTAS_MBOX,OS_TICKS_PER_SEC/10,&err);
    if(err==OS_ERR_TIMEOUT){ return 0;}//(u8 id, u8 size, u8 work_status, u8 work_time) 
 	else 
-	{  rs485_trans_status_comm(count,msg,dis_list,comm_list_1,comm_list_2);return 1;}
+	{ 
+if(msg[2]==id)
+		{
+	rs485_trans_status_comm(count,msg,dis_list,comm_list_1,comm_list_2);
+	return 1;
+		}
+else return 0;
+	}
 
 } //查询从机状态并保存到从机状态表中，参数id是要查询的从机号
 
@@ -1883,16 +1925,19 @@ return 1;
  computer_trans_rs485(mybox.myid,id,2,0,0,CONTROL);
   // order_trans_rs485(mybox.myid,id,2,0,0);
 
-   msg=(u8 *)OSMboxPend(RS485_STUTAS_MBOX,OS_TICKS_PER_SEC/10,&err);
+   msg=(u8 *)OSMboxPend(RS485_STUTAS_MBOX_dis,OS_TICKS_PER_SEC/10,&err);
    if(err==OS_ERR_TIMEOUT)
    	{
           return 0;
    }//(u8 id, u8 size, u8 work_status, u8 work_time) 
 	else 
 	{ 
+	if(msg[2]==id)//检查传过来的从机的状态信息是否真是该从机的。如果不是就不录入
+		{
 	rs485_trans_status_dis(count,msg,dis_list,comm_list);//主机状态信息写入状态表
-
 	return 1;
+		}
+	else return 0;
 	}
 
 }
@@ -1900,8 +1945,8 @@ return 1;
 /**********************/
  void status_trans_rs485_dis(statusbox *mystatus)//从机程序
 {  	
-       rs485buf[0]='&';
-	rs485buf[1]='#';
+       rs485buf[0]='%';
+	rs485buf[1]='(';
 	rs485buf[2]=mystatus->myid;
 	rs485buf[3]=mystatus->size[0];
 	rs485buf[4]=mystatus->size[1];
@@ -1912,7 +1957,7 @@ return 1;
 	rs485buf[8]=mystatus->work_status[2];
 
 
-	rs485buf[9]='*';
+	rs485buf[9]=')';
 	RS485_Send_Data(rs485buf,10);//发送10个字节
 }
 /**************/
@@ -3720,9 +3765,9 @@ if(flag_dis==0)
 if(flag_dis==1)
 {
  computer_trans_rs485(mybox.myid,i,2,0,0,CONTROL);
-   msg=(u8 *)OSMboxPend(RS485_STUTAS_MBOX,OS_TICKS_PER_SEC/10,&err);
+   msg=(u8 *)OSMboxPend(RS485_STUTAS_MBOX_dis,OS_TICKS_PER_SEC/10,&err);
      if(err==OS_ERR_TIMEOUT);
-else
+else if(msg[2]==i)//检查传过来的从机的状态信息是否真是该从机的。如果不是就不更新
 {
 		for(s=1;s<=slave_dis[0];s++)
 			{
@@ -3767,7 +3812,8 @@ if(flag_comm==1||flag_comm==2)
 {order_trans_rs485(mybox.myid,i,3,0,0,CONTROL); 
   msg=(u8 *)OSMboxPend(RS485_STUTAS_MBOX,OS_TICKS_PER_SEC/10,&err);
      if(err==OS_ERR_TIMEOUT);
-else {
+else  if(msg[2]==i) 
+	{
 	if(flag_comm==1)
 		{
 	if(comm_list_1[g].group==1)comm_list_1[g].work_status=msg[5];
@@ -4843,9 +4889,51 @@ for(i=slave_dis[17];i<slave_dis[18]-1;i++)
 
 /***********************************************************************
 TIME_4
-
 **********************************************************************/
- void TIM3_Int_Init(u16 arr,u16 psc)
+ void TIM4_Int_Init(u16 arr,u16 psc)
+
+{
+    TIM_TimeBaseInitTypeDef  TIM_TimeBaseStructure;
+	NVIC_InitTypeDef NVIC_InitStructure;
+
+	RCC_APB1PeriphClockCmd(RCC_APB1Periph_TIM4, ENABLE); //时钟使能
+	
+	//定时器TIM4初始化
+	TIM_TimeBaseStructure.TIM_Period = arr; //设置在下一个更新事件装入活动的自动重装载寄存器周期的值	
+	TIM_TimeBaseStructure.TIM_Prescaler =psc; //设置用来作为TIMx时钟频率除数的预分频值
+	TIM_TimeBaseStructure.TIM_ClockDivision = TIM_CKD_DIV1; //设置时钟分割:TDTS = Tck_tim
+	TIM_TimeBaseStructure.TIM_CounterMode = TIM_CounterMode_Up;  //TIM向上计数模式
+	TIM_TimeBaseInit(TIM4, &TIM_TimeBaseStructure); //根据指定的参数初始化TIMx的时间基数单位
+ 
+	TIM_ITConfig(TIM4,TIM_IT_Update,ENABLE ); //使能指定的TIM4中断,允许更新中断
+
+	//中断优先级NVIC设置
+			NVIC_PriorityGroupConfig(NVIC_PriorityGroup_2);	//设置NVIC中断分组2:2位抢占优先级，2位响应优先级
+	NVIC_InitStructure.NVIC_IRQChannel = TIM4_IRQn;  //TIM4中断
+	NVIC_InitStructure.NVIC_IRQChannelPreemptionPriority =2;  //先占优先级0级
+	NVIC_InitStructure.NVIC_IRQChannelSubPriority = 0;  //从优先级3级
+	NVIC_InitStructure.NVIC_IRQChannelCmd = ENABLE; //IRQ通道被使能
+	NVIC_Init(&NVIC_InitStructure);  //初始化NVIC寄存器
+
+
+	TIM_Cmd(TIM4, ENABLE);  //使能TIMx					 
+}
+
+ void TIM4_IRQHandler(void)   //TIM3中断
+{	 
+	OSIntEnter();   
+	if (TIM_GetITStatus(TIM4, TIM_IT_Update) != RESET)  //检查TIM4更新中断发生与否
+		{	  
+		TIM_ClearITPendingBit(TIM4, TIM_IT_Update  );  //清除TIMx更新中断标志
+                     IWDG_Feed();
+	
+		}
+	   	OSIntExit();  
+
+ 	}
+
+/**************************************************************************/
+void TIM3_Int_Init(u16 arr,u16 psc)
 
 {
     TIM_TimeBaseInitTypeDef  TIM_TimeBaseStructure;

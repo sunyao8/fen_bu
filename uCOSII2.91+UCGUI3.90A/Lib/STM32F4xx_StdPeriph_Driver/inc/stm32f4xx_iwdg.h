@@ -107,6 +107,11 @@ void IWDG_Enable(void);
 
 /* Flag management function ***************************************************/
 FlagStatus IWDG_GetFlagStatus(uint16_t IWDG_FLAG);
+void IWDG_Init(u8 prer,u16 rlr) ;
+
+//Œπ∂¿¡¢ø¥√≈π∑
+void IWDG_Feed(void);
+
 
 #ifdef __cplusplus
 }

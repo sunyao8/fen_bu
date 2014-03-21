@@ -122,7 +122,7 @@
 #define DF_THREE                                               1
 
 #define CONTROL                                                '/'
-#define CPT_A                                                     '%'
+#define CPT_A                                                     '<'
 #define CPT_B                                                     '@'
 #define CPT_C                                                     '!'
 #define CPT_LL                                                    '^'
