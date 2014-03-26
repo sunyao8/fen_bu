@@ -436,6 +436,7 @@ scan_init=0;
 }
 
    mybox.myid=AT24CXX_ReadOneByte(0x0010);
+status_box.myid= mybox.myid;
 	
  	}
 
@@ -470,7 +471,7 @@ static  void  App_Taskslave_three(void *p_arg)
    rs485_trans_computer(msg);
    	 dog_clock=20;
    mybox.myid=AT24CXX_ReadOneByte(0x0010);
-
+status_box.myid= mybox.myid;
    // key_idset();//按键与显示功能
 
 }
@@ -1657,7 +1658,7 @@ if(tx_r485[4]==23)
                  if(	status_box.work_status[2]==1)
 		   {while(subswitchABC_onoff(3,0,1)==0)break;}		  //投
 }
-if(tx_r485[4]==24)
+if(tx_r485[4]==32)
 {
                  if(	status_box.work_status[0]==0)
 		   {while(subswitchABC_onoff(1,1,1)==1)break;}		  //投
