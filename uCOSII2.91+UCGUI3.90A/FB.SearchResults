@@ -1,7 +1,21 @@
----- GPIO_Pin_12 Matches (6 in 0 files) ----
-Main.c (user):// GPIO_ResetBits(GPIOD, GPIO_Pin_12);
-Main.c (user):	GPIO_InitStructure.GPIO_Pin = GPIO_Pin_8|GPIO_Pin_9|GPIO_Pin_12;
-Main.c (user): 	//GPIO_SetBits(GPIOD, GPIO_Pin_12);	 
-Main.c (user):	 GPIO_SetBits(GPIOD, GPIO_Pin_12);
-Main.c (user):// GPIO_SetBits(GPIOD, GPIO_Pin_12);
-Main.c (user):  //GPIO_ResetBits(GPIOD, GPIO_Pin_12);	 
+---- T= Matches (22 in 1 files) ----
+Main.c (user):u32 RS485_RX_CNT=0;  
+Main.c (user):u16 T=10;
+Main.c (user):RS485_RT=OSMboxCreate((void*)0);
+Main.c (user):int NPT=TEST_LENGTH_SAMPLES;
+Main.c (user):		if(RS485_RX_BUF[RS485_RX_CNT-1]=='$'){RS485_RX_BUF[0]='$'; RS485_RX_CNT=1;}
+Main.c (user):	if(((RS485_RX_CNT==11)&&(RS485_RX_BUF[8]==CPT_A))||((RS485_RX_CNT==10)&&(RS485_RX_BUF[8]==CPT_B))||((RS485_RX_CNT==10)&&(RS485_RX_BUF[8]==CPT_C)))
+Main.c (user):						RS485_RX_CNT=0;
+Main.c (user):		if(RS485_RX_BUF[RS485_RX_CNT-1]=='-'){RS485_RX_BUF[0]='-'; RS485_RX_CNT=1;}
+Main.c (user):if(((RS485_RX_CNT==7)&&(RS485_RX_BUF[5]==CONTROL)))
+Main.c (user):						RS485_RX_CNT=0;
+Main.c (user):			if(RS485_RX_BUF[RS485_RX_CNT-1]=='&'){RS485_RX_BUF[0]='&'; RS485_RX_CNT=1;}
+Main.c (user):				RS485_RX_CNT=0;
+Main.c (user): // if((MASTER==0)&&(RS485_RX_BUF[RS485_RX_CNT-1]=='*')) RS485_RX_CNT=0;//直接清除，避免内存溢出和信息相互搅
+Main.c (user):			if(RS485_RX_BUF[RS485_RX_CNT-1]=='%'){RS485_RX_BUF[0]='%'; RS485_RX_CNT=1;}
+Main.c (user):				if((RS485_RX_BUF[1]=='(')&&(RS485_RX_CNT==10)){OSMboxPost(RS485_STUTAS_MBOX_dis,(void*)&RS485_RX_BUF);}
+Main.c (user): 	RS485_RX_CNT=0;
+Main.c (user): if((MASTER==0)&&(RS485_RX_BUF[RS485_RX_CNT-1]==')')) RS485_RX_CNT=0;//直接清除，避免内存溢出和信息相互搅
+Main.c (user):	RS485_RX_CNT=0;	  
+Main.c (user):if(abs(abs(gl[0]-gl[1])*TR[i]-var)<=min){min=abs(abs(gl[0]-gl[1])*TR[i]-var);T=TR[i];}
+Main.c (user):T=TR[4];
