@@ -17,6 +17,9 @@ u8 gonglvshishu_A=0,gonglvshishu_B=0,gonglvshishu_C=0;
 //#endif
 extern u8 flag_ABC;
 extern u8 phase_flag;
+extern u8 L_C_flag_A;//感性容性标准变量
+extern u8 L_C_flag_B;//感性容性标准变量
+extern u8 L_C_flag_C;
 u8 light_time=3;
 
 //////////////////////////////////////////////////////////////////////////////////	 
@@ -92,36 +95,50 @@ void key_idset(void)
 					    	  switch(grafnum)
 								{				 
 									case 1:	//显示A功率因数和电压值
-									if(phase_flag==0)
-									flag_ABC=1;
-									if(phase_flag==1)
+										Clera_lcd();									
+										if(phase_flag==0)
+											{
+										flag_ABC=1;
+										Graf_con_u(gonglvshishu_A,dianya_zhi_A,L_C_flag_A);
+											}
+									   if(phase_flag==1)
+											{
 										flag_ABC=3;
-										Clera_lcd();
-										Graf_con_u(gonglvshishu_A,dianya_zhi_A);
+										Graf_con_u(gonglvshishu_C,dianya_zhi_C,L_C_flag_C);
+											}
 										break;
 									case 2:	//显示B功率因数和电压值
 										flag_ABC=2;
 									     Clera_lcd();
-										Graf_con_u(gonglvshishu_B,dianya_zhi_B);
+										Graf_con_u(gonglvshishu_B,dianya_zhi_B,L_C_flag_B);
 										
 										break;
 									case 3:	//显示B功率因数和电压值
+										Clera_lcd();									
 										if(phase_flag==0)
-									flag_ABC=3;
-									if(phase_flag==1)
+											{
+										flag_ABC=3;
+										Graf_con_u(gonglvshishu_C,dianya_zhi_C,L_C_flag_C);
+											}
+									   if(phase_flag==1)
+											{
 										flag_ABC=1;
-										Clera_lcd();
-										Graf_con_u(gonglvshishu_C,dianya_zhi_C);
-										
+										Graf_con_u(gonglvshishu_A,dianya_zhi_A,L_C_flag_A);
+											}
 										break;
 										
 									case 4:	//显示电流
-									if(phase_flag==0)
-									flag_ABC=1;
-									if(phase_flag==1)
-										flag_ABC=3;;
 										Clera_lcd();
+									if(phase_flag==0)
+										{
+										flag_ABC=1;
 										Graf_cuirrent(dianliuzhi_A);
+										}
+									if(phase_flag==1)
+										{
+                                                                       flag_ABC=3;
+										Graf_cuirrent(dianliuzhi_C);
+										}
 										break;
 									case 5:	//显示电流
 									flag_ABC=2;
@@ -129,20 +146,30 @@ void key_idset(void)
 										Graf_cuirrent(dianliuzhi_B);
 										break;
 									case 6:	//显示电流
-									if(phase_flag==0)
-									flag_ABC=3;
-									if(phase_flag==1)
-										flag_ABC=1;
 										Clera_lcd();
+									if(phase_flag==0)
+										{
+										flag_ABC=3;
 										Graf_cuirrent(dianliuzhi_C);
+										}
+									if(phase_flag==1)
+										{
+                                                                       flag_ABC=1;
+										Graf_cuirrent(dianliuzhi_A);
+										}
 										break;										
 									case 7:	//显示无功功率	 
-									if(phase_flag==0)
+										Clera_lcd();									
+	             								if(phase_flag==0)
+	             									{
 									flag_ABC=1;
-									if(phase_flag==1)
-										flag_ABC=3;
-										Clera_lcd();
 										Graf_qkvar(wugongkvar_A);
+	             									}
+									if(phase_flag==1)
+										{
+										flag_ABC=3;
+										Graf_qkvar(wugongkvar_C);											
+										}
 										break;
 									case 8:	//显示无功功率	 
 									flag_ABC=2;
@@ -150,12 +177,17 @@ void key_idset(void)
 										Graf_qkvar(wugongkvar_B);
 										break;
 									case 9:	//显示无功功率	 
-									if(phase_flag==0)
+										Clera_lcd();									
+	             								if(phase_flag==0)
+	             									{
 									flag_ABC=3;
-									if(phase_flag==1)
-										flag_ABC=1;
-										Clera_lcd();
 										Graf_qkvar(wugongkvar_C);
+	             									}
+									if(phase_flag==1)
+										{
+										flag_ABC=1;
+										Graf_qkvar(wugongkvar_A);											
+										}										
 										break;										
 									case 10:	//显示温度 
 										Clera_lcd();
@@ -246,41 +278,99 @@ void key_idset(void)
 					  	  switch(grafnum)
 							{				 
 									case 1:	//显示A功率因数和电压值
-										Clera_lcd();
-										Graf_con_u(gonglvshishu_A,dianya_zhi_A);
+										Clera_lcd();									
+										if(phase_flag==0)
+											{
+										flag_ABC=1;
+										Graf_con_u(gonglvshishu_A,dianya_zhi_A,L_C_flag_A);
+											}
+									   if(phase_flag==1)
+											{
+										flag_ABC=3;
+										Graf_con_u(gonglvshishu_C,dianya_zhi_C,L_C_flag_C);
+											}
 										break;
 									case 2:	//显示B功率因数和电压值
-										Clera_lcd();
-										Graf_con_u(gonglvshishu_B,dianya_zhi_B);
+										flag_ABC=2;
+									     Clera_lcd();
+										Graf_con_u(gonglvshishu_B,dianya_zhi_B,L_C_flag_B);
+										
 										break;
 									case 3:	//显示B功率因数和电压值
-										Clera_lcd();
-										Graf_con_u(gonglvshishu_C,dianya_zhi_C);
+										Clera_lcd();									
+										if(phase_flag==0)
+											{
+										flag_ABC=3;
+										Graf_con_u(gonglvshishu_C,dianya_zhi_C,L_C_flag_C);
+											}
+									   if(phase_flag==1)
+											{
+										flag_ABC=1;
+										Graf_con_u(gonglvshishu_A,dianya_zhi_A,L_C_flag_A);
+											}
 										break;
 										
 									case 4:	//显示电流
 										Clera_lcd();
+									if(phase_flag==0)
+										{
+										flag_ABC=1;
 										Graf_cuirrent(dianliuzhi_A);
+										}
+									if(phase_flag==1)
+										{
+                                                                       flag_ABC=3;
+										Graf_cuirrent(dianliuzhi_C);
+										}
 										break;
 									case 5:	//显示电流
+									flag_ABC=2;
 										Clera_lcd();
 										Graf_cuirrent(dianliuzhi_B);
 										break;
 									case 6:	//显示电流
 										Clera_lcd();
+									if(phase_flag==0)
+										{
+										flag_ABC=3;
 										Graf_cuirrent(dianliuzhi_C);
+										}
+									if(phase_flag==1)
+										{
+                                                                       flag_ABC=1;
+										Graf_cuirrent(dianliuzhi_A);
+										}
 										break;										
 									case 7:	//显示无功功率	 
-										Clera_lcd();
+										Clera_lcd();									
+	             								if(phase_flag==0)
+	             									{
+									flag_ABC=1;
 										Graf_qkvar(wugongkvar_A);
+	             									}
+									if(phase_flag==1)
+										{
+										flag_ABC=3;
+										Graf_qkvar(wugongkvar_C);											
+										}
 										break;
 									case 8:	//显示无功功率	 
+									flag_ABC=2;
 										Clera_lcd();
 										Graf_qkvar(wugongkvar_B);
 										break;
 									case 9:	//显示无功功率	 
-										Clera_lcd();
+										Clera_lcd();									
+	             								if(phase_flag==0)
+	             									{
+									flag_ABC=3;
 										Graf_qkvar(wugongkvar_C);
+	             									}
+									if(phase_flag==1)
+										{
+										flag_ABC=1;
+										Graf_qkvar(wugongkvar_A);											
+										}										
 										break;										
 									case 10:	//显示温度 
 										Clera_lcd();

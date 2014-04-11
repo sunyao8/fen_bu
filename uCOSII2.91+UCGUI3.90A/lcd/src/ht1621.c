@@ -7,9 +7,7 @@ u8 num12345Seg[]={0x0F,0x0A,0x00,0x0A,0x0B,0x0C,0x09,0x0E,0x04,0x0E,0x0D,0x06,0x
 u8 num67Seg[]={0x0A,0x0F,0x0A,0x00,0x0C,0x0B,0x0E,0x09,0x0E,0x04,0x06,0x0D,0x06,0x0F,0x0A,0x08,0x0E,0x0F,0x0E,0x0D};
 u8 dotnum12345Seg[]={0x0F,0x0B,0x00,0x0B,0x0B,0x0D,0x09,0x0F,0x04,0x0F,0x0D,0x07,0x0F,0x07,0x08,0x0B,0x0F,0x0F,0x0D,0x0F};
 u8 dotnum67Seg[]={0x0B,0x0F,0x0B,0x00,0x0D,0x0B,0x0F,0x09,0x0F,0x04,0x07,0x0D,0x07,0x0F,0x0B,0x08,0x0F,0x0F,0x0F,0x0D};	   
-extern u8 L_C_flag_A;//感性容性标准变量
-extern u8 L_C_flag_B;//感性容性标准变量
-extern u8 L_C_flag_C;
+
 extern u8 auto_on;
 
 u8 flag_ABC=1;
@@ -201,7 +199,7 @@ if( L_C_flag_A==0)
 }
 */
 
-void Graf_con_u(u8 cos,u16 volt)
+void Graf_con_u(u8 cos,u16 volt,u8 L_C)
 {
 	u8 temp,coszhengshu,cosshifen,cosbaifen;
 	u16 voltbaiwei,voltshiwei,voltgewei;
@@ -231,15 +229,14 @@ void Graf_con_u(u8 cos,u16 volt)
 	 Write_1621(7,0x04);   //显示后C
    }	
 	temp=cos;
-	if(flag_ABC==1)
 		{
-if( L_C_flag_A==1)
+if( L_C==1)
 {
 	coszhengshu=temp/100;
 	WriteAll_1621(16,dotnum12345Seg+2*coszhengshu,2);	//显示cos整数部分
 
 }
-if( L_C_flag_A==0)
+if( L_C==0)
 
 {
 	//Write_1621(17,0x04);	//显示cos整数部分
@@ -265,76 +262,7 @@ if( L_C_flag_A==0)
 	WriteAll_1621(8,num67Seg+2*voltgewei,2);	  //显示volt个位部分
 
 		}
-
-	if(flag_ABC==2)
-		{
-if( L_C_flag_B==1)
-{
-	coszhengshu=temp/100;
-	WriteAll_1621(16,dotnum12345Seg+2*coszhengshu,2);	//显示cos整数部分
-
-}
-if( L_C_flag_B==0)
-
-{
-	//Write_1621(17,0x04);	//显示cos整数部分
-		Write_1621(17,0x05);   //显示dot.
-
-}
-	cosshifen=(temp%100)/10;
-	WriteAll_1621(18,num12345Seg+2*cosshifen,2);	 	//显示cos十分位部分
-
-	cosbaifen=(temp%10)%10;
-	WriteAll_1621(20,num12345Seg+2*cosbaifen,2);	   //显示cos百分位部分
-	
-
-
-	voltbaiwei=volt/100;
-	WriteAll_1621(2,num12345Seg+2*voltbaiwei,2);	  //显示volt百位部分
-
-	
-	voltshiwei=(volt%100)/10;
-	WriteAll_1621(10,num67Seg+2*voltshiwei,2);	  //显示volt十位部分
-
-	voltgewei=volt%10;
-	WriteAll_1621(8,num67Seg+2*voltgewei,2);	  //显示volt个位部分
-
-		}
-
-	if(flag_ABC==3)
-		{
-if( L_C_flag_C==1)
-{
-	coszhengshu=temp/100;
-	WriteAll_1621(16,dotnum12345Seg+2*coszhengshu,2);	//显示cos整数部分
-
-}
-if( L_C_flag_C==0)
-
-{
-	//Write_1621(17,0x04);	//显示cos整数部分
-		Write_1621(17,0x05);   //显示dot.
-
-}
-	cosshifen=(temp%100)/10;
-	WriteAll_1621(18,num12345Seg+2*cosshifen,2);	 	//显示cos十分位部分
-
-	cosbaifen=(temp%10)%10;
-	WriteAll_1621(20,num12345Seg+2*cosbaifen,2);	   //显示cos百分位部分
-	
-
-
-	voltbaiwei=volt/100;
-	WriteAll_1621(2,num12345Seg+2*voltbaiwei,2);	  //显示volt百位部分
-
-	
-	voltshiwei=(volt%100)/10;
-	WriteAll_1621(10,num67Seg+2*voltshiwei,2);	  //显示volt十位部分
-
-	voltgewei=volt%10;
-	WriteAll_1621(8,num67Seg+2*voltgewei,2);	  //显示volt个位部分
-
-		}
+		
 }
 void Graf_cuirrent(u32 current)
 {

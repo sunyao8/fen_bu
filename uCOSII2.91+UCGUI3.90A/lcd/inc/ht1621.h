@@ -58,7 +58,7 @@ void SendCmd(u8 command);
 void Write_1621(u8 addr,u8 data);
 void WriteAll_1621(u8 addr,u8 *p,u8 cnt);
 void Clera_lcd(void);
-void Graf_con_u(u8 cos,u16 volt);
+void Graf_con_u(u8 cos,u16 volt,u8 L_C);
 void Graf_cuirrent(u32 current);	
 void Graf_qkvar(u16 qkvar);
 void Graf_temp(u8 temp);

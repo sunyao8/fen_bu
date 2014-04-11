@@ -3,7 +3,7 @@
 <title>Static Call Graph - [.\Out\Project.axf]</title></head>
 <body><HR>
 <H1>Static Call Graph for image .\Out\Project.axf</H1><HR>
-<BR><P>#&#060CALLGRAPH&#062# ARM Linker, 4.1 [Build 894]: Last Updated: Wed Apr 09 20:03:11 2014
+<BR><P>#&#060CALLGRAPH&#062# ARM Linker, 4.1 [Build 894]: Last Updated: Fri Apr 11 14:12:10 2014
 <BR><P>
 <H3>Maximum Stack Usage =      14808 bytes + Unknown(Functions without stacksize, Cycles, Untraceable Function Pointers)</H3><H3>
 Call chain for Maximum Stack Depth:</H3>
@@ -1161,8 +1161,8 @@ Global Symbols
 <LI><a href="#[db]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;IIC_Ack
 </UL>
 
-<P><STRONG><a name="[cf]"></a>Graf_con_u</STRONG> (Thumb, 506 bytes, Stack size 40 bytes, ht1621.o(i.Graf_con_u))
-<BR><BR>[Stack]<UL><LI>Max Depth = 116<LI>Call Chain = Graf_con_u &rArr; WriteAll_1621 &rArr; SendCmd &rArr; SendBit_1621 &rArr; delay_us
+<P><STRONG><a name="[cf]"></a>Graf_con_u</STRONG> (Thumb, 304 bytes, Stack size 24 bytes, ht1621.o(i.Graf_con_u))
+<BR><BR>[Stack]<UL><LI>Max Depth = 100<LI>Call Chain = Graf_con_u &rArr; WriteAll_1621 &rArr; SendCmd &rArr; SendBit_1621 &rArr; delay_us
 </UL>
 <BR>[Calls]<UL><LI><a href="#[c4]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Write_1621
 <LI><a href="#[d0]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;WriteAll_1621
@@ -2244,7 +2244,7 @@ Global Symbols
 <LI><a href="#[131]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;TIM3_Int_Init
 </UL>
 
-<P><STRONG><a name="[32]"></a>USART2_IRQHandler</STRONG> (Thumb, 444 bytes, Stack size 552 bytes, main.o(i.USART2_IRQHandler))
+<P><STRONG><a name="[32]"></a>USART2_IRQHandler</STRONG> (Thumb, 456 bytes, Stack size 552 bytes, main.o(i.USART2_IRQHandler))
 <BR><BR>[Stack]<UL><LI>Max Depth = 600 + Unknown Stack Size
 <LI>Call Chain = USART2_IRQHandler &rArr; OSMboxPost &rArr; OS_EventTaskRdy &rArr; OS_EventTaskRemoveMulti
 </UL>
@@ -2421,7 +2421,7 @@ Global Symbols
 <BR>[Called By]<UL><LI><a href="#[143]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__hardfp_atan2
 </UL>
 
-<P><STRONG><a name="[155]"></a>change_Queue</STRONG> (Thumb, 1944 bytes, Stack size 32 bytes, main.o(i.change_Queue))
+<P><STRONG><a name="[155]"></a>change_Queue</STRONG> (Thumb, 2578 bytes, Stack size 32 bytes, main.o(i.change_Queue))
 <BR><BR>[Stack]<UL><LI>Max Depth = 32<LI>Call Chain = change_Queue
 </UL>
 <BR>[Called By]<UL><LI><a href="#[bd]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;computer_gonglu
@@ -2437,7 +2437,7 @@ Global Symbols
 <BR><BR>[Called By]<UL><LI><a href="#[bf]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;rs485_trans_computer
 </UL>
 
-<P><STRONG><a name="[bd]"></a>computer_gonglu</STRONG> (Thumb, 12248 bytes, Stack size 14632 bytes, main.o(i.computer_gonglu))
+<P><STRONG><a name="[bd]"></a>computer_gonglu</STRONG> (Thumb, 12700 bytes, Stack size 14632 bytes, main.o(i.computer_gonglu))
 <BR><BR>[Stack]<UL><LI>Max Depth = 14792 + Unknown Stack Size
 <LI>Call Chain = computer_gonglu &rArr; __hardfp_atan2 &rArr; atan &rArr; __hardfp_atan &rArr; __kernel_poly &rArr; __aeabi_dmul
 </UL>
@@ -2484,7 +2484,7 @@ Global Symbols
 <BR>[Called By]<UL><LI><a href="#[62]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;App_Taskcomputer
 </UL>
 
-<P><STRONG><a name="[152]"></a>computer_trans_rs485</STRONG> (Thumb, 212 bytes, Stack size 24 bytes, main.o(i.computer_trans_rs485))
+<P><STRONG><a name="[152]"></a>computer_trans_rs485</STRONG> (Thumb, 226 bytes, Stack size 24 bytes, main.o(i.computer_trans_rs485))
 <BR><BR>[Stack]<UL><LI>Max Depth = 84<LI>Call Chain = computer_trans_rs485 &rArr; RS485_Send_Data &rArr; GPIO_Init
 </UL>
 <BR>[Calls]<UL><LI><a href="#[129]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;RS485_Send_Data
@@ -2545,7 +2545,7 @@ Global Symbols
 <LI><a href="#[143]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__hardfp_atan2
 </UL>
 
-<P><STRONG><a name="[bb]"></a>init_Queue</STRONG> (Thumb, 752 bytes, Stack size 36 bytes, main.o(i.init_Queue))
+<P><STRONG><a name="[bb]"></a>init_Queue</STRONG> (Thumb, 920 bytes, Stack size 36 bytes, main.o(i.init_Queue))
 <BR><BR>[Stack]<UL><LI>Max Depth = 36<LI>Call Chain = init_Queue
 </UL>
 <BR>[Called By]<UL><LI><a href="#[62]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;App_Taskcomputer
@@ -2587,8 +2587,8 @@ Global Symbols
 <BR>[Called By]<UL><LI><a href="#[ba]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;scanf_slave_machine
 </UL>
 
-<P><STRONG><a name="[b2]"></a>key_idset</STRONG> (Thumb, 662 bytes, Stack size 40 bytes, key.o(i.key_idset))
-<BR><BR>[Stack]<UL><LI>Max Depth = 156 + Unknown Stack Size
+<P><STRONG><a name="[b2]"></a>key_idset</STRONG> (Thumb, 914 bytes, Stack size 40 bytes, key.o(i.key_idset))
+<BR><BR>[Stack]<UL><LI>Max Depth = 140 + Unknown Stack Size
 <LI>Call Chain = key_idset &rArr; Graf_con_u &rArr; WriteAll_1621 &rArr; SendCmd &rArr; SendBit_1621 &rArr; delay_us
 </UL>
 <BR>[Calls]<UL><LI><a href="#[c7]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;delay_us
@@ -2650,7 +2650,7 @@ Global Symbols
 <LI><a href="#[63]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;App_TaskMaster
 </UL>
 
-<P><STRONG><a name="[bf]"></a>rs485_trans_computer</STRONG> (Thumb, 408 bytes, Stack size 16 bytes, main.o(i.rs485_trans_computer))
+<P><STRONG><a name="[bf]"></a>rs485_trans_computer</STRONG> (Thumb, 412 bytes, Stack size 16 bytes, main.o(i.rs485_trans_computer))
 <BR><BR>[Stack]<UL><LI>Max Depth = 140 + Unknown Stack Size
 <LI>Call Chain = rs485_trans_computer &rArr; subswitchABC_onoff &rArr; LIGHT_backligt_on &rArr; HT595_Send_Byte &rArr; delay_us
 </UL>
@@ -2978,7 +2978,7 @@ Local Symbols
 </UL>
 
 <P><STRONG><a name="[61]"></a>App_TaskLCD</STRONG> (Thumb, 16 bytes, Stack size 0 bytes, main.o(i.App_TaskLCD))
-<BR><BR>[Stack]<UL><LI>Max Depth = 156 + Unknown Stack Size
+<BR><BR>[Stack]<UL><LI>Max Depth = 140 + Unknown Stack Size
  + In Cycle
 <LI>Call Chain = App_TaskLCD &rArr;  App_TaskLCD (Cycle)
 </UL>
