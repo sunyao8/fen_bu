@@ -542,7 +542,9 @@ static  u8 slave_comm[20];
 
 for(;;)
    	{
-   	OSSemPend(computer_sem,0,&err);
+   	   	OSSemPend(computer_sem,0,&err);
+if(MASTER==1)
+		{
 #if (FUNCTION_MODULE == DF_THREE)
 
 
@@ -556,7 +558,7 @@ for(;;)
 
 //inquiry_slave_status_dis(3,dis_list,comm_list);   
 #endif
-
+			}
     }	
    	
 }
@@ -1462,21 +1464,21 @@ void RS485_Init(u32 bound)
 		if(RS485_RX_BUF[RS485_RX_CNT-1]=='?')
 		{
 				
-	if(((RS485_RX_CNT==13)&&(RS485_RX_BUF[8]==CPT_A))||((RS485_RX_CNT==12)&&(RS485_RX_BUF[8]==CPT_B))||((RS485_RX_CNT==12)&&(RS485_RX_BUF[8]==CPT_C)))
+	if(((RS485_RX_CNT==11)&&(RS485_RX_BUF[6]==CPT_A))||((RS485_RX_CNT==10)&&(RS485_RX_BUF[6]==CPT_B))||((RS485_RX_CNT==10)&&(RS485_RX_BUF[6]==CPT_C)))
 
 		{
 		if(MASTER==1)
 			{				
-			if(mybox.myid>RS485_RX_BUF[10])
+			if(mybox.myid>RS485_RX_BUF[8])
 						{
 					MASTER=0;
 					  hguestnum=222;
 					dog_clock=20;	 
+				       OSTaskSuspend(APP_TASK_Master_PRIO );//挂起主机任状态.	
 					OSTaskResume(APP_TASK_SLAVE3_PRIO );//启动从机任务状态	 
-                      		OSTaskSuspend(APP_TASK_Master_PRIO );//挂起主机任状态.
 					}
 		}
-	else {OSMboxPost(RS485_MBOX,(void*)&RS485_RX_BUF);}
+			if(MASTER==0) {OSMboxPost(RS485_MBOX,(void*)&RS485_RX_BUF);}
 		}
 
 						RS485_RX_CNT=0;
@@ -1515,15 +1517,19 @@ if(((RS485_RX_CNT==7)&&(RS485_RX_BUF[5]==CONTROL)))
  	
 				if((RS485_RX_BUF[1]=='(')&&(RS485_RX_CNT==10))
 					{
-			if(mybox.myid>RS485_RX_BUF[2])
+
+/*		if(mybox.myid>RS485_RX_BUF[2])
 				{
 					MASTER=0;
 					  hguestnum=222;
-					dog_clock=20;	 
+					dog_clock=20;
+                      		OSTaskSuspend(APP_TASK_Master_PRIO );//挂起主机任状态.					
 					OSTaskResume(APP_TASK_SLAVE3_PRIO );//启动从机任务状态	 
-                      		OSTaskSuspend(APP_TASK_Master_PRIO );//挂起主机任状态.
 					}	
-				else {OSMboxPost(RS485_STUTAS_MBOX_dis,(void*)&RS485_RX_BUF);}
+			
+				else
+				*/
+					{OSMboxPost(RS485_STUTAS_MBOX_dis,(void*)&RS485_RX_BUF);}
 
 				}
 	RS485_RX_CNT=0;
@@ -1553,6 +1559,7 @@ void RS485_Send_Data(u8 *buf,u8 len)
 	{		   
 		while(USART_GetFlagStatus(USART2, USART_FLAG_TC) == RESET);	  
 		USART_SendData(USART2,buf[t]);
+		delay_us(100);
 	}	 
  
 	while(USART_GetFlagStatus(USART2, USART_FLAG_TC) == RESET);		
@@ -1651,39 +1658,47 @@ if(ctr==CPT_LL )
 
  {
  	         
+s16 sine_A=0;
+ s16 sine_B=0;
+ s16 sine_C=0;
+
 
 #if (FUNCTION_MODULE ==  DF_THREE)
-if(tx_r485[8]==CPT_A)
+if(tx_r485[6]==CPT_A)
 {
   dianya_zhi_A=comp_16(tx_r485[1],tx_r485[2]);
   dianliuzhi_A=comp_16(tx_r485[3],tx_r485[4]);
-  wugongkvar_A=comp_16(tx_r485[5],tx_r485[6]);
-  gonglvshishu_A=tx_r485[7];
-  L_C_flag_A=tx_r485[9];
-  phase_flag=tx_r485[11];
+//  wugongkvar_A=comp_16(tx_r485[5],tx_r485[6]);
+  gonglvshishu_A=tx_r485[5];
+  L_C_flag_A=tx_r485[7];
+  phase_flag=tx_r485[9];
+  arm_sqrt_q15(10000-tx_r485[5]*tx_r485[5],&sine_A);	
+	wugongkvar_A=dianya_zhi_A*dianliuzhi_A*sine_A/20000/1000;
 return 1;
 }
 
-if(tx_r485[8]==CPT_B)
+if(tx_r485[6]==CPT_B)
 {
     dianya_zhi_B=comp_16(tx_r485[1],tx_r485[2]);
   dianliuzhi_B=comp_16(tx_r485[3],tx_r485[4]);
-  wugongkvar_B=comp_16(tx_r485[5],tx_r485[6]);
-  gonglvshishu_B=tx_r485[7];
-    L_C_flag_B=tx_r485[9];
-
+//  wugongkvar_B=comp_16(tx_r485[5],tx_r485[6]);
+  gonglvshishu_B=tx_r485[5];
+    L_C_flag_B=tx_r485[7];
+  arm_sqrt_q15(10000-tx_r485[5]*tx_r485[5],&sine_B);	
+wugongkvar_B=dianya_zhi_B*dianliuzhi_B*sine_B/20000/1000;
 return 1;
 
 }
  
-if(tx_r485[8]==CPT_C)
+if(tx_r485[6]==CPT_C)
 {
     dianya_zhi_C=comp_16(tx_r485[1],tx_r485[2]);
   dianliuzhi_C=comp_16(tx_r485[3],tx_r485[4]);
-  wugongkvar_C=comp_16(tx_r485[5],tx_r485[6]);
-  gonglvshishu_C=tx_r485[7];
-    L_C_flag_C=tx_r485[9];
-
+//  wugongkvar_C=comp_16(tx_r485[5],tx_r485[6]);
+  gonglvshishu_C=tx_r485[5];
+    L_C_flag_C=tx_r485[7];
+  arm_sqrt_q15(10000-tx_r485[5]*tx_r485[5],&sine_C);	
+wugongkvar_C=dianya_zhi_C*dianliuzhi_C*sine_C/20000/1000;
 return 1;
 
 }
@@ -1762,15 +1777,15 @@ return 0;
 	rs485buf[2]=((dianya_zhi_A& (uint16_t)0xFF00)>>8);
 	rs485buf[3]=(dianliuzhi_A& (uint16_t)0x00FF);
 	rs485buf[4]=((dianliuzhi_A& (uint16_t)0xFF00)>>8);
-	rs485buf[5]=(wugongkvar_A& (uint16_t)0x00FF);
-	rs485buf[6]=((wugongkvar_A& (uint16_t)0xFF00)>>8);
-	rs485buf[7]=gonglvshishu_A;
-	rs485buf[8]=ctr;
-	rs485buf[9]=L_C_flag_A;//协议尾
-	rs485buf[10]=source;
-	rs485buf[11]=phase_flag;
-	rs485buf[12]='?';//协议尾
-	RS485_Send_Data(rs485buf,13);//发送5个字节
+//	rs485buf[5]=(wugongkvar_A& (uint16_t)0x00FF);
+//	rs485buf[6]=((wugongkvar_A& (uint16_t)0xFF00)>>8);
+	rs485buf[5]=gonglvshishu_A;
+	rs485buf[6]=ctr;
+	rs485buf[7]=L_C_flag_A;//协议尾
+	rs485buf[8]=source;	
+	rs485buf[9]=phase_flag;
+	rs485buf[10]='?';//协议尾
+	RS485_Send_Data(rs485buf,11);//发送5个字节
     	}
 	/************************************/
     if(ctr==CPT_B)
@@ -1780,15 +1795,14 @@ return 0;
 	rs485buf[2]=((dianya_zhi_B& (uint16_t)0xFF00)>>8);
 	rs485buf[3]=(dianliuzhi_B& (uint16_t)0x00FF);
 	rs485buf[4]=((dianliuzhi_B& (uint16_t)0xFF00)>>8);
-	rs485buf[5]=(wugongkvar_B& (uint16_t)0x00FF);
-	rs485buf[6]=((wugongkvar_B& (uint16_t)0xFF00)>>8);
-	rs485buf[7]=gonglvshishu_B;
-	rs485buf[8]=ctr;
-	rs485buf[9]=L_C_flag_B;//协议尾
-	rs485buf[10]=source;	
-	rs485buf[11]='?';//协议尾
-	RS485_Send_Data(rs485buf,12);//发送5个字节
-
+//	rs485buf[5]=(wugongkvar_B& (uint16_t)0x00FF);
+//	rs485buf[6]=((wugongkvar_B& (uint16_t)0xFF00)>>8);
+	rs485buf[5]=gonglvshishu_B;
+	rs485buf[6]=ctr;
+	rs485buf[7]=L_C_flag_B;//协议尾
+		rs485buf[8]=source;	
+	rs485buf[9]='?';//协议尾
+	RS485_Send_Data(rs485buf,10);//发送5个字节
     	}
 
 /***************************************************/
@@ -1799,14 +1813,14 @@ return 0;
 	rs485buf[2]=((dianya_zhi_C& (uint16_t)0xFF00)>>8);
 	rs485buf[3]=(dianliuzhi_C& (uint16_t)0x00FF);
 	rs485buf[4]=((dianliuzhi_C& (uint16_t)0xFF00)>>8);
-	rs485buf[5]=(wugongkvar_C& (uint16_t)0x00FF);
-	rs485buf[6]=((wugongkvar_C& (uint16_t)0xFF00)>>8);
-	rs485buf[7]=gonglvshishu_C;
-	rs485buf[8]=ctr;
-	rs485buf[9]=L_C_flag_C;//协议尾
-	rs485buf[10]=source;	
-	rs485buf[11]='?';//协议尾
-	RS485_Send_Data(rs485buf,12);//发送5个字节
+//	rs485buf[5]=(wugongkvar_C& (uint16_t)0x00FF);
+//	rs485buf[6]=((wugongkvar_C& (uint16_t)0xFF00)>>8);
+	rs485buf[5]=gonglvshishu_C;
+	rs485buf[6]=ctr;
+	rs485buf[7]=L_C_flag_C;//协议尾
+	rs485buf[8]=source;		
+	rs485buf[9]='?';//协议尾
+	RS485_Send_Data(rs485buf,10);//发送5个字节
     	}
 /*********************************************/
 
@@ -2324,7 +2338,7 @@ arm_sqrt_f32(1-(arm_cos_f32(angle[0]-angle[1]))*(arm_cos_f32(angle[0]-angle[1]))
 			     }
 //if(phase_flag==1){if(L_C_flag_A==0)L_C_flag_A=1;if(L_C_flag_A==1)L_C_flag_A=0;}				
 if(dianliuzhi_A==0)L_C_flag_A=1;
-computer_trans_rs485(0,33,0,0,0,CPT_A);
+computer_trans_rs485(mybox.myid,33,0,0,0,CPT_A);
 
 /*********************B_phase*********************************/
 
@@ -2430,7 +2444,7 @@ if(dianliuzhi_B==0)L_C_flag_B=1;
 
 
 }
-computer_trans_rs485(0,33,0,0,0,CPT_B);
+computer_trans_rs485(mybox.myid,33,0,0,0,CPT_B);
 
 /*********************C_phase*********************************/
 
@@ -2561,7 +2575,7 @@ if(dianliuzhi_C==0)L_C_flag_C=1;
 
 
 /****************************************************/
-computer_trans_rs485(0,33,0,0,0,CPT_C);
+computer_trans_rs485(mybox.myid,33,0,0,0,CPT_C);
 
 /***************************************************/
 //inquiry_slave_status_dis(3,dis_list,comm_list);   
@@ -3049,7 +3063,7 @@ return 0;
 }
 
 //tempshuzhi=T;
-T=20;
+T=1;
 /**************************end*************************/
 if(RT_FLAG==2)
 
