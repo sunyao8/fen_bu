@@ -163,13 +163,14 @@ void SysTick_Handler(void)
 /*  available peripheral interrupt handler's name please refer to the startup */
 /*  file (startup_stm32f4xx.s).                                               */
 /******************************************************************************/
+/*
 void USART3_IRQHandler(void)
 {
 	#if ( OS_VIEW_MODULE == DEF_ENABLED )
 		OSView_RxTxISRHandler();
 	#endif
 }
-
+*/
 
 
 /**

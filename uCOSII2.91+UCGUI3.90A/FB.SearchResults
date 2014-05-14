@@ -1,21 +1,15 @@
----- T= Matches (22 in 1 files) ----
-Main.c (user):u32 RS485_RX_CNT=0;  
-Main.c (user):u16 T=10;
-Main.c (user):RS485_RT=OSMboxCreate((void*)0);
-Main.c (user):int NPT=TEST_LENGTH_SAMPLES;
-Main.c (user):		if(RS485_RX_BUF[RS485_RX_CNT-1]=='$'){RS485_RX_BUF[0]='$'; RS485_RX_CNT=1;}
-Main.c (user):	if(((RS485_RX_CNT==11)&&(RS485_RX_BUF[8]==CPT_A))||((RS485_RX_CNT==10)&&(RS485_RX_BUF[8]==CPT_B))||((RS485_RX_CNT==10)&&(RS485_RX_BUF[8]==CPT_C)))
-Main.c (user):						RS485_RX_CNT=0;
-Main.c (user):		if(RS485_RX_BUF[RS485_RX_CNT-1]=='-'){RS485_RX_BUF[0]='-'; RS485_RX_CNT=1;}
-Main.c (user):if(((RS485_RX_CNT==7)&&(RS485_RX_BUF[5]==CONTROL)))
-Main.c (user):						RS485_RX_CNT=0;
-Main.c (user):			if(RS485_RX_BUF[RS485_RX_CNT-1]=='&'){RS485_RX_BUF[0]='&'; RS485_RX_CNT=1;}
-Main.c (user):				RS485_RX_CNT=0;
-Main.c (user): // if((MASTER==0)&&(RS485_RX_BUF[RS485_RX_CNT-1]=='*')) RS485_RX_CNT=0;//直接清除，避免内存溢出和信息相互搅
-Main.c (user):			if(RS485_RX_BUF[RS485_RX_CNT-1]=='%'){RS485_RX_BUF[0]='%'; RS485_RX_CNT=1;}
-Main.c (user):				if((RS485_RX_BUF[1]=='(')&&(RS485_RX_CNT==10)){OSMboxPost(RS485_STUTAS_MBOX_dis,(void*)&RS485_RX_BUF);}
-Main.c (user): 	RS485_RX_CNT=0;
-Main.c (user): if((MASTER==0)&&(RS485_RX_BUF[RS485_RX_CNT-1]==')')) RS485_RX_CNT=0;//直接清除，避免内存溢出和信息相互搅
-Main.c (user):	RS485_RX_CNT=0;	  
-Main.c (user):if(abs(abs(gl[0]-gl[1])*TR[i]-var)<=min){min=abs(abs(gl[0]-gl[1])*TR[i]-var);T=TR[i];}
-Main.c (user):T=TR[4];
+---- USART3_IRQHandler Matches (14 in 3 files) ----
+Main.c (user):void USART3_IRQHandler(void);
+Main.c (user):		void USART3_IRQHandler(void)
+Project.htm (mdk_project\out): <LI><a href="#[33]">USART3_IRQHandler</a> from main.o(i.USART3_IRQHandler) referenced from startup_stm32f4xx.o(RESET)
+Project.htm (mdk_project\out):<BR><BR>[Called By]<UL><LI><a href="#[33]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;USART3_IRQHandler
+Project.htm (mdk_project\out):<BR><BR>[Called By]<UL><LI><a href="#[33]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;USART3_IRQHandler
+Project.htm (mdk_project\out):<LI><a href="#[33]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;USART3_IRQHandler
+Project.htm (mdk_project\out):<BR>[Called By]<UL><LI><a href="#[33]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;USART3_IRQHandler
+Project.htm (mdk_project\out):<LI><a href="#[33]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;USART3_IRQHandler
+Project.htm (mdk_project\out):<BR>[Called By]<UL><LI><a href="#[33]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;USART3_IRQHandler
+Project.htm (mdk_project\out):<P><STRONG><a name="[33]"></a>USART3_IRQHandler</STRONG> (Thumb, 400 bytes, Stack size 536 bytes, main.o(i.USART3_IRQHandler))
+Project.htm (mdk_project\out):<LI>Call Chain = USART3_IRQHandler &rArr; OSMboxPost &rArr; OS_EventTaskRdy &rArr; OS_EventTaskRemoveMulti
+Project.htm (mdk_project\out):<BR>[Called By]<UL><LI><a href="#[33]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;USART3_IRQHandler
+Project.htm (mdk_project\out):<BR><BR>[Called By]<UL><LI><a href="#[33]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;USART3_IRQHandler
+Stm32f4xx_it.c (user):void USART3_IRQHandler(void)

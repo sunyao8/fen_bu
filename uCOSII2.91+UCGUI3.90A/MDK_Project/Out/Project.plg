@@ -9,17 +9,198 @@ Project File Date:  11/29/2013
 <h2>Output:</h2>
 Build target 'Target 1'
 compiling main.c...
-..\User\main.c(2891): warning:  #1035-D: single-precision operand implicitly converted to double-precision
-..\User\main.c(3002): warning:  #1035-D: single-precision operand implicitly converted to double-precision
-..\User\main.c(3121): warning:  #1035-D: single-precision operand implicitly converted to double-precision
-..\User\main.c(3358): warning:  #1035-D: single-precision operand implicitly converted to double-precision
-..\User\main.c(3441): warning:  #1035-D: single-precision operand implicitly converted to double-precision
-..\User\main.c(3545): warning:  #1035-D: single-precision operand implicitly converted to double-precision
-..\User\main.c(2661): warning:  #177-D: variable "s" was declared but never referenced
-..\User\main.c(2662): warning:  #550-D: variable "status" was set but never used
-..\User\main.c(2685): warning:  #550-D: variable "wugongkvar_95" was set but never used
-..\User\main.c(5372): warning:  #177-D: variable "warning_flag" was declared but never referenced
+..\User\main.c(2860): warning:  #1035-D: single-precision operand implicitly converted to double-precision
+..\User\main.c(2971): warning:  #1035-D: single-precision operand implicitly converted to double-precision
+..\User\main.c(3090): warning:  #1035-D: single-precision operand implicitly converted to double-precision
+..\User\main.c(3326): warning:  #1035-D: single-precision operand implicitly converted to double-precision
+..\User\main.c(3409): warning:  #1035-D: single-precision operand implicitly converted to double-precision
+..\User\main.c(3513): warning:  #1035-D: single-precision operand implicitly converted to double-precision
+..\User\main.c(2630): warning:  #177-D: variable "s" was declared but never referenced
+..\User\main.c(2631): warning:  #550-D: variable "status" was set but never used
+..\User\main.c(2654): warning:  #550-D: variable "wugongkvar_95" was set but never used
+..\User\main.c(5340): warning:  #177-D: variable "warning_flag" was declared but never referenced
 linking...
-Program Size: Code=44108 RO-data=27124 RW-data=368 ZI-data=51512  
+Program Size: Code=42752 RO-data=27128 RW-data=368 ZI-data=50104  
+FromELF: creating hex file...
+".\Out\Project.axf" - 0 Error(s), 10 Warning(s).
+Build target 'Target 1'
+compiling main.c...
+..\User\main.c(2860): warning:  #1035-D: single-precision operand implicitly converted to double-precision
+..\User\main.c(2971): warning:  #1035-D: single-precision operand implicitly converted to double-precision
+..\User\main.c(3090): warning:  #1035-D: single-precision operand implicitly converted to double-precision
+..\User\main.c(3326): warning:  #1035-D: single-precision operand implicitly converted to double-precision
+..\User\main.c(3409): warning:  #1035-D: single-precision operand implicitly converted to double-precision
+..\User\main.c(3513): warning:  #1035-D: single-precision operand implicitly converted to double-precision
+..\User\main.c(2630): warning:  #177-D: variable "s" was declared but never referenced
+..\User\main.c(2631): warning:  #550-D: variable "status" was set but never used
+..\User\main.c(2654): warning:  #550-D: variable "wugongkvar_95" was set but never used
+..\User\main.c(5340): warning:  #177-D: variable "warning_flag" was declared but never referenced
+linking...
+Program Size: Code=42756 RO-data=27124 RW-data=368 ZI-data=50104  
+FromELF: creating hex file...
+".\Out\Project.axf" - 0 Error(s), 10 Warning(s).
+Build target 'Target 1'
+compiling main.c...
+..\User\main.c(2860): warning:  #1035-D: single-precision operand implicitly converted to double-precision
+..\User\main.c(2971): warning:  #1035-D: single-precision operand implicitly converted to double-precision
+..\User\main.c(3090): warning:  #1035-D: single-precision operand implicitly converted to double-precision
+..\User\main.c(3326): warning:  #1035-D: single-precision operand implicitly converted to double-precision
+..\User\main.c(3409): warning:  #1035-D: single-precision operand implicitly converted to double-precision
+..\User\main.c(3513): warning:  #1035-D: single-precision operand implicitly converted to double-precision
+..\User\main.c(2630): warning:  #177-D: variable "s" was declared but never referenced
+..\User\main.c(2631): warning:  #550-D: variable "status" was set but never used
+..\User\main.c(2654): warning:  #550-D: variable "wugongkvar_95" was set but never used
+..\User\main.c(5340): warning:  #177-D: variable "warning_flag" was declared but never referenced
+linking...
+Program Size: Code=43144 RO-data=27128 RW-data=368 ZI-data=50104  
+FromELF: creating hex file...
+".\Out\Project.axf" - 0 Error(s), 10 Warning(s).
+Build target 'Target 1'
+compiling main.c...
+..\User\main.c(2860): warning:  #1035-D: single-precision operand implicitly converted to double-precision
+..\User\main.c(2971): warning:  #1035-D: single-precision operand implicitly converted to double-precision
+..\User\main.c(3090): warning:  #1035-D: single-precision operand implicitly converted to double-precision
+..\User\main.c(3326): warning:  #1035-D: single-precision operand implicitly converted to double-precision
+..\User\main.c(3409): warning:  #1035-D: single-precision operand implicitly converted to double-precision
+..\User\main.c(3513): warning:  #1035-D: single-precision operand implicitly converted to double-precision
+..\User\main.c(2630): warning:  #177-D: variable "s" was declared but never referenced
+..\User\main.c(2631): warning:  #550-D: variable "status" was set but never used
+..\User\main.c(2654): warning:  #550-D: variable "wugongkvar_95" was set but never used
+..\User\main.c(5340): warning:  #177-D: variable "warning_flag" was declared but never referenced
+linking...
+Program Size: Code=43144 RO-data=27128 RW-data=368 ZI-data=50104  
+FromELF: creating hex file...
+".\Out\Project.axf" - 0 Error(s), 10 Warning(s).
+Build target 'Target 1'
+compiling main.c...
+..\User\main.c(2860): warning:  #1035-D: single-precision operand implicitly converted to double-precision
+..\User\main.c(2971): warning:  #1035-D: single-precision operand implicitly converted to double-precision
+..\User\main.c(3090): warning:  #1035-D: single-precision operand implicitly converted to double-precision
+..\User\main.c(3326): warning:  #1035-D: single-precision operand implicitly converted to double-precision
+..\User\main.c(3409): warning:  #1035-D: single-precision operand implicitly converted to double-precision
+..\User\main.c(3513): warning:  #1035-D: single-precision operand implicitly converted to double-precision
+..\User\main.c(2630): warning:  #177-D: variable "s" was declared but never referenced
+..\User\main.c(2631): warning:  #550-D: variable "status" was set but never used
+..\User\main.c(2654): warning:  #550-D: variable "wugongkvar_95" was set but never used
+..\User\main.c(5340): warning:  #177-D: variable "warning_flag" was declared but never referenced
+linking...
+Program Size: Code=43136 RO-data=27128 RW-data=368 ZI-data=50104  
+FromELF: creating hex file...
+".\Out\Project.axf" - 0 Error(s), 10 Warning(s).
+Build target 'Target 1'
+compiling main.c...
+..\User\main.c(2860): warning:  #1035-D: single-precision operand implicitly converted to double-precision
+..\User\main.c(2971): warning:  #1035-D: single-precision operand implicitly converted to double-precision
+..\User\main.c(3090): warning:  #1035-D: single-precision operand implicitly converted to double-precision
+..\User\main.c(3326): warning:  #1035-D: single-precision operand implicitly converted to double-precision
+..\User\main.c(3409): warning:  #1035-D: single-precision operand implicitly converted to double-precision
+..\User\main.c(3513): warning:  #1035-D: single-precision operand implicitly converted to double-precision
+..\User\main.c(2630): warning:  #177-D: variable "s" was declared but never referenced
+..\User\main.c(2631): warning:  #550-D: variable "status" was set but never used
+..\User\main.c(2654): warning:  #550-D: variable "wugongkvar_95" was set but never used
+..\User\main.c(5340): warning:  #177-D: variable "warning_flag" was declared but never referenced
+linking...
+Program Size: Code=43136 RO-data=27128 RW-data=368 ZI-data=50104  
+FromELF: creating hex file...
+".\Out\Project.axf" - 0 Error(s), 10 Warning(s).
+Build target 'Target 1'
+compiling main.c...
+..\User\main.c(2860): warning:  #1035-D: single-precision operand implicitly converted to double-precision
+..\User\main.c(2971): warning:  #1035-D: single-precision operand implicitly converted to double-precision
+..\User\main.c(3090): warning:  #1035-D: single-precision operand implicitly converted to double-precision
+..\User\main.c(3326): warning:  #1035-D: single-precision operand implicitly converted to double-precision
+..\User\main.c(3409): warning:  #1035-D: single-precision operand implicitly converted to double-precision
+..\User\main.c(3513): warning:  #1035-D: single-precision operand implicitly converted to double-precision
+..\User\main.c(2630): warning:  #177-D: variable "s" was declared but never referenced
+..\User\main.c(2631): warning:  #550-D: variable "status" was set but never used
+..\User\main.c(2654): warning:  #550-D: variable "wugongkvar_95" was set but never used
+..\User\main.c(5341): warning:  #177-D: variable "warning_flag" was declared but never referenced
+linking...
+Program Size: Code=43112 RO-data=27128 RW-data=368 ZI-data=50104  
+FromELF: creating hex file...
+".\Out\Project.axf" - 0 Error(s), 10 Warning(s).
+Build target 'Target 1'
+compiling main.c...
+..\User\main.c(2860): warning:  #1035-D: single-precision operand implicitly converted to double-precision
+..\User\main.c(2971): warning:  #1035-D: single-precision operand implicitly converted to double-precision
+..\User\main.c(3090): warning:  #1035-D: single-precision operand implicitly converted to double-precision
+..\User\main.c(3326): warning:  #1035-D: single-precision operand implicitly converted to double-precision
+..\User\main.c(3409): warning:  #1035-D: single-precision operand implicitly converted to double-precision
+..\User\main.c(3513): warning:  #1035-D: single-precision operand implicitly converted to double-precision
+..\User\main.c(2630): warning:  #177-D: variable "s" was declared but never referenced
+..\User\main.c(2631): warning:  #550-D: variable "status" was set but never used
+..\User\main.c(2654): warning:  #550-D: variable "wugongkvar_95" was set but never used
+..\User\main.c(5342): warning:  #177-D: variable "warning_flag" was declared but never referenced
+linking...
+Program Size: Code=42512 RO-data=27128 RW-data=368 ZI-data=50104  
+FromELF: creating hex file...
+".\Out\Project.axf" - 0 Error(s), 10 Warning(s).
+Build target 'Target 1'
+compiling main.c...
+..\User\main.c(2860): warning:  #1035-D: single-precision operand implicitly converted to double-precision
+..\User\main.c(2971): warning:  #1035-D: single-precision operand implicitly converted to double-precision
+..\User\main.c(3090): warning:  #1035-D: single-precision operand implicitly converted to double-precision
+..\User\main.c(3326): warning:  #1035-D: single-precision operand implicitly converted to double-precision
+..\User\main.c(3409): warning:  #1035-D: single-precision operand implicitly converted to double-precision
+..\User\main.c(3513): warning:  #1035-D: single-precision operand implicitly converted to double-precision
+..\User\main.c(2630): warning:  #177-D: variable "s" was declared but never referenced
+..\User\main.c(2631): warning:  #550-D: variable "status" was set but never used
+..\User\main.c(2654): warning:  #550-D: variable "wugongkvar_95" was set but never used
+..\User\main.c(5342): warning:  #177-D: variable "warning_flag" was declared but never referenced
+linking...
+Program Size: Code=42372 RO-data=27124 RW-data=368 ZI-data=50104  
+FromELF: creating hex file...
+".\Out\Project.axf" - 0 Error(s), 10 Warning(s).
+Build target 'Target 1'
+linking...
+Program Size: Code=42372 RO-data=27124 RW-data=368 ZI-data=50104  
+FromELF: creating hex file...
+".\Out\Project.axf" - 0 Error(s), 0 Warning(s).
+Build target 'Target 1'
+compiling main.c...
+..\User\main.c(2860): warning:  #1035-D: single-precision operand implicitly converted to double-precision
+..\User\main.c(2971): warning:  #1035-D: single-precision operand implicitly converted to double-precision
+..\User\main.c(3090): warning:  #1035-D: single-precision operand implicitly converted to double-precision
+..\User\main.c(3326): warning:  #1035-D: single-precision operand implicitly converted to double-precision
+..\User\main.c(3409): warning:  #1035-D: single-precision operand implicitly converted to double-precision
+..\User\main.c(3513): warning:  #1035-D: single-precision operand implicitly converted to double-precision
+..\User\main.c(2630): warning:  #177-D: variable "s" was declared but never referenced
+..\User\main.c(2631): warning:  #550-D: variable "status" was set but never used
+..\User\main.c(2654): warning:  #550-D: variable "wugongkvar_95" was set but never used
+..\User\main.c(5342): warning:  #177-D: variable "warning_flag" was declared but never referenced
+linking...
+Program Size: Code=42372 RO-data=27124 RW-data=368 ZI-data=50104  
+FromELF: creating hex file...
+".\Out\Project.axf" - 0 Error(s), 10 Warning(s).
+Build target 'Target 1'
+compiling main.c...
+..\User\main.c(2860): warning:  #1035-D: single-precision operand implicitly converted to double-precision
+..\User\main.c(2971): warning:  #1035-D: single-precision operand implicitly converted to double-precision
+..\User\main.c(3090): warning:  #1035-D: single-precision operand implicitly converted to double-precision
+..\User\main.c(3326): warning:  #1035-D: single-precision operand implicitly converted to double-precision
+..\User\main.c(3409): warning:  #1035-D: single-precision operand implicitly converted to double-precision
+..\User\main.c(3513): warning:  #1035-D: single-precision operand implicitly converted to double-precision
+..\User\main.c(2630): warning:  #177-D: variable "s" was declared but never referenced
+..\User\main.c(2631): warning:  #550-D: variable "status" was set but never used
+..\User\main.c(2654): warning:  #550-D: variable "wugongkvar_95" was set but never used
+..\User\main.c(5340): warning:  #177-D: variable "warning_flag" was declared but never referenced
+linking...
+Program Size: Code=43136 RO-data=27128 RW-data=368 ZI-data=50104  
+FromELF: creating hex file...
+".\Out\Project.axf" - 0 Error(s), 10 Warning(s).
+Build target 'Target 1'
+compiling main.c...
+..\User\main.c(2860): warning:  #1035-D: single-precision operand implicitly converted to double-precision
+..\User\main.c(2971): warning:  #1035-D: single-precision operand implicitly converted to double-precision
+..\User\main.c(3090): warning:  #1035-D: single-precision operand implicitly converted to double-precision
+..\User\main.c(3326): warning:  #1035-D: single-precision operand implicitly converted to double-precision
+..\User\main.c(3409): warning:  #1035-D: single-precision operand implicitly converted to double-precision
+..\User\main.c(3513): warning:  #1035-D: single-precision operand implicitly converted to double-precision
+..\User\main.c(2630): warning:  #177-D: variable "s" was declared but never referenced
+..\User\main.c(2631): warning:  #550-D: variable "status" was set but never used
+..\User\main.c(2654): warning:  #550-D: variable "wugongkvar_95" was set but never used
+..\User\main.c(5342): warning:  #177-D: variable "warning_flag" was declared but never referenced
+linking...
+Program Size: Code=43104 RO-data=27128 RW-data=368 ZI-data=50104  
 FromELF: creating hex file...
 ".\Out\Project.axf" - 0 Error(s), 10 Warning(s).

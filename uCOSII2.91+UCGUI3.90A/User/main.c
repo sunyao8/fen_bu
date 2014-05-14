@@ -161,7 +161,7 @@ static u8 rs485buf[LEN_control];//发送控制信息
 
 
 //接收到的数据长度
-u32 RS485_RX_CNT=0;  
+vu32 RS485_RX_CNT=0;  
 
 
 
@@ -456,8 +456,8 @@ status_box.myid= mybox.myid;
 	
  	}
 
-delay_ms(1500);
-
+//delay_ms(1500);
+delay_ms(100);
 	        }
    	
 }
@@ -1467,7 +1467,7 @@ void RS485_Init(u32 bound)
 {
       CPU_SR          cpu_sr;
 
-	u8 RS485_RX_BUF[512];
+	vu8 RS485_RX_BUF[512];
 	   CPU_CRITICAL_ENTER();                                       /* Tell uC/OS-II that we are starting an ISR            */
     OSIntNesting++;
     CPU_CRITICAL_EXIT();	
@@ -3553,7 +3553,7 @@ return 0;
 }
 
 //tempshuzhi=T;
-T=2;
+T=10;
 /**************************end*************************/
 if(RT_FLAG==2)
 
@@ -4137,8 +4137,9 @@ return 0;
 if(L_C_flag_B==0)
 {
       {
+
 {
-for(i=slave_comm[8];i<=slave_comm[9]-1;i++)
+for(i=slave_comm[2];i<=slave_comm[3]-1;i++)
 if(comm_list[i].work_status==1)
 
 {
@@ -4152,6 +4153,24 @@ return 0 ;
 
 
 }
+	  
+{
+for(i=slave_comm[4];i<=slave_comm[5]-1;i++)
+if(comm_list[i].work_status==1)
+
+{
+order_trans_rs485(mybox.myid,comm_list[i].myid,1,comm_list[i].group,0,CONTROL);
+		{
+delay_ms(TIME_TQ);
+return 0 ;
+
+		}
+}
+
+
+
+}
+
 
 
 
@@ -4172,24 +4191,7 @@ return 0 ;
 }
 
 {
-for(i=slave_comm[4];i<=slave_comm[5]-1;i++)
-if(comm_list[i].work_status==1)
-
-{
-if(comm_list[i].group==1)order_trans_rs485(mybox.myid,comm_list[i].myid,1,comm_list[i].group,0,CONTROL);
-		{
-delay_ms(TIME_TQ);
-return 0 ;
-
-		}
-}
-
-
-
-}
-
-{
-for(i=slave_comm[2];i<=slave_comm[3]-1;i++)
+for(i=slave_comm[8];i<=slave_comm[9]-1;i++)
 if(comm_list[i].work_status==1)
 
 {
@@ -4202,8 +4204,8 @@ return 0 ;
 }
 
 
-
 }
+
 
        }
 }
@@ -4514,7 +4516,7 @@ if(flag_comm==1)
      if(err==OS_ERR_TIMEOUT)
 	 	{
 	  	comm_err[i-1]++; 
-if(comm_err[i-1]==3)
+if(comm_err[i-1]==6)
 	  {
  	  	comm_err[i-1]=0; 
  
@@ -4523,7 +4525,7 @@ if(comm_err[i-1]==3)
 
  del_comm_listnode(i,1,slave_comm,comm_list);
  del_comm_listnode(i,2,slave_comm,comm_list);
-slave_comm[0]=slave_comm[0]-2;
+//slave_comm[0]=slave_comm[0]-2;
  /******************从已知队列中删除该节点end***********************************/
 
 }
