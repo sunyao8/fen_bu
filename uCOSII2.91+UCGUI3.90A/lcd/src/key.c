@@ -7,7 +7,7 @@ static u8 m=1;
 static u8 grafnum=1;
 u8 zhongduan_flag=1;
 u8 id_num=0;
-u8 grafnum,tempshuzhi,vernum=101,hguestnum=222,gonglvshishu=0;
+u8 grafnum,tempshuzhi,vernum=104,hguestnum=222,gonglvshishu=0;
 u16 dianya_zhi=0,wugongkvar=0;
 u32	dianliuzhi=0;
 //#if (FUNCTION_MODULE == DF_THREE)

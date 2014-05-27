@@ -20,7 +20,7 @@
 #define OFF_time 15000		   //18500
 #define  k 0.8	//0.8
 #define PI2  6.28318530717959
-#define TIME_TQ 1
+#define TIME_TQ 2
 
 #define  APP_TASK_START_STK_SIZE                         64u
 static  OS_STK         App_TaskStartStk[APP_TASK_START_STK_SIZE];
@@ -283,6 +283,10 @@ extern u8 light_time;
  u8 temperature_warn=0;
 u8 rework_time[3];//再投延时控制变量
 
+#define BT  12//*50
+#define SIZE 3 //总容量除以3 
+#define AF_TOP 95
+#define AF_DEAD 90
 INT32S main (void)
 {
 CPU_INT08U  os_err;
@@ -304,7 +308,7 @@ initmybox();//初始化自身信息
 {while(subswitchABC_onoff(2,0,1)==0)break;}		  //投
 {while(subswitchABC_onoff(3,0,1)==0)break;}		  //投
 
-set_now_mystatus(mybox.myid,3,3,3,0,0,0);
+set_now_mystatus(mybox.myid,SIZE,SIZE,SIZE,0,0,0);
 os_err = os_err; 
 
 
@@ -2857,10 +2861,10 @@ dianya_zhi_A=dianya_zhi_A/2.6125;
 	arm_max_f32(reslut, fftSize/2, &maxValue_C, &testIndex);
 
 
- dianliuzhi_A=1.1*maxValue_C;
- if((T*dianliuzhi_A/10)<=(T*15))dianliuzhi_A=0;//15为归零系数 是实际电流值如果比变比的15%还小就归零
-else dianliuzhi_A=T*dianliuzhi_A/1000;
-if(dianliuzhi_A==0)gonglvshishu_A=100;
+ dianliuzhi_A=0.98*maxValue_C;
+ dianliuzhi_A=T*dianliuzhi_A/1000;
+ if(dianliuzhi_A<T)dianliuzhi_A=0;
+if(dianliuzhi_A==0)gonglvshishu_A=99;
 else gonglvshishu_A=arm_cos_f32(angle[0]-angle[1])*100;//功率因素
 
 //dianya_zhi_A=0;
@@ -2968,10 +2972,10 @@ dianya_zhi_B=dianya_zhi_B/2.6125;
 	/* Calculates maxValue and returns corresponding BIN value */ 
 	arm_max_f32(reslut, fftSize/2, &maxValue_C, &testIndex);
 
- dianliuzhi_B=1.1*maxValue_C;
- if((T*dianliuzhi_B/10)<=(T*15))dianliuzhi_B=0;//15为归零系数 是实际电流值如果比变比的15%还小就归零
-else dianliuzhi_B=T*dianliuzhi_B/1000;
-if(dianliuzhi_B==0)gonglvshishu_B=100;
+ dianliuzhi_B=0.98*maxValue_C;
+ dianliuzhi_B=T*dianliuzhi_B/1000;
+  if(dianliuzhi_B<T)dianliuzhi_B=0;
+if(dianliuzhi_B==0)gonglvshishu_B=99;
 else gonglvshishu_B=arm_cos_f32(angle[0]-angle[1])*100;//功率因素
 
 //dianliuzhi_B=T*dianliuzhi_B/1000;
@@ -3087,10 +3091,10 @@ dianya_zhi_C=dianya_zhi_C/2.6125;
 	/* Calculates maxValue and returns corresponding BIN value */ 
 	arm_max_f32(reslut, fftSize/2, &maxValue_C, &testIndex);
 
- dianliuzhi_C=1.1*maxValue_C;
- if((T*dianliuzhi_C/10)<=(T*15))dianliuzhi_C=0;//15为归零系数 是实际电流值如果比变比的15%还小就归零
-else dianliuzhi_C=T*dianliuzhi_C/1000;
-if(dianliuzhi_C==0)gonglvshishu_C=100;
+ dianliuzhi_C=0.98*maxValue_C;
+ dianliuzhi_C=T*dianliuzhi_C/1000;
+  if(dianliuzhi_C<T)dianliuzhi_C=0;
+if(dianliuzhi_C==0)gonglvshishu_C=99;
 else gonglvshishu_C=arm_cos_f32(angle[0]-angle[1])*100;//功率因素
 
 //dianliuzhi_C=T*dianliuzhi_C/1000;
@@ -3323,7 +3327,7 @@ dianya_zhi_A=dianya_zhi_A/2.6125;
 	arm_max_f32(reslut, fftSize/2, &maxValue_C, &testIndex);
 
 
- dianliuzhi_A=1.1*maxValue_C;
+ dianliuzhi_A=0.98*maxValue_C;
 dianliuzhi_A=T*dianliuzhi_A/1000;
 gonglvshishu_A=arm_cos_f32(angle[0]-angle[1])*100;//功率因素
 
@@ -3406,7 +3410,7 @@ dianya_zhi_B=dianya_zhi_B/2.6125;
 	/* Calculates maxValue and returns corresponding BIN value */ 
 	arm_max_f32(reslut, fftSize/2, &maxValue_C, &testIndex);
 
- dianliuzhi_B=1.1*maxValue_C;
+ dianliuzhi_B=0.98*maxValue_C;
 dianliuzhi_B=T*dianliuzhi_B/1000;
 gonglvshishu_B=arm_cos_f32(angle[0]-angle[1])*100;//功率因素
 arm_sqrt_f32(1-(arm_cos_f32(angle[0]-angle[1]))*(arm_cos_f32(angle[0]-angle[1])),&sine);
@@ -3510,7 +3514,7 @@ dianya_zhi_C=dianya_zhi_C/2.6125;
 	/* Calculates maxValue and returns corresponding BIN value */ 
 	arm_max_f32(reslut, fftSize/2, &maxValue_C, &testIndex);
 
- dianliuzhi_C=1.1*maxValue_C;
+ dianliuzhi_C=0.98*maxValue_C;
 dianliuzhi_C=T*dianliuzhi_C/1000;
 gonglvshishu_C=arm_cos_f32(angle[0]-angle[1])*100;//功率因素
 arm_sqrt_f32(1-(arm_cos_f32(angle[0]-angle[1]))*(arm_cos_f32(angle[0]-angle[1])),&sine);
@@ -3553,7 +3557,7 @@ return 0;
 }
 
 //tempshuzhi=T;
-T=10;
+T=BT;
 /**************************end*************************/
 if(RT_FLAG==2)
 
@@ -3596,7 +3600,7 @@ LIGHT_backligt_off(status_box.work_status[0],status_box.work_status[1],status_bo
 
 if(dianya_zhi<=420&&dianya_zhi>=330&&warning_flag==0)
 {
-if(gonglvshishu<93&&L_C_flag_B==1)
+if(gonglvshishu<AF_DEAD&&L_C_flag_B==1)
  {
       {
       if(wugongkvar>=20)
@@ -3674,7 +3678,7 @@ return 0 ;
 }
  }
 
-if(gonglvshishu>=94&&L_C_flag_B==1)
+if(gonglvshishu>AF_TOP&&L_C_flag_B==1)
    
 {
       {
@@ -3754,7 +3758,7 @@ return 0 ;
 if(1)
 
   {
-if(gonglvshishu_A<93&&L_C_flag_A==1)
+if(gonglvshishu_A<AF_DEAD&&L_C_flag_A==1)
 {
 if(slave_dis[0]>0)
       if(wugongkvar_A>=6)	
@@ -3809,7 +3813,7 @@ return 0;
 }	
    if(wugongkvar_A>=status_box.size[0])	
 {
-if(status_box.work_status[0]==0)
+if((status_box.work_status[0]==0)&&(rework_time[0]==0))
 {
 {while(subswitchABC_onoff(1,1,1)==1)break;}		  //投
 status_box.work_status[0]=1;
@@ -3820,7 +3824,7 @@ return 0;
 
 }	  
 }
-if(gonglvshishu_B<93&&L_C_flag_B==1)
+if(gonglvshishu_B<AF_DEAD&&L_C_flag_B==1)
 {
 if(slave_dis[0]>0)
       if(wugongkvar_B>=6)	
@@ -3874,9 +3878,10 @@ return 0;
 
 }
 
+						
    if(wugongkvar_B>=status_box.size[1])	
 {
-if(status_box.work_status[1]==0)
+if((status_box.work_status[1]==0)&&(rework_time[1]==0))
 {
 {while(subswitchABC_onoff(2,1,1)==1)break;}		  //投
 status_box.work_status[1]=1;
@@ -3888,7 +3893,7 @@ return 0;
 }
 }
 
-if(gonglvshishu_C<93&&L_C_flag_C==1)
+if(gonglvshishu_C<AF_DEAD&&L_C_flag_C==1)
 
 {
 if(slave_dis[0]>0)
@@ -3944,7 +3949,7 @@ return 0;
 
    if(wugongkvar_C>=status_box.size[2])	
 {
-if(status_box.work_status[2]==0)
+if((status_box.work_status[2]==0)&&(rework_time[2]==0))
 {
 {while(subswitchABC_onoff(3,1,1)==1)break;}		  //投
 status_box.work_status[2]=1;
@@ -3963,7 +3968,7 @@ if(1)
 {
 
 
-if(gonglvshishu_A>94&&L_C_flag_A==1)
+if(gonglvshishu_A>AF_TOP&&L_C_flag_A==1)
 {
 if(KEY1==1)//必须是在自动条件下
 {
@@ -4017,7 +4022,7 @@ return 0;
 }
 
 }
-if(gonglvshishu_B>94&&L_C_flag_B==1)
+if(gonglvshishu_B>AF_TOP&&L_C_flag_B==1)
 {
 if(KEY1==1)//必须是在自动条件下
 {
@@ -4075,7 +4080,7 @@ return 0;
 
 }
 
-if(gonglvshishu_C>94&&L_C_flag_C==1)
+if(gonglvshishu_C>AF_TOP&&L_C_flag_C==1)
 
 {
 
@@ -5123,7 +5128,7 @@ TIME_4
 	 if(rework_time[0]==1)
  	{
  	count_rework[0]++;
-	if(count_rework[0]==10)
+	if(count_rework[0]==40)
 		{
 count_rework[0]=0;
 rework_time[0]=0;
@@ -5132,7 +5137,7 @@ rework_time[0]=0;
   if(rework_time[1]==1)
  	{
  	count_rework[1]++;
-	if(count_rework[1]==10)
+	if(count_rework[1]==40)
 		{
 count_rework[1]=0;
 rework_time[1]=0;
@@ -5141,7 +5146,7 @@ rework_time[1]=0;
   if(rework_time[2]==1)
  	{
  	count_rework[2]++;
-	if(count_rework[2]==10)
+	if(count_rework[2]==20)
 		{
 count_rework[2]=0;
 rework_time[2]=0;
