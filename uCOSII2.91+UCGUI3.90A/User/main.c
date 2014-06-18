@@ -2860,20 +2860,69 @@ dianya_zhi_A=dianya_zhi_A/2.6125;
 	/* Calculates maxValue and returns corresponding BIN value */ 
 	arm_max_f32(reslut, fftSize/2, &maxValue_C, &testIndex);
 
+/****************************************************************/
+				angle[2]=((angle[1]-angle[0])*360)/PI2;
 
+				  if(angle[2]>0){while(1){if(angle[2]>360){angle[2]=angle[2]-360;} else break;}}
+				else if(angle[2]<0){while(1){if(angle[2]<-360){angle[2]=angle[2]+360;} else break;}}
+
+					  
+				if(angle[2]>0.0)
+                               {
+				if(angle[2]<90)L_C_flag_A=1;
+				if(angle[2]>90&&angle[2]<180)L_C_flag_A=0;				
+				if(angle[2]>180&&angle[2]<270)L_C_flag_A=1;
+				if(angle[2]>270&&angle[2]<360)L_C_flag_A=0;
+
+
+				}
+
+				else if(angle[2]<=0.0)
+				{
+					if((angle[2]>-90.0&&angle[2]<=0.0))L_C_flag_A=0;
+					if((angle[2]>-180.0&&angle[2]<-90.0))L_C_flag_A=1;
+					if((angle[2]>-270.0&&angle[2]<-180.0))L_C_flag_A=0;
+					if((angle[2]>-360.0&&angle[2]<-270.0))L_C_flag_A=1;
+
+			     }
+
+			if(angle[2]>0.0)
+                               {
+				if(angle[2]>90&&angle[2]<180)angle[2]=-(angle[2]-180);				
+				if(angle[2]>180&&angle[2]<270)angle[2]=angle[2]-180;
+				if(angle[2]>270&&angle[2]<360)angle[2]=-(angle[2]-360);
+
+
+				}
+
+				else if(angle[2]<=0.0)
+				{
+					if((angle[2]>-90.0&&angle[2]<=0.0))angle[2]=-angle[2];
+					if((angle[2]>-180.0&&angle[2]<-90.0))angle[2]=(angle[2]+180);
+					if((angle[2]>-270.0&&angle[2]<-180.0))angle[2]=-(angle[2]+180);
+					if((angle[2]>-360.0&&angle[2]<-270.0))angle[2]=(angle[2]+360);
+
+			     }
+
+
+        
+angle[2]=((angle[2])*PI2)/360;
+
+
+/***************************************************************/
  dianliuzhi_A=0.98*maxValue_C;
  dianliuzhi_A=T*dianliuzhi_A/1000;
- if(dianliuzhi_A<T)dianliuzhi_A=0;
+ if(dianliuzhi_A<3*T)dianliuzhi_A=0;
 if(dianliuzhi_A==0)gonglvshishu_A=99;
-else gonglvshishu_A=arm_cos_f32(angle[0]-angle[1])*100;//功率因素
-
+else gonglvshishu_A=arm_cos_f32(angle[2])*100;//功率因素
+//else gonglvshishu_A=abs(cos(angle[2])*100);
 //dianya_zhi_A=0;
 //	dianya_zhi_A=comm_list[slave_comm[5]].myid;
 
 //gonglvshishu_A=0;
 //	gonglvshishu_A=comm_list[slave_comm[5]].size[0];
 
-arm_sqrt_f32(1-(arm_cos_f32(angle[0]-angle[1]))*(arm_cos_f32(angle[0]-angle[1])),&sine);
+arm_sqrt_f32(1-(arm_cos_f32(angle[2]))*(arm_cos_f32(angle[2])),&sine);
         a=dianya_zhi_A*dianliuzhi_A*sine/10;
 	wugongkvar_A=dianya_zhi_A*dianliuzhi_A*sine/1000;
       wugongkvar_95A=dianya_zhi_A*dianliuzhi_A*0.3122/1000;
@@ -2882,31 +2931,7 @@ arm_sqrt_f32(1-(arm_cos_f32(angle[0]-angle[1]))*(arm_cos_f32(angle[0]-angle[1]))
 }
 
 
-				angle[2]=((angle[1]-angle[0])*360)/PI2-90;
-				if(angle[2]>0.0)
-                               {
-				if(angle[2]<90)L_C_flag_A=1;
-								if(angle[2]>=90&&angle[2]<=180)L_C_flag_A=0;
 
-				if(angle[2]>180&&angle[2]<270)L_C_flag_A=0;
-
-								//	dianya_zhi_A=angle[2];
-								//	gonglvshishu_A=1;
-
-				}
-
-				else if(angle[2]<=0.0)
-				{
-					if((angle[2]>=-360.0&&angle[2]<-270.0))L_C_flag_A=1;
-										if((angle[2]>=-270.0&&angle[2]<-180.0))L_C_flag_A=0;
-					if((angle[2]>=-450.0&&angle[2]<-360.0))L_C_flag_A=1;
-					if((angle[2]>-90.0&&angle[2]<=0.0))L_C_flag_A=1;
-					if((angle[2]>=-180.0&&angle[2]<=-90.0))L_C_flag_A=0;
-
-				//	dianya_zhi_A=-angle[2];
-				//	gonglvshishu_A=2;
-			     }
-//if(phase_flag==1){if(L_C_flag_A==0)L_C_flag_A=1;if(L_C_flag_A==1)L_C_flag_A=0;}				
 if(dianliuzhi_A==0)L_C_flag_A=1;
 computer_trans_rs485(mybox.myid,33,0,0,0,CPT_A);
 
@@ -2972,44 +2997,70 @@ dianya_zhi_B=dianya_zhi_B/2.6125;
 	/* Calculates maxValue and returns corresponding BIN value */ 
 	arm_max_f32(reslut, fftSize/2, &maxValue_C, &testIndex);
 
- dianliuzhi_B=0.98*maxValue_C;
- dianliuzhi_B=T*dianliuzhi_B/1000;
-  if(dianliuzhi_B<T)dianliuzhi_B=0;
-if(dianliuzhi_B==0)gonglvshishu_B=99;
-else gonglvshishu_B=arm_cos_f32(angle[0]-angle[1])*100;//功率因素
 
-//dianliuzhi_B=T*dianliuzhi_B/1000;
-//gonglvshishu_B=arm_cos_f32(angle[0]-angle[1])*100;//功率因素
-arm_sqrt_f32(1-(arm_cos_f32(angle[0]-angle[1]))*(arm_cos_f32(angle[0]-angle[1])),&sine);
-         b=dianya_zhi_B*dianliuzhi_B*sine/10;
-	wugongkvar_B=dianya_zhi_B*dianliuzhi_B*sine/1000;
-      wugongkvar_95B=dianya_zhi_B*dianliuzhi_B*0.3122/1000;
+/****************************************************************/
+				angle[2]=((angle[1]-angle[0])*360)/PI2;
 
-			angle[2]=((angle[1]-angle[0])*360)/PI2-90;
+				  if(angle[2]>0){while(1){if(angle[2]>360){angle[2]=angle[2]-360;} else break;}}
+				else if(angle[2]<0){while(1){if(angle[2]<-360){angle[2]=angle[2]+360;} else break;}}
+
+					  
 				if(angle[2]>0.0)
                                {
 				if(angle[2]<90)L_C_flag_B=1;
-								if(angle[2]>=90&&angle[2]<=180)L_C_flag_B=0;
+				if(angle[2]>90&&angle[2]<180)L_C_flag_B=0;				
+				if(angle[2]>180&&angle[2]<270)L_C_flag_B=1;
+				if(angle[2]>270&&angle[2]<360)L_C_flag_B=0;
 
-				if(angle[2]>180&&angle[2]<270)L_C_flag_B=0;
-
-								//	dianya_zhi_A=angle[2];
-								//	gonglvshishu_A=1;
 
 				}
 
 				else if(angle[2]<=0.0)
 				{
-					if((angle[2]>=-360.0&&angle[2]<-270.0))L_C_flag_B=1;
-										if((angle[2]>=-270.0&&angle[2]<-180.0))L_C_flag_B=0;
-					if((angle[2]>=-450.0&&angle[2]<-360.0))L_C_flag_B=1;
-					if((angle[2]>-90.0&&angle[2]<=0.0))L_C_flag_B=1;
-					if((angle[2]>=-180.0&&angle[2]<=-90.0))L_C_flag_B=0;
+					if((angle[2]>-90.0&&angle[2]<=0.0))L_C_flag_B=0;
+					if((angle[2]>-180.0&&angle[2]<-90.0))L_C_flag_B=1;
+					if((angle[2]>-270.0&&angle[2]<-180.0))L_C_flag_B=0;
+					if((angle[2]>-360.0&&angle[2]<-270.0))L_C_flag_B=1;
 
-				//	dianya_zhi_A=-angle[2];
-				//	gonglvshishu_A=2;
 			     }
-//if(phase_flag==1){if(L_C_flag_A==0)L_C_flag_A=1;if(L_C_flag_A==1)L_C_flag_A=0;}				
+
+			if(angle[2]>0.0)
+                               {
+				if(angle[2]>90&&angle[2]<180)angle[2]=-(angle[2]-180);				
+				if(angle[2]>180&&angle[2]<270)angle[2]=angle[2]-180;
+				if(angle[2]>270&&angle[2]<360)angle[2]=-(angle[2]-360);
+
+
+				}
+
+				else if(angle[2]<=0.0)
+				{
+					if((angle[2]>-90.0&&angle[2]<=0.0))angle[2]=-angle[2];
+					if((angle[2]>-180.0&&angle[2]<-90.0))angle[2]=(angle[2]+180);
+					if((angle[2]>-270.0&&angle[2]<-180.0))angle[2]=-(angle[2]+180);
+					if((angle[2]>-360.0&&angle[2]<-270.0))angle[2]=(angle[2]+360);
+
+			     }
+
+
+        
+angle[2]=((angle[2])*PI2)/360;
+
+
+/***************************************************************/
+ dianliuzhi_B=0.98*maxValue_C;
+ dianliuzhi_B=T*dianliuzhi_B/1000;
+  if(dianliuzhi_B<3*T)dianliuzhi_B=0;
+if(dianliuzhi_B==0)gonglvshishu_B=99;
+else gonglvshishu_B=arm_cos_f32(angle[2])*100;//功率因素
+
+//dianliuzhi_B=T*dianliuzhi_B/1000;
+//gonglvshishu_B=arm_cos_f32(angle[0]-angle[1])*100;//功率因素
+arm_sqrt_f32(1-(arm_cos_f32(angle[2]))*(arm_cos_f32(angle[2])),&sine);
+         b=dianya_zhi_B*dianliuzhi_B*sine/10;
+	wugongkvar_B=dianya_zhi_B*dianliuzhi_B*sine/1000;
+      wugongkvar_95B=dianya_zhi_B*dianliuzhi_B*0.3122/1000;
+			
 if(dianliuzhi_B==0)L_C_flag_B=1;
 
 
@@ -3091,44 +3142,69 @@ dianya_zhi_C=dianya_zhi_C/2.6125;
 	/* Calculates maxValue and returns corresponding BIN value */ 
 	arm_max_f32(reslut, fftSize/2, &maxValue_C, &testIndex);
 
- dianliuzhi_C=0.98*maxValue_C;
- dianliuzhi_C=T*dianliuzhi_C/1000;
-  if(dianliuzhi_C<T)dianliuzhi_C=0;
-if(dianliuzhi_C==0)gonglvshishu_C=99;
-else gonglvshishu_C=arm_cos_f32(angle[0]-angle[1])*100;//功率因素
+/****************************************************************/
+				angle[2]=((angle[1]-angle[0])*360)/PI2;
 
-//dianliuzhi_C=T*dianliuzhi_C/1000;
-//gonglvshishu_C=arm_cos_f32(angle[0]-angle[1])*100;//功率因素
-arm_sqrt_f32(1-(arm_cos_f32(angle[0]-angle[1]))*(arm_cos_f32(angle[0]-angle[1])),&sine);
-           c=dianya_zhi_C*dianliuzhi_C*sine/10;
-	wugongkvar_C=dianya_zhi_C*dianliuzhi_C*sine/1000;
-      wugongkvar_95C=dianya_zhi_C*dianliuzhi_C*0.3122/1000;
+				  if(angle[2]>0){while(1){if(angle[2]>360){angle[2]=angle[2]-360;} else break;}}
+				else if(angle[2]<0){while(1){if(angle[2]<-360){angle[2]=angle[2]+360;} else break;}}
 
-			angle[2]=((angle[1]-angle[0])*360)/PI2-90;
+					  
 				if(angle[2]>0.0)
                                {
 				if(angle[2]<90)L_C_flag_C=1;
-								if(angle[2]>=90&&angle[2]<=180)L_C_flag_C=0;
+				if(angle[2]>90&&angle[2]<180)L_C_flag_C=0;				
+				if(angle[2]>180&&angle[2]<270)L_C_flag_C=1;
+				if(angle[2]>270&&angle[2]<360)L_C_flag_C=0;
 
-				if(angle[2]>180&&angle[2]<270)L_C_flag_C=0;
-
-								//	dianya_zhi_A=angle[2];
-								//	gonglvshishu_A=1;
 
 				}
 
 				else if(angle[2]<=0.0)
 				{
-					if((angle[2]>=-360.0&&angle[2]<-270.0))L_C_flag_C=1;
-										if((angle[2]>=-270.0&&angle[2]<-180.0))L_C_flag_C=0;
-					if((angle[2]>=-450.0&&angle[2]<-360.0))L_C_flag_C=1;
-					if((angle[2]>-90.0&&angle[2]<=0.0))L_C_flag_C=1;
-					if((angle[2]>=-180.0&&angle[2]<=-90.0))L_C_flag_C=0;
+					if((angle[2]>-90.0&&angle[2]<=0.0))L_C_flag_C=0;
+					if((angle[2]>-180.0&&angle[2]<-90.0))L_C_flag_C=1;
+					if((angle[2]>-270.0&&angle[2]<-180.0))L_C_flag_C=0;
+					if((angle[2]>-360.0&&angle[2]<-270.0))L_C_flag_C=1;
 
-				//	dianya_zhi_A=-angle[2];
-				//	gonglvshishu_A=2;
 			     }
-//if(phase_flag==1){if(L_C_flag_A==0)L_C_flag_A=1;if(L_C_flag_A==1)L_C_flag_A=0;}				
+
+			if(angle[2]>0.0)
+                               {
+				if(angle[2]>90&&angle[2]<180)angle[2]=-(angle[2]-180);				
+				if(angle[2]>180&&angle[2]<270)angle[2]=angle[2]-180;
+				if(angle[2]>270&&angle[2]<360)angle[2]=-(angle[2]-360);
+
+
+				}
+
+				else if(angle[2]<=0.0)
+				{
+					if((angle[2]>-90.0&&angle[2]<=0.0))angle[2]=-angle[2];
+					if((angle[2]>-180.0&&angle[2]<-90.0))angle[2]=(angle[2]+180);
+					if((angle[2]>-270.0&&angle[2]<-180.0))angle[2]=-(angle[2]+180);
+					if((angle[2]>-360.0&&angle[2]<-270.0))angle[2]=(angle[2]+360);
+
+			     }
+
+
+        
+angle[2]=((angle[2])*PI2)/360;
+
+
+/***************************************************************/
+ dianliuzhi_C=0.98*maxValue_C;
+ dianliuzhi_C=T*dianliuzhi_C/1000;
+  if(dianliuzhi_C<3*T)dianliuzhi_C=0;
+if(dianliuzhi_C==0)gonglvshishu_C=99;
+else gonglvshishu_C=arm_cos_f32(angle[2])*100;//功率因素
+
+//dianliuzhi_C=T*dianliuzhi_C/1000;
+//gonglvshishu_C=arm_cos_f32(angle[0]-angle[1])*100;//功率因素
+arm_sqrt_f32(1-(arm_cos_f32(angle[2]))*(arm_cos_f32(angle[2])),&sine);
+           c=dianya_zhi_C*dianliuzhi_C*sine/10;
+	wugongkvar_C=dianya_zhi_C*dianliuzhi_C*sine/1000;
+      wugongkvar_95C=dianya_zhi_C*dianliuzhi_C*0.3122/1000;
+			
 if(dianliuzhi_C==0)L_C_flag_C=1;
 
 }
@@ -3325,11 +3401,60 @@ dianya_zhi_A=dianya_zhi_A/2.6125;
 	 
 	/* Calculates maxValue and returns corresponding BIN value */ 
 	arm_max_f32(reslut, fftSize/2, &maxValue_C, &testIndex);
+/****************************************************************/
+				angle[2]=((angle[1]-angle[0])*360)/PI2;
 
+				  if(angle[2]>0){while(1){if(angle[2]>360){angle[2]=angle[2]-360;} else break;}}
+				else if(angle[2]<0){while(1){if(angle[2]<-360){angle[2]=angle[2]+360;} else break;}}
+
+					  
+				if(angle[2]>0.0)
+                               {
+				if(angle[2]<90)L_C_flag_A=1;
+				if(angle[2]>90&&angle[2]<180)L_C_flag_A=0;				
+				if(angle[2]>180&&angle[2]<270)L_C_flag_A=1;
+				if(angle[2]>270&&angle[2]<360)L_C_flag_A=0;
+
+
+				}
+
+				else if(angle[2]<=0.0)
+				{
+					if((angle[2]>-90.0&&angle[2]<=0.0))L_C_flag_A=0;
+					if((angle[2]>-180.0&&angle[2]<-90.0))L_C_flag_A=1;
+					if((angle[2]>-270.0&&angle[2]<-180.0))L_C_flag_A=0;
+					if((angle[2]>-360.0&&angle[2]<-270.0))L_C_flag_A=1;
+
+			     }
+
+			if(angle[2]>0.0)
+                               {
+				if(angle[2]>90&&angle[2]<180)angle[2]=-(angle[2]-180);				
+				if(angle[2]>180&&angle[2]<270)angle[2]=angle[2]-180;
+				if(angle[2]>270&&angle[2]<360)angle[2]=-(angle[2]-360);
+
+
+				}
+
+				else if(angle[2]<=0.0)
+				{
+					if((angle[2]>-90.0&&angle[2]<=0.0))angle[2]=-angle[2];
+					if((angle[2]>-180.0&&angle[2]<-90.0))angle[2]=(angle[2]+180);
+					if((angle[2]>-270.0&&angle[2]<-180.0))angle[2]=-(angle[2]+180);
+					if((angle[2]>-360.0&&angle[2]<-270.0))angle[2]=(angle[2]+360);
+
+			     }
+
+
+        
+angle[2]=((angle[2])*PI2)/360;
+
+
+/***************************************************************/
 
  dianliuzhi_A=0.98*maxValue_C;
 dianliuzhi_A=T*dianliuzhi_A/1000;
-gonglvshishu_A=arm_cos_f32(angle[0]-angle[1])*100;//功率因素
+gonglvshishu_A=arm_cos_f32(angle[2])*100;//功率因素
 
 //dianya_zhi_A=0;
 //	dianya_zhi_A=comm_list[slave_comm[5]].myid;
@@ -3337,7 +3462,7 @@ gonglvshishu_A=arm_cos_f32(angle[0]-angle[1])*100;//功率因素
 //gonglvshishu_A=0;
 //	gonglvshishu_A=comm_list[slave_comm[5]].size[0];
 
-arm_sqrt_f32(1-(arm_cos_f32(angle[0]-angle[1]))*(arm_cos_f32(angle[0]-angle[1])),&sine);
+arm_sqrt_f32(1-(arm_cos_f32(angle[2]))*(arm_cos_f32(angle[2])),&sine);
         a=dianya_zhi_A*dianliuzhi_A*sine/10;
 	wugongkvar_A=dianya_zhi_A*dianliuzhi_A*sine/1000;
       wugongkvar_95A=dianya_zhi_A*dianliuzhi_A*0.3122/1000;
@@ -3409,38 +3534,65 @@ dianya_zhi_B=dianya_zhi_B/2.6125;
 	 
 	/* Calculates maxValue and returns corresponding BIN value */ 
 	arm_max_f32(reslut, fftSize/2, &maxValue_C, &testIndex);
+/****************************************************************/
+				angle[2]=((angle[1]-angle[0])*360)/PI2;
 
- dianliuzhi_B=0.98*maxValue_C;
-dianliuzhi_B=T*dianliuzhi_B/1000;
-gonglvshishu_B=arm_cos_f32(angle[0]-angle[1])*100;//功率因素
-arm_sqrt_f32(1-(arm_cos_f32(angle[0]-angle[1]))*(arm_cos_f32(angle[0]-angle[1])),&sine);
-         b=dianya_zhi_B*dianliuzhi_B*sine/10;
-	wugongkvar_B=dianya_zhi_B*dianliuzhi_B*sine/1000;
-      wugongkvar_95B=dianya_zhi_B*dianliuzhi_B*0.3122/1000;
+				  if(angle[2]>0){while(1){if(angle[2]>360){angle[2]=angle[2]-360;} else break;}}
+				else if(angle[2]<0){while(1){if(angle[2]<-360){angle[2]=angle[2]+360;} else break;}}
 
-}
-
-
-				angle[2]=((angle[1]-angle[0])*360)/PI2-90;
+					  
 				if(angle[2]>0.0)
                                {
 				if(angle[2]<90)L_C_flag_B=1;
-								if(angle[2]>=90&&angle[2]<=180)L_C_flag_B=0;
-
-				if(angle[2]>180&&angle[2]<270)L_C_flag_B=0;
+				if(angle[2]>90&&angle[2]<180)L_C_flag_B=0;				
+				if(angle[2]>180&&angle[2]<270)L_C_flag_B=1;
+				if(angle[2]>270&&angle[2]<360)L_C_flag_B=0;
 
 
 				}
 
 				else if(angle[2]<=0.0)
 				{
-					if((angle[2]>=-360.0&&angle[2]<-270.0))L_C_flag_B=1;
-										if((angle[2]>=-270.0&&angle[2]<-180.0))L_C_flag_B=0;
-					if((angle[2]>=-450.0&&angle[2]<-360.0))L_C_flag_B=1;
-					if((angle[2]>-90.0&&angle[2]<=0.0))L_C_flag_B=1;
-					if((angle[2]>=-180.0&&angle[2]<=-90.0))L_C_flag_B=0;
+					if((angle[2]>-90.0&&angle[2]<=0.0))L_C_flag_B=0;
+					if((angle[2]>-180.0&&angle[2]<-90.0))L_C_flag_B=1;
+					if((angle[2]>-270.0&&angle[2]<-180.0))L_C_flag_B=0;
+					if((angle[2]>-360.0&&angle[2]<-270.0))L_C_flag_B=1;
 
 			     }
+
+			if(angle[2]>0.0)
+                               {
+				if(angle[2]>90&&angle[2]<180)angle[2]=-(angle[2]-180);				
+				if(angle[2]>180&&angle[2]<270)angle[2]=angle[2]-180;
+				if(angle[2]>270&&angle[2]<360)angle[2]=-(angle[2]-360);
+
+
+				}
+
+				else if(angle[2]<=0.0)
+				{
+					if((angle[2]>-90.0&&angle[2]<=0.0))angle[2]=-angle[2];
+					if((angle[2]>-180.0&&angle[2]<-90.0))angle[2]=(angle[2]+180);
+					if((angle[2]>-270.0&&angle[2]<-180.0))angle[2]=-(angle[2]+180);
+					if((angle[2]>-360.0&&angle[2]<-270.0))angle[2]=(angle[2]+360);
+
+			     }
+
+
+        
+angle[2]=((angle[2])*PI2)/360;
+
+
+/***************************************************************/
+ dianliuzhi_B=0.98*maxValue_C;
+dianliuzhi_B=T*dianliuzhi_B/1000;
+gonglvshishu_B=arm_cos_f32(angle[2])*100;//功率因素
+arm_sqrt_f32(1-(arm_cos_f32(angle[2]))*(arm_cos_f32(angle[2])),&sine);
+         b=dianya_zhi_B*dianliuzhi_B*sine/10;
+	wugongkvar_B=dianya_zhi_B*dianliuzhi_B*sine/1000;
+      wugongkvar_95B=dianya_zhi_B*dianliuzhi_B*0.3122/1000;
+
+}
 
 
 /*********************C_phase*********************************/
@@ -3513,11 +3665,60 @@ dianya_zhi_C=dianya_zhi_C/2.6125;
 	 
 	/* Calculates maxValue and returns corresponding BIN value */ 
 	arm_max_f32(reslut, fftSize/2, &maxValue_C, &testIndex);
+/****************************************************************/
+				angle[2]=((angle[1]-angle[0])*360)/PI2;
 
+				  if(angle[2]>0){while(1){if(angle[2]>360){angle[2]=angle[2]-360;} else break;}}
+				else if(angle[2]<0){while(1){if(angle[2]<-360){angle[2]=angle[2]+360;} else break;}}
+
+					  
+				if(angle[2]>0.0)
+                               {
+				if(angle[2]<90)L_C_flag_C=1;
+				if(angle[2]>90&&angle[2]<180)L_C_flag_C=0;				
+				if(angle[2]>180&&angle[2]<270)L_C_flag_C=1;
+				if(angle[2]>270&&angle[2]<360)L_C_flag_C=0;
+
+
+				}
+
+				else if(angle[2]<=0.0)
+				{
+					if((angle[2]>-90.0&&angle[2]<=0.0))L_C_flag_C=0;
+					if((angle[2]>-180.0&&angle[2]<-90.0))L_C_flag_C=1;
+					if((angle[2]>-270.0&&angle[2]<-180.0))L_C_flag_C=0;
+					if((angle[2]>-360.0&&angle[2]<-270.0))L_C_flag_C=1;
+
+			     }
+
+			if(angle[2]>0.0)
+                               {
+				if(angle[2]>90&&angle[2]<180)angle[2]=-(angle[2]-180);				
+				if(angle[2]>180&&angle[2]<270)angle[2]=angle[2]-180;
+				if(angle[2]>270&&angle[2]<360)angle[2]=-(angle[2]-360);
+
+
+				}
+
+				else if(angle[2]<=0.0)
+				{
+					if((angle[2]>-90.0&&angle[2]<=0.0))angle[2]=-angle[2];
+					if((angle[2]>-180.0&&angle[2]<-90.0))angle[2]=(angle[2]+180);
+					if((angle[2]>-270.0&&angle[2]<-180.0))angle[2]=-(angle[2]+180);
+					if((angle[2]>-360.0&&angle[2]<-270.0))angle[2]=(angle[2]+360);
+
+			     }
+
+
+        
+angle[2]=((angle[2])*PI2)/360;
+
+
+/***************************************************************/
  dianliuzhi_C=0.98*maxValue_C;
 dianliuzhi_C=T*dianliuzhi_C/1000;
-gonglvshishu_C=arm_cos_f32(angle[0]-angle[1])*100;//功率因素
-arm_sqrt_f32(1-(arm_cos_f32(angle[0]-angle[1]))*(arm_cos_f32(angle[0]-angle[1])),&sine);
+gonglvshishu_C=arm_cos_f32(angle[2])*100;//功率因素
+arm_sqrt_f32(1-(arm_cos_f32(angle[2]))*(arm_cos_f32(angle[2])),&sine);
            c=dianya_zhi_C*dianliuzhi_C*sine/10;
 	wugongkvar_C=dianya_zhi_C*dianliuzhi_C*sine/1000;
       wugongkvar_95C=dianya_zhi_C*dianliuzhi_C*0.3122/1000;
@@ -5146,7 +5347,7 @@ rework_time[1]=0;
   if(rework_time[2]==1)
  	{
  	count_rework[2]++;
-	if(count_rework[2]==20)
+	if(count_rework[2]==40)
 		{
 count_rework[2]=0;
 rework_time[2]=0;
