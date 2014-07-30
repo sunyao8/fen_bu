@@ -460,8 +460,8 @@ status_box.myid= mybox.myid;
 	
  	}
 
-//delay_ms(1500);
-delay_ms(100);
+delay_ms(1500);
+//delay_ms(100);
 	        }
    	
 }
@@ -1558,7 +1558,8 @@ if(((RS485_RX_CNT==7)&&(RS485_RX_BUF[5]==CONTROL)))
 		}
  if((MASTER==0)&&(RS485_RX_BUF[RS485_RX_CNT-1]==')')) RS485_RX_CNT=0;//直接清除，避免内存溢出和信息相互搅
 /********************************************************************************************/
-if(RS485_RX_CNT>=512)RS485_RX_CNT=0;
+if(RS485_RX_CNT>=500)RS485_RX_CNT=0;
+//if(RS485_RX_CNT>=512)RS485_RX_CNT=0;
 	}  	
 	OSIntExit();  											 
 
