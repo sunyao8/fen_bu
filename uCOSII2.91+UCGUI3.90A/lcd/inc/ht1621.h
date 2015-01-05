@@ -64,7 +64,11 @@ void Graf_qkvar(u16 qkvar);
 void Graf_temp(u8 temp);
 void Graf_id(u8 hostguest,u8 id);
 void Graf_ver(u8 ver);
-void Graf_setid(u8 idnum);	 				    
+void Graf_setid(u8 idnum);	
+void Graf_set_warn_volt(u16 voltnum);
+void Graf_setBT(u16 idnum);
+
+
 #endif
 
 

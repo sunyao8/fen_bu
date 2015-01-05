@@ -52,7 +52,7 @@
 { 
   u8 myid;      //本电容箱ID号
   u8 size[3];      //容量单位千法
-  u8 work_status[3];
+  vu8 work_status[3];
 }statusbox;
 void LIGHT_backligt_on(u8 status_1,u8 status_2,u8 status_3);
 void LIGHT_backligt_off(u8 status_1,u8 status_2,u8 status_3);

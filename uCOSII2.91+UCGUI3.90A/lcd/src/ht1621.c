@@ -440,8 +440,43 @@ void Graf_setid(u8 idnum)
    WriteAll_1621(8,num67Seg+2*idnumgewei,2);	//显示idnum个数位
 
 }
+void Graf_set_warn_volt(u16 voltnum)
+{   
+   u8 idnumbaiwei,idnumshiwei,idnumgewei;
+		Write_1621(12,0x04);   //显示U(v)  
+   	Write_1621(15,0x01);   //logo
 
+   idnumbaiwei=voltnum/100;
+   WriteAll_1621(2,num12345Seg+2*idnumbaiwei,2);	//显示idnum百数位
 
+   idnumshiwei=(voltnum%100)/10;
+   WriteAll_1621(10,num67Seg+2*idnumshiwei,2);	//显示idnum十数位
+
+   idnumgewei=voltnum%10;
+   WriteAll_1621(8,num67Seg+2*idnumgewei,2);	//显示idnum个数位
+
+}
+void Graf_setBT(u16 idnum)
+{   
+   u8 idnumqianwei,idnumbaiwei,idnumshiwei,idnumgewei;
+  
+   	Write_1621(15,0x01);   //logo
+      	Write_1621(10,0x04);   //"-"
+       WriteAll_1621(8,num67Seg+2*5,2);	//显示5
+	
+
+   idnumqianwei=idnum/1000;
+   WriteAll_1621(18,num12345Seg+2*idnumqianwei,2);	//显示idnum百数位
+
+   idnumbaiwei=(idnum%1000)/100;
+   WriteAll_1621(20,num12345Seg+2*idnumbaiwei,2);	//显示idnum十数位
+
+   idnumshiwei=(idnum%100)/10;
+   WriteAll_1621(0,num12345Seg+2*idnumshiwei,2);	//显示idnum个数位
+
+   idnumgewei=idnum%10;
+   WriteAll_1621(2,num12345Seg+2*idnumgewei,2);	//显示idnum个数位
+}
 void HT595_Send_Byte(u8 state)
 {                        
     u8 t; 

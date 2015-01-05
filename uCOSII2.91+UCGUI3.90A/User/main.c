@@ -21,6 +21,7 @@
 #define  k 0.8	//0.8
 #define PI2  6.28318530717959
 #define TIME_TQ 2
+#define temperture_w 55
 
 #define  APP_TASK_START_STK_SIZE                         64u
 static  OS_STK         App_TaskStartStk[APP_TASK_START_STK_SIZE];
@@ -281,7 +282,7 @@ u16 scan_init=0;//20  为自动判断变比
 u8 MASTER=0;
 extern u8 light_time;
  u8 temperature_warn=0;
-u8 rework_time[3];//再投延时控制变量
+u8 rework_time[3]={1,1,1};//再投延时控制变量
 
 #define BT  12//*50
 #define SIZE 3 //总容量除以3 
@@ -455,7 +456,7 @@ RT_FLAG=2;
 scan_init=0;
 }
 
-   mybox.myid=AT24CXX_ReadOneByte(0x0010);
+   mybox.myid=AT24CXX_ReadOneByte(0xa000);
 status_box.myid= mybox.myid;
 	
  	}
@@ -489,7 +490,7 @@ static  void  App_Taskslave_three(void *p_arg)
    msg=(u8 *)OSMboxPend(RS485_MBOX,0,&err);//接收到有数据
    rs485_trans_computer(msg);
    	 dog_clock=20;
-   mybox.myid=AT24CXX_ReadOneByte(0x0010);
+   mybox.myid=AT24CXX_ReadOneByte(0xa000);
 status_box.myid= mybox.myid;
    // key_idset();//按键与显示功能
 
@@ -607,7 +608,7 @@ void SETID_task(void *pdata)
         OS_CPU_SR cpu_sr=0;  	    	
           while(1)
           	{
-		  id_num=AT24CXX_ReadOneByte(0x0010);
+		  id_num=AT24CXX_ReadOneByte(0xa000);
 	///	  id_num=1;//测试开发板使用
 		if(id_num<1||id_num>33)
 			{        	OS_ENTER_CRITICAL();    		
@@ -668,7 +669,7 @@ u8 err;
        	OSSemPend(urgent_sem,0,&err);      	
 if(KEY1==1&&auto_on==0)
 	{   
-	light_time=3;
+	light_time=30;
 		  auto_on=1;
                  if(	status_box.work_status[0]==1)
 		   {while(subswitchABC_onoff(1,0,1)==0)break;}		  //投
@@ -680,7 +681,7 @@ if(KEY1==1&&auto_on==0)
  }
      if(KEY1==0&&auto_on==1)
  	{
-	light_time=3;
+	light_time=30;
 		auto_on=0;
                  if((status_box.work_status[0]==0)&&(rework_time[0]==0))
 		   {while(subswitchABC_onoff(1,1,1)==1)break;}		  //投
@@ -764,10 +765,10 @@ b=(float32_t)((ADC_Converted_VValue));///  1550
 			   delay_ms(100);
          GPIO_ResetBits(GPIOD,GPIO_Pin_8);
 		 GPIO_ResetBits(GPIOD,GPIO_Pin_9);
-				status_box.work_status[0]=0;
+				status_box.work_status[0]=3;
 				rework_time[0]=1;
-				if(light_time>0)LIGHT_backligt_on(status_box.work_status[0],status_box.work_status[1],status_box.work_status[2]);
-				if(light_time==0)LIGHT_backligt_off(status_box.work_status[0],status_box.work_status[1],status_box.work_status[2]);
+				if(light_time>1)LIGHT_backligt_on(status_box.work_status[0],status_box.work_status[1],status_box.work_status[2]);
+				if(light_time==1)LIGHT_backligt_off(status_box.work_status[0],status_box.work_status[1],status_box.work_status[2]);
 				
 			  max=0;
 			  a=0;
@@ -807,8 +808,8 @@ GPIO_ResetBits(GPIOD,GPIO_Pin_8); //PD2->1
 		 GPIO_ResetBits(GPIOD,GPIO_Pin_9);
 		 GPIO_ResetBits(GPIOD,GPIO_Pin_8);
 				status_box.work_status[0]=1;
-		if(light_time>0)LIGHT_backligt_on(status_box.work_status[0],status_box.work_status[1],status_box.work_status[2]);
-		if(light_time==0) LIGHT_backligt_off(status_box.work_status[0],status_box.work_status[1],status_box.work_status[2]);		
+		if(light_time>1)LIGHT_backligt_on(status_box.work_status[0],status_box.work_status[1],status_box.work_status[2]);
+		if(light_time==1) LIGHT_backligt_off(status_box.work_status[0],status_box.work_status[1],status_box.work_status[2]);		
 				return 1;
 		
 		   
@@ -857,10 +858,10 @@ b=(float32_t)((ADC_Converted_VValue));///  1550
 			   delay_ms(100);
          GPIO_ResetBits(GPIOD,GPIO_Pin_10);
 		 GPIO_ResetBits(GPIOD,GPIO_Pin_11);
-				status_box.work_status[1]=0;
+				status_box.work_status[1]=3;
 				rework_time[1]=1;
-			if(light_time>0)LIGHT_backligt_on(status_box.work_status[0],status_box.work_status[1],status_box.work_status[2]);		
-			 if(light_time==0)LIGHT_backligt_off(status_box.work_status[0],status_box.work_status[1],status_box.work_status[2]);	
+			if(light_time>1)LIGHT_backligt_on(status_box.work_status[0],status_box.work_status[1],status_box.work_status[2]);		
+			 if(light_time==1)LIGHT_backligt_off(status_box.work_status[0],status_box.work_status[1],status_box.work_status[2]);	
 			  max=0;
 			  a=0;
 			  b=0;
@@ -899,8 +900,8 @@ GPIO_ResetBits(GPIOD,GPIO_Pin_8); //PD2->1
 		 GPIO_ResetBits(GPIOD,GPIO_Pin_10);
 		 GPIO_ResetBits(GPIOD,GPIO_Pin_11);
 				status_box.work_status[1]=1;
-	if(light_time>0)LIGHT_backligt_on(status_box.work_status[0],status_box.work_status[1],status_box.work_status[2]);				
-	 if(light_time==0)LIGHT_backligt_off(status_box.work_status[0],status_box.work_status[1],status_box.work_status[2]);			
+	if(light_time>1)LIGHT_backligt_on(status_box.work_status[0],status_box.work_status[1],status_box.work_status[2]);				
+	 if(light_time==1)LIGHT_backligt_off(status_box.work_status[0],status_box.work_status[1],status_box.work_status[2]);			
 				return 1;
 		
 		   
@@ -949,10 +950,10 @@ b=(float32_t)((ADC_Converted_VValue));///  1550
 			   delay_ms(100);
          GPIO_ResetBits(GPIOD,GPIO_Pin_12);
 		 GPIO_ResetBits(GPIOD,GPIO_Pin_13);
-				status_box.work_status[2]=0;
+				status_box.work_status[2]=3;
 				rework_time[2]=1;				
-if(light_time>0)LIGHT_backligt_on(status_box.work_status[0],status_box.work_status[1],status_box.work_status[2]);				
-if(light_time==0) LIGHT_backligt_off(status_box.work_status[0],status_box.work_status[1],status_box.work_status[2]);
+if(light_time>1)LIGHT_backligt_on(status_box.work_status[0],status_box.work_status[1],status_box.work_status[2]);				
+if(light_time==1) LIGHT_backligt_off(status_box.work_status[0],status_box.work_status[1],status_box.work_status[2]);
 			  max=0;
 			  a=0;
 			  b=0;
@@ -991,8 +992,8 @@ GPIO_ResetBits(GPIOD,GPIO_Pin_8); //PD2->1
 		 GPIO_ResetBits(GPIOD,GPIO_Pin_12);
 		 GPIO_ResetBits(GPIOD,GPIO_Pin_13);
 		 				status_box.work_status[2]=1;
-if(light_time>0)LIGHT_backligt_on(status_box.work_status[0],status_box.work_status[1],status_box.work_status[2]);
-if(light_time==0) LIGHT_backligt_off(status_box.work_status[0],status_box.work_status[1],status_box.work_status[2]);
+if(light_time>1)LIGHT_backligt_on(status_box.work_status[0],status_box.work_status[1],status_box.work_status[2]);
+if(light_time==1) LIGHT_backligt_off(status_box.work_status[0],status_box.work_status[1],status_box.work_status[2]);
 				return 1;
 		
 		   
@@ -1740,7 +1741,7 @@ if(tx_r485[5]==CONTROL)
 {
    if(mybox.myid==tx_r485[1])//判断是否是发给本机的信息或是广播信息
    	{
-if((tempshuzhi<70)&&(temperature_warn==0))//自身温度是否正常 
+if((tempshuzhi<temperture_w)&&(temperature_warn==0))//自身温度是否正常 
 {
 	if( tx_r485[2]==1) 
 	{
@@ -1913,7 +1914,7 @@ void initmybox()//初始化自身信息
 {  	 
   
   mybox.master=0;
-  mybox.myid=AT24CXX_ReadOneByte(0x0010);
+  mybox.myid=AT24CXX_ReadOneByte(0xa000);
  mybox.source=0;
  mybox.destination=0;
  mybox.send=0;
@@ -2649,7 +2650,8 @@ float32_t maxValue=0.0,maxValue_C=0.0;
 
 float32_t testOutput[TEST_LENGTH_SAMPLES*2/2]; 
 float32_t reslut[TEST_LENGTH_SAMPLES/2]; 
-u16 TR[]={4,5,6,8,10,12,16,20,24,30,40,50,60,80,100,120};//2//TR[ ]*50为实际变比
+ u8 TR[]={1,2,3,4,5,6,8,10,12,16,20,24,30,40,50,60,80,100,120};//2//TR[ ]*50为实际变比
+
 /* ------------------------------------------------------------------ 
 * Global variables for FFT Bin Example 
 * ------------------------------------------------------------------- */ 
@@ -2666,6 +2668,11 @@ s32 gl[2];
 u16 wugongkvar_95,wugongkvar_95A,wugongkvar_95B,wugongkvar_95C;
 static u8 init=1;
 static u8 warning_flag=0;
+u8 bt,warn_vlot;
+bt=AT24CXX_ReadOneByte(0x0100);
+warn_vlot=AT24CXX_ReadOneByte(0x1000);
+T=TR[bt];
+
 
 /*********************电压判断相序*******************************/
 if(init==1)
@@ -2851,7 +2858,7 @@ allphase(testInput_V,testInput_C);
 
 	arm_max_f32(reslut, fftSize/2, &maxValue, &testIndex);
 dianya_zhi_A=maxValue/100;
-dianya_zhi_A=dianya_zhi_A/2.6125;
+dianya_zhi_A=dianya_zhi_A/2.57;
 	
 /******************************************************************/
 	arm_rfft_f32(&S, testInput_C,testOutput); 
@@ -2918,17 +2925,14 @@ angle[2]=((angle[2])*PI2)/360;
 
 
 /***************************************************************/
- dianliuzhi_A=0.98*maxValue_C;
- dianliuzhi_A=T*dianliuzhi_A/1000;
- if(dianliuzhi_A<3*T)dianliuzhi_A=0;
-if(dianliuzhi_A==0)gonglvshishu_A=99;
-else gonglvshishu_A=arm_cos_f32(angle[2])*100;//功率因素
-//else gonglvshishu_A=abs(cos(angle[2])*100);
-//dianya_zhi_A=0;
-//	dianya_zhi_A=comm_list[slave_comm[5]].myid;
+ dianliuzhi_A=1.07*maxValue_C;
+dianliuzhi_A=T*dianliuzhi_A;
+ if(dianliuzhi_A<=2500*T){dianliuzhi_A=0;gonglvshishu_A=100;L_C_flag_A=1;}
+else{ 
+	dianliuzhi_A=dianliuzhi_A/1000;
+	gonglvshishu_A=arm_cos_f32(angle[2])*100;//功率因素
+}
 
-//gonglvshishu_A=0;
-//	gonglvshishu_A=comm_list[slave_comm[5]].size[0];
 
 arm_sqrt_f32(1-(arm_cos_f32(angle[2]))*(arm_cos_f32(angle[2])),&sine);
         a=dianya_zhi_A*dianliuzhi_A*sine/10;
@@ -2938,9 +2942,6 @@ arm_sqrt_f32(1-(arm_cos_f32(angle[2]))*(arm_cos_f32(angle[2])),&sine);
 
 }
 
-
-
-if(dianliuzhi_A==0)L_C_flag_A=1;
 
 computer_trans_rs485(mybox.myid,33,0,0,0,CPT_A);
 
@@ -2989,7 +2990,7 @@ allphase(testInput_V,testInput_C);
 
 	arm_max_f32(reslut, fftSize/2, &maxValue, &testIndex);
 dianya_zhi_B=maxValue/100;
-dianya_zhi_B=dianya_zhi_B/2.6125;
+dianya_zhi_B=dianya_zhi_B/2.57;
 
 /******************************************************************/
 	arm_rfft_f32(&S, testInput_C,testOutput); 
@@ -3057,20 +3058,18 @@ angle[2]=((angle[2])*PI2)/360;
 
 
 /***************************************************************/
- dianliuzhi_B=0.98*maxValue_C;
- dianliuzhi_B=T*dianliuzhi_B/1000;
-  if(dianliuzhi_B<3*T)dianliuzhi_B=0;
-if(dianliuzhi_B==0)gonglvshishu_B=99;
-else gonglvshishu_B=arm_cos_f32(angle[2])*100;//功率因素
-
-//dianliuzhi_B=T*dianliuzhi_B/1000;
-//gonglvshishu_B=arm_cos_f32(angle[0]-angle[1])*100;//功率因素
+dianliuzhi_B=1.07*maxValue_C;
+ dianliuzhi_B=T*dianliuzhi_B;
+ if(dianliuzhi_B<=2500*T){dianliuzhi_B=0;gonglvshishu_B=100;L_C_flag_B=1;}
+else {
+        dianliuzhi_B=dianliuzhi_B/1000;
+	gonglvshishu_B=arm_cos_f32(angle[2])*100;//功率因素
+}
 arm_sqrt_f32(1-(arm_cos_f32(angle[2]))*(arm_cos_f32(angle[2])),&sine);
          b=dianya_zhi_B*dianliuzhi_B*sine/10;
 	wugongkvar_B=dianya_zhi_B*dianliuzhi_B*sine/1000;
       wugongkvar_95B=dianya_zhi_B*dianliuzhi_B*0.3122/1000;
 			
-if(dianliuzhi_B==0)L_C_flag_B=1;
 
 
 }
@@ -3133,7 +3132,7 @@ allphase(testInput_V,testInput_C);
 
 	arm_max_f32(reslut, fftSize/2, &maxValue, &testIndex);
 dianya_zhi_C=maxValue/100;
-dianya_zhi_C=dianya_zhi_C/2.6125;
+dianya_zhi_C=dianya_zhi_C/2.57;
 
 
 /******************************************************************/
@@ -3201,31 +3200,21 @@ angle[2]=((angle[2])*PI2)/360;
 
 
 /***************************************************************/
- dianliuzhi_C=0.98*maxValue_C;
- dianliuzhi_C=T*dianliuzhi_C/1000;
-  if(dianliuzhi_C<3*T)dianliuzhi_C=0;
-if(dianliuzhi_C==0)gonglvshishu_C=99;
-else gonglvshishu_C=arm_cos_f32(angle[2])*100;//功率因素
-
-//dianliuzhi_C=T*dianliuzhi_C/1000;
-//gonglvshishu_C=arm_cos_f32(angle[0]-angle[1])*100;//功率因素
+dianliuzhi_C=1.07*maxValue_C;
+ dianliuzhi_C=T*dianliuzhi_C;
+ if(dianliuzhi_C<=2500*T){dianliuzhi_C=0;gonglvshishu_C=100;L_C_flag_C=1;}
+else
+	{
+	dianliuzhi_C=dianliuzhi_C/1000;
+	gonglvshishu_C=arm_cos_f32(angle[2])*100;//功率因素
+}
 arm_sqrt_f32(1-(arm_cos_f32(angle[2]))*(arm_cos_f32(angle[2])),&sine);
            c=dianya_zhi_C*dianliuzhi_C*sine/10;
 	wugongkvar_C=dianya_zhi_C*dianliuzhi_C*sine/1000;
       wugongkvar_95C=dianya_zhi_C*dianliuzhi_C*0.3122/1000;
 			
-if(dianliuzhi_C==0)L_C_flag_C=1;
 
 }
-
-
-
-//tempshuzhi=phase_flag;
-
-
-
-
-
 
 
 
@@ -3239,7 +3228,7 @@ computer_trans_rs485(mybox.myid,33,0,0,0,CPT_C);
 dianya_zhi=1.732*(dianya_zhi_A+dianya_zhi_B+dianya_zhi_C)/3;
 dianliuzhi=(dianliuzhi_A+dianliuzhi_B+dianliuzhi_C)/3;
 gonglvshishu=(gonglvshishu_A+gonglvshishu_B+gonglvshishu_C)/3;
-wugongkvar=(a+b+c)/100;
+wugongkvar=wugongkvar_A+wugongkvar_B+wugongkvar_C;
   wugongkvar_95=wugongkvar_95A+wugongkvar_95B+wugongkvar_95C;
 
    order_trans_rs485(mybox.myid,0,0,0,0,CPT_LL);
@@ -3767,7 +3756,6 @@ return 0;
 }
 
 //tempshuzhi=T;
-T=BT;
 /**************************end*************************/
 if(RT_FLAG==2)
 
@@ -3775,7 +3763,7 @@ if(RT_FLAG==2)
 
 /**************************************过压保护**/
 {
-if((dianya_zhi>420||dianya_zhi<330))
+if((dianya_zhi>1.732*(warn_vlot+200)||dianya_zhi<330))
 {
 
 LIGHT_backligt_off(2,2,2);
@@ -3797,18 +3785,21 @@ order_trans_rs485(mybox.myid,0,1,2,0,CONTROL);
 delay_ms(5000);
 warning_flag=1;
 }
-if(warning_flag==1&&dianya_zhi<=417&&dianya_zhi>=333)
+if(warning_flag==1&&dianya_zhi<=1.732*(warn_vlot+200-7)&&dianya_zhi>=333)
 	{warning_flag=0;
-status_box.work_status[0]=0;
-status_box.work_status[1]=0;
-status_box.work_status[2]=0;
+status_box.work_status[0]=3;
+status_box.work_status[1]=3;
+status_box.work_status[2]=3;
+rework_time[0]=1;
+rework_time[1]=1;
+rework_time[2]=1;
 LIGHT_backligt_off(status_box.work_status[0],status_box.work_status[1],status_box.work_status[2]);
 
 }
 }
 /**************************************过压保护END**/
 
-if(dianya_zhi<=420&&dianya_zhi>=330&&warning_flag==0)
+if(dianya_zhi<=1.732*(warn_vlot+200)&&dianya_zhi>=330&&warning_flag==0)
 {
 if(gonglvshishu<AF_DEAD&&L_C_flag_B==1)
  {
@@ -5338,28 +5329,32 @@ TIME_4
 	 if(rework_time[0]==1)
  	{
  	count_rework[0]++;
-	if(count_rework[0]==40)
+	if(count_rework[0]==240)
 		{
 count_rework[0]=0;
 rework_time[0]=0;
+status_box.work_status[0]=0;
+
 	  }
 	}
   if(rework_time[1]==1)
  	{
  	count_rework[1]++;
-	if(count_rework[1]==40)
+	if(count_rework[1]==240)
 		{
 count_rework[1]=0;
 rework_time[1]=0;
+status_box.work_status[1]=0;
 	  }
 	}
   if(rework_time[2]==1)
  	{
  	count_rework[2]++;
-	if(count_rework[2]==40)
+	if(count_rework[2]==240)
 		{
 count_rework[2]=0;
 rework_time[2]=0;
+status_box.work_status[2]=0;
 	  }
 	}
 		}
@@ -5436,8 +5431,8 @@ OSTaskResume(APP_TASK_Master_PRIO);
 			}
 			if(dog_clock>0){dog_clock--;cont=1;}
 		 }
-	if(light_time>0)light_time--;
- if(light_time==0)LIGHT_backligt_off(status_box.work_status[0],status_box.work_status[1],status_box.work_status[2]);
+	if(light_time>1)light_time--;
+ if(light_time==1)LIGHT_backligt_off(status_box.work_status[0],status_box.work_status[1],status_box.work_status[2]);
 	
 		}
 	   	OSIntExit();  
@@ -5506,14 +5501,14 @@ void EXTI15_10_IRQHandler(void)
 /*************************************************/
 void LIGHT_backligt_on(u8 status_1,u8 status_2,u8 status_3)
 {
-if(status_1==0&&status_2==1&&status_3==0)HT595_Send_Byte((GREEN_RED_GREEN)|background_light_on);
-if(status_1==1&&status_2==0&&status_3==0)HT595_Send_Byte((RED_GREEN_GREEN)|background_light_on);
-if(status_1==0&&status_2==0&&status_3==0)HT595_Send_Byte((GREEN_GREEN_GREEN)|background_light_on);
-if(status_1==1&&status_2==1&&status_3==0)HT595_Send_Byte((RED_RED_GREEN)|background_light_on);
+if(((status_1==0||status_1==3)&&status_2==1&&(status_3==0||status_3==3)))HT595_Send_Byte((GREEN_RED_GREEN)|background_light_on);
+if((status_1==1&&(status_2==0||status_2==3)&&(status_3==0||status_3==3)))HT595_Send_Byte((RED_GREEN_GREEN)|background_light_on);
+if(((status_1==0||status_1==3)&&(status_2==0||status_2==3)&&(status_3==0||status_3==3)))HT595_Send_Byte((GREEN_GREEN_GREEN)|background_light_on);
+if((status_1==1&&status_2==1&&(status_3==0||status_3==3)))HT595_Send_Byte((RED_RED_GREEN)|background_light_on);
 
-if(status_1==0&&status_2==1&&status_3==1)HT595_Send_Byte((GREEN_RED_RED)|background_light_on);
-if(status_1==1&&status_2==0&&status_3==1)HT595_Send_Byte((RED_GREEN_RED)|background_light_on);
-if(status_1==0&&status_2==0&&status_3==1)HT595_Send_Byte((GREEN_GREEN_RED)|background_light_on);
+if(((status_1==0||status_1==3)&&status_2==1&&status_3==1))HT595_Send_Byte((GREEN_RED_RED)|background_light_on);
+if((status_1==1&&(status_2==0||status_2==3)&&status_3==1))HT595_Send_Byte((RED_GREEN_RED)|background_light_on);
+if(((status_1==0||status_1==3)&&(status_2==0||status_2==3)&&status_3==1))HT595_Send_Byte((GREEN_GREEN_RED)|background_light_on);
 if(status_1==1&&status_2==1&&status_3==1)HT595_Send_Byte((RED_RED_RED)|background_light_on);
 
 if(status_1==2&&status_2==2&&status_3==2)HT595_Send_Byte((YELLOW_YELLOW_YELLOW)|background_light_on);
@@ -5524,15 +5519,15 @@ if(status_1==2&&status_2==2&&status_3==2)HT595_Send_Byte((YELLOW_YELLOW_YELLOW)|
 /*************************************************/
 void LIGHT_backligt_off(u8 status_1,u8 status_2,u8 status_3)
 {
-if(status_1==0&&status_2==1&&status_3==0)HT595_Send_Byte((GREEN_RED_GREEN));
-if(status_1==1&&status_2==0&&status_3==0)HT595_Send_Byte((RED_GREEN_GREEN));
-if(status_1==0&&status_2==0&&status_3==0)HT595_Send_Byte((GREEN_GREEN_GREEN));
-if(status_1==1&&status_2==1&&status_3==0)HT595_Send_Byte((RED_RED_GREEN));
+if(((status_1==0||status_1==3)&&status_2==1&&(status_3==0||status_3==3)))HT595_Send_Byte((GREEN_RED_GREEN));
+if((status_1==1&&(status_2==0||status_2==3)&&(status_3==0||status_3==3)))HT595_Send_Byte((RED_GREEN_GREEN));
+if(((status_1==0||status_1==3)&&(status_2==0||status_2==3)&&(status_3==0||status_3==3)))HT595_Send_Byte((GREEN_GREEN_GREEN));
+if((status_1==1&&status_2==1&&(status_3==0||status_3==3)))HT595_Send_Byte((RED_RED_GREEN));
 
-if(status_1==0&&status_2==1&&status_3==1)HT595_Send_Byte((GREEN_RED_RED));
-if(status_1==1&&status_2==0&&status_3==1)HT595_Send_Byte((RED_GREEN_RED));
-if(status_1==0&&status_2==0&&status_3==1)HT595_Send_Byte((GREEN_GREEN_RED));
-if(status_1==1&&status_2==1&&status_3==1)HT595_Send_Byte((RED_RED_RED));
+if(((status_1==0||status_1==3)&&status_2==1&&status_3==1))HT595_Send_Byte((GREEN_RED_RED));
+if((status_1==1&&(status_2==0||status_2==3)&&status_3==1))HT595_Send_Byte((RED_GREEN_RED));
+if(((status_1==0||status_1==3)&&(status_2==0||status_2==3)&&status_3==1))HT595_Send_Byte((GREEN_GREEN_RED));
+if(status_1==1&&status_2==1&&status_3==1)HT595_Send_Byte((RED_RED_RED)|background_light_on);
 
 if(status_1==2&&status_2==2&&status_3==2)HT595_Send_Byte((YELLOW_YELLOW_YELLOW));
 
@@ -5559,7 +5554,7 @@ static u8 warning_flag=0;
 
 /************从机功能 温度报警************************/
 {
-if(tempshuzhi>=70&&temperature_warn==0&&auto_on==1)
+if(tempshuzhi>=temperture_w&&temperature_warn==0&&auto_on==1)
 {
  if(	status_box.work_status[0]==1)
 		   {while(subswitchABC_onoff(1,0,1)==0)break;}		  //投
@@ -5576,11 +5571,14 @@ if(tempshuzhi>=70&&temperature_warn==0&&auto_on==1)
 	 temperature_warn=1;
 }
 
-if(tempshuzhi<=68&&temperature_warn==1)
+if(tempshuzhi<=temperture_w-5&&temperature_warn==1)
 {temperature_warn=0;
-status_box.work_status[0]=0;
-status_box.work_status[1]=0;
-status_box.work_status[2]=0;
+status_box.work_status[0]=3;
+status_box.work_status[1]=3;
+status_box.work_status[2]=3;
+rework_time[0]=1;
+rework_time[1]=1;
+rework_time[2]=1;
 LIGHT_backligt_off(status_box.work_status[0],status_box.work_status[1],status_box.work_status[2]);
 
 }

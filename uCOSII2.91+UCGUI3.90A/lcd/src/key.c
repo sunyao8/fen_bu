@@ -6,7 +6,11 @@
 static u8 m=1;
 static u8 grafnum=1;
 u8 zhongduan_flag=1;
-u8 id_num=0;
+u8 zhongduan_flag_BT=1;
+u8 zhongduan_flag_warn_volt=1;
+vu8 id_num=1,BT_num=1;
+vu8	warn_volt_onlimt=25;//过压值 +400
+
 u8 grafnum,tempshuzhi,vernum=104,hguestnum=222,gonglvshishu=0;
 u16 dianya_zhi=0,wugongkvar=0;
 u32	dianliuzhi=0;
@@ -20,7 +24,7 @@ extern u8 phase_flag;
 extern u8 L_C_flag_A;//感性容性标准变量
 extern u8 L_C_flag_B;//感性容性标准变量
 extern u8 L_C_flag_C;
-u8 light_time=3;
+u8 light_time=30;
 
 //////////////////////////////////////////////////////////////////////////////////	 
 //本程序为控制器设计，未经许可，不得复制外传
@@ -56,16 +60,66 @@ extern statusbox status_box;
 
 void key_idset(void)
 {
+ u8 TR[]={1,2,3,4,5,6,8,10,12,16,20,24,30,40,50,60,80,100,120};
 	
 	u8 h=0;
 	if((KEY0==0)&&m)
 	{
            	  // delay_us(10000);
-           	  	{
-           	  	LIGHT_backligt_on(status_box.work_status[0],status_box.work_status[1],status_box.work_status[2]);
-           	  	light_time=3;
-				}
+           	  	
 	   m=0;
+		if(grafnum==1)/*在电压 界面设置  过压上限       */
+		{
+	 while(KEY0==0)
+	   	{
+	   	   delay_us(3000);//3000
+		   h++;
+		   if(h>=180)break;
+	   
+	   	}
+			   if(h>=180)//180
+			   {		
+					zhongduan_flag_warn_volt=0;
+
+						
+				{
+
+					Clera_lcd();
+		
+			   		Graf_set_warn_volt(warn_volt_onlimt+200);
+
+						}	
+
+			   }
+		}
+
+	if(grafnum==4)/*在电流 界面设置变比值*/
+		{
+	 while(KEY0==0)
+	   	{
+	   	   delay_us(3000);//3000
+		   h++;
+		   if(h>=180)break;
+	   
+	   	}
+			   if(h>=180)//180
+			   {		
+					zhongduan_flag_BT=0;
+
+						
+				{
+
+					Clera_lcd();
+		
+			   		Graf_setBT(TR[BT_num]*50);
+
+						}	
+
+			   }
+		}
+
+	if(grafnum==11)/*ID set */
+			  	{
 	 while(KEY0==0)
 	   	{
 	   	   delay_us(3000);//3000
@@ -80,13 +134,16 @@ void key_idset(void)
 			   		Clera_lcd();
 		
 			   		Graf_setid(id_num);
-			   //Graf_con_u(gonglvshishu,dianya_zhi);
 
 			   }
-			   else
-				   {  
+			  		}
+
+
+	if(h<180)
+			   	{
+			   {  
 #if (FUNCTION_MODULE == DF_THREE)
-					 if(zhongduan_flag==1)
+				     if(zhongduan_flag==1&&zhongduan_flag_BT==1&&zhongduan_flag_warn_volt==1&&light_time>0)
 
                           {
 					  		grafnum++;
@@ -206,6 +263,7 @@ void key_idset(void)
 					
 								}
 					 	}
+					 
 #endif
 
 
@@ -248,33 +306,103 @@ void key_idset(void)
 					 	}
 					 #endif
 
-						if(zhongduan_flag==0)
+
+					 if(grafnum==1&&zhongduan_flag_warn_volt==0)/*在id 界面设置id号*/
+						{
+					             light_time=30;
+							warn_volt_onlimt=warn_volt_onlimt+5;
+					  		if(warn_volt_onlimt>70)warn_volt_onlimt=0;
+							Clera_lcd();
+			   		   Graf_set_warn_volt(warn_volt_onlimt+200);
+							AT24CXX_WriteOneByte(0x1000,warn_volt_onlimt);
+						}
+
+						if(grafnum==4&&zhongduan_flag_BT==0)
 				      	{
-					  		id_num++;
-					  		if(id_num>32)id_num=0;
+
+                                              
+					             light_time=30;
+							BT_num++;
+					  		if(BT_num>18)BT_num=0;
+							Clera_lcd();
+	   						Graf_setBT(TR[BT_num]*50);
+							AT24CXX_WriteOneByte(0x0100,BT_num);					
+
+
+						}
+
+						if(grafnum==11&&zhongduan_flag==0)/*在id 界面设置id号*/
+						{
+					             light_time=30;
+							id_num++;
+					  		if(id_num>32)id_num=1;
 							Clera_lcd();
 	   						Graf_setid(id_num);
-						AT24CXX_WriteOneByte(0x0010,id_num);
+							AT24CXX_WriteOneByte(0xa000,id_num);
 						}
 				   }
-	
+		}
+{
+           	  	LIGHT_backligt_on(status_box.work_status[0],status_box.work_status[1],status_box.work_status[2]);
+           	  	light_time=30;
+				}
 	}
 	else if(KEY0==1)
 		{
-                  	  // delay_us(10000);
+                     if(light_time>1)LIGHT_backligt_on(status_box.work_status[0],status_box.work_status[1],status_box.work_status[2]);
+           	  	if(light_time==1)LIGHT_backligt_off(status_box.work_status[0],status_box.work_status[1],status_box.work_status[2]);
+
 			m=1;
+	if(grafnum==1)/*在电压 界面设置过压值  */
+		{
 			 while(KEY0==1)
 			 {
-		   	   delay_us(2500);//2500
+		   	   delay_us(3000);//2500
 			   h++;
-			   if(h>=200)break;
+			   if(h>=250)break;
 	   
 	   		 } 
-			   if(h>=200)//200
+			   if(h>=250)//200
+				 {
+						  zhongduan_flag_warn_volt=1;
+			   	}
+			   
+		}
+		if(grafnum==4)/*在电流 界面设置变比值*/
+		{
+			 while(KEY0==1)
+			 {
+		   	   delay_us(3000);//2500
+			   h++;
+			   if(h>=250)break;
+	   
+	   		 } 
+			   if(h>=250)//200
+				 {
+						  zhongduan_flag_BT=1;
+			   	}
+			   
+		}
+			if(grafnum==11)/*在电流 界面设置变比值*/
+		{
+			 while(KEY0==1)
+			 {
+		   	   delay_us(3000);//2500
+			   h++;
+			   if(h>=250)break;
+	   
+	   		 } 
+			   if(h>=250)//200
+				 {
+						  zhongduan_flag=1;
+			   	}
+			   
+		}
+			  
 				 {
 #if (FUNCTION_MODULE == DF_THREE)
 
-						  zhongduan_flag=1;
+				     if(zhongduan_flag==1&&zhongduan_flag_BT==1&&zhongduan_flag_warn_volt==1)
 					  	  switch(grafnum)
 							{				 
 									case 1:	//显示A功率因数和电压值

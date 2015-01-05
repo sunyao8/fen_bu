@@ -1,15 +1,28 @@
----- USART3_IRQHandler Matches (14 in 3 files) ----
-Main.c (user):void USART3_IRQHandler(void);
-Main.c (user):		void USART3_IRQHandler(void)
-Project.htm (mdk_project\out): <LI><a href="#[33]">USART3_IRQHandler</a> from main.o(i.USART3_IRQHandler) referenced from startup_stm32f4xx.o(RESET)
-Project.htm (mdk_project\out):<BR><BR>[Called By]<UL><LI><a href="#[33]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;USART3_IRQHandler
-Project.htm (mdk_project\out):<BR><BR>[Called By]<UL><LI><a href="#[33]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;USART3_IRQHandler
-Project.htm (mdk_project\out):<LI><a href="#[33]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;USART3_IRQHandler
-Project.htm (mdk_project\out):<BR>[Called By]<UL><LI><a href="#[33]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;USART3_IRQHandler
-Project.htm (mdk_project\out):<LI><a href="#[33]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;USART3_IRQHandler
-Project.htm (mdk_project\out):<BR>[Called By]<UL><LI><a href="#[33]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;USART3_IRQHandler
-Project.htm (mdk_project\out):<P><STRONG><a name="[33]"></a>USART3_IRQHandler</STRONG> (Thumb, 400 bytes, Stack size 536 bytes, main.o(i.USART3_IRQHandler))
-Project.htm (mdk_project\out):<LI>Call Chain = USART3_IRQHandler &rArr; OSMboxPost &rArr; OS_EventTaskRdy &rArr; OS_EventTaskRemoveMulti
-Project.htm (mdk_project\out):<BR>[Called By]<UL><LI><a href="#[33]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;USART3_IRQHandler
-Project.htm (mdk_project\out):<BR><BR>[Called By]<UL><LI><a href="#[33]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;USART3_IRQHandler
-Stm32f4xx_it.c (user):void USART3_IRQHandler(void)
+---- AT24CXX_ReadOneByte Matches (27 in 4 files) ----
+24cxx.c (lcd\src):u8 AT24CXX_ReadOneByte(u16 ReadAddr)
+24cxx.c (lcd\src):		temp+=AT24CXX_ReadOneByte(ReadAddr+Len-t-1); 	 				   
+24cxx.c (lcd\src):	temp=AT24CXX_ReadOneByte(255);//避免每次开机都写AT24CXX			   
+24cxx.c (lcd\src):	    temp=AT24CXX_ReadOneByte(255);	  
+24cxx.c (lcd\src):		*pBuffer++=AT24CXX_ReadOneByte(ReadAddr++);	
+24cxx.h (lcd\inc):u8 AT24CXX_ReadOneByte(u16 ReadAddr);							//指定地址读取一个字节
+Main.c (user):   mybox.myid=AT24CXX_ReadOneByte(0x0010);
+Main.c (user):   mybox.myid=AT24CXX_ReadOneByte(0x0010);
+Main.c (user):		  id_num=AT24CXX_ReadOneByte(0x0010);
+Main.c (user):  mybox.myid=AT24CXX_ReadOneByte(0xa000);
+Main.c (user):bt=AT24CXX_ReadOneByte(0x0100);
+Main.c (user):warn_vlot=AT24CXX_ReadOneByte(0x1000);
+Project.htm (mdk_project\out):<P><STRONG><a name="[a2]"></a>AT24CXX_ReadOneByte</STRONG> (Thumb, 68 bytes, Stack size 8 bytes, 24cxx.o(i.AT24CXX_ReadOneByte))
+Project.htm (mdk_project\out):<BR><BR>[Stack]<UL><LI>Max Depth = 92<LI>Call Chain = AT24CXX_ReadOneByte &rArr; IIC_Read_Byte &rArr; IIC_NAck &rArr; GPIO_Init
+Project.htm (mdk_project\out):<BR>[Called By]<UL><LI><a href="#[a2]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;AT24CXX_ReadOneByte
+Project.htm (mdk_project\out):<BR>[Called By]<UL><LI><a href="#[a2]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;AT24CXX_ReadOneByte
+Project.htm (mdk_project\out):<BR>[Called By]<UL><LI><a href="#[a2]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;AT24CXX_ReadOneByte
+Project.htm (mdk_project\out):<BR>[Called By]<UL><LI><a href="#[a2]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;AT24CXX_ReadOneByte
+Project.htm (mdk_project\out):<BR>[Called By]<UL><LI><a href="#[a2]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;AT24CXX_ReadOneByte
+Project.htm (mdk_project\out):<LI><a href="#[a2]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;AT24CXX_ReadOneByte
+Project.htm (mdk_project\out):<BR><BR>[Stack]<UL><LI>Max Depth = 108<LI>Call Chain = initmybox &rArr; AT24CXX_ReadOneByte &rArr; IIC_Read_Byte &rArr; IIC_NAck &rArr; GPIO_Init
+Project.htm (mdk_project\out):<BR>[Calls]<UL><LI><a href="#[a2]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;AT24CXX_ReadOneByte
+Project.htm (mdk_project\out):<LI>Call Chain = App_TaskMaster &rArr; AT24CXX_ReadOneByte &rArr; IIC_Read_Byte &rArr; IIC_NAck &rArr; GPIO_Init
+Project.htm (mdk_project\out):<LI><a href="#[a2]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;AT24CXX_ReadOneByte
+Project.htm (mdk_project\out):<LI><a href="#[a2]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;AT24CXX_ReadOneByte
+Project.htm (mdk_project\out):<LI>Call Chain = SETID_task &rArr; AT24CXX_ReadOneByte &rArr; IIC_Read_Byte &rArr; IIC_NAck &rArr; GPIO_Init
+Project.htm (mdk_project\out):<LI><a href="#[a2]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;AT24CXX_ReadOneByte
