@@ -1,28 +1,29 @@
----- AT24CXX_ReadOneByte Matches (27 in 4 files) ----
-24cxx.c (lcd\src):u8 AT24CXX_ReadOneByte(u16 ReadAddr)
-24cxx.c (lcd\src):		temp+=AT24CXX_ReadOneByte(ReadAddr+Len-t-1); 	 				   
-24cxx.c (lcd\src):	temp=AT24CXX_ReadOneByte(255);//避免每次开机都写AT24CXX			   
-24cxx.c (lcd\src):	    temp=AT24CXX_ReadOneByte(255);	  
-24cxx.c (lcd\src):		*pBuffer++=AT24CXX_ReadOneByte(ReadAddr++);	
-24cxx.h (lcd\inc):u8 AT24CXX_ReadOneByte(u16 ReadAddr);							//指定地址读取一个字节
-Main.c (user):   mybox.myid=AT24CXX_ReadOneByte(0x0010);
-Main.c (user):   mybox.myid=AT24CXX_ReadOneByte(0x0010);
-Main.c (user):		  id_num=AT24CXX_ReadOneByte(0x0010);
-Main.c (user):  mybox.myid=AT24CXX_ReadOneByte(0xa000);
-Main.c (user):bt=AT24CXX_ReadOneByte(0x0100);
-Main.c (user):warn_vlot=AT24CXX_ReadOneByte(0x1000);
-Project.htm (mdk_project\out):<P><STRONG><a name="[a2]"></a>AT24CXX_ReadOneByte</STRONG> (Thumb, 68 bytes, Stack size 8 bytes, 24cxx.o(i.AT24CXX_ReadOneByte))
-Project.htm (mdk_project\out):<BR><BR>[Stack]<UL><LI>Max Depth = 92<LI>Call Chain = AT24CXX_ReadOneByte &rArr; IIC_Read_Byte &rArr; IIC_NAck &rArr; GPIO_Init
-Project.htm (mdk_project\out):<BR>[Called By]<UL><LI><a href="#[a2]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;AT24CXX_ReadOneByte
-Project.htm (mdk_project\out):<BR>[Called By]<UL><LI><a href="#[a2]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;AT24CXX_ReadOneByte
-Project.htm (mdk_project\out):<BR>[Called By]<UL><LI><a href="#[a2]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;AT24CXX_ReadOneByte
-Project.htm (mdk_project\out):<BR>[Called By]<UL><LI><a href="#[a2]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;AT24CXX_ReadOneByte
-Project.htm (mdk_project\out):<BR>[Called By]<UL><LI><a href="#[a2]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;AT24CXX_ReadOneByte
-Project.htm (mdk_project\out):<LI><a href="#[a2]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;AT24CXX_ReadOneByte
-Project.htm (mdk_project\out):<BR><BR>[Stack]<UL><LI>Max Depth = 108<LI>Call Chain = initmybox &rArr; AT24CXX_ReadOneByte &rArr; IIC_Read_Byte &rArr; IIC_NAck &rArr; GPIO_Init
-Project.htm (mdk_project\out):<BR>[Calls]<UL><LI><a href="#[a2]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;AT24CXX_ReadOneByte
-Project.htm (mdk_project\out):<LI>Call Chain = App_TaskMaster &rArr; AT24CXX_ReadOneByte &rArr; IIC_Read_Byte &rArr; IIC_NAck &rArr; GPIO_Init
-Project.htm (mdk_project\out):<LI><a href="#[a2]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;AT24CXX_ReadOneByte
-Project.htm (mdk_project\out):<LI><a href="#[a2]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;AT24CXX_ReadOneByte
-Project.htm (mdk_project\out):<LI>Call Chain = SETID_task &rArr; AT24CXX_ReadOneByte &rArr; IIC_Read_Byte &rArr; IIC_NAck &rArr; GPIO_Init
-Project.htm (mdk_project\out):<LI><a href="#[a2]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;AT24CXX_ReadOneByte
+---- light_time Matches (26 in 2 files) ----
+Key.c (lcd\src):u8 light_time=30;
+Key.c (lcd\src):				     if(zhongduan_flag==1&&zhongduan_flag_BT==1&&zhongduan_flag_warn_volt==1&&light_time>0)
+Key.c (lcd\src):					             light_time=30;
+Key.c (lcd\src):					             light_time=30;
+Key.c (lcd\src):					             light_time=30;
+Key.c (lcd\src):           	  	light_time=30;
+Key.c (lcd\src):                     if(light_time>1)LIGHT_backligt_on(status_box.work_status[0],status_box.work_status[1],status_box.work_status[2]);
+Key.c (lcd\src):           	  	if(light_time==1)LIGHT_backligt_off(status_box.work_status[0],status_box.work_status[1],status_box.work_status[2]);
+Main.c (user):extern u8 light_time;
+Main.c (user):	light_time=30;
+Main.c (user):	light_time=30;
+Main.c (user):				if(light_time>1)LIGHT_backligt_on(status_box.work_status[0],status_box.work_status[1],status_box.work_status[2]);
+Main.c (user):				if(light_time==1)LIGHT_backligt_off(status_box.work_status[0],status_box.work_status[1],status_box.work_status[2]);
+Main.c (user):		if(light_time>1)LIGHT_backligt_on(status_box.work_status[0],status_box.work_status[1],status_box.work_status[2]);
+Main.c (user):		if(light_time==1) LIGHT_backligt_off(status_box.work_status[0],status_box.work_status[1],status_box.work_status[2]);		
+Main.c (user):			if(light_time>1)LIGHT_backligt_on(status_box.work_status[0],status_box.work_status[1],status_box.work_status[2]);		
+Main.c (user):			 if(light_time==1)LIGHT_backligt_off(status_box.work_status[0],status_box.work_status[1],status_box.work_status[2]);	
+Main.c (user):	if(light_time>1)LIGHT_backligt_on(status_box.work_status[0],status_box.work_status[1],status_box.work_status[2]);				
+Main.c (user):	 if(light_time==1)LIGHT_backligt_off(status_box.work_status[0],status_box.work_status[1],status_box.work_status[2]);			
+Main.c (user):if(light_time>1)LIGHT_backligt_on(status_box.work_status[0],status_box.work_status[1],status_box.work_status[2]);				
+Main.c (user):if(light_time==1) LIGHT_backligt_off(status_box.work_status[0],status_box.work_status[1],status_box.work_status[2]);
+Main.c (user):if(light_time>1)LIGHT_backligt_on(status_box.work_status[0],status_box.work_status[1],status_box.work_status[2]);
+Main.c (user):if(light_time==1) LIGHT_backligt_off(status_box.work_status[0],status_box.work_status[1],status_box.work_status[2]);
+Main.c (user):	if(light_time>1)light_time--;
+Main.c (user): if(light_time==1)LIGHT_backligt_off(status_box.work_status[0],status_box.work_status[1],status_box.work_status[2]);
+---- light_time Search Errors Encountered (1) ----
+The following 1 files could not be processed:
+C:\Users\Administrator\Documents\GitHub\407_分补\fen_bu\uCOSII2.91+UCGUI3.90A\MDK_Project\JLinkLog.txt : File could not be opened.

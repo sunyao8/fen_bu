@@ -143,7 +143,7 @@ void key_idset(void)
 			   	{
 			   {  
 #if (FUNCTION_MODULE == DF_THREE)
-				     if(zhongduan_flag==1&&zhongduan_flag_BT==1&&zhongduan_flag_warn_volt==1&&light_time>0)
+				     if(zhongduan_flag==1&&zhongduan_flag_BT==1&&zhongduan_flag_warn_volt==1&&light_time>1)
 
                           {
 					  		grafnum++;

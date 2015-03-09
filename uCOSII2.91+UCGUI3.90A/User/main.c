@@ -283,7 +283,8 @@ u8 MASTER=0;
 extern u8 light_time;
  u8 temperature_warn=0;
 u8 rework_time[3]={1,1,1};//再投延时控制变量
-
+extern vu8 BT_num;
+extern vu8	warn_volt_onlimt;//过压值 +400
 #define BT  12//*50
 #define SIZE 3 //总容量除以3 
 #define AF_TOP 95
@@ -1933,6 +1934,11 @@ status_box.work_time[0]=0;
 status_box.work_time[1]=0;
 status_box.work_time[2]=0;
 */
+
+BT_num=AT24CXX_ReadOneByte(0x0100);
+warn_volt_onlimt=AT24CXX_ReadOneByte(0x1000);
+if(BT_num==255){BT_num=1;AT24CXX_WriteOneByte(0x0100,BT_num);}
+if(warn_volt_onlimt==255){warn_volt_onlimt=45;AT24CXX_WriteOneByte(0x1000,warn_volt_onlimt);}	
 }
 
 void set_now_mystatus(u8 myid,u8 size_1,u8 size_2,u8 size_3,u8 work_status_1 ,u8 work_status_2,u8 work_status_3)
@@ -2925,7 +2931,7 @@ angle[2]=((angle[2])*PI2)/360;
 
 
 /***************************************************************/
- dianliuzhi_A=1.07*maxValue_C;
+ dianliuzhi_A=0.98*maxValue_C;
 dianliuzhi_A=T*dianliuzhi_A;
  if(dianliuzhi_A<=2500*T){dianliuzhi_A=0;gonglvshishu_A=100;L_C_flag_A=1;}
 else{ 
@@ -3058,7 +3064,7 @@ angle[2]=((angle[2])*PI2)/360;
 
 
 /***************************************************************/
-dianliuzhi_B=1.07*maxValue_C;
+dianliuzhi_B=0.98*maxValue_C;
  dianliuzhi_B=T*dianliuzhi_B;
  if(dianliuzhi_B<=2500*T){dianliuzhi_B=0;gonglvshishu_B=100;L_C_flag_B=1;}
 else {
@@ -3200,7 +3206,7 @@ angle[2]=((angle[2])*PI2)/360;
 
 
 /***************************************************************/
-dianliuzhi_C=1.07*maxValue_C;
+dianliuzhi_C=0.98*maxValue_C;
  dianliuzhi_C=T*dianliuzhi_C;
  if(dianliuzhi_C<=2500*T){dianliuzhi_C=0;gonglvshishu_C=100;L_C_flag_C=1;}
 else
