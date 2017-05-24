@@ -1,29 +1,240 @@
----- light_time Matches (26 in 2 files) ----
-Key.c (lcd\src):u8 light_time=30;
-Key.c (lcd\src):				     if(zhongduan_flag==1&&zhongduan_flag_BT==1&&zhongduan_flag_warn_volt==1&&light_time>0)
-Key.c (lcd\src):					             light_time=30;
-Key.c (lcd\src):					             light_time=30;
-Key.c (lcd\src):					             light_time=30;
-Key.c (lcd\src):           	  	light_time=30;
-Key.c (lcd\src):                     if(light_time>1)LIGHT_backligt_on(status_box.work_status[0],status_box.work_status[1],status_box.work_status[2]);
-Key.c (lcd\src):           	  	if(light_time==1)LIGHT_backligt_off(status_box.work_status[0],status_box.work_status[1],status_box.work_status[2]);
-Main.c (user):extern u8 light_time;
-Main.c (user):	light_time=30;
-Main.c (user):	light_time=30;
-Main.c (user):				if(light_time>1)LIGHT_backligt_on(status_box.work_status[0],status_box.work_status[1],status_box.work_status[2]);
-Main.c (user):				if(light_time==1)LIGHT_backligt_off(status_box.work_status[0],status_box.work_status[1],status_box.work_status[2]);
-Main.c (user):		if(light_time>1)LIGHT_backligt_on(status_box.work_status[0],status_box.work_status[1],status_box.work_status[2]);
-Main.c (user):		if(light_time==1) LIGHT_backligt_off(status_box.work_status[0],status_box.work_status[1],status_box.work_status[2]);		
-Main.c (user):			if(light_time>1)LIGHT_backligt_on(status_box.work_status[0],status_box.work_status[1],status_box.work_status[2]);		
-Main.c (user):			 if(light_time==1)LIGHT_backligt_off(status_box.work_status[0],status_box.work_status[1],status_box.work_status[2]);	
-Main.c (user):	if(light_time>1)LIGHT_backligt_on(status_box.work_status[0],status_box.work_status[1],status_box.work_status[2]);				
-Main.c (user):	 if(light_time==1)LIGHT_backligt_off(status_box.work_status[0],status_box.work_status[1],status_box.work_status[2]);			
-Main.c (user):if(light_time>1)LIGHT_backligt_on(status_box.work_status[0],status_box.work_status[1],status_box.work_status[2]);				
-Main.c (user):if(light_time==1) LIGHT_backligt_off(status_box.work_status[0],status_box.work_status[1],status_box.work_status[2]);
-Main.c (user):if(light_time>1)LIGHT_backligt_on(status_box.work_status[0],status_box.work_status[1],status_box.work_status[2]);
-Main.c (user):if(light_time==1) LIGHT_backligt_off(status_box.work_status[0],status_box.work_status[1],status_box.work_status[2]);
-Main.c (user):	if(light_time>1)light_time--;
-Main.c (user): if(light_time==1)LIGHT_backligt_off(status_box.work_status[0],status_box.work_status[1],status_box.work_status[2]);
----- light_time Search Errors Encountered (1) ----
+---- 0x0001 Matches (236 in 40 files) ----
+GLCD.c (user\glcd):		LCD_WriteReg(0x0000,0x0001);  	/* start internal osc */
+GLCD.c (user\glcd):		LCD_WriteReg(0x0001,0x0100);     
+GLCD.c (user\glcd):		LCD_WriteReg(0x000c,0x0001);	/* display setting */        
+GLCD.c (user\glcd):		LCD_WriteReg(0x0061,0x0001); 
+GLCD.c (user\glcd):		LCD_WriteReg(0x61,0x0001);	/* Driver Output Control */
+GLCD.c (user\glcd):		LCD_WriteReg(0x93,0x0001);	/* Panel Interface Contral 3. */
+GLCD.c (user\glcd):		LCD_WriteReg(0x0001, 0x0100);   /* set SS and SM bit */
+GLCD.c (user\glcd):		LCD_WriteReg(0x0061, 0x0001);   /*  NDL,VLE, REV */
+GLCD.c (user\glcd):		LCD_WriteReg(0x00,0x0001);		
+GLCD.c (user\glcd):	    LCD_WriteReg(0x00A4,0x0001);    /* NVM */
+GLCD.c (user\glcd):	    LCD_WriteReg(0x0007,0x0001);
+GLCD.c (user\glcd):	    LCD_WriteReg(0x0017,0x0001);    /* Power supply startup enable */
+GLCD.c (user\glcd):	    LCD_WriteReg(0x0061,0x0001); 
+GLCD.c (user\glcd):	    LCD_WriteReg(0x0001,0x0100); 
+GLCD.c (user\glcd):	    LCD_WriteReg(0x0000,0x0001);    delay_ms(50);   /* Enable LCD Oscillator */
+GLCD.c (user\glcd):	    LCD_WriteReg(0x0001,0x2B3F);    delay_ms(50);   /* 320*240 0x2B3F */
+GLCD.c (user\glcd):		LCD_WriteReg(0x0000,0x0001);
+GLCD.c (user\glcd):		LCD_WriteReg(0x0001,0x3b3f);     
+GLCD.c (user\glcd):		LCD_WriteReg(0x0001,0x0100);	  /* Driver Output Contral Register */ 
+GLCD.c (user\glcd):		LCD_WriteReg(0x0011,0x0001);      /* Power Control 2 */
+GLCD.c (user\glcd):		LCD_WriteReg(0x0017,0x0001);      /* Power Control 3 */
+GLCD.c (user\glcd):		LCD_WriteReg(0x00,0x0001);
+GLCD.c (user\glcd):		LCD_WriteReg(0x61,0x0001);
+GLCD.c (user\glcd):		LCD_WriteReg(0x61, 0x0001);	     /* NDL,VLE, REV */
+GLCD.c (user\glcd):		LCD_WriteReg(0x07, 0x0001);
+GLCD.c (user\glcd):		LCD_WriteReg(0x00FF,0x0001);
+GLCD.c (user\glcd):		LCD_WriteReg(0x0001,0x0100);
+GLCD.c (user\glcd):		LCD_WriteReg(0x0061,0x0001);
+GLCD.c (user\glcd):		    LCD_WriteReg(0x0008,0x0001); 
+GLCD.c (user\glcd):		    LCD_WriteReg(0x0001,0x0006); 
+GLCD.c (user\glcd):		    LCD_WriteReg(0x003A,0x0001);  
+GLCD.c (user\glcd):		    LCD_WriteReg(0x003B,0x0001);  
+Jdhuff.c (ucgui_lib\user\ucgui\jpeg):  { 0, 0x0001, 0x0002, 0x0004, 0x0008, 0x0010, 0x0020, 0x0040, 0x0080,
+Jdphuff.c (ucgui_lib\user\ucgui\jpeg):  { 0, 0x0001, 0x0002, 0x0004, 0x0008, 0x0010, 0x0020, 0x0040, 0x0080,
+Lib_def.h (user\uc-lib):#define  DEF_BIT_16                               0x00010000
+Main.c (user):   mybox.myid=AT24CXX_ReadOneByte(0x0001);
+Main.c (user):   mybox.myid=AT24CXX_ReadOneByte(0x0001);
+Os_cpu_c.c (user\ucos-ii\ports\arm-cortex-m3\realview):#define  OS_CPU_CM3_NVIC_ST_CTRL_COUNT                    0x00010000     /* Count flag.                */
+Stm32f4xx.h (lib\cmsis\device\st\stm32f4xx\include):#define __CM4_REV                 0x0001  /*!< Core revision r0p1                            */
+Stm32f4xx.h (lib\cmsis\device\st\stm32f4xx\include):#define APB2PERIPH_BASE       (PERIPH_BASE + 0x00010000)
+Stm32f4xx.h (lib\cmsis\device\st\stm32f4xx\include):#define  ADC_CR2_JEXTSEL_0                   ((uint32_t)0x00010000)        /*!<Bit 0 */
+Stm32f4xx.h (lib\cmsis\device\st\stm32f4xx\include):#define  ADC_SMPR1_SMP15_1                   ((uint32_t)0x00010000)        /*!<Bit 1 */
+Stm32f4xx.h (lib\cmsis\device\st\stm32f4xx\include):#define  ADC_SMPR2_SMP5_1                    ((uint32_t)0x00010000)        /*!<Bit 1 */
+Stm32f4xx.h (lib\cmsis\device\st\stm32f4xx\include):#define  ADC_SQR1_SQ16_1                     ((uint32_t)0x00010000)        /*!<Bit 1 */
+Stm32f4xx.h (lib\cmsis\device\st\stm32f4xx\include):#define  ADC_SQR2_SQ10_1                     ((uint32_t)0x00010000)        /*!<Bit 1 */
+Stm32f4xx.h (lib\cmsis\device\st\stm32f4xx\include):#define  ADC_SQR3_SQ4_1                      ((uint32_t)0x00010000)        /*!<Bit 1 */
+Stm32f4xx.h (lib\cmsis\device\st\stm32f4xx\include):#define  ADC_JSQR_JSQ4_1                     ((uint32_t)0x00010000)        /*!<Bit 1 */
+Stm32f4xx.h (lib\cmsis\device\st\stm32f4xx\include):#define  ADC_CSR_AWD3                        ((uint32_t)0x00010000)        /*!<ADC3 Analog watchdog flag */
+Stm32f4xx.h (lib\cmsis\device\st\stm32f4xx\include):#define  ADC_CCR_ADCPRE_0                    ((uint32_t)0x00010000)        /*!<Bit 0 */
+Stm32f4xx.h (lib\cmsis\device\st\stm32f4xx\include):#define  CAN_MCR_INRQ                        ((uint16_t)0x0001)            /*!<Initialization Request */
+Stm32f4xx.h (lib\cmsis\device\st\stm32f4xx\include):#define  CAN_MSR_INAK                        ((uint16_t)0x0001)            /*!<Initialization Acknowledge */
+Stm32f4xx.h (lib\cmsis\device\st\stm32f4xx\include):#define  CAN_TSR_RQCP2                       ((uint32_t)0x00010000)        /*!<Request Completed Mailbox2 */
+Stm32f4xx.h (lib\cmsis\device\st\stm32f4xx\include):#define  CAN_IER_WKUIE                       ((uint32_t)0x00010000)        /*!<Wakeup Interrupt Enable */
+Stm32f4xx.h (lib\cmsis\device\st\stm32f4xx\include):#define  CAN_FM1R_FBM0                       ((uint16_t)0x0001)            /*!<Filter Init Mode bit 0 */
+Stm32f4xx.h (lib\cmsis\device\st\stm32f4xx\include):#define  CAN_FS1R_FSC0                       ((uint16_t)0x0001)            /*!<Filter Scale Configuration bit 0 */
+Stm32f4xx.h (lib\cmsis\device\st\stm32f4xx\include):#define  CAN_FFA1R_FFA0                      ((uint16_t)0x0001)            /*!<Filter FIFO Assignment for Filter 0 */
+Stm32f4xx.h (lib\cmsis\device\st\stm32f4xx\include):#define  CAN_FA1R_FACT0                      ((uint16_t)0x0001)            /*!<Filter 0 Active */
+Stm32f4xx.h (lib\cmsis\device\st\stm32f4xx\include):#define  CAN_F0R1_FB16                       ((uint32_t)0x00010000)        /*!<Filter bit 16 */
+Stm32f4xx.h (lib\cmsis\device\st\stm32f4xx\include):#define  CAN_F1R1_FB16                       ((uint32_t)0x00010000)        /*!<Filter bit 16 */
+Stm32f4xx.h (lib\cmsis\device\st\stm32f4xx\include):#define  CAN_F2R1_FB16                       ((uint32_t)0x00010000)        /*!<Filter bit 16 */
+Stm32f4xx.h (lib\cmsis\device\st\stm32f4xx\include):#define  CAN_F3R1_FB16                       ((uint32_t)0x00010000)        /*!<Filter bit 16 */
+Stm32f4xx.h (lib\cmsis\device\st\stm32f4xx\include):#define  CAN_F4R1_FB16                       ((uint32_t)0x00010000)        /*!<Filter bit 16 */
+Stm32f4xx.h (lib\cmsis\device\st\stm32f4xx\include):#define  CAN_F5R1_FB16                       ((uint32_t)0x00010000)        /*!<Filter bit 16 */
+Stm32f4xx.h (lib\cmsis\device\st\stm32f4xx\include):#define  CAN_F6R1_FB16                       ((uint32_t)0x00010000)        /*!<Filter bit 16 */
+Stm32f4xx.h (lib\cmsis\device\st\stm32f4xx\include):#define  CAN_F7R1_FB16                       ((uint32_t)0x00010000)        /*!<Filter bit 16 */
+Stm32f4xx.h (lib\cmsis\device\st\stm32f4xx\include):#define  CAN_F8R1_FB16                       ((uint32_t)0x00010000)        /*!<Filter bit 16 */
+Stm32f4xx.h (lib\cmsis\device\st\stm32f4xx\include):#define  CAN_F9R1_FB16                       ((uint32_t)0x00010000)        /*!<Filter bit 16 */
+Stm32f4xx.h (lib\cmsis\device\st\stm32f4xx\include):#define  CAN_F10R1_FB16                      ((uint32_t)0x00010000)        /*!<Filter bit 16 */
+Stm32f4xx.h (lib\cmsis\device\st\stm32f4xx\include):#define  CAN_F11R1_FB16                      ((uint32_t)0x00010000)        /*!<Filter bit 16 */
+Stm32f4xx.h (lib\cmsis\device\st\stm32f4xx\include):#define  CAN_F12R1_FB16                      ((uint32_t)0x00010000)        /*!<Filter bit 16 */
+Stm32f4xx.h (lib\cmsis\device\st\stm32f4xx\include):#define  CAN_F13R1_FB16                      ((uint32_t)0x00010000)        /*!<Filter bit 16 */
+Stm32f4xx.h (lib\cmsis\device\st\stm32f4xx\include):#define  CAN_F0R2_FB16                       ((uint32_t)0x00010000)        /*!<Filter bit 16 */
+Stm32f4xx.h (lib\cmsis\device\st\stm32f4xx\include):#define  CAN_F1R2_FB16                       ((uint32_t)0x00010000)        /*!<Filter bit 16 */
+Stm32f4xx.h (lib\cmsis\device\st\stm32f4xx\include):#define  CAN_F2R2_FB16                       ((uint32_t)0x00010000)        /*!<Filter bit 16 */
+Stm32f4xx.h (lib\cmsis\device\st\stm32f4xx\include):#define  CAN_F3R2_FB16                       ((uint32_t)0x00010000)        /*!<Filter bit 16 */
+Stm32f4xx.h (lib\cmsis\device\st\stm32f4xx\include):#define  CAN_F4R2_FB16                       ((uint32_t)0x00010000)        /*!<Filter bit 16 */
+Stm32f4xx.h (lib\cmsis\device\st\stm32f4xx\include):#define  CAN_F5R2_FB16                       ((uint32_t)0x00010000)        /*!<Filter bit 16 */
+Stm32f4xx.h (lib\cmsis\device\st\stm32f4xx\include):#define  CAN_F6R2_FB16                       ((uint32_t)0x00010000)        /*!<Filter bit 16 */
+Stm32f4xx.h (lib\cmsis\device\st\stm32f4xx\include):#define  CAN_F7R2_FB16                       ((uint32_t)0x00010000)        /*!<Filter bit 16 */
+Stm32f4xx.h (lib\cmsis\device\st\stm32f4xx\include):#define  CAN_F8R2_FB16                       ((uint32_t)0x00010000)        /*!<Filter bit 16 */
+Stm32f4xx.h (lib\cmsis\device\st\stm32f4xx\include):#define  CAN_F9R2_FB16                       ((uint32_t)0x00010000)        /*!<Filter bit 16 */
+Stm32f4xx.h (lib\cmsis\device\st\stm32f4xx\include):#define  CAN_F10R2_FB16                      ((uint32_t)0x00010000)        /*!<Filter bit 16 */
+Stm32f4xx.h (lib\cmsis\device\st\stm32f4xx\include):#define  CAN_F11R2_FB16                      ((uint32_t)0x00010000)        /*!<Filter bit 16 */
+Stm32f4xx.h (lib\cmsis\device\st\stm32f4xx\include):#define  CAN_F12R2_FB16                      ((uint32_t)0x00010000)        /*!<Filter bit 16 */
+Stm32f4xx.h (lib\cmsis\device\st\stm32f4xx\include):#define  CAN_F13R2_FB16                      ((uint32_t)0x00010000)        /*!<Filter bit 16 */
+Stm32f4xx.h (lib\cmsis\device\st\stm32f4xx\include):#define  DAC_CR_EN2                          ((uint32_t)0x00010000)        /*!<DAC channel2 enable */
+Stm32f4xx.h (lib\cmsis\device\st\stm32f4xx\include):#define DMA_SxCR_PL_0                        ((uint32_t)0x00010000)
+Stm32f4xx.h (lib\cmsis\device\st\stm32f4xx\include):#define DMA_LISR_FEIF2                       ((uint32_t)0x00010000)
+Stm32f4xx.h (lib\cmsis\device\st\stm32f4xx\include):#define DMA_HISR_FEIF6                       ((uint32_t)0x00010000)
+Stm32f4xx.h (lib\cmsis\device\st\stm32f4xx\include):#define DMA_LIFCR_CFEIF2                     ((uint32_t)0x00010000)
+Stm32f4xx.h (lib\cmsis\device\st\stm32f4xx\include):#define DMA_HIFCR_CFEIF6                     ((uint32_t)0x00010000)
+Stm32f4xx.h (lib\cmsis\device\st\stm32f4xx\include):#define  EXTI_IMR_MR16                       ((uint32_t)0x00010000)        /*!< Interrupt Mask on line 16 */
+Stm32f4xx.h (lib\cmsis\device\st\stm32f4xx\include):#define  EXTI_EMR_MR16                       ((uint32_t)0x00010000)        /*!< Event Mask on line 16 */
+Stm32f4xx.h (lib\cmsis\device\st\stm32f4xx\include):#define  EXTI_RTSR_TR16                      ((uint32_t)0x00010000)        /*!< Rising trigger event configuration bit of line 16 */
+Stm32f4xx.h (lib\cmsis\device\st\stm32f4xx\include):#define  EXTI_FTSR_TR16                      ((uint32_t)0x00010000)        /*!< Falling trigger event configuration bit of line 16 */
+Stm32f4xx.h (lib\cmsis\device\st\stm32f4xx\include):#define  EXTI_SWIER_SWIER16                  ((uint32_t)0x00010000)        /*!< Software Interrupt on line 16 */
+Stm32f4xx.h (lib\cmsis\device\st\stm32f4xx\include):#define  EXTI_PR_PR16                        ((uint32_t)0x00010000)        /*!< Pending bit for line 16 */
+Stm32f4xx.h (lib\cmsis\device\st\stm32f4xx\include):#define FLASH_SR_BSY                         ((uint32_t)0x00010000)
+Stm32f4xx.h (lib\cmsis\device\st\stm32f4xx\include):#define FLASH_CR_STRT                        ((uint32_t)0x00010000)
+Stm32f4xx.h (lib\cmsis\device\st\stm32f4xx\include):#define FLASH_OPTCR_nWRP_0                   ((uint32_t)0x00010000)
+Stm32f4xx.h (lib\cmsis\device\st\stm32f4xx\include):#define  FSMC_BTR1_BUSTURN_0                 ((uint32_t)0x00010000)        /*!<Bit 0 */
+Stm32f4xx.h (lib\cmsis\device\st\stm32f4xx\include):#define  FSMC_BTR2_BUSTURN_0                 ((uint32_t)0x00010000)        /*!<Bit 0 */
+Stm32f4xx.h (lib\cmsis\device\st\stm32f4xx\include):#define  FSMC_BTR3_BUSTURN_0                 ((uint32_t)0x00010000)        /*!<Bit 0 */
+Stm32f4xx.h (lib\cmsis\device\st\stm32f4xx\include):#define  FSMC_BTR4_BUSTURN_0                 ((uint32_t)0x00010000)        /*!<Bit 0 */
+Stm32f4xx.h (lib\cmsis\device\st\stm32f4xx\include):#define  FSMC_PCR2_TAR                       ((uint32_t)0x0001E000)        /*!<TAR[3:0] bits (ALE to RE delay) */
+Stm32f4xx.h (lib\cmsis\device\st\stm32f4xx\include):#define  FSMC_PCR2_TAR_3                     ((uint32_t)0x00010000)        /*!<Bit 3 */
+Stm32f4xx.h (lib\cmsis\device\st\stm32f4xx\include):#define  FSMC_PCR3_TAR                       ((uint32_t)0x0001E000)        /*!<TAR[3:0] bits (ALE to RE delay) */
+Stm32f4xx.h (lib\cmsis\device\st\stm32f4xx\include):#define  FSMC_PCR3_TAR_3                     ((uint32_t)0x00010000)        /*!<Bit 3 */
+Stm32f4xx.h (lib\cmsis\device\st\stm32f4xx\include):#define  FSMC_PCR4_TAR                       ((uint32_t)0x0001E000)        /*!<TAR[3:0] bits (ALE to RE delay) */
+Stm32f4xx.h (lib\cmsis\device\st\stm32f4xx\include):#define  FSMC_PCR4_TAR_3                     ((uint32_t)0x00010000)        /*!<Bit 3 */
+Stm32f4xx.h (lib\cmsis\device\st\stm32f4xx\include):#define  FSMC_PMEM2_MEMHOLD2_0               ((uint32_t)0x00010000)        /*!<Bit 0 */
+Stm32f4xx.h (lib\cmsis\device\st\stm32f4xx\include):#define  FSMC_PMEM3_MEMHOLD3_0               ((uint32_t)0x00010000)        /*!<Bit 0 */
+Stm32f4xx.h (lib\cmsis\device\st\stm32f4xx\include):#define  FSMC_PMEM4_MEMHOLD4_0               ((uint32_t)0x00010000)        /*!<Bit 0 */
+Stm32f4xx.h (lib\cmsis\device\st\stm32f4xx\include):#define  FSMC_PATT2_ATTHOLD2_0               ((uint32_t)0x00010000)        /*!<Bit 0 */
+Stm32f4xx.h (lib\cmsis\device\st\stm32f4xx\include):#define  FSMC_PATT3_ATTHOLD3_0               ((uint32_t)0x00010000)        /*!<Bit 0 */
+Stm32f4xx.h (lib\cmsis\device\st\stm32f4xx\include):#define  FSMC_PATT4_ATTHOLD4_0               ((uint32_t)0x00010000)        /*!<Bit 0 */
+Stm32f4xx.h (lib\cmsis\device\st\stm32f4xx\include):#define  FSMC_PIO4_IOHOLD4_0                 ((uint32_t)0x00010000)        /*!<Bit 0 */
+Stm32f4xx.h (lib\cmsis\device\st\stm32f4xx\include):#define GPIO_MODER_MODER8_0                  ((uint32_t)0x00010000)
+Stm32f4xx.h (lib\cmsis\device\st\stm32f4xx\include):#define GPIO_OSPEEDER_OSPEEDR8_0             ((uint32_t)0x00010000)
+Stm32f4xx.h (lib\cmsis\device\st\stm32f4xx\include):#define GPIO_PUPDR_PUPDR8_0                  ((uint32_t)0x00010000)
+Stm32f4xx.h (lib\cmsis\device\st\stm32f4xx\include):#define GPIO_BSRR_BR_0                       ((uint32_t)0x00010000)
+Stm32f4xx.h (lib\cmsis\device\st\stm32f4xx\include):#define HASH_CR_LKEY                         ((uint32_t)0x00010000)
+Stm32f4xx.h (lib\cmsis\device\st\stm32f4xx\include):#define  I2C_CR1_PE                          ((uint16_t)0x0001)            /*!<Peripheral Enable */
+Stm32f4xx.h (lib\cmsis\device\st\stm32f4xx\include):#define  I2C_CR2_FREQ_0                      ((uint16_t)0x0001)            /*!<Bit 0 */
+Stm32f4xx.h (lib\cmsis\device\st\stm32f4xx\include):#define  I2C_OAR1_ADD0                       ((uint16_t)0x0001)            /*!<Bit 0 */
+Stm32f4xx.h (lib\cmsis\device\st\stm32f4xx\include):#define  I2C_SR1_SB                          ((uint16_t)0x0001)            /*!<Start Bit (Master mode) */
+Stm32f4xx.h (lib\cmsis\device\st\stm32f4xx\include):#define  I2C_SR2_MSL                         ((uint16_t)0x0001)            /*!<Master/Slave */
+Stm32f4xx.h (lib\cmsis\device\st\stm32f4xx\include):#define  PWR_CR_LPDS                         ((uint16_t)0x0001)     /*!< Low-Power Deepsleep */
+Stm32f4xx.h (lib\cmsis\device\st\stm32f4xx\include):#define  PWR_CSR_WUF                         ((uint16_t)0x0001)     /*!< Wakeup Flag */
+Stm32f4xx.h (lib\cmsis\device\st\stm32f4xx\include):#define  RCC_CR_HSEON                        ((uint32_t)0x00010000)
+Stm32f4xx.h (lib\cmsis\device\st\stm32f4xx\include):#define  RCC_PLLCFGR_PLLP_0                  ((uint32_t)0x00010000)
+Stm32f4xx.h (lib\cmsis\device\st\stm32f4xx\include):#define  RCC_CFGR_RTCPRE_0                   ((uint32_t)0x00010000)
+Stm32f4xx.h (lib\cmsis\device\st\stm32f4xx\include):#define  RCC_CIR_LSIRDYC                     ((uint32_t)0x00010000)
+Stm32f4xx.h (lib\cmsis\device\st\stm32f4xx\include):#define  RCC_APB1RSTR_SPI3RST                ((uint32_t)0x00010000)
+Stm32f4xx.h (lib\cmsis\device\st\stm32f4xx\include):#define  RCC_APB2RSTR_TIM9RST                ((uint32_t)0x00010000)
+Stm32f4xx.h (lib\cmsis\device\st\stm32f4xx\include):#define  RCC_APB2ENR_TIM9EN                  ((uint32_t)0x00010000)
+Stm32f4xx.h (lib\cmsis\device\st\stm32f4xx\include):#define  RCC_AHB1LPENR_SRAM1LPEN             ((uint32_t)0x00010000)
+Stm32f4xx.h (lib\cmsis\device\st\stm32f4xx\include):#define  RCC_APB2LPENR_TIM9LPEN              ((uint32_t)0x00010000)
+Stm32f4xx.h (lib\cmsis\device\st\stm32f4xx\include):#define  RCC_BDCR_BDRST                      ((uint32_t)0x00010000)
+Stm32f4xx.h (lib\cmsis\device\st\stm32f4xx\include):#define RTC_TR_HU_0                          ((uint32_t)0x00010000)
+Stm32f4xx.h (lib\cmsis\device\st\stm32f4xx\include):#define RTC_DR_YU_0                          ((uint32_t)0x00010000)
+Stm32f4xx.h (lib\cmsis\device\st\stm32f4xx\include):#define RTC_CR_ADD1H                         ((uint32_t)0x00010000)
+Stm32f4xx.h (lib\cmsis\device\st\stm32f4xx\include):#define RTC_ISR_RECALPF                      ((uint32_t)0x00010000)
+Stm32f4xx.h (lib\cmsis\device\st\stm32f4xx\include):#define RTC_ALRMAR_HU_0                      ((uint32_t)0x00010000)
+Stm32f4xx.h (lib\cmsis\device\st\stm32f4xx\include):#define RTC_ALRMBR_HU_0                      ((uint32_t)0x00010000)
+Stm32f4xx.h (lib\cmsis\device\st\stm32f4xx\include):#define RTC_TSTR_HU_0                        ((uint32_t)0x00010000)
+Stm32f4xx.h (lib\cmsis\device\st\stm32f4xx\include):#define RTC_TAFCR_TAMPINSEL                  ((uint32_t)0x00010000)
+Stm32f4xx.h (lib\cmsis\device\st\stm32f4xx\include):#define  SDIO_DCTRL_DTEN                     ((uint16_t)0x0001)            /*!<Data transfer enabled bit */
+Stm32f4xx.h (lib\cmsis\device\st\stm32f4xx\include):#define  SDIO_STA_TXFIFOF                    ((uint32_t)0x00010000)        /*!<Transmit FIFO full */
+Stm32f4xx.h (lib\cmsis\device\st\stm32f4xx\include):#define  SDIO_MASK_TXFIFOFIE                 ((uint32_t)0x00010000)        /*!<Tx FIFO Full interrupt Enable */
+Stm32f4xx.h (lib\cmsis\device\st\stm32f4xx\include):#define  SPI_CR1_CPHA                        ((uint16_t)0x0001)            /*!<Clock Phase */
+Stm32f4xx.h (lib\cmsis\device\st\stm32f4xx\include):#define  SPI_I2SCFGR_CHLEN                   ((uint16_t)0x0001)            /*!<Channel length (number of bits per audio channel) */
+Stm32f4xx.h (lib\cmsis\device\st\stm32f4xx\include):#define SYSCFG_EXTICR1_EXTI0_PB         ((uint16_t)0x0001) /*!<PB[0] pin */
+Stm32f4xx.h (lib\cmsis\device\st\stm32f4xx\include):#define SYSCFG_EXTICR2_EXTI4_PB         ((uint16_t)0x0001) /*!<PB[4] pin */
+Stm32f4xx.h (lib\cmsis\device\st\stm32f4xx\include):#define SYSCFG_EXTICR3_EXTI8_PB         ((uint16_t)0x0001) /*!<PB[8] pin */
+Stm32f4xx.h (lib\cmsis\device\st\stm32f4xx\include):#define SYSCFG_EXTICR4_EXTI12_PB        ((uint16_t)0x0001) /*!<PB[12] pin */
+Stm32f4xx.h (lib\cmsis\device\st\stm32f4xx\include):#define  TIM_CR1_CEN                         ((uint16_t)0x0001)            /*!<Counter enable */
+Stm32f4xx.h (lib\cmsis\device\st\stm32f4xx\include):#define  TIM_CR2_CCPC                        ((uint16_t)0x0001)            /*!<Capture/Compare Preloaded Control */
+Stm32f4xx.h (lib\cmsis\device\st\stm32f4xx\include):#define  TIM_SMCR_SMS_0                      ((uint16_t)0x0001)            /*!<Bit 0 */
+Stm32f4xx.h (lib\cmsis\device\st\stm32f4xx\include):#define  TIM_DIER_UIE                        ((uint16_t)0x0001)            /*!<Update interrupt enable */
+Stm32f4xx.h (lib\cmsis\device\st\stm32f4xx\include):#define  TIM_SR_UIF                          ((uint16_t)0x0001)            /*!<Update interrupt Flag */
+Stm32f4xx.h (lib\cmsis\device\st\stm32f4xx\include):#define  TIM_CCMR1_CC1S_0                    ((uint16_t)0x0001)            /*!<Bit 0 */
+Stm32f4xx.h (lib\cmsis\device\st\stm32f4xx\include):#define  TIM_CCMR2_CC3S_0                    ((uint16_t)0x0001)            /*!<Bit 0 */
+Stm32f4xx.h (lib\cmsis\device\st\stm32f4xx\include):#define  TIM_CCER_CC1E                       ((uint16_t)0x0001)            /*!<Capture/Compare 1 output enable */
+Stm32f4xx.h (lib\cmsis\device\st\stm32f4xx\include):#define  TIM_BDTR_DTG_0                      ((uint16_t)0x0001)            /*!<Bit 0 */
+Stm32f4xx.h (lib\cmsis\device\st\stm32f4xx\include):#define  TIM_DCR_DBA_0                       ((uint16_t)0x0001)            /*!<Bit 0 */
+Stm32f4xx.h (lib\cmsis\device\st\stm32f4xx\include):#define  USART_SR_PE                         ((uint16_t)0x0001)            /*!<Parity Error */
+Stm32f4xx.h (lib\cmsis\device\st\stm32f4xx\include):#define  USART_CR1_SBK                       ((uint16_t)0x0001)            /*!<Send Break */
+Stm32f4xx.h (lib\cmsis\device\st\stm32f4xx\include):#define  USART_CR3_EIE                       ((uint16_t)0x0001)            /*!<Error Interrupt Enable */
+Stm32f4xx.h (lib\cmsis\device\st\stm32f4xx\include):#define  USART_GTPR_PSC_0                    ((uint16_t)0x0001)            /*!<Bit 0 */
+Stm32f4xx.h (lib\cmsis\device\st\stm32f4xx\include):#define  WWDG_CFR_W0                         ((uint16_t)0x0001)            /*!<Bit 0 */
+Stm32f4xx.h (lib\cmsis\device\st\stm32f4xx\include):#define  DBGMCU_APB1_FZ_DBG_TIM9_STOP        ((uint32_t)0x00010000)
+Stm32f4xx.h (lib\cmsis\device\st\stm32f4xx\include):#define ETH_MACCR_CSD     ((uint32_t)0x00010000)  /* Carrier sense disable (during transmission) */
+Stm32f4xx.h (lib\cmsis\device\st\stm32f4xx\include):#define ETH_MACVLANTR_VLANTC ((uint32_t)0x00010000)  /* 12-bit VLAN tag comparison */
+Stm32f4xx.h (lib\cmsis\device\st\stm32f4xx\include):#define ETH_DMABMR_FB        ((uint32_t)0x00010000)  /* Fixed Burst */
+Stm32f4xx.h (lib\cmsis\device\st\stm32f4xx\include):#define ETH_DMASR_NIS        ((uint32_t)0x00010000)  /* Normal interrupt summary */
+Stm32f4xx.h (lib\cmsis\device\st\stm32f4xx\include):#define ETH_DMAOMR_TTC       ((uint32_t)0x0001C000)  /* Transmit threshold control */
+Stm32f4xx.h (lib\cmsis\device\st\stm32f4xx\include):  #define ETH_DMAOMR_TTC_40Bytes       ((uint32_t)0x00010000)  /* threshold level of the MTL Transmit FIFO is 40 Bytes */
+Stm32f4xx.h (lib\cmsis\device\st\stm32f4xx\include):  #define ETH_DMAOMR_TTC_32Bytes       ((uint32_t)0x00014000)  /* threshold level of the MTL Transmit FIFO is 32 Bytes */
+Stm32f4xx.h (lib\cmsis\device\st\stm32f4xx\include):  #define ETH_DMAOMR_TTC_24Bytes       ((uint32_t)0x00018000)  /* threshold level of the MTL Transmit FIFO is 24 Bytes */
+Stm32f4xx.h (lib\cmsis\device\st\stm32f4xx\include):  #define ETH_DMAOMR_TTC_16Bytes       ((uint32_t)0x0001C000)  /* threshold level of the MTL Transmit FIFO is 16 Bytes */
+Stm32f4xx.h (lib\cmsis\device\st\stm32f4xx\include):#define ETH_DMAIER_NISE      ((uint32_t)0x00010000)  /* Normal interrupt summary enable */
+Stm32f4xx.h (lib\cmsis\device\st\stm32f4xx\include):#define ETH_DMAMFBOCR_OMFC   ((uint32_t)0x00010000)  /* Overflow bit for missed frame counter */
+Stm32f4xx_adc.h (lib\stm32f4xx_stdperiph_driver\inc):#define ADC_Prescaler_Div4                         ((uint32_t)0x00010000)
+Stm32f4xx_adc.h (lib\stm32f4xx_stdperiph_driver\inc):#define ADC_ExternalTrigInjecConv_T1_TRGO           ((uint32_t)0x00010000)
+Stm32f4xx_can.c (lib\stm32f4xx_stdperiph_driver\src):#define MCR_DBF           ((uint32_t)0x00010000) /* software master reset */
+Stm32f4xx_can.h (lib\stm32f4xx_stdperiph_driver\inc):#define CAN_IT_WKU                  ((uint32_t)0x00010000) /*!< Wake-up Interrupt*/
+Stm32f4xx_cryp_aes.c (lib\stm32f4xx_stdperiph_driver\src):#define AESBUSY_TIMEOUT    ((uint32_t) 0x00010000)
+Stm32f4xx_cryp_des.c (lib\stm32f4xx_stdperiph_driver\src):#define DESBUSY_TIMEOUT    ((uint32_t) 0x00010000)
+Stm32f4xx_cryp_tdes.c (lib\stm32f4xx_stdperiph_driver\src):#define TDESBUSY_TIMEOUT    ((uint32_t) 0x00010000)
+Stm32f4xx_dbgmcu.h (lib\stm32f4xx_stdperiph_driver\inc):#define DBGMCU_TIM9_STOP             ((uint32_t)0x00010000)
+Stm32f4xx_dcmi.h (lib\stm32f4xx_stdperiph_driver\inc):#define DCMI_IT_FRAME    ((uint16_t)0x0001)
+Stm32f4xx_dcmi.h (lib\stm32f4xx_stdperiph_driver\inc):#define DCMI_FLAG_FRAMERI    ((uint16_t)0x0001)
+Stm32f4xx_dma.h (lib\stm32f4xx_stdperiph_driver\inc):#define DMA_Priority_Medium               ((uint32_t)0x00010000) 
+Stm32f4xx_exti.h (lib\stm32f4xx_stdperiph_driver\inc):#define EXTI_Line4       ((uint32_t)0x00010)     /*!< External interrupt line 4 */
+Stm32f4xx_flash.h (lib\stm32f4xx_stdperiph_driver\inc):#define FLASH_Latency_1                ((uint8_t)0x0001)  /*!< FLASH One Latency cycle */
+Stm32f4xx_flash.h (lib\stm32f4xx_stdperiph_driver\inc):#define FLASH_FLAG_BSY                 ((uint32_t)0x00010000)  /*!< FLASH Busy flag */ 
+Stm32f4xx_gpio.c (lib\stm32f4xx_stdperiph_driver\src):  __IO uint32_t tmp = 0x00010000;
+Stm32f4xx_gpio.h (lib\stm32f4xx_stdperiph_driver\inc):#define GPIO_Pin_0                 ((uint16_t)0x0001)  /* Pin 0 selected */
+Stm32f4xx_hash.h (lib\stm32f4xx_stdperiph_driver\inc):#define HASH_HMACKeyType_LongKey       ((uint32_t)0x00010000) /*!< HMAC Key is > 64 bytes */
+Stm32f4xx_hash.h (lib\stm32f4xx_stdperiph_driver\inc):#define HASH_FLAG_DINIS            ((uint16_t)0x0001)  /*!< 16 locations are free in the DIN : A new block can be entered into the input buffer.*/
+Stm32f4xx_hash_md5.c (lib\stm32f4xx_stdperiph_driver\src):#define MD5BUSY_TIMEOUT    ((uint32_t) 0x00010000)
+Stm32f4xx_hash_sha1.c (lib\stm32f4xx_stdperiph_driver\src):#define SHA1BUSY_TIMEOUT    ((uint32_t) 0x00010000)
+Stm32f4xx_i2c.c (lib\stm32f4xx_stdperiph_driver\src):      result |= (uint16_t)0x0001;  
+Stm32f4xx_i2c.h (lib\stm32f4xx_stdperiph_driver\inc):#define I2C_FLAG_MSL                    ((uint32_t)0x00010000)
+Stm32f4xx_iwdg.h (lib\stm32f4xx_stdperiph_driver\inc):#define IWDG_FLAG_PVU               ((uint16_t)0x0001)
+Stm32f4xx_rcc.h (lib\stm32f4xx_stdperiph_driver\inc):#define RCC_AHB1Periph_SRAM1             ((uint32_t)0x00010000)
+Stm32f4xx_rcc.h (lib\stm32f4xx_stdperiph_driver\inc):#define RCC_APB2Periph_TIM9              ((uint32_t)0x00010000)
+Stm32f4xx_rng.h (lib\stm32f4xx_stdperiph_driver\inc):#define RNG_FLAG_DRDY               ((uint8_t)0x0001) /*!< Data ready */
+Stm32f4xx_rtc.c (lib\stm32f4xx_stdperiph_driver\src):#define INITMODE_TIMEOUT         ((uint32_t) 0x00010000)
+Stm32f4xx_rtc.h (lib\stm32f4xx_stdperiph_driver\inc):#define RTC_DayLightSaving_ADD1H   ((uint32_t)0x00010000)
+Stm32f4xx_rtc.h (lib\stm32f4xx_stdperiph_driver\inc):#define RTC_TamperPin_PI8                  ((uint32_t)0x00010000)
+Stm32f4xx_rtc.h (lib\stm32f4xx_stdperiph_driver\inc):#define RTC_FLAG_RECALPF                  ((uint32_t)0x00010000)
+Stm32f4xx_sdio.h (lib\stm32f4xx_stdperiph_driver\inc):#define SDIO_IT_TXFIFOF                     ((uint32_t)0x00010000)
+Stm32f4xx_sdio.h (lib\stm32f4xx_stdperiph_driver\inc):#define SDIO_FLAG_TXFIFOF                   ((uint32_t)0x00010000)
+Stm32f4xx_spi.c (lib\stm32f4xx_stdperiph_driver\src):    i2sodd = (uint16_t)(tmp & (uint16_t)0x0001);
+Stm32f4xx_spi.h (lib\stm32f4xx_stdperiph_driver\inc):#define SPI_CPHA_2Edge                  ((uint16_t)0x0001)
+Stm32f4xx_spi.h (lib\stm32f4xx_stdperiph_driver\inc):#define I2S_DataFormat_16bextended      ((uint16_t)0x0001)
+Stm32f4xx_spi.h (lib\stm32f4xx_stdperiph_driver\inc):#define SPI_I2S_DMAReq_Rx               ((uint16_t)0x0001)
+Stm32f4xx_spi.h (lib\stm32f4xx_stdperiph_driver\inc):#define SPI_I2S_FLAG_RXNE               ((uint16_t)0x0001)
+Stm32f4xx_tim.c (lib\stm32f4xx_stdperiph_driver\src):#define CCER_CCE_SET       ((uint16_t)0x0001)  
+Stm32f4xx_tim.h (lib\stm32f4xx_stdperiph_driver\inc):#define TIM_OutputState_Enable             ((uint16_t)0x0001)
+Stm32f4xx_tim.h (lib\stm32f4xx_stdperiph_driver\inc):#define TIM_CCx_Enable                      ((uint16_t)0x0001)
+Stm32f4xx_tim.h (lib\stm32f4xx_stdperiph_driver\inc):#define TIM_ICSelection_DirectTI           ((uint16_t)0x0001) /*!< TIM Input 1, 2, 3 or 4 is selected to be 
+Stm32f4xx_tim.h (lib\stm32f4xx_stdperiph_driver\inc):#define TIM_IT_Update                      ((uint16_t)0x0001)
+Stm32f4xx_tim.h (lib\stm32f4xx_stdperiph_driver\inc):#define TIM_DMABase_CR2                    ((uint16_t)0x0001)
+Stm32f4xx_tim.h (lib\stm32f4xx_stdperiph_driver\inc):#define TIM_PSCReloadMode_Immediate        ((uint16_t)0x0001)
+Stm32f4xx_tim.h (lib\stm32f4xx_stdperiph_driver\inc):#define TIM_EncoderMode_TI1                ((uint16_t)0x0001)
+Stm32f4xx_tim.h (lib\stm32f4xx_stdperiph_driver\inc):#define TIM_EventSource_Update             ((uint16_t)0x0001)
+Stm32f4xx_tim.h (lib\stm32f4xx_stdperiph_driver\inc):#define TIM_UpdateSource_Regular           ((uint16_t)0x0001) /*!< Source of update is counter overflow/underflow. */
+Stm32f4xx_tim.h (lib\stm32f4xx_stdperiph_driver\inc):#define TIM_FLAG_Update                    ((uint16_t)0x0001)
+Stm32f4xx_usart.h (lib\stm32f4xx_stdperiph_driver\inc):#define USART_FLAG_PE                        ((uint16_t)0x0001)
+System_stm32f4xx.c (lib\cmsis\device\st\stm32f4xx\source\templates):  FSMC_Bank1->BTCR[3]  = 0x00010603;
+Ucos_ii.h (user\ucos-ii\source):#define  OS_TASK_OPT_STK_CHK       0x0001u  /* Enable stack checking for the task                      */
+WM.h (ucgui_lib\user\ucgui\wm):#define WM_CREATE                   0x0001  /* The first message received, right after client has actually been created */
+WM.h (user\ucgui\inc):#define WM_CREATE                   0x0001  /* The first message received, right after client has actually been created */
+---- 0x0001 Search Errors Encountered (1) ----
 The following 1 files could not be processed:
 C:\Users\Administrator\Documents\GitHub\407_·Ö²¹\fen_bu\uCOSII2.91+UCGUI3.90A\MDK_Project\JLinkLog.txt : File could not be opened.
