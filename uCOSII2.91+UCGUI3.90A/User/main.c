@@ -288,7 +288,7 @@ extern vu8	warn_volt_onlimt;//过压值 +400
 #define BT  12//*50
 #define SIZE 6 //总容量除以3 
 #define AF_TOP 99
-#define AF_DEAD 97
+#define AF_DEAD 96
 
 INT32S main (void)
 {
@@ -757,7 +757,7 @@ delay_us(36);//36->512
 	 		 	
 b=(float32_t)((ADC_Converted_VValue));///  1550
  // b = (b/4096)*3.3;	
-    if(b>max*980/1000)
+    if(b>max*970/1000)
           {
 	    delay_us(OFF_time);
 		GPIO_SetBits(GPIOD,GPIO_Pin_8);
@@ -852,7 +852,7 @@ delay_us(36);//36->512
 	 	{
 	 		 	
 b=(float32_t)((ADC_Converted_VValue));///  1550
-    if(b>max*980/1000)
+    if(b>max*970/1000)
           {
 	     delay_us(OFF_time);
 		GPIO_SetBits(GPIOD,GPIO_Pin_10);
@@ -946,7 +946,7 @@ delay_us(36);//36->512
 	 	{
 	 		 	
 b=(float32_t)((ADC_Converted_VValue));///  1550
-    if(b>max*980/1000)
+    if(b>max*970/1000)
           {
 	     delay_us(OFF_time);
 		GPIO_SetBits(GPIOD,GPIO_Pin_12);
